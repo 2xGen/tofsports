@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force CSS rebuild - ensure 100% match with localhost - 2026-01-06 */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  /* Animated Button Gradient Effect */
+  @property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+
+  .animated-button::before,
+  .animated-button::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .animated-button:hover::before,
+  .animated-button:hover::after {
+    opacity: 1;
+    background-image: linear-gradient(
+      var(--rotate),
+      var(--first-color),
+      var(--second-color) 43%,
+      var(--third-color)
+    );
+    animation: spin 3s linear infinite;
+  }
+
+  .animated-button:hover::before {
+    width: 102%;
+    height: 104%;
+    border-radius: 50px;
+    top: -2%;
+    left: -1%;
+  }
+
+  .animated-button:hover::after {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    transform: scale(0.9);
+    filter: blur(70px);
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+
+  .hover-translate {
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .hover-translate:hover {
+    transform: translateY(-10px);
+  }
+}
+
