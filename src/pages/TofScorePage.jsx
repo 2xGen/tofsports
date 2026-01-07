@@ -63,7 +63,8 @@ const TofScorePage = () => {
           className="mb-16"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <div className="space-y-6 text-gray-700">
+            {/* Text - first on mobile, first on desktop */}
+            <div className="space-y-6 text-gray-700 order-1">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">De 365-Mentaliteit</h2>
               
               <p>
@@ -81,7 +82,8 @@ const TofScorePage = () => {
               </ul>
             </div>
 
-            <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-gray-100">
+            {/* Image - second on mobile, second on desktop */}
+            <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-gray-100 order-2">
               <Image
                 src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof%20score%20punten%20hori.png"
                 alt="TOF Score Punten Horizontaal"
@@ -104,19 +106,8 @@ const TofScorePage = () => {
           className="mb-16"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
-              <Image
-                src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof%20score%20punten%20square.png"
-                alt="TOF Score Punten Vierkant"
-                fill
-                className="object-contain"
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                quality={85}
-              />
-            </div>
-
-            <div className="space-y-6 text-gray-700">
+            {/* Text - first on mobile, second on desktop (alternate) */}
+            <div className="space-y-6 text-gray-700 order-1 md:order-2">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">TOF Score</h2>
               
               <p>
@@ -130,6 +121,19 @@ const TofScorePage = () => {
               <p>
                 Met TOF Score houd je scores en progressie digitaal bij. Het is een onmisbare tool voor het organiseren van interne competities en toernooien, waarbij elke speler beloond wordt voor deelname en inzet, niet alleen voor winst.
               </p>
+            </div>
+
+            {/* Image - second on mobile, first on desktop (alternate) */}
+            <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 order-2 md:order-1">
+              <Image
+                src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof%20score%20punten%20square.png"
+                alt="TOF Score Punten Vierkant"
+                fill
+                className="object-contain"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={85}
+              />
             </div>
           </div>
         </motion.section>

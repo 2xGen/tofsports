@@ -17,12 +17,13 @@ const ProductCard = ({ product, index }) => {
     });
   };
 
-  // Check if this is the "Spelers Kaarten", "TOF Score", "TOF Producten", "Handboek en Speluitleg", or "De Leraren App" product
+  // Check if this is the "Spelers Kaarten", "TOF Score", "TOF Producten", "Handboek en Speluitleg", "De Leraren App", or "TOF Magneetposters" product
   const isSpelersKaarten = product.title === 'Spelers Kaarten' || product.id === 2;
   const isTofScore = product.title === 'TOF Score' || product.id === 'h-1';
   const isTofProducten = product.title === 'TOF Producten' || product.id === 'h-2';
   const isHandboek = product.title === 'Handboek en Speluitleg' || product.id === 3;
   const isLerarenApp = product.title === 'De Leraren App' || product.id === 1;
+  const isMagneetposters = product.title === 'TOF Magneetposters' || product.id === 'h-3';
 
   // Determine the link URL
   let linkUrl = null;
@@ -36,6 +37,8 @@ const ProductCard = ({ product, index }) => {
     linkUrl = '/handboek';
   } else if (isLerarenApp) {
     linkUrl = '/leraren-app';
+  } else if (isMagneetposters) {
+    linkUrl = '/magneetposters';
   }
 
   // Simplified Card - logic for sticking is now handled by parent wrapper in ProductsSection

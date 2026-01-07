@@ -125,19 +125,8 @@ const SpelersKaartenPage = () => {
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
-                  <Image
-                    src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof-padel-materialen.jpg"
-                    alt="TOF Padel Materialen"
-                    fill
-                    className="object-contain"
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={85}
-                  />
-                </div>
-
-                <div className="space-y-4 text-gray-700">
+                {/* Text content - first on mobile, second on desktop (alternate) */}
+                <div className="space-y-4 text-gray-700 order-1 md:order-2">
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">TOF Padel</h2>
                   <p>
                     TOF Padel (Training Ontwikkelings Fases) is de basis van het padel jeugdprogramma. Spelers ontwikkelen zich op hun eigen tempo en manier, wat hun motivatie en spelplezier vergroot.
@@ -165,6 +154,19 @@ const SpelersKaartenPage = () => {
                       </Link>
                     </Button>
                   </div>
+                </div>
+
+                {/* Image - second on mobile, first on desktop (alternate) */}
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 order-2 md:order-1">
+                  <Image
+                    src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof-padel-materialen.jpg"
+                    alt="TOF Padel Materialen"
+                    fill
+                    className="object-contain"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={85}
+                  />
                 </div>
               </div>
             </div>

@@ -20,8 +20,8 @@ const HorizontalProductsSection = () => {
     },
     {
       id: 'h-3',
-      title: 'TOF Magneetbord',
-      description: 'Visualiseer tactieken en positiespellen helder voor je leerlingen met dit duurzame, weersbestendige tactiekbord.',
+      title: 'TOF Magneetposters',
+      description: 'Grootformaat magneetposters (60x90 cm) voor tennis- en padel-formats. Snel wisselbaar op een (rijdend) whiteboard voor professionele toernooi-organisatie.',
       color: 'bg-teal-400', // Fresh teal
     }
   ];

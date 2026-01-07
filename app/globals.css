@@ -107,5 +107,16 @@
   .hover-translate:hover {
     transform: translateY(-10px);
   }
+
+  /* InfoSection responsive background size */
+  #part2 {
+    background-size: 50px 50px;
+  }
+  
+  @media (min-width: 768px) {
+    #part2 {
+      background-size: 80px 80px;
+    }
+  }
 }
 

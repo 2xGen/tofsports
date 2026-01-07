@@ -100,12 +100,12 @@ const WebshopPage = () => {
 
         <div className="container mx-auto px-4 py-12 max-w-7xl">
           {/* Category Buttons */}
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
             <Button
               onClick={() => handleCategoryChange('tennis')}
               variant={selectedCategory === 'tennis' ? 'default' : 'outline'}
               size="lg"
-              className={`px-8 py-3 text-lg font-bold ${
+              className={`px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold flex-1 md:flex-none min-w-[120px] ${
                 selectedCategory === 'tennis'
                   ? 'bg-orange-500 hover:bg-orange-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
@@ -113,18 +113,18 @@ const WebshopPage = () => {
             >
               Tennis
             </Button>
-                    <Button 
+            <Button 
               onClick={() => handleCategoryChange('padel')}
               variant={selectedCategory === 'padel' ? 'default' : 'outline'}
               size="lg"
-              className={`px-8 py-3 text-lg font-bold ${
+              className={`px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold flex-1 md:flex-none min-w-[120px] ${
                 selectedCategory === 'padel'
                   ? 'bg-orange-500 hover:bg-orange-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
               }`}
             >
               Padel
-                    </Button>
+            </Button>
           </div>
 
           <ProductList
