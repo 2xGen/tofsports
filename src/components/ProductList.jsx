@@ -12,18 +12,22 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
   const [expandedProducts, setExpandedProducts] = useState({});
   const [isMobile, setIsMobile] = useState(false);
   
-  // Initialize expanded state for desktop (always expanded)
+  // Initialize expanded state for desktop (always expanded), collapsed on mobile
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       // On desktop, expand all products by default
+      // On mobile, keep them collapsed (don't set, so they're undefined/false)
       if (!mobile) {
         const allExpanded = {};
         products.forEach(product => {
           allExpanded[product.id] = true;
         });
         setExpandedProducts(allExpanded);
+      } else {
+        // On mobile, ensure all are collapsed (set to false or clear)
+        setExpandedProducts({});
       }
     };
     checkMobile();
@@ -123,9 +127,16 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
           </div>
 
           {/* Product Content - Collapsible on mobile, always visible on desktop */}
-          <div className={`border-t border-gray-200 ${expandedProducts[product.id] !== false ? 'block' : 'hidden'} md:!block`}>
-            <div className="md:block">
-              <div className="p-6 md:p-8">
+          <AnimatePresence>
+            {(isMobile ? expandedProducts[product.id] === true : true) && (
+              <motion.div
+                initial={isMobile ? { height: 0, opacity: 0 } : false}
+                animate={isMobile ? { height: 'auto', opacity: 1 } : false}
+                exit={isMobile ? { height: 0, opacity: 0 } : false}
+                transition={{ duration: 0.3 }}
+                className="border-t border-gray-200 overflow-hidden md:!block"
+              >
+                <div className="p-6 md:p-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.formats.map((format, formatIndex) => (
                 <div
@@ -239,8 +250,9 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
               ))}
                   </div>
                 </div>
-            </div>
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       ))}
 
