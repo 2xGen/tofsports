@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, useMotionValue } from 'framer-motion';
 import { ChevronDown, Instagram, Facebook } from 'lucide-react';
 import Link from 'next/link';
 
@@ -111,12 +111,17 @@ const Header = () => {
 };
 
 // Hero Section Component
-const HeroSection = React.forwardRef(({ scrollYProgress }, ref) => {
+const HeroSection = React.forwardRef((props, ref) => {
+  const { scrollYProgress } = props || {};
   const heroInView = useInView(ref, { once: false, amount: 0.3 });
 
+  // Create fallback motion value if scrollYProgress is not available
+  const defaultProgress = useMotionValue(0);
+  const progress = scrollYProgress || defaultProgress;
+
   // Background gradient with motion effects
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, 0.88]);
-  const bgBlur = useTransform(scrollYProgress, [0, 1], [0, 3]);
+  const bgScale = useTransform(progress, [0, 1], [1.08, 0.88]);
+  const bgBlur = useTransform(progress, [0, 1], [0, 3]);
 
   return (
     <section
@@ -160,13 +165,16 @@ const HeroSection = React.forwardRef(({ scrollYProgress }, ref) => {
             style={{ marginBottom: '-32px' }}
           >
             <Link href="/">
-              <motion.img
-                src="https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg"
-                alt="TOF Logo"
-                className="w-[350px] md:w-[350px]"
+              <motion.div
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400 }}
-              />
+              >
+                <img
+                  src="https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg"
+                  alt="TOF Logo"
+                  className="w-[350px] md:w-[350px]"
+                />
+              </motion.div>
             </Link>
           </motion.div>
 
@@ -235,11 +243,14 @@ const HeroSection = React.forwardRef(({ scrollYProgress }, ref) => {
     </section>
   );
 });
+HeroSection.displayName = 'HeroSection';
 
 // Tennis Ball Image Component
 const TennisBallImage = ({ scrollYProgress }) => {
-  const x = useTransform(scrollYProgress, [0, 1], [326, -100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -360 * 3.7]);
+  const defaultProgress = useMotionValue(0);
+  const progress = scrollYProgress || defaultProgress;
+  const x = useTransform(progress, [0, 1], [326, -100]);
+  const rotate = useTransform(progress, [0, 1], [0, -360 * 3.7]);
 
   return (
     <motion.div
@@ -251,14 +262,17 @@ const TennisBallImage = ({ scrollYProgress }) => {
         rotate: rotate
       }}
     >
-      <motion.img
-        src="https://toftennis.nl/wp-content/uploads/2024/05/3.png"
-        alt="Tennis Ball"
-        className="w-[228px] h-auto"
+      <motion.div
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.8, type: "spring", bounce: 0.5 }}
-      />
+      >
+        <img
+          src="https://toftennis.nl/wp-content/uploads/2024/05/3.png"
+          alt="Tennis Ball"
+          className="w-[228px] h-auto"
+        />
+      </motion.div>
     </motion.div>
   );
 };
@@ -292,13 +306,14 @@ const InfoSection = React.forwardRef((props, ref) => {
 
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4" style={{ width: '90%', maxWidth: '100%' }}>
-        <div className="flex flex-row items-start justify-center gap-0" style={{ marginTop: '150px' }}>
+        <div className="flex flex-col items-center justify-center" style={{ marginTop: '150px' }}>
           {/* Text Container */}
           <motion.div
-            className="bg-white rounded-[15px] p-[35px] flex flex-col justify-between"
+            className="bg-white rounded-[15px] p-[35px] flex flex-col items-center justify-center"
             style={{
               minHeight: '350px',
-              width: '50%',
+              width: '60%',
+              maxWidth: '800px',
               marginTop: '-150px',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
             }}
@@ -307,56 +322,19 @@ const InfoSection = React.forwardRef((props, ref) => {
             transition={{ duration: 0.8 }}
             whileHover={{ scale: 1.02 }}
           >
-            <div>
-              <h1 className="font-poppins font-bold text-[4em] text-[#1B144C] mb-4">
-                TOF Tennis
-              </h1>
-              <h3 className="font-poppins font-medium text-[1.6em] text-[#1B144C] mb-4" style={{ marginTop: '-16px' }}>
-                Official KNLTB Tenniskids partner
-              </h3>
-              <div className="font-poppins text-[#1B144C] mb-6">
-                <p>Wat tof dat je een kijkje neemt op onze website!</p>
-                <p>&nbsp;</p>
-                <p>
-                  Wij zijn drie verenigingsleraren die vanaf <strong>2016</strong> hebben gewerkt aan een vernieuwde versie van het Tenniskids programma wat past bij de huidige generatie kinderen. Met als doel om meer kinderen meer te laten tennissen en langer te behouden voor de sport.
-                </p>
-              </div>
+            <div className="text-center mb-8">
+              <p className="font-poppins text-[#1B144C] text-[1.5em] leading-relaxed">
+                Jeugdprogramma direct op scherp met de kant-en-klare oefenformats en spelvormen voor padel en tennis.
+              </p>
             </div>
-            <div className="flex justify-center mt-6">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-[42%] rounded"
-                style={{ aspectRatio: '16/9' }}
-              >
-                <source src="https://toftennis.nl/wp-content/uploads/2023/03/KNLTB_Logo-Animatie_Tenniskids_TOF.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </motion.div>
-
-          {/* Video Container */}
-          <motion.div
-            className="flex justify-end items-end"
-            style={{
-              width: '50%',
-              marginBottom: '-150px'
-            }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="rounded-[5px] overflow-hidden" style={{ width: '100%', maxWidth: '600px' }}>
-              <iframe
-                src="https://player.vimeo.com/video/808644931?autoplay=1&muted=1&loop=1"
-                className="w-full"
-                style={{ aspectRatio: '16/9', minHeight: '400px' }}
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                title="TOF Tennis Video"
-              />
-            </div>
+            <motion.a
+              href="#part3"
+              className="bg-[#1B144C] text-white font-poppins font-bold px-[50px] py-[20px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors text-[1.2em]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Bekijk onze producten
+            </motion.a>
           </motion.div>
         </div>
       </div>
@@ -379,6 +357,7 @@ const InfoSection = React.forwardRef((props, ref) => {
     </section>
   );
 });
+InfoSection.displayName = 'InfoSection';
 
 // Cards Section 1 Component
 const CardsSection1 = React.forwardRef((props, ref) => {
@@ -423,7 +402,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
 
           {/* Cards Container - 50% */}
           <div className="w-1/2 flex flex-col items-end justify-start gap-0 relative" style={{ minHeight: '100vh' }}>
-            {/* Card 1 - De leraren app */}
+            {/* Card 1 - Spelen */}
             <motion.div
               className="rounded-[50px] p-[35px] flex flex-col justify-between sticky"
               style={{
@@ -441,15 +420,22 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               transition={{ duration: 0.8, delay: 0.2 }}
               whileHover={{ scale: 1.05, rotate: '-3deg' }}
             >
-              <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
-                De<br />leraren<br />app
-              </h2>
+              <div>
+                <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
+                  Spelen
+                </h2>
+                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                  <div>• Magneetposters met spelvormen in bewaarkoker</div>
+                  <div>• Magneetbuttons</div>
+                  <div>• Whiteboard stiften en markers</div>
+                </div>
+              </div>
               <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
                 Meer info
               </button>
             </motion.div>
 
-            {/* Card 2 - Spelers kaarten */}
+            {/* Card 2 - Leren */}
             <motion.div
               className="rounded-[50px] p-[35px] flex flex-col justify-between sticky"
               style={{
@@ -467,11 +453,16 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               transition={{ duration: 0.8, delay: 0.4 }}
               whileHover={{ scale: 1.05 }}
             >
-              <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
+              <div>
                 <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
-                  Spelers<br />kaarten
+                  Leren
                 </h2>
-              </a>
+                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                  <div>• Kennis producten</div>
+                  <div>• Ja-Nee kaarten</div>
+                  <div>• Zoek de schat</div>
+                </div>
+              </div>
               <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
                   Meer info
@@ -479,7 +470,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               </a>
             </motion.div>
 
-            {/* Card 3 - Handboek Tenniskids TOF */}
+            {/* Card 3 - Sparen */}
             <motion.div
               className="rounded-[50px] p-[35px] flex flex-col justify-between sticky"
               style={{
@@ -497,11 +488,15 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               transition={{ duration: 0.8, delay: 0.6 }}
               whileHover={{ scale: 1.05, rotate: '3deg' }}
             >
-              <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
+              <div>
                 <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
-                  Handboek<br />Tenniskids<br />TOF
+                  Sparen
                 </h2>
-              </a>
+                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                  <div>• TOF score in de KNLTB leraren app</div>
+                  <div>• Buttons en bandjes</div>
+                </div>
+              </div>
               <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
                 <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
                   Meer info
@@ -530,6 +525,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
     </section>
   );
 });
+CardsSection1.displayName = 'CardsSection1';
 
 // Cards Section 2 Component
 const CardsSection2 = React.forwardRef((props, ref) => {
@@ -618,6 +614,7 @@ const CardsSection2 = React.forwardRef((props, ref) => {
     </section>
   );
 });
+CardsSection2.displayName = 'CardsSection2';
 
 // Flip Card Component
 const FlipCard = ({
@@ -807,6 +804,7 @@ const AnimatedButton = ({ title, link, gradientFrom, gradientTo, hoverColors, de
     </motion.a>
   );
 };
+ButtonsSection.displayName = 'ButtonsSection';
 
 export default TestPage;
 

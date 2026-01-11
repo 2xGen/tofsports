@@ -49,20 +49,20 @@ const Navbar = () => {
                 Home
               </Link>
               <Link 
-                href="/webshop" 
+                href="/knltb" 
                 className={`text-sm font-medium transition-colors ${
-                  isActive('/webshop') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                  isActive('/knltb') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Webshop
+                KNLTB
               </Link>
               <Link 
-                href="/spelers-kaarten" 
+                href="/missie-visie" 
                 className={`text-sm font-medium transition-colors ${
-                  isActive('/spelers-kaarten') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                  isActive('/missie-visie') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Spelerskaarten
+                Missie & Visie
               </Link>
               <Link 
                 href="/tof-score" 
@@ -78,21 +78,24 @@ const Navbar = () => {
                   isActive('/handboek') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Handboek
-              </Link>
-              <Link 
-                href="/leraren-app" 
-                className={`text-sm font-medium transition-colors ${
-                  isActive('/leraren-app') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
-                }`}
-              >
-                Leraren App
+                Speluitleg
               </Link>
             </div>
           </nav>
 
-          {/* Right side - Social icons on desktop, Hamburger menu on mobile */}
+          {/* Right side - Webshop button and Social icons on desktop, Hamburger menu on mobile */}
           <div className="flex items-center gap-4">
+            {/* Webshop Button - Desktop only, all the way right */}
+            <Link 
+              href="/webshop" 
+              className={`hidden md:block text-sm font-bold px-4 py-2 rounded-lg transition-all ${
+                isActive('/webshop') 
+                  ? 'bg-orange-600 text-white' 
+                  : 'bg-orange-500 text-white hover:bg-orange-600'
+              }`}
+            >
+              Webshop
+            </Link>
             {/* Social Icons - Hidden on mobile, shown on desktop */}
             <div className="hidden md:flex items-center gap-4">
               <a
@@ -141,6 +144,24 @@ const Navbar = () => {
                 Home
               </Link>
               <Link
+                href="/knltb"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-base font-medium transition-colors ${
+                  isActive('/knltb') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                }`}
+              >
+                KNLTB
+              </Link>
+              <Link
+                href="/missie-visie"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-base font-medium transition-colors ${
+                  isActive('/missie-visie') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                }`}
+              >
+                Missie & Visie
+              </Link>
+              <Link
                 href="/webshop"
                 onClick={() => setIsMenuOpen(false)}
                 className={`block text-base font-medium transition-colors ${
@@ -148,15 +169,6 @@ const Navbar = () => {
                 }`}
               >
                 Webshop
-              </Link>
-              <Link
-                href="/spelers-kaarten"
-                onClick={() => setIsMenuOpen(false)}
-                className={`block text-base font-medium transition-colors ${
-                  isActive('/spelers-kaarten') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
-                }`}
-              >
-                Spelerskaarten
               </Link>
               <Link
                 href="/tof-score"
@@ -174,16 +186,7 @@ const Navbar = () => {
                   isActive('/handboek') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Handboek
-              </Link>
-              <Link
-                href="/leraren-app"
-                onClick={() => setIsMenuOpen(false)}
-                className={`block text-base font-medium transition-colors ${
-                  isActive('/leraren-app') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
-                }`}
-              >
-                Leraren App
+                Speluitleg
               </Link>
               <div className="flex items-center gap-4 pt-2 border-t border-gray-200">
                 <a

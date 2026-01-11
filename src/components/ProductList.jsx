@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShoppingCart, BookOpen, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductRulesModal from './ProductRulesModal';
 
@@ -11,6 +11,7 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
   const [openModal, setOpenModal] = useState(null);
   const [expandedProducts, setExpandedProducts] = useState({});
   const [isMobile, setIsMobile] = useState(false);
+  const [fullscreenImage, setFullscreenImage] = useState(null);
   
   // Initialize expanded state for desktop (always expanded), collapsed on mobile
   useEffect(() => {
@@ -34,6 +35,17 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, [products]);
+
+  // Handle ESC key to close fullscreen image
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && fullscreenImage) {
+        setFullscreenImage(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [fullscreenImage]);
   
   const toggleProduct = (productId) => {
     setExpandedProducts(prev => ({
@@ -144,14 +156,18 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                   className="bg-gray-50 rounded-xl p-6 border border-gray-200"
                 >
                   {/* Format Image */}
-                  <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-gray-100" style={{ minHeight: '200px' }}>
+                  <div 
+                    className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-gray-100 cursor-pointer group" 
+                    style={{ minHeight: '200px' }}
+                    onClick={() => format.image && setFullscreenImage(format.image)}
+                  >
                     {format.image ? (
                       <>
                         <Image
                           src={format.image}
                           alt={`${product.name} - ${format.name}`}
                           fill
-                          className="object-contain p-2"
+                          className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
                           priority={productIndex === 0 && formatIndex === 0}
                           loading={productIndex === 0 && formatIndex === 0 ? 'eager' : 'lazy'}
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -159,6 +175,12 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                           unoptimized={true}
                           style={{ objectFit: 'contain' }}
                         />
+                        {/* Overlay hint on hover */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/50 px-3 py-1 rounded">
+                            Klik om te vergroten
+                          </div>
+                        </div>
                         {/* Loading placeholder */}
                         <div className="absolute inset-0 bg-gray-200 animate-pulse" style={{ display: 'none' }} id={`loading-${product.id}-${format.id}`} />
                       </>
@@ -269,6 +291,51 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
           />
         );
       })}
+
+      {/* Fullscreen Image Modal */}
+      <AnimatePresence>
+        {fullscreenImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setFullscreenImage(null)}
+          >
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setFullscreenImage(null);
+              }}
+              className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2 hover:bg-black/70"
+              aria-label="Sluiten"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {/* Fullscreen Image */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={fullscreenImage}
+                alt="Fullscreen product image"
+                fill
+                className="object-contain"
+                quality={100}
+                unoptimized={true}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

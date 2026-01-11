@@ -8,20 +8,20 @@ const ProductsSection = () => {
   const products = [
     {
       id: 1,
-      title: 'De Leraren App',
-      description: 'Een complete digitale assistent voor tenniscoaches met lesplannen, oefeningen en voortgangsregistratie.',
+      title: 'Spelen',
+      description: '• Magneetposters met spelvormen in bewaarkoker\n• Magneetbuttons\n• Whiteboard stiften en markers',
       color: 'bg-sky-400', // More vibrant blue
     },
     {
       id: 2,
-      title: 'Spelers Kaarten',
-      description: 'Interactieve oefenkaarten die spelers uitdagen met verschillende technieken en vaardigheden.',
+      title: 'Leren',
+      description: '• Kennis producten\n• Ja-Nee kaarten\n• Zoek de schat',
       color: 'bg-rose-400', // More vibrant red/pink
     },
     {
       id: 3,
-      title: 'Handboek en Speluitleg',
-      description: 'Het complete handboek vol met lesmaterialen, spelvormen en trainingstips volgens de KNLTB methode.',
+      title: 'Sparen',
+      description: '• TOF score in de KNLTB leraren app\n• Buttons en bandjes',
       color: 'bg-lime-500', // Vibrant tennis green
     }
   ];

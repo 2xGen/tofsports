@@ -17,26 +17,26 @@ const ProductCard = ({ product, index }) => {
     });
   };
 
-  // Check if this is the "Spelers Kaarten", "TOF Score", "TOF Producten", "Handboek en Speluitleg", "De Leraren App", or "TOF Magneetposters" product
-  const isSpelersKaarten = product.title === 'Spelers Kaarten' || product.id === 2;
+  // Check if this is the "Spelen", "Leren", "Sparen", "TOF Score", "TOF Producten", or "TOF Magneetposters" product
+  const isLeren = product.title === 'Leren' || product.id === 2;
   const isTofScore = product.title === 'TOF Score' || product.id === 'h-1';
   const isTofProducten = product.title === 'TOF Producten' || product.id === 'h-2';
-  const isHandboek = product.title === 'Handboek en Speluitleg' || product.id === 3;
-  const isLerarenApp = product.title === 'De Leraren App' || product.id === 1;
+  const isSparen = product.title === 'Sparen' || product.id === 3;
+  const isSpelen = product.title === 'Spelen' || product.id === 1;
   const isMagneetposters = product.title === 'TOF Magneetposters' || product.id === 'h-3';
 
   // Determine the link URL
   let linkUrl = null;
-  if (isSpelersKaarten) {
-    linkUrl = '/spelers-kaarten';
+  if (isLeren) {
+    linkUrl = '/leren';
   } else if (isTofScore) {
     linkUrl = '/tof-score';
   } else if (isTofProducten) {
     linkUrl = '/webshop';
-  } else if (isHandboek) {
-    linkUrl = '/handboek';
-  } else if (isLerarenApp) {
-    linkUrl = '/leraren-app';
+  } else if (isSparen) {
+    linkUrl = '/sparen';
+  } else if (isSpelen) {
+    linkUrl = '/spelen';
   } else if (isMagneetposters) {
     linkUrl = '/magneetposters';
   }
@@ -55,9 +55,13 @@ const ProductCard = ({ product, index }) => {
           <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
             {product.title}
           </h3>
-          <p className="text-white/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
-            {product.description}
-          </p>
+          <div className="text-white/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
+            {product.description.split('\n').map((line, idx) => (
+              <div key={idx} className="mb-2">
+                {line}
+              </div>
+            ))}
+          </div>
         </div>
         
         <div className="mt-4">

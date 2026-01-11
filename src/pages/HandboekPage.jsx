@@ -39,7 +39,7 @@ const HandboekPage = () => {
               transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
               className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
             >
-              Handboek en Speluitleg
+              Speluitleg
             </motion.h1>
 
             {/* Subtitle - fadeIn animation */}
