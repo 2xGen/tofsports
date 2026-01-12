@@ -265,7 +265,7 @@ const KnltbPage = () => {
               <div className="relative aspect-video rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
                 <iframe
                   title="vimeo-player"
-                  src="https://player.vimeo.com/video/808644931?h=89dedc6cbc"
+                  src="https://player.vimeo.com/video/792932911?h=ad7b439e93"
                   width="640"
                   height="360"
                   frameBorder="0"
