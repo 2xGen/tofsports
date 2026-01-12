@@ -27,22 +27,22 @@ const HorizontalProductsSection = () => {
   ];
 
   return (
-    <section className="relative pb-40 overflow-visible">
+    <section className="relative pb-20 md:pb-40 overflow-visible">
       {/* Playful Gradient Background - Reversed flow from previous section */}
       <div className="absolute inset-0 z-0 bg-gradient-to-tl from-sky-50 via-indigo-50 to-purple-50"></div>
       
-      <div className="container mx-auto px-4 pt-20 relative z-10">
-         <div className="flex flex-col md:flex-row gap-12 relative">
+      <div className="container mx-auto px-4 md:px-4 pt-12 md:pt-20 relative z-10">
+         <div className="flex flex-col md:flex-row gap-8 md:gap-12 relative">
             
             {/* LEFT SIDE - Stacking Cards (Desktop) / BOTTOM (Mobile) */}
-            <div className="md:w-1/2 flex flex-col gap-8 pb-20 min-h-[150vh] order-2 md:order-1">
+            <div className="md:w-1/2 flex flex-col gap-6 md:gap-8 pb-12 md:pb-20 md:min-h-[150vh] order-2 md:order-1">
               {products.map((product, index) => {
-                // Add spacing between stacked cards - each card sticks slightly lower
-                const topOffset = index === 0 ? 'top-32' : index === 1 ? 'top-40' : 'top-48';
+                // Add spacing between stacked cards - each card sticks slightly lower (only on desktop)
+                const topOffset = index === 0 ? 'md:top-32' : index === 1 ? 'md:top-40' : 'md:top-48';
                 return (
                   <div 
                     key={product.id} 
-                    className={`sticky ${topOffset}`}
+                    className={`md:sticky ${topOffset}`}
                     style={{
                       zIndex: index + 1
                     }}
@@ -55,17 +55,17 @@ const HorizontalProductsSection = () => {
 
             {/* RIGHT SIDE - Sticky Title (Desktop) / TOP (Mobile) */}
             <div className="md:w-1/2 order-1 md:order-2">
-               <div className="sticky top-32 pb-20">
+               <div className="md:sticky md:top-32 pb-8 md:pb-20">
                  <motion.div 
                    initial={{ opacity: 0, y: 20 }}
                    whileInView={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.5 }}
-                   className="text-left bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-indigo-100/50"
+                   className="text-left bg-white/80 backdrop-blur-xl p-6 md:p-10 rounded-2xl md:rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-indigo-100/50"
                  >
-                   <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
+                   <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6 leading-tight tracking-tight">
                       TOF Tennis <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500">next level</span>
                    </h2>
-                   <p className="text-lg text-gray-600 leading-relaxed font-medium">
+                   <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium">
                       Staat jouw basis en wil je met jouw tennisorganisatie of vereniging naar een next level? Kijk dan verder met welke producten we jou kunnen ondersteunen en onderscheid je hiermee ten opzichte van andere verenigingen. Maak jouw jeugdprogramma nog leuker, leerzamer en zichtbaarder voor iedereen.
                    </p>
                  </motion.div>

@@ -47,7 +47,7 @@ const HeroSection = () => {
                 alt="TOF Tennis" 
                 width={350}
                 height={200}
-                className="h-24 md:h-48 w-auto mx-auto"
+                className="h-20 md:h-48 w-auto mx-auto"
                 priority
                 quality={90}
               />
@@ -59,7 +59,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 100, scale: 0.5 }}
             animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
-            className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
+            className="text-4xl md:text-7xl font-bold text-gray-800 relative z-30"
           >
             Sports
           </motion.h2>
@@ -69,7 +69,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-gray-600 relative z-30"
+            className="text-lg md:text-2xl text-gray-600 relative z-30"
           >
             Powered by KNLTB
           </motion.h3>
@@ -78,7 +78,7 @@ const HeroSection = () => {
 
       {/* Floating Tennis Ball - bounceInLeft with scroll motion */}
       <motion.div
-        className="absolute bottom-20 left-10 md:left-20 z-[1]"
+        className="absolute bottom-16 md:bottom-20 left-4 md:left-10 lg:left-20 z-[1]"
         initial={{ opacity: 0, x: -100 }}
         animate={heroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
         transition={{ duration: 0.8, delay: 0.8, type: "spring", bounce: 0.5 }}
@@ -131,14 +131,14 @@ const TennisBallRoll = ({ scrollYProgress }) => {
   return (
     <motion.div
       style={{ x, rotate }}
-      className="relative w-32 h-32"
+      className="relative w-20 h-20 md:w-32 md:h-32"
     >
       <Image 
         src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20bal.png" 
         alt="Tennis ball" 
         width={128}
         height={128}
-        className="w-32 h-32 drop-shadow-lg"
+        className="w-full h-full drop-shadow-lg"
         loading="lazy"
         quality={85}
       />

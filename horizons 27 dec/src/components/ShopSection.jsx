@@ -42,15 +42,15 @@ const ShopSection = () => {
            }}>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex justify-between items-end mb-12">
+      <div className="container mx-auto px-4 md:px-4 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-0">
            <motion.div
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Onze Webshop</h2>
-              <p className="text-gray-500 text-lg">Professionele uitrusting voor elke speler</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">Onze Webshop</h2>
+              <p className="text-gray-500 text-base md:text-lg">Professionele uitrusting voor elke speler</p>
            </motion.div>
            
            <Button asChild variant="outline" className="hidden md:flex gap-2 bg-white/50 backdrop-blur-sm border-slate-300 hover:bg-white">
@@ -60,7 +60,7 @@ const ShopSection = () => {
            </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {items.map((item, index) => (
              <Link key={item.id} href={item.link}>
                <motion.div
@@ -85,8 +85,8 @@ const ShopSection = () => {
                       <ShoppingBag className="h-4 w-4" />
                     </Button>
                  </div>
-                 <h3 className="font-bold text-xl text-gray-900">{item.name}</h3>
-                 <p className="text-blue-600 font-semibold">{item.price}</p>
+                 <h3 className="font-bold text-lg md:text-xl text-gray-900">{item.name}</h3>
+                 <p className="text-blue-600 font-semibold text-base md:text-lg">{item.price}</p>
                </motion.div>
              </Link>
           ))}

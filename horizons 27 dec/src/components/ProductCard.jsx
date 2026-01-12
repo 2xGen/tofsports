@@ -47,22 +47,22 @@ const ProductCard = ({ product, index }) => {
       viewport={{ once: true, margin: "-5%" }}
       className="w-full"
     >
-      <div className={`${product.color} rounded-3xl shadow-2xl p-8 md:p-12 flex flex-col transform transition-transform duration-300 hover:scale-[1.01] border-4 border-white/20`}>
+      <div className={`${product.color} rounded-3xl shadow-2xl p-6 md:p-12 flex flex-col transform transition-transform duration-300 hover:scale-[1.01] border-4 border-white/20`}>
         <div>
-          <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
+          <h3 className="text-2xl md:text-5xl font-black text-white mb-4 md:mb-6 tracking-tight">
             {product.title}
           </h3>
-          <p className="text-white/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
+          <p className="text-white/90 text-base md:text-xl font-medium leading-relaxed mb-4 md:mb-6">
             {product.description}
           </p>
         </div>
         
-        <div className="mt-4">
+        <div className="mt-auto">
           {linkUrl ? (
             <Button
               asChild
               variant="secondary"
-              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
+              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl md:rounded-2xl shadow-lg border-none w-full md:w-auto"
             >
               <Link href={linkUrl}>
                 Meer informatie
@@ -72,7 +72,7 @@ const ProductCard = ({ product, index }) => {
             <Button
               onClick={handleLearnMore}
               variant="secondary"
-              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
+              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl md:rounded-2xl shadow-lg border-none w-full md:w-auto"
             >
               Meer informatie
             </Button>

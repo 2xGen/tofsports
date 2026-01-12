@@ -1,7 +1,7 @@
 import HandboekPage from '@/pages/HandboekPage';
 
 export const metadata = {
-  title: 'Handboek en Speluitleg - TOF Sports',
+  title: 'Speluitleg - TOF Sports',
   description: 'Officiële spelregels en handleidingen voor alle TOF producten. Bekijk de complete uitleg voor PIRAMIDE TENNIS, 4 OP EEN RIJ en KRAAK DE CODE.',
 };
 
