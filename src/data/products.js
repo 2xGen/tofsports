@@ -1022,12 +1022,12 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'padel-swirl',
     name: 'DE SWIRL',
     category: 'padel',
-    ageGroup: 'Rood Oranje Groen',
+    ageGroup: 'Alle leeftijden',
     description: 'Magneet poster met buttons (afhankelijk van aantal jeugdleden) en spelregelkaart',
     formats: [
       {
         id: 'padel-swirl-1',
-        name: 'Poster 1',
+        name: 'Standaard set',
         players: 'Standaard',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20SWIRL-1.png',
         packages: {
