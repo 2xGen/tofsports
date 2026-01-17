@@ -1,4 +1,4 @@
-import SpelenPage from '@/pages/SpelenPage';
+import SpelenPage from '@/views/SpelenPage';
 
 export const metadata = {
   title: 'Spelen - TOF Sports',

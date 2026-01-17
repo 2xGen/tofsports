@@ -1,4 +1,4 @@
-import TofScorePage from '@/pages/TofScorePage';
+import TofScorePage from '@/views/TofScorePage';
 
 export const metadata = {
   title: 'TOF Score - TOF Sports',

@@ -1,4 +1,4 @@
-import MissieVisiePage from '@/pages/MissieVisiePage';
+import MissieVisiePage from '@/views/MissieVisiePage';
 
 export const metadata = {
   title: 'Missie & Visie - TOF Sports',

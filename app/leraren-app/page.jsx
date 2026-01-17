@@ -1,4 +1,4 @@
-import LerarenAppPage from '@/pages/LerarenAppPage';
+import LerarenAppPage from '@/views/LerarenAppPage';
 
 export const metadata = {
   title: 'De Leraren App - TOF Sports',

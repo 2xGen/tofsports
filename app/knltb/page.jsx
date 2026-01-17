@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import KnltbPage from '@/pages/KnltbPage';
+import KnltbPage from '@/views/KnltbPage';
 
 export const metadata = {
   title: 'KNLTB - TOF Sports',

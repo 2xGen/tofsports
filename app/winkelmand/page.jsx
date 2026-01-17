@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import WinkelmandPage from '@/pages/WinkelmandPage';
+import WinkelmandPage from '@/views/WinkelmandPage';
 
 export default function Winkelmand() {
   return (

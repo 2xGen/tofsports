@@ -1,4 +1,4 @@
-import HandboekPage from '@/pages/HandboekPage';
+import HandboekPage from '@/views/HandboekPage';
 
 export const metadata = {
   title: 'Speluitleg - TOF Sports',

@@ -1,4 +1,4 @@
-import MagneetpostersPage from '@/pages/MagneetpostersPage';
+import MagneetpostersPage from '@/views/MagneetpostersPage';
 
 export const metadata = {
   title: 'Magneetposters - TOF Sports',

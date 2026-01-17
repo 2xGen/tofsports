@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import WebshopPage from '@/pages/WebshopPage';
+import WebshopPage from '@/views/WebshopPage';
 
 export const metadata = {
   title: 'Webshop - TOF Sports',

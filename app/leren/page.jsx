@@ -1,4 +1,4 @@
-import LerenPage from '@/pages/LerenPage';
+import LerenPage from '@/views/LerenPage';
 
 export const metadata = {
   title: 'Leren - TOF Sports',

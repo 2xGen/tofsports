@@ -1,4 +1,4 @@
-import HomePage from '@/pages/HomePage';
+import HomePage from '@/views/HomePage';
 
 export const metadata = {
   title: 'TOF Tennis – KNLTB Official Tenniskids partner',

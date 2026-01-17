@@ -1,4 +1,4 @@
-import SpelersKaartenPage from '@/pages/SpelersKaartenPage';
+import SpelersKaartenPage from '@/views/SpelersKaartenPage';
 
 export const metadata = {
   title: 'Spelerskaarten - TOF Sports',
