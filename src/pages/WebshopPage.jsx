@@ -2,15 +2,20 @@
 // Current localhost state - ensure 100% match with deployment - 2026-01-06
 
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { ShoppingCart, ArrowRight } from 'lucide-react';
 import { getProductsByCategory } from '@/data/products';
 import ProductList from '@/components/ProductList';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { useCart } from '@/context/CartContext';
 
 const WebshopPage = () => {
   const { toast } = useToast();
+  const { addToCart, getCartCount, getSubtotal, getBTW, getTotal, isLoaded } = useCart();
+  const cartCount = isLoaded ? getCartCount() : 0;
   const searchParams = useSearchParams();
   const router = useRouter();
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -29,12 +34,24 @@ const WebshopPage = () => {
   };
 
   const handleAddToCart = (product, format, packageType, extra = null) => {
-    const productName = `${product.name} - ${format.name} - ${format.packages[packageType].label}${extra ? ` + ${extra.name}` : ''}`;
     const price = format.packages[packageType].price + (extra ? extra.price : 0);
+    
+    // Add to cart context
+    addToCart({
+      productId: product.id,
+      productName: product.name,
+      formatId: format.id,
+      formatName: format.name,
+      packageType: packageType,
+      packageLabel: format.packages[packageType].label,
+      extraName: extra ? extra.name : null,
+      extraPrice: extra ? extra.price : 0,
+      price: price
+    });
     
     toast({
       title: "Toegevoegd aan winkelwagen",
-      description: `${productName} (€${price.toFixed(2)}) zit nu in je mandje!`,
+      description: `${product.name} - ${format.name} (€${price.toFixed(2)}) zit nu in je mandje!`,
       duration: 3000,
     });
   };
@@ -134,6 +151,62 @@ const WebshopPage = () => {
             handleAddToCart={handleAddToCart}
           />
         </div>
+
+        {/* Sticky Cart Banner */}
+        <AnimatePresence>
+          {cartCount > 0 && (
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-orange-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]"
+            >
+              <div className="container mx-auto px-4 py-3 md:py-4">
+                <div className="flex items-center justify-between gap-4">
+                  {/* Cart Info */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <ShoppingCart className="w-6 h-6 text-orange-500" />
+                      <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                        {cartCount}
+                      </span>
+                    </div>
+                    <div className="hidden sm:block">
+                      <p className="text-sm text-gray-600">
+                        {cartCount} {cartCount === 1 ? 'product' : 'producten'} in je mandje
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Subtotaal: €{getSubtotal().toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Price & Checkout Button */}
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <p className="text-xs text-gray-500 hidden sm:block">Totaal incl. BTW</p>
+                      <p className="text-xl md:text-2xl font-bold text-gray-900">
+                        €{getTotal().toFixed(2)}
+                      </p>
+                    </div>
+                    <Button
+                      asChild
+                      size="lg"
+                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 md:px-8 shadow-lg"
+                    >
+                      <Link href="/winkelmand" className="flex items-center gap-2">
+                        <span className="hidden sm:inline">Afrekenen</span>
+                        <span className="sm:hidden">Checkout</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
   );
 };

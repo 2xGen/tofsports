@@ -9,19 +9,19 @@ const ProductsSection = () => {
     {
       id: 1,
       title: 'Spelen',
-      description: '• Magneetposters met spelvormen in bewaarkoker\n• Magneetbuttons\n• Whiteboard stiften en markers',
+      description: 'Maak van elke training een avontuur! Met onze magneetposters, buttons en whiteboardtools creëer je speelse oefenvormen die kinderen uitdagen en motiveren.',
       color: 'bg-sky-400', // More vibrant blue
     },
     {
       id: 2,
       title: 'Leren',
-      description: '• Kennis producten\n• Ja-Nee kaarten\n• Zoek de schat',
+      description: 'Kennis opdoen was nog nooit zo leuk! Ontdek onze interactieve Ja-Nee kaarten en Zoek de Schat spellen die kinderen spelenderwijs beter maken.',
       color: 'bg-rose-400', // More vibrant red/pink
     },
     {
       id: 3,
       title: 'Sparen',
-      description: '• TOF score in de KNLTB leraren app\n• Buttons en bandjes',
+      description: 'Elk punt telt! Met de TOF Score en verzamelbare buttons en bandjes blijven kinderen gemotiveerd om vaker te spelen en hun doelen te bereiken.',
       color: 'bg-lime-500', // Vibrant tennis green
     }
   ];
@@ -55,7 +55,7 @@ const ProductsSection = () => {
                       Onze <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500">Producten</span>
                    </h2>
                    <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium">
-                      Ontdek onze professionele, speelse tools voor de moderne tennisles. Leren was nog nooit zo leuk!
+                      Geef je jeugdprogramma een boost! Verander elk punt in een beloning en elke training in een feestje. Ontdek de tools die van spelers echte clubfans maken.
                    </p>
                  </motion.div>
                </div>

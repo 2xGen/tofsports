@@ -64,7 +64,7 @@ const ProductCard = ({ product, index }) => {
           </div>
         </div>
         
-        <div className="mt-4">
+        <div className="mt-4 flex flex-col md:flex-row gap-3">
           {linkUrl ? (
             <Button
               asChild
@@ -84,6 +84,15 @@ const ProductCard = ({ product, index }) => {
               Meer informatie
             </Button>
           )}
+          <Button
+            asChild
+            variant="secondary"
+            className="bg-orange-500 text-white hover:bg-orange-600 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
+          >
+            <Link href="/webshop">
+              Bekijk webshop
+            </Link>
+          </Button>
         </div>
       </div>
     </motion.div>

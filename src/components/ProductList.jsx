@@ -120,14 +120,14 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                     <span className="text-center">Officiële Spelregels & Handleiding</span>
                   </Button>
                 )}
-                {/* Count button - shows number of formats */}
+                {/* Count button - shows number of formats (only on mobile since desktop always shows products) */}
                 <Button
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleProduct(product.id);
                   }}
                   variant="default"
-                  className="flex items-center justify-center gap-2 w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm md:text-base px-4 py-2 md:px-6 md:py-3"
+                  className="flex md:hidden items-center justify-center gap-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2"
                 >
                   <span>Bekijk producten</span>
                   <span className="bg-white text-blue-600 rounded-full px-2 py-0.5 text-xs font-bold min-w-[24px]">

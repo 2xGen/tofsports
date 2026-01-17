@@ -1,3 +1,8 @@
 {
-  "/knltb/page": "app/knltb/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/spelen/page": "app/spelen/page.js",
+  "/webshop/page": "app/webshop/page.js",
+  "/winkelmand/page": "app/winkelmand/page.js",
+  "/privacy/page": "app/privacy/page.js"
 }
