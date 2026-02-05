@@ -4,8 +4,8 @@ export const allProducts = [
     id: 'piramide',
     name: 'PIRAMIDE TENNIS',
     category: 'tennis',
-    ageGroup: 'Rood & Oranje (t/m 10-11 jaar)',
-    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elke gespeelde punt direct wordt bijgeschreven op jouw TOF score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
+    ageGroup: 'Rood | Oranje (t/m 10-11 jaar)',
+    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
     detailedRules: `PIRAMIDE TENNIS
 Officiële Spelregels & Handleiding
 
@@ -22,9 +22,9 @@ Dit format is perfect voor:
 
 BENODIGDE MATERIALEN
 • Magneetbord: 60cm x 90cm magnetische poster op whiteboard (rijdbaar op de tennisbaan)
-• Magneetbuttons: Witte buttons voor elke speler
+• Magneetbuttons: witte buttons voor elke speler
 • Watervaste stift: Voor het schrijven van namen
-• Alcohol: Voor het schoonmaken van de buttons
+• Stiftremover: Voor het schoonmaken van de buttons
 • Tennisbanen: Minimaal 1 baan, ideaal 2-4 banen voor grotere groepen
 • Tennismateriaal: Rackets, ballen (aangepast aan niveau/leeftijd)
 
@@ -54,8 +54,8 @@ Het spelprincipe is eenvoudig maar strategisch:
 
 3. Actie
 • Word je uitgedaagd? Verdedig dan direct je positie op de baan
-• Elke gespeelde wedstrijd telt mee voor je TOF score
-• Hoe meer je speelt, hoe hoger je TOF score status
+• Elke gespeelde wedstrijd telt mee voor je TOF Score
+• Hoe meer je speelt, hoe hoger je TOF Score status
 
 3 MANIEREN OM TE WINNEN
 PIRAMIDE TENNIS biedt drie verschillende manieren om te winnen, waardoor het spel voor iedereen interessant blijft:
@@ -77,7 +77,7 @@ Wie is de meest actieve speler en heeft de meeste wedstrijden gespeeld?
 • Tel het aantal gespeelde wedstrijden per speler
 • De speler met de meeste wedstrijden wint
 • Perfect voor energieke spelers die graag veel spelen
-• Elke wedstrijd telt mee voor je TOF score!
+• Elke wedstrijd telt mee voor je TOF Score!
 
 BASISSPELVERLOOP
 Spelverloop in stappen:
@@ -92,7 +92,7 @@ Spelverloop in stappen:
 • Spelers kunnen elkaar uitdagen (naast of boven)
 • Korte wedstrijden: eerste tot 7 punten (trainer kan dit aanpassen)
 • Winnaar stijgt, verliezer daalt
-• Elke gespeelde wedstrijd wordt bijgeschreven op TOF score
+• Elke gespeelde wedstrijd wordt bijgeschreven op TOF Score
 
 3. Einde van de Sessie
 • Tel de resultaten per categorie
@@ -148,11 +148,11 @@ Praktisch
 • Update het bord regelmatig na elke wedstrijd
 
 TOF SCORE INTEGRATIE
-Elke gespeelde wedstrijd telt mee voor je TOF score:
+Elke gespeelde wedstrijd telt mee voor je TOF Score:
 • Win of verlies: elke punt telt
-• Hoe meer je speelt, hoe hoger je TOF score
+• Hoe meer je speelt, hoe hoger je TOF Score
 • Streef naar XP 100, 500 of zelfs 1000 punten
-• De Marathon winnaar heeft vaak ook de hoogste TOF score!
+• De Marathon winnaar heeft vaak ook de hoogste TOF Score!
 
 VEELGESTELDE VRAGEN
 Q: Wat als er een oneven aantal spelers is?
@@ -196,7 +196,7 @@ Toernooien & Events
 • Organiseer PIRAMIDE TENNIS tournaments
 • Competities tussen verenigingen
 • Gezinsdagen en open dagen
-• Combineer met TOF score tracking voor extra motivatie
+• Combineer met TOF Score tracking voor extra motivatie
 
 Feedback & Aanpassingen
 Deze spelregels kunnen worden aangepast op basis van feedback en ervaringen van verenigingen. Wat werkt voor jouw groep is het beste!
@@ -208,8 +208,8 @@ Powered by KNLTB Tennis
 
 In de box:
 • Magneetbord (60x90cm) met whiteboard
-• Witte magneetbuttons (aantal naar keuze)
-• Watervaste stift + alcohol voor schoonmaken
+• witte magneetbuttons (aantal naar keuze)
+• Watervaste stift + stiftremover voor schoonmaken
 • Spelregelkaart
 • Volledige spelregelsgids
 • Snelstart handleiding
@@ -221,11 +221,11 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
       {
         id: 'piramide-21',
         name: 'Poster 1',
-        players: 'Tot 21 spelers',
+        players: 'T/m 21 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2021-1.png',
         packages: {
-          basis: { price: 79.95, label: 'Basis pakket' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 79.95, label: 'Basis pakket (incl. 21 buttons)' },
+          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -235,8 +235,8 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
         players: '21-36 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2036-1.png',
         packages: {
-          basis: { price: 89.95, label: 'Basis pakket' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 89.95, label: 'Basis pakket (incl. 36 buttons)' },
+          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -246,8 +246,8 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
         players: '37-55 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2055-1.png',
         packages: {
-          basis: { price: 99.95, label: 'Basis pakket' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 99.95, label: 'Basis pakket (incl. 55 buttons)' },
+          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       }
@@ -257,17 +257,17 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
     id: 'davis',
     name: 'DAVIS CLUP',
     category: 'tennis',
-    ageGroup: 'Groen & Geel (11-16 jaar)',
+    ageGroup: 'Groen | Geel (11-16 jaar)',
     description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
     formats: [
       {
         id: 'davis-20',
         name: 'Poster 1',
-        players: 'Tot 20 spelers',
+        players: 'T/m 20 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2020-1.png',
         packages: {
-          basis: { price: 79.95, label: 'Basis pakket' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 79.95, label: 'Basis pakket (incl. 20 buttons)' },
+          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -277,8 +277,8 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
         players: '21-30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2030-1.png',
         packages: {
-          basis: { price: 89.95, label: 'Basis pakket' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 89.95, label: 'Basis pakket (incl. 30 buttons)' },
+          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -288,8 +288,8 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
         players: '31-40 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2040-1.png',
         packages: {
-          basis: { price: 99.95, label: 'Basis pakket' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 99.95, label: 'Basis pakket (incl. 40 buttons)' },
+          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       }
@@ -297,10 +297,10 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
   },
   {
     id: '4opeenrij',
-    name: '4 OP EEN RIJ',
+    name: 'VIER OP EEN RIJ',
     category: 'tennis',
     ageGroup: 'Alle leeftijden',
-    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF score status. Op naar de 100, 500 of zelfs 1000 punten! Elke punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
+    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF Score status. Op naar de 100, 500 of zelfs 1000 punten! Elk punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
     detailedRules: `VIER OP EEN RIJ TENNIS
 Officiële Spelregels & Handleiding
 
@@ -583,7 +583,7 @@ TOF Tennis - Tennis + Strategie = Onvergetelijk Speelplezier`,
       {
         id: '4opeenrij-30',
         name: 'Poster 1',
-        players: 'Tot 30 spelers',
+        players: 'T/m 30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%204%20OP%201%20RIJ-1.png',
         packages: {
           standard: { price: 84.95, label: 'Standaard set (1 poster + 49 gekleurde buttons)' }
@@ -596,7 +596,7 @@ TOF Tennis - Tennis + Strategie = Onvergetelijk Speelplezier`,
     name: 'KRAAK DE CODE',
     category: 'tennis',
     ageGroup: 'Alle leeftijden',
-    description: 'Strijd in 2 tot 4 teams om de geheime code te kraken door 5 dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
+    description: 'Strijd in twee tot vier teams om de geheime code te kraken door vijf dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF Score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
     detailedRules: `KRAAK DE CODE TENNIS
 Officiële Spelregels & Handleiding
 
@@ -636,7 +636,7 @@ Het spel bestaat uit drie belangrijke stappen die elkaar continu afwisselen:
 1. Speel je Wedstrijd
 Teams nemen het tegen elkaar op in korte partijen om punten.
 • Korte wedstrijden: eerste tot 7 punten (trainer kan dit aanpassen)
-• Elke gespeelde wedstrijd telt mee voor je TOF score
+• Elke gespeelde wedstrijd telt mee voor je TOF Score
 • Win of verlies: elke punt telt!
 • Belangrijk: Korte wedstrijden houden het spel dynamisch!
 
@@ -707,7 +707,7 @@ Spelverloop in stappen:
 2. Wedstrijden Spelen
 • Teams spelen korte wedstrijden tegen elkaar
 • Standaard: eerste tot 7 punten
-• Elke gespeelde wedstrijd wordt bijgeschreven op TOF score
+• Elke gespeelde wedstrijd wordt bijgeschreven op TOF Score
 • Winnaar krijgt het recht om buttons te plaatsen/verplaatsen
 
 3. Buttons Plaatsen/Verplaatsen
@@ -723,7 +723,7 @@ Spelverloop in stappen:
 
 5. Winnen
 • Het eerste team dat de code compleet heeft, wint het spel!
-• Alle gespeelde wedstrijden tellen mee voor TOF score
+• Alle gespeelde wedstrijden tellen mee voor TOF Score
 • Vier de winnaar en de inzet van alle teams!
 
 TIPS VOOR BEGELEIDERS & TRAINERS
@@ -759,12 +759,12 @@ Praktisch
 • Update het bord regelmatig na elke actie
 
 TOF SCORE INTEGRATIE
-Elke gespeelde wedstrijd telt mee voor je TOF score:
+Elke gespeelde wedstrijd telt mee voor je TOF Score:
 • Win of verlies: elke punt telt
 • Door te spelen verdien je het recht om buttons te verplaatsen
-• Ondertussen bouw je razendsnel aan je TOF score
+• Ondertussen bouw je razendsnel aan je TOF Score
 • Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!
-• Teams met de meeste gespeelde wedstrijden hebben vaak ook de hoogste TOF scores
+• Teams met de meeste gespeelde wedstrijden hebben vaak ook de hoogste TOF Scores
 
 VEELGESTELDE VRAGEN
 Q: Wat als er een oneven aantal spelers is?
@@ -811,7 +811,7 @@ Toernooien & Events
 • Organiseer KRAAK DE CODE tournaments
 • Team competities tussen verenigingen
 • Gezinsdagen en open dagen
-• Combineer met TOF score tracking voor extra motivatie
+• Combineer met TOF Score tracking voor extra motivatie
 
 Feedback & Aanpassingen
 Deze spelregels kunnen worden aangepast op basis van feedback en ervaringen van verenigingen. Wat werkt voor jouw groep is het beste!
@@ -835,7 +835,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
       {
         id: 'kraak-de-code-30',
         name: 'Standaard set',
-        players: 'Tot 30 spelers',
+        players: 'T/m 30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20KRAAK%20DE%20CODE-1.png',
         packages: {
           standard: { price: 84.95, label: '1 poster + 40 gekleurde buttons' }
@@ -847,8 +847,8 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'swirl',
     name: 'DE SWIRL',
     category: 'tennis',
-    ageGroup: 'Rood Oranje Groen',
-    description: 'Magneet poster met buttons (afhankelijk van aantal jeugdleden) en spelregelkaart',
+    ageGroup: 'Rood | Oranje | Groen',
+    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
         id: 'swirl-lila',
@@ -859,7 +859,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       },
       {
@@ -871,7 +871,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       },
       {
@@ -883,7 +883,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       }
     ]
@@ -892,8 +892,8 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'scoreboard',
     name: 'TOF Scoreboard',
     category: 'tennis',
-    ageGroup: 'Rood Oranje Groen Geel',
-    description: 'Magneet poster met buttons (afhankelijk van aantal jeugdleden) en spelregelkaart',
+    ageGroup: 'Rood | Oranje | Groen | Geel',
+    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
         id: 'scoreboard-1',
@@ -904,7 +904,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 20 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       }
     ]
@@ -914,16 +914,16 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     name: 'PADEL PIRAMIDE',
     category: 'padel',
     ageGroup: 't/m 10-11 jaar',
-    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elke gespeelde punt direct wordt bijgeschreven op jouw TOF score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
+    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
     formats: [
       {
         id: 'padel-piramide-21',
         name: 'Poster 1',
-        players: 'Tot 21 spelers',
+        players: 'T/m 21 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2021-1.png',
         packages: {
-          basis: { price: 79.95, label: 'Basis pakket' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 79.95, label: 'Basis pakket (incl. 21 buttons)' },
+          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -933,8 +933,8 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
         players: '21-36 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2036-1.png',
         packages: {
-          basis: { price: 89.95, label: 'Basis pakket' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 89.95, label: 'Basis pakket (incl. 36 buttons)' },
+          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       }
@@ -944,17 +944,17 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'padel-club-clash',
     name: 'PADEL CLUB CLASH',
     category: 'padel',
-    ageGroup: 'Groen & Geel (11-16 jaar)',
+    ageGroup: 'Groen | Geel (11-16 jaar)',
     description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
     formats: [
       {
         id: 'padel-club-clash-20',
         name: 'Poster 1',
-        players: 'Tot 20 spelers',
+        players: 'T/m 20 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2020-1.png',
         packages: {
-          basis: { price: 79.95, label: 'Basis pakket' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 79.95, label: 'Basis pakket (incl. 20 buttons)' },
+          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -964,8 +964,8 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
         players: '21-30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2020-1.png',
         packages: {
-          basis: { price: 89.95, label: 'Basis pakket' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 89.95, label: 'Basis pakket (incl. 30 buttons)' },
+          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       },
@@ -975,8 +975,8 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
         players: '31-40 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2040-1.png',
         packages: {
-          basis: { price: 99.95, label: 'Basis pakket' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + alcohol)' },
+          basis: { price: 99.95, label: 'Basis pakket (incl. 40 buttons)' },
+          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
           compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
         }
       }
@@ -987,12 +987,12 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     name: 'UNO DOS TRES CUATRO',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF score status. Op naar de 100, 500 of zelfs 1000 punten! Elke punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
+    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF Score status. Op naar de 100, 500 of zelfs 1000 punten! Elk punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
     formats: [
       {
         id: 'uno-dos-tres-cuatro-30',
         name: 'Poster 1',
-        players: 'Tot 30 spelers',
+        players: 'T/m 30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20UNO%20DOS%20TRES%20CUATRO-1.png',
         packages: {
           standard: { price: 84.95, label: 'Standaard set (1 poster + 49 gekleurde buttons)' }
@@ -1005,12 +1005,12 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     name: 'UNLOCK THE CODE',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Strijd in 2 tot 4 teams om de geheime code te kraken door 5 dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
+    description: 'Strijd in twee tot vier teams om de geheime code te kraken door vijf dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF Score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
     formats: [
       {
         id: 'unlock-the-code-30',
         name: 'Standaard set',
-        players: 'Tot 30 spelers',
+        players: 'T/m 30 spelers',
         image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20UNLOCK%20THE%20CODE-1.png',
         packages: {
           standard: { price: 84.95, label: '1 poster + 40 gekleurde buttons' }
@@ -1023,7 +1023,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     name: 'DE SWIRL',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Magneet poster met buttons (afhankelijk van aantal jeugdleden) en spelregelkaart',
+    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
         id: 'padel-swirl-1',
@@ -1034,7 +1034,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       }
     ]
@@ -1044,7 +1044,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     name: 'TOF Scoreboard',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Magneet poster met buttons (afhankelijk van aantal jeugdleden) en spelregelkaart',
+    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
         id: 'padel-scoreboard-1',
@@ -1055,7 +1055,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
           standard: { price: 79.95, label: '1 poster + 20 witte buttons' }
         },
         extras: [
-          { name: 'Extra 1 set Witte buttons', price: 15.00 }
+          { name: 'Set van 10 witte buttons', price: 15.00 }
         ]
       }
     ]

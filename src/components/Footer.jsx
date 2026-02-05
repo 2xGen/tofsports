@@ -25,7 +25,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Official KNLTB Tenniskids partner. Professionele, speelse tools voor de moderne tennis- en padelles.
+              Powered by KNLTB. Professionele, speelse tools voor de moderne tennis- en padelles.
             </p>
             <div className="flex items-center gap-4 pt-2">
               <a

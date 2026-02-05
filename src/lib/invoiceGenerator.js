@@ -116,7 +116,10 @@ export const generateInvoice = (orderData) => {
     
     // Product name (may need wrapping for long names)
     const productText = `${item.productName} - ${item.formatName}`;
-    const packageText = item.packageLabel + (item.extraName ? ` + ${item.extraName}` : '');
+    const extraPart = item.extraName && (item.extraQuantity ?? 0) > 0
+      ? ` + ${item.extraName} x ${item.extraQuantity}`
+      : item.extraName ? ` + ${item.extraName}` : '';
+    const packageText = item.packageLabel + extraPart;
     
     doc.setTextColor(...darkColor);
     doc.text(productText.substring(0, 45), 25, yPos);

@@ -2,11 +2,11 @@ import { Suspense } from 'react';
 import KnltbPage from '@/views/KnltbPage';
 
 export const metadata = {
-  title: 'KNLTB - TOF Sports',
-  description: 'Official KNLTB Tenniskids partner. Ontdek de Spelerskaarten en de Leraren App voor tenniscoaches.',
+  title: 'Tenniskids - TOF Sports',
+  description: 'Powered by KNLTB. Ontdek de Spelerskaarten en de Leraren App voor tenniscoaches.',
   openGraph: {
-    title: 'KNLTB - TOF Sports',
-    description: 'Official KNLTB Tenniskids partner. Ontdek de Spelerskaarten en de Leraren App voor tenniscoaches.',
+    title: 'Tenniskids - TOF Sports',
+    description: 'Powered by KNLTB. Ontdek de Spelerskaarten en de Leraren App voor tenniscoaches.',
     url: 'https://www.toftennis.nl/knltb',
     siteName: 'TOF Sports',
     images: [
@@ -14,7 +14,7 @@ export const metadata = {
         url: 'https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg',
         width: 800,
         height: 600,
-        alt: 'TOF Sports KNLTB',
+        alt: 'TOF Sports Tenniskids',
       },
     ],
     locale: 'nl_NL',

@@ -408,8 +408,13 @@ const WinkelmandPage = () => {
                       <h3 className="font-bold text-lg text-gray-900">{item.productName}</h3>
                       <p className="text-gray-600 text-sm">{item.formatName}</p>
                       <p className="text-gray-500 text-sm">{item.packageLabel}</p>
-                      {item.extraName && (
-                        <p className="text-orange-600 text-sm">+ {item.extraName}</p>
+                      {item.extraName && (item.extraQuantity ?? 0) > 0 && (
+                        <p className="text-orange-600 text-sm">
+                          + {item.extraName} x {item.extraQuantity}
+                          {item.extraPrice != null && (
+                            <span className="text-gray-500"> (€{(item.extraPrice * item.extraQuantity).toFixed(2)})</span>
+                          )}
+                        </p>
                       )}
                     </div>
                     

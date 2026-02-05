@@ -197,7 +197,7 @@ const HeroSection = React.forwardRef((props, ref) => {
             className="text-right font-poppins font-medium text-[1.6em] text-[#1B144C]"
             style={{ marginTop: '-16px', alignSelf: 'flex-end' }}
           >
-            Official KNLTB Tenniskids partner
+            Powered by KNLTB
           </motion.h3>
         </motion.div>
 

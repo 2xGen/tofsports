@@ -46,7 +46,7 @@ const KnltbPage = () => {
               transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
               className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
             >
-              KNLTB
+              {selectedCategory === 'padel' ? 'TOF Padel' : 'Tenniskids'}
             </motion.h1>
 
             <motion.p
@@ -55,7 +55,7 @@ const KnltbPage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
             >
-              Official KNLTB Tenniskids partner
+              Powered by KNLTB
             </motion.p>
 
             {/* Category Buttons in Hero */}
@@ -117,41 +117,44 @@ const KnltbPage = () => {
                 
                 <div className="space-y-6 text-gray-700">
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Jouw kind centraal</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Elk kind centraal</h3>
                     <p className="text-lg leading-relaxed">
-                      Tenniskids TOF is onderdeel van het Tenniskids programma. Met Tenniskids TOF, wat staat voor Training Ontwikkelings Fases, kan jouw kind zich nog beter op zijn of haar eigen manier en tempo ontwikkelen. Bij Tenniskids TOF staat jouw kind centraal.
+                      Tenniskids TOF is onderdeel van het KNLTB Tenniskids programma. TOF staat voor Training Ontwikkeling Fases en biedt structuur en ondersteuning bij de ontwikkeling van jeugdtennissers. Binnen Tenniskids TOF staat de jeugdspeler centraal. Spelers krijgen de ruimte om zich op hun eigen manier en in hun eigen tempo te ontwikkelen. Dit vergroot het spelplezier en de motivatie, en geeft zowel spelers, ouders als leraren inzicht in de voortgang.
                     </p>
                   </div>
 
                   <div className="bg-gray-50 rounded-xl p-6 mt-6">
                     <h4 className="text-xl font-bold text-gray-900 mb-4">Spelerskaart</h4>
                     <p className="text-lg leading-relaxed">
-                      Je kind krijgt een Tenniskids TOF spelerskaart. Deze kaart is in de Tenniskids kleur waarin je kind speelt. Met deze kaart krijg je als ouder inzicht in de ontwikkeling van je kind. Je kind neemt de kaart altijd mee naar trainingen en wedstrijden, daarom is het handig om deze aan de tennistas te hangen.
+                      Elke jeugdspeler ontvangt een Tenniskids TOF spelerskaart, afgestemd op de Tenniskids-kleur waarin de speler actief is. De spelerskaart geeft inzicht in de ontwikkeling en wordt meegenomen naar trainingen en wedstrijden. Door de kaart aan de tennistas te hangen is deze altijd bij de hand.
                     </p>
                   </div>
 
                   <div>
                     <h4 className="text-xl font-bold text-gray-900 mb-4">Van level naar level</h4>
                     <p className="text-lg leading-relaxed mb-4">
-                      Op de voorkant van de spelerskaart staan bolletjes. Het aantal ingekleurde bolletjes geeft antwoord op de vragen als:
+                      Op de voorkant van de spelerskaart staan bolletjes die inzicht geven in vragen zoals:
                     </p>
                     <ul className="list-disc list-inside space-y-2 ml-4 text-lg leading-relaxed mb-4">
-                      <li>Wanneer is mijn kind klaar voor het spelen van competitie of toernooien?</li>
-                      <li>Wanneer kan mijn kind naar een volgend niveau in dezelfde Tenniskids kleur?</li>
-                      <li>Wanneer is mijn kind klaar voor de volgende Tenniskids kleur?</li>
+                      <li>Wanneer is de speler klaar voor competitie of toernooien?</li>
+                      <li>Wanneer kan de speler doorstromen naar een volgend niveau binnen dezelfde Tenniskids-kleur?</li>
+                      <li>Wanneer is de speler klaar voor de volgende Tenniskids-kleur?</li>
                     </ul>
                     <p className="text-lg leading-relaxed mb-4">
-                      Je kind wordt door het gebruik van de spelerskaart uitgedaagd om van level naar level te gaan en zich te blijven ontwikkelen. In overleg met de leraar mag jouw kind een bolletje inkleuren als een bepaald level in een ontwikkelingsfase is doorlopen. De leraar houdt de ontwikkeling ook bij in een digitale app.
+                      De spelerskaart daagt jeugdspelers uit om van level naar level te groeien en zich voortdurend verder te ontwikkelen. In overleg met de leraar mag een bolletje worden ingekleurd zodra een level binnen een ontwikkelingsfase is behaald. De leraar houdt de ontwikkeling daarnaast bij in een digitale app.
                     </p>
                     <p className="text-lg leading-relaxed">
-                      Op de achterkant van de kaart mag een bolletje worden ingekleurd voor elke keer dat je kind op de baan staat. Dit kan door tennisles te volgen, wedstrijden te spelen, vrij te spelen en/of mee te doen aan clubactiviteiten.
+                      Op de achterkant van de kaart kan een bolletje worden ingekleurd voor elke keer dat de speler op de baan staat, bijvoorbeeld tijdens tennislessen, wedstrijden, vrij spel of deelname aan clubactiviteiten.
                     </p>
                   </div>
 
                   <div className="bg-orange-50 rounded-xl p-6 mt-6 border border-orange-200">
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">Sparen</h4>
+                    <h4 className="text-xl font-bold text-gray-900 mb-4">Sparen en beloning</h4>
+                    <p className="text-lg leading-relaxed mb-4">
+                      Wanneer de spelerskaart volledig is ingevuld, ontvangt de jeugdspeler een leuke beloning vanuit de leraar of vereniging. Op deze manier stimuleert Tenniskids TOF actieve deelname en blijvende betrokkenheid bij de tennissport.
+                    </p>
                     <p className="text-lg leading-relaxed">
-                      Bij een volle kaart is er een leuke beloning van de leraar of vereniging. Wil je meer weten over Tenniskids TOF? Vraag het aan de leraar.
+                      Wil je meer weten over Tenniskids TOF? Vraag het aan de leraar.
                     </p>
                   </div>
                 </div>
@@ -174,9 +177,9 @@ const KnltbPage = () => {
                 
                 <div className="space-y-6 text-gray-700">
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Jouw kind centraal</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Elk kind centraal</h3>
                     <p className="text-lg leading-relaxed">
-                      TOF padel, wat staat voor Training Ontwikkelings Fases padel, is de basis van het padel jeugdprogramma en biedt ondersteuning aan leraren bij het geven van lessen aan jeugd. Binnen TOF padel staat de jeugdspeler centraal. Spelers kunnen zich in hun eigen tempo en op hun eigen manier ontwikkelen, wat hun motivatie en spelplezier vergroot. Dit draagt bij aan het behoud van jeugdspelers en geeft zowel spelers als ouders inzicht in de padelontwikkeling.
+                      TOF padel staat voor Training Ontwikkeling Fases padel en vormt de basis van het KNLTB padel jeugdprogramma. Het biedt leraren ondersteuning bij het opzetten en geven van lessen aan jeugd. Binnen TOF padel staat de jeugdspeler centraal! Spelers kunnen zich in hun eigen tempo en op hun eigen manier ontwikkelen, wat hun motivatie en spelplezier vergroot. Dit draagt bij aan het behoud van jeugdspelers en geeft zowel spelers als ouders inzicht in de padelontwikkeling.
                     </p>
                   </div>
 
@@ -213,14 +216,14 @@ const KnltbPage = () => {
               
               <div className="space-y-6 text-gray-700">
                 <p className="text-lg leading-relaxed">
-                  Een complete digitale assistent speciaal ontwikkeld voor tenniscoaches. Met deze app heb je alle tools binnen handbereik om je trainingen te verbeteren en de voortgang van je spelers bij te houden.
+                  Een complete digitale assistent speciaal ontwikkeld voor tennis- en padelleraren. Met deze app heb je alle tools binnen handbereik om je trainingen te verbeteren en de voortgang van je spelers bij te houden.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   <div className="bg-gray-50 rounded-xl p-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-4">Lesplannen</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Toegang tot een uitgebreide bibliotheek met lesplannen die perfect aansluiten bij het Tenniskids programma.
+                      Toegang tot een uitgebreide bibliotheek met lesplannen die perfect aansluiten bij het KNLTB jeugdprogramma.
                     </p>
                   </div>
 
@@ -234,7 +237,7 @@ const KnltbPage = () => {
                   <div className="bg-gray-50 rounded-xl p-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-4">Voortgangsregistratie</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Houd de ontwikkeling van elke speler bij en volg hun voortgang door de verschillende Tenniskids niveaus.
+                      Houd de ontwikkeling van elke speler bij en volg hun voortgang door de verschillende niveaus.
                     </p>
                   </div>
                 </div>
@@ -253,7 +256,7 @@ const KnltbPage = () => {
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden p-6 md:p-8">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
-              TOF - Official KNLTB Partner
+              TOF - Powered by KNLTB
             </h2>
             <motion.div 
               className="mt-8"

@@ -43,7 +43,7 @@ const TennisSection = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-2xl md:text-3xl text-gray-600"
             >
-              Official KNLTB Tenniskids partner
+              Powered by KNLTB
             </motion.h3>
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>Wat tof dat je een kijkje neemt op onze website!</p>

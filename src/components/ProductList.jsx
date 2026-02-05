@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, BookOpen, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { ShoppingCart, BookOpen, ChevronDown, ChevronUp, X, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductRulesModal from './ProductRulesModal';
 
@@ -54,11 +54,27 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
     }));
   };
 
-  const handleSelectOption = (productId, formatId, packageType, extra = null) => {
+  const handleSelectOption = (productId, formatId, packageType, extra = null, extraQuantity = 0) => {
     setSelectedOptions(prev => ({
       ...prev,
-      [productId]: { formatId, packageType, extra }
+      [productId]: { formatId, packageType, extra, extraQuantity }
     }));
+  };
+
+  const changeExtraQuantity = (productId, formatId, extra, delta) => {
+    setSelectedOptions(prev => {
+      const current = prev[productId];
+      if (!current || current.formatId !== formatId) return prev;
+      const nextQty = Math.max(0, (current.extraQuantity ?? 0) + delta);
+      return {
+        ...prev,
+        [productId]: {
+          ...current,
+          extra: nextQty > 0 ? extra : null,
+          extraQuantity: nextQty
+        }
+      };
+    });
   };
 
   if (products.length === 0) {
@@ -207,7 +223,7 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                             name={`${product.id}-${format.id}`}
                             checked={selectedOptions[product.id]?.formatId === format.id && 
                                     selectedOptions[product.id]?.packageType === packageType}
-                            onChange={() => handleSelectOption(product.id, format.id, packageType)}
+                            onChange={() => handleSelectOption(product.id, format.id, packageType, null, 0)}
                             className="mt-1"
                           />
                           <div className="flex-1">
@@ -223,30 +239,41 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                     ))}
                   </div>
 
-                  {/* Extra Options (if available) */}
+                  {/* Extra Options (if available) - plus/minus quantity */}
                   {format.extras && format.extras.length > 0 && (
                     <div className="space-y-2 mb-4 pt-4 border-t border-gray-300">
                       <p className="text-sm font-medium text-gray-700 mb-2">Extra opties:</p>
-                      {format.extras.map((extra, extraIndex) => (
-                        <label key={extraIndex} className="flex items-center justify-between cursor-pointer">
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              checked={selectedOptions[product.id]?.formatId === format.id && 
-                                      selectedOptions[product.id]?.extra?.name === extra.name}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  handleSelectOption(product.id, format.id, Object.keys(format.packages)[0], extra);
-                                } else {
-                                  handleSelectOption(product.id, format.id, Object.keys(format.packages)[0], null);
-                                }
-                              }}
-                            />
-                            <span className="text-sm text-gray-700">{extra.name}</span>
+                      {format.extras.map((extra, extraIndex) => {
+                        const isSelected = selectedOptions[product.id]?.formatId === format.id;
+                        const qty = isSelected ? (selectedOptions[product.id]?.extraQuantity ?? 0) : 0;
+                        return (
+                          <div key={extraIndex} className="flex items-center justify-between gap-3">
+                            <span className="text-sm text-gray-700 flex-1">{extra.name}</span>
+                            <span className="text-sm font-bold text-gray-900">€{extra.price.toFixed(2)}</span>
+                            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+                              <button
+                                type="button"
+                                onClick={() => changeExtraQuantity(product.id, format.id, extra, -1)}
+                                disabled={!isSelected || qty <= 0}
+                                className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                                aria-label="Minder"
+                              >
+                                <Minus className="w-4 h-4" />
+                              </button>
+                              <span className="w-8 text-center text-sm font-medium">{qty}</span>
+                              <button
+                                type="button"
+                                onClick={() => changeExtraQuantity(product.id, format.id, extra, 1)}
+                                disabled={!isSelected}
+                                className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                                aria-label="Meer"
+                              >
+                                <Plus className="w-4 h-4" />
+                              </button>
+                            </div>
                           </div>
-                          <span className="font-bold text-gray-900">€{extra.price.toFixed(2)}</span>
-                        </label>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
 
@@ -255,11 +282,12 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
                     onClick={() => {
                       const selected = selectedOptions[product.id];
                       if (selected && selected.formatId === format.id) {
-                        handleAddToCart(product, format, selected.packageType, selected.extra);
+                        const extraQty = selected.extraQuantity ?? 0;
+                        handleAddToCart(product, format, selected.packageType, extraQty > 0 ? selected.extra : null, extraQty);
                       } else {
                         // Default to first package if nothing selected
                         const defaultPackage = Object.keys(format.packages)[0];
-                        handleAddToCart(product, format, defaultPackage, null);
+                        handleAddToCart(product, format, defaultPackage, null, 0);
                       }
                     }}
                     className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"

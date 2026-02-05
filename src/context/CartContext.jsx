@@ -30,12 +30,14 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCartItems(prev => {
-      // Check if item already exists (same product, format, package, and extra)
+      const extraQty = item.extraQuantity ?? 0;
+      // Check if item already exists (same product, format, package, extra name, and extra quantity)
       const existingIndex = prev.findIndex(
-        i => i.productId === item.productId && 
-             i.formatId === item.formatId && 
+        i => i.productId === item.productId &&
+             i.formatId === item.formatId &&
              i.packageType === item.packageType &&
-             i.extraName === item.extraName
+             (i.extraName ?? null) === (item.extraName ?? null) &&
+             (i.extraQuantity ?? 0) === extraQty
       );
 
       if (existingIndex >= 0) {
@@ -47,8 +49,8 @@ export const CartProvider = ({ children }) => {
         };
         return updated;
       } else {
-        // Add new item
-        return [...prev, { ...item, quantity: 1, id: Date.now() }];
+        // Add new item (ensure extraQuantity is set for cart/checkout)
+        return [...prev, { ...item, extraQuantity: extraQty, quantity: 1, id: Date.now() }];
       }
     });
   };

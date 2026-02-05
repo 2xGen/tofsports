@@ -33,8 +33,9 @@ const WebshopPage = () => {
     router.push(`/webshop?category=${category}`);
   };
 
-  const handleAddToCart = (product, format, packageType, extra = null) => {
-    const price = format.packages[packageType].price + (extra ? extra.price : 0);
+  const handleAddToCart = (product, format, packageType, extra = null, extraQuantity = 0) => {
+    const extraTotal = extra && extraQuantity > 0 ? extra.price * extraQuantity : 0;
+    const price = format.packages[packageType].price + extraTotal;
     
     // Add to cart context
     addToCart({
@@ -44,8 +45,9 @@ const WebshopPage = () => {
       formatName: format.name,
       packageType: packageType,
       packageLabel: format.packages[packageType].label,
-      extraName: extra ? extra.name : null,
+      extraName: extra && extraQuantity > 0 ? extra.name : null,
       extraPrice: extra ? extra.price : 0,
+      extraQuantity: extraQuantity || 0,
       price: price
     });
     
