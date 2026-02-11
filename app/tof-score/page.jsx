@@ -2,10 +2,10 @@ import TofScorePage from '@/views/TofScorePage';
 
 export const metadata = {
   title: 'TOF Score - TOF Sports',
-  description: 'Houd scores en progressie digitaal bij. Een onmisbare tool voor het organiseren van interne competities en toernooien.',
+  description: 'Elk speelmoment telt. De TOF 365-Score: meten wat écht belangrijk is.',
   openGraph: {
     title: 'TOF Score - TOF Sports',
-    description: 'Houd scores en progressie digitaal bij. Een onmisbare tool voor het organiseren van interne competities en toernooien.',
+    description: 'Elk speelmoment telt. De TOF 365-Score: meten wat écht belangrijk is.',
     url: 'https://www.toftennis.nl/tof-score',
     siteName: 'TOF Sports',
     images: [

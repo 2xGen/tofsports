@@ -65,8 +65,8 @@ const WebshopPage = () => {
 
   // Hero description based on category
   const heroDescription = selectedCategory === 'padel' 
-    ? 'Alles wat je nodig hebt voor de perfecte padelles, van materialen tot methodes.'
-    : 'Alles wat je nodig hebt voor de perfecte tennisles, van materialen tot methodes.';
+    ? 'Alles wat je nodig hebt voor een compleet jeugdprogramma.'
+    : 'Alles wat je nodig hebt voor een compleet jeugdprogramma.';
 
   // Hero background gradient based on category
   const heroBackground = selectedCategory === 'padel'

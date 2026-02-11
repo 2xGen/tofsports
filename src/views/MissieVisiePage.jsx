@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 
 const MissieVisiePage = () => {
@@ -27,7 +28,7 @@ const MissieVisiePage = () => {
               transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
               className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
             >
-              Missie & Visie
+              Visie & Missie
             </motion.h1>
 
             <motion.p
@@ -36,7 +37,7 @@ const MissieVisiePage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
             >
-              Onze missie en visie voor tennis en padel
+              Onze visie en missie voor tennis- en padeljeugd
             </motion.p>
           </div>
         </div>
@@ -50,49 +51,42 @@ const MissieVisiePage = () => {
       </section>
 
       {/* Content Sections */}
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Visie Section */}
         <motion.section
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-20"
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-            <div className="p-6 md:p-8">
-              <div className="mb-6">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Visie</h2>
-                <p className="text-lg text-gray-600 font-medium">Powered by KNLTB</p>
+            <div className="p-6 md:p-10">
+              <div className="mb-8">
+                <span className="text-sm font-semibold text-orange-500 uppercase tracking-wide">Powered by KNLTB</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-1 mb-6">Visie</h2>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">De 365-mentaliteit</h3>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Wij geloven dat verenigingen sterker worden wanneer jeugdspelers het hele jaar door actief en met plezier onderdeel zijn van het clubleven. Niet alleen tijdens de training, maar 365 dagen per jaar. Daarom zetten we jeugdspelers centraal en zien we tennis en padel als een doorlopende clubervaring waarin sport, plezier en ontmoeting samenkomen.
+                </p>
               </div>
 
-              <div className="space-y-6 text-gray-700">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">De 365-Mentaliteit</h3>
-                  <p className="text-lg leading-relaxed mb-4">
-                    Wij maken van elke jeugdspeler een clubspeler. Onze visie is dat tennis en padel voor kinderen niet stopt na het uur training, maar dat zij 365 dagen per jaar de weg naar de club weten te vinden. Door de TOF 365-score als standaard te introduceren, creëren we een nieuwe cultuur waarin vrij spelen, clubactiviteiten en onderlinge uitdagingen de motor zijn achter spelplezier en ledenbehoud.
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 rounded-xl p-6 mt-6">
-                  <p className="text-lg font-semibold text-gray-900 mb-4">
-                    Alle tennis en padel jeugdspelers halen per jaar een TOF score van 365 punten op hun club of vereniging. Dit wordt bereikt door:
-                  </p>
-                  <ul className="space-y-3 text-lg text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-orange-500 font-bold mr-3">•</span>
-                      <span>6 tot 10 keer oefenformat</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 font-bold mr-3">•</span>
-                      <span>Clubkampioenschappen</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 font-bold mr-3">•</span>
-                      <span>Vrij spelen</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className="bg-gray-50 rounded-xl p-6 md:p-8 border-l-4 border-orange-500">
+                <p className="text-base font-semibold text-gray-900 mb-4">De TOF 365-Score maakt betrokkenheid zichtbaar. Punten worden verzameld door:</p>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-center gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">1</span>
+                    <span>6 tot 10 oefenformats voor zelfstandig en samen spelen</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">2</span>
+                    <span>Deelname aan clubkampioenschappen en clubactiviteiten</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">3</span>
+                    <span>Vrij spelen met andere jeugdleden, laagdrempelig</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -100,22 +94,55 @@ const MissieVisiePage = () => {
 
         {/* Missie Section */}
         <motion.section
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-16"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-20"
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-            <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Missie</h2>
+            <div className="p-6 md:p-10">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">Missie</h2>
+              <p className="text-xl font-bold text-orange-500 mb-8">Activeren – Ontwikkelen – Verbinden</p>
 
-              <div className="space-y-6 text-gray-700">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Activeren, Ontwikkelen & Verbinden</h3>
-                  <p className="text-lg leading-relaxed">
-                    TOF Sports brengt de club tot leven. Onze missie is om de sportieve omgeving van kinderen te verrijken met producten die uitdagen tot extra beweging. Wij helpen verenigingen om jeugdspelers te transformeren van 'lesklanten' naar 'clubambassadeurs'. Met de TOF-methode borgen we dat elk kind zich optimaal ontwikkelt, vaker op de baan staat en voor de lange termijn verbonden blijft aan de club.
-                  </p>
+              <p className="text-xl font-semibold text-gray-900 mb-6">TOF Sports maakt van elke jeugdspeler een clubspeler.</p>
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                Wij brengen de vereniging tot leven door jeugdspelers in beweging te brengen. Onze missie: kinderen activeren tot meer speelmomenten, hen breed laten ontwikkelen en blijvend verbinden aan hun vereniging. Met de TOF-methode groeien jeugdleden van lesklant naar actieve clubspeler en clubambassadeur.
+              </p>
+
+              <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Wat dit oplevert</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
+                  <span className="text-orange-500 text-xl">→</span>
+                  <span className="text-gray-700">Meer actieve jeugdleden, ook buiten de training</span>
+                </div>
+                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
+                  <span className="text-orange-500 text-xl">→</span>
+                  <span className="text-gray-700">Meer spelplezier en snellere ontwikkeling</span>
+                </div>
+                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
+                  <span className="text-orange-500 text-xl">→</span>
+                  <span className="text-gray-700">Sterkere binding tussen jeugd, trainers en vereniging</span>
+                </div>
+                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
+                  <span className="text-orange-500 text-xl">→</span>
+                  <span className="text-gray-700">Duurzaam ledenbehoud en gezonde clubcultuur</span>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 md:p-8 border border-orange-200">
+                <h4 className="text-xl font-bold text-gray-900 mb-2">Klaar om jouw vereniging tot leven te brengen?</h4>
+                <p className="text-gray-600 mb-6">Ontdek de TOF-methode en de 365-mentaliteit.</p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/tof-methode" className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-colors">
+                    TOF-methode
+                  </Link>
+                  <Link href="/tof-score" className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white border-2 border-orange-500 text-orange-600 font-semibold hover:bg-orange-50 transition-colors">
+                    TOF Score
+                  </Link>
+                  <Link href="/contact" className="inline-flex items-center justify-center px-5 py-3 rounded-xl text-orange-600 font-semibold hover:bg-orange-50 transition-colors">
+                    Plan een kennismaking
+                  </Link>
                 </div>
               </div>
             </div>

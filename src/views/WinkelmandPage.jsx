@@ -123,11 +123,14 @@ const WinkelmandPage = () => {
       includeWhiteboard
     };
 
-    // Simulate form submission (in real app, this would send to an API/email)
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Notify TOF Sports of the new order (email to info@toftennis.nl)
+    fetch('/api/notify-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order),
+    }).catch((err) => console.warn('Order notification failed:', err));
 
-    // Here you would typically send the order to your backend
-    console.log('Order submitted:', order);
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     setOrderData(order);
     setIsSubmitting(false);
@@ -303,6 +306,7 @@ const WinkelmandPage = () => {
             <div className="mt-6 text-center text-sm text-gray-500">
               <p>Vragen over je bestelling? Neem contact op:</p>
               <p className="font-medium text-gray-700">Tel: {BUSINESS_INFO.phone}</p>
+              <p>of email ons <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
             </div>
           </motion.div>
         </div>
@@ -693,6 +697,12 @@ const WinkelmandPage = () => {
                   <p className="text-xs text-gray-500 text-center mt-2">
                     Na het plaatsen van je bestelling nemen we contact met je op voor de betaling.
                   </p>
+
+                  <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-600">
+                    <p className="font-medium text-gray-700">Vragen over je bestelling? Neem contact op:</p>
+                    <p>Tel: 06 13 25 25 59</p>
+                    <p>of email ons <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
+                  </div>
                 </form>
               </div>
             </div>

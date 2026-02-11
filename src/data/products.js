@@ -4,7 +4,7 @@ export const allProducts = [
     id: 'piramide',
     name: 'PIRAMIDE TENNIS',
     category: 'tennis',
-    ageGroup: 'Rood | Oranje (t/m 10-11 jaar)',
+    ageGroup: 'Tenniskids Rood | Tenniskids Oranje',
     description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
     detailedRules: `PIRAMIDE TENNIS
 Officiële Spelregels & Handleiding
@@ -257,7 +257,7 @@ TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
     id: 'davis',
     name: 'DAVIS CLUP',
     category: 'tennis',
-    ageGroup: 'Groen | Geel (11-16 jaar)',
+    ageGroup: 'Tenniskids Oranje | Tenniskids Groen | Jeugd Geel',
     description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
     formats: [
       {
@@ -847,7 +847,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'swirl',
     name: 'DE SWIRL',
     category: 'tennis',
-    ageGroup: 'Rood | Oranje | Groen',
+    ageGroup: 'Tenniskids Rood | Tenniskids Oranje | Tenniskids Groen',
     description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
@@ -892,7 +892,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'scoreboard',
     name: 'TOF Scoreboard',
     category: 'tennis',
-    ageGroup: 'Rood | Oranje | Groen | Geel',
+    ageGroup: 'Alle leeftijden',
     description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
     formats: [
       {
@@ -913,7 +913,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'padel-piramide',
     name: 'PADEL PIRAMIDE',
     category: 'padel',
-    ageGroup: 't/m 10-11 jaar',
+    ageGroup: 'Ontwikkelingsmatrix 1 | T/m 11 jaar',
     description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
     formats: [
       {
@@ -944,7 +944,7 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     id: 'padel-club-clash',
     name: 'PADEL CLUB CLASH',
     category: 'padel',
-    ageGroup: 'Groen | Geel (11-16 jaar)',
+    ageGroup: 'Ontwikkelingsmatrix 2 | 11-16 jaar',
     description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
     formats: [
       {

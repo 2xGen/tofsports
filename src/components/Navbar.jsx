@@ -66,7 +66,15 @@ const Navbar = () => {
                   isActive('/missie-visie') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Missie & Visie
+                Visie & Missie
+              </Link>
+              <Link 
+                href="/tof-methode" 
+                className={`text-sm font-medium transition-colors ${
+                  isActive('/tof-methode') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                }`}
+              >
+                TOF Methode
               </Link>
               <Link 
                 href="/tof-score" 
@@ -182,7 +190,16 @@ const Navbar = () => {
                   isActive('/missie-visie') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
-                Missie & Visie
+                Visie & Missie
+              </Link>
+              <Link
+                href="/tof-methode"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-base font-medium transition-colors ${
+                  isActive('/tof-methode') ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                }`}
+              >
+                TOF Methode
               </Link>
               <Link
                 href="/webshop"
