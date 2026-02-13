@@ -102,8 +102,8 @@ const PrivacyPage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Uw rechten</h2>
             <p className="text-gray-600">
               Als u vragen en/of opmerkingen heeft met betrekking tot de verwerking van uw persoonsgegevens kunt u contact opnemen door een email te sturen aan{' '}
-              <a href="mailto:info@toftennis.nl" className="text-orange-500 hover:text-orange-600 font-medium">
-                info@toftennis.nl
+              <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:text-orange-600 font-medium">
+                info@tofsports.nl
               </a>
               . Gebruik dit email adres ook voor het afmelden voor het ontvangen van informatie.
             </p>

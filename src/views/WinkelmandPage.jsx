@@ -123,7 +123,7 @@ const WinkelmandPage = () => {
       includeWhiteboard
     };
 
-    // Notify TOF Sports of the new order (email to info@toftennis.nl)
+    // Notify TOF Sports of the new order (email to info@tofsports.nl)
     fetch('/api/notify-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

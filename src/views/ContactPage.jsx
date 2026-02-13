@@ -69,8 +69,8 @@ const ContactPage = () => {
                   <Mail className="w-6 h-6 text-orange-500 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-gray-900">E-mail</p>
-                    <a href="mailto:info@toftennis.nl" className="text-gray-600 hover:text-orange-600 transition-colors">
-                      info@toftennis.nl
+                    <a href="mailto:info@tofsports.nl" className="text-gray-600 hover:text-orange-600 transition-colors">
+                      info@tofsports.nl
                     </a>
                   </div>
                 </div>
