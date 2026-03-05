@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: 'TOF Sports – KNLTB Official Tenniskids partner',
+  title: 'TOF Sports - Zet je jeugdprogramma op scherp',
   description: 'Official KNLTB Tenniskids partner. Ontdek onze professionele, speelse tools voor de moderne tennisles.',
   icons: {
     icon: 'https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg',
@@ -21,7 +21,7 @@ export const metadata = {
     apple: 'https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg',
   },
   openGraph: {
-    title: 'TOF Sports – KNLTB Official Tenniskids partner',
+    title: 'TOF Sports - Zet je jeugdprogramma op scherp',
     description: 'Official KNLTB Tenniskids partner. Ontdek onze professionele, speelse tools voor de moderne tennisles.',
     type: 'website',
     locale: 'nl_NL',
