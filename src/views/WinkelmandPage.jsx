@@ -39,6 +39,7 @@ const WinkelmandPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [orderData, setOrderData] = useState(null);
+  const [submitError, setSubmitError] = useState('');
   const [copiedField, setCopiedField] = useState(null);
   const [includeWhiteboard, setIncludeWhiteboard] = useState(false);
   
@@ -82,6 +83,7 @@ const WinkelmandPage = () => {
     if (!validateForm()) return;
     if (cartItems.length === 0) return;
 
+    setSubmitError('');
     setIsSubmitting(true);
 
     // Generate order number and date
@@ -123,19 +125,35 @@ const WinkelmandPage = () => {
       includeWhiteboard
     };
 
-    // Notify TOF Sports of the new order (email to info@tofsports.nl)
-    fetch('/api/notify-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(order),
-    }).catch((err) => console.warn('Order notification failed:', err));
+    try {
+      const saveResponse = await fetch('/api/save-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      });
+      const saveResult = await saveResponse.json().catch(() => ({}));
+      if (!saveResponse.ok || !saveResult.ok) {
+        throw new Error(saveResult.error || 'Opslaan van bestelling is mislukt');
+      }
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+      // Notify TOF Sports of the new order (email to info@tofsports.nl)
+      fetch('/api/notify-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      }).catch((err) => console.warn('Order notification failed:', err));
 
-    setOrderData(order);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    clearCart();
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      setOrderData(order);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      clearCart();
+    } catch (err) {
+      console.error('Order save failed:', err);
+      setSubmitError('Je bestelling kon niet worden opgeslagen. Probeer het opnieuw of neem contact op.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleDownloadInvoice = () => {
@@ -697,6 +715,9 @@ const WinkelmandPage = () => {
                   <p className="text-xs text-gray-500 text-center mt-2">
                     Na het plaatsen van je bestelling nemen we contact met je op voor de betaling.
                   </p>
+                  {submitError && (
+                    <p className="text-sm text-red-600 text-center">{submitError}</p>
+                  )}
 
                   <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-600">
                     <p className="font-medium text-gray-700">Vragen over je bestelling? Neem contact op:</p>
