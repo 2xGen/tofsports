@@ -63,30 +63,11 @@ const MissieVisiePage = () => {
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-10">
               <div className="mb-8">
-                <span className="text-sm font-semibold text-orange-500 uppercase tracking-wide">Powered by KNLTB</span>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-1 mb-6">Visie</h2>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">De 365-mentaliteit</h3>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  Wij geloven dat verenigingen sterker worden wanneer jeugdspelers het hele jaar door actief en met plezier onderdeel zijn van het clubleven. Niet alleen tijdens de training, maar 365 dagen per jaar. Daarom zetten we jeugdspelers centraal en zien we tennis en padel als een doorlopende clubervaring waarin sport, plezier en ontmoeting samenkomen.
+                  Wij geloven dat verenigingen sterker worden wanneer jeugdspelers zich het hele jaar door betrokken voelen en met plezier actief deel uitmaken van het verenigingsleven. Niet alleen tijdens het lesuur en competitie, maar 365 dagen per jaar. Daarom zetten we jeugdspelers centraal en zien we sport als een doorlopende clubervaring waarin ontwikkeling, plezier en ontmoeting samenkomen.
                 </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-xl p-6 md:p-8 border-l-4 border-orange-500">
-                <p className="text-base font-semibold text-gray-900 mb-4">De TOF 365-Score maakt betrokkenheid zichtbaar. Punten worden verzameld door:</p>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-center gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">1</span>
-                    <span>6 tot 10 oefenformats voor zelfstandig en samen spelen</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">2</span>
-                    <span>Deelname aan clubkampioenschappen en clubactiviteiten</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">3</span>
-                    <span>Vrij spelen met andere jeugdleden, laagdrempelig</span>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -103,32 +84,12 @@ const MissieVisiePage = () => {
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-10">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">Missie</h2>
-              <p className="text-xl font-bold text-orange-500 mb-8">Activeren – Ontwikkelen – Verbinden</p>
+              <p className="text-xl font-bold text-orange-500 mb-8">Spelen – Leren – Sparen</p>
 
-              <p className="text-xl font-semibold text-gray-900 mb-6">TOF Sports maakt van elke jeugdspeler een clubspeler.</p>
+              <p className="text-xl font-semibold text-gray-900 mb-6">TOF Sports maakt van elke jeugdspeler een echte clubspeler.</p>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Wij brengen de vereniging tot leven door jeugdspelers in beweging te brengen. Onze missie: kinderen activeren tot meer speelmomenten, hen breed laten ontwikkelen en blijvend verbinden aan hun vereniging. Met de TOF-methode groeien jeugdleden van lesklant naar actieve clubspeler en clubambassadeur.
+                Wij brengen verenigingen tot leven door jeugdspelers echt in beweging te krijgen. Onze missie is om kinderen te activeren tot meer speelmomenten, hen breed te laten ontwikkelen en duurzaam te verbinden aan hun vereniging. Met de TOF-methode groeien jeugdleden van lesklant naar actieve clubspeler en ambassadeur van hun sport.
               </p>
-
-              <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Wat dit oplevert</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
-                  <span className="text-orange-500 text-xl">→</span>
-                  <span className="text-gray-700">Meer actieve jeugdleden, ook buiten de training</span>
-                </div>
-                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
-                  <span className="text-orange-500 text-xl">→</span>
-                  <span className="text-gray-700">Meer spelplezier en snellere ontwikkeling</span>
-                </div>
-                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
-                  <span className="text-orange-500 text-xl">→</span>
-                  <span className="text-gray-700">Sterkere binding tussen jeugd, trainers en vereniging</span>
-                </div>
-                <div className="flex gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
-                  <span className="text-orange-500 text-xl">→</span>
-                  <span className="text-gray-700">Duurzaam ledenbehoud en gezonde clubcultuur</span>
-                </div>
-              </div>
 
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 md:p-8 border border-orange-200">
                 <h4 className="text-xl font-bold text-gray-900 mb-2">Klaar om jouw vereniging tot leven te brengen?</h4>

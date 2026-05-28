@@ -70,7 +70,7 @@ const MagneetpostersPage = () => {
               
               <div className="space-y-4 text-gray-700">
                 <p className="text-lg">
-                  Onze tennis- en padel-formats zijn ontworpen om optimaal te werken met magneetposters. Deze grootformaat posters (60x90 cm) zijn de professionele standaard voor het presenteren van speelschema's. In plaats van plakband of punaises, plakken onze formats direct op elk metalen oppervlak, zoals een (rijdend) whiteboard.
+                  Onze tennis- en padel-formats zijn ontworpen om optimaal te werken met magneetposters. Deze grootformaat posters (60x90 cm) zijn de professionele standaard voor het presenteren van speelse oefenformats en speelschema&apos;s. Geen plakband of punaises, maar snel en direct te plaatsen op elk metalen oppervlak, zoals een (rijdend) whiteboard.
                 </p>
                 
                 <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
@@ -106,7 +106,7 @@ const MagneetpostersPage = () => {
                 </div>
 
                 <p>
-                  Onze tennis- en padel-formats zijn specifiek ontworpen voor gebruik met magneetposters. Het materiaal is essentieel omdat de formats intensief gebruikt worden en vaak verplaatst moeten worden tussen verschillende locaties op de club.
+                  Onze formats zijn speciaal ontworpen voor gebruik met magneetposters en (verrijdbare) whiteboards. Dit materiaal is onmisbaar, omdat de formats intensief worden gebruikt en eenvoudig mee moeten kunnen bewegen tussen verschillende locaties op de club.
                 </p>
               </div>
             </div>
@@ -241,7 +241,7 @@ const MagneetpostersPage = () => {
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-8">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Onze Formats & Een Mobiel Whiteboard: De Perfecte Combinatie
+                Onze formats op een magneetposter en een (verrijdbaar) whiteboard: De perfecte combinatie.
               </h2>
               
               <div className="space-y-4 text-gray-700">

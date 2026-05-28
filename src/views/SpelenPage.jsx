@@ -67,7 +67,14 @@ const SpelenPage = () => {
           <div className="space-y-6 text-gray-700">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Wat zit er in het Spelen pakket?</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
+                <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
+                  <Pencil className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Whiteboard + tools</h3>
+                <p className="text-gray-600">Stiften en markers om aantekeningen te maken en scores bij te houden.</p>
+              </div>
               <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
                 <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
                   <Target className="w-6 h-6 text-white" />
@@ -79,15 +86,15 @@ const SpelenPage = () => {
                 <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
                   <Circle className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Magneetbuttons</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">magneetbuttons</h3>
                 <p className="text-gray-600">Kleurrijke magneten om spelers te markeren en oefeningen interactief te maken.</p>
               </div>
               <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
                 <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
-                  <Pencil className="w-6 h-6 text-white" />
+                  <Lightbulb className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Whiteboardtools</h3>
-                <p className="text-gray-600">Stiften en markers om aantekeningen te maken en scores bij te houden.</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Support</h3>
+                <p className="text-gray-600">Praktische instructie en begeleiding voor trainers, zodat je direct met de spelvormen aan de slag kunt en iedere les soepel verloopt.</p>
               </div>
             </div>
           </div>
@@ -260,10 +267,10 @@ const SpelenPage = () => {
           className="bg-gradient-to-r from-rose-400 to-pink-500 rounded-2xl shadow-lg p-8 text-center"
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Klaar om te leren?
+            Klaar voor leren?
           </h3>
           <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
-            Ontdek onze interactieve leermiddelen die kinderen spelenderwijs beter maken!
+            Ontdek onze inspirerende leermiddelen waarmee kinderen meer bewegen en spelenderwijs groeien!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

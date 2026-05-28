@@ -9,7 +9,7 @@ const HorizontalProductsSection = () => {
     {
       id: 'h-1',
       title: 'TOF Score',
-      description: 'Houd scores en progressie digitaal bij. Een onmisbare tool voor het organiseren van interne competities en toernooien.',
+      description: 'TOF Score motiveert kinderen om vaker mee te doen en meer punten te verzamelen voor een hogere status.',
       color: 'bg-violet-500', // Vibrant purple
     },
     {
@@ -21,7 +21,7 @@ const HorizontalProductsSection = () => {
     {
       id: 'h-3',
       title: 'TOF Magneetposters',
-      description: 'Grootformaat magneetposters (60x90 cm) voor tennis- en padel-formats. Snel wisselbaar op een (rijdend) whiteboard voor professionele toernooi-organisatie.',
+      description: 'Grootformaat magneetposters (60x90 cm) voor tennis- en padel-formats. Snel wisselbaar op een (rijdend) whiteboard voor zichtbaarheid en een professionele uitstraling op de vereniging.',
       color: 'bg-teal-400', // Fresh teal
     }
   ];
@@ -62,12 +62,23 @@ const HorizontalProductsSection = () => {
                    transition={{ duration: 0.5 }}
                    className="text-left bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-indigo-100/50"
                  >
-                   <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
-                      TOF Tennis <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500">next level</span>
-                   </h2>
-                   <p className="text-lg text-gray-600 leading-relaxed font-medium">
-                      Staat jouw basis en wil je met jouw tennisorganisatie of vereniging naar een next level? Kijk dan verder met welke producten we jou kunnen ondersteunen en onderscheid je hiermee ten opzichte van andere verenigingen. Maak jouw jeugdprogramma nog leuker, leerzamer en zichtbaarder voor iedereen.
-                   </p>
+                  <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight tracking-tight">
+                     TOF Sports <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500">next level</span>
+                  </h2>
+                  <p className="text-lg text-gray-600 leading-relaxed font-medium mb-3">
+                    <strong>Staat jouw basis? Tijd voor de volgende stap.</strong>
+                  </p>
+                  <p className="text-lg text-gray-600 leading-relaxed font-medium mb-4">
+                    Wil je met jouw organisatie of vereniging echt naar een next level? Ontdek hoe wij je kunnen ondersteunen met krachtige, praktijkgerichte producten.
+                  </p>
+                  <ul className="text-lg text-gray-600 leading-relaxed font-medium list-disc pl-6 mb-4 space-y-1">
+                    <li>maak je jouw jeugdprogramma nog leuker en leerzamer</li>
+                    <li>vergroot je de zichtbaarheid binnen en buiten de club</li>
+                    <li>onderscheid je je duidelijk van andere verenigingen</li>
+                  </ul>
+                  <p className="text-lg text-gray-600 leading-relaxed font-medium">
+                    Zet vandaag de stap en til jouw jeugdprogramma naar een hoger niveau.
+                  </p>
                  </motion.div>
                </div>
             </div>

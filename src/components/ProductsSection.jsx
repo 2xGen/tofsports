@@ -9,7 +9,7 @@ const ProductsSection = () => {
     {
       id: 1,
       title: 'Spelen',
-      description: 'Maak van elke training een avontuur! Met onze magneetposters, buttons en whiteboardtools creëer je speelse oefenvormen die kinderen uitdagen en motiveren.',
+      description: 'Maak van elke les een speelmoment! Met onze speelse oefenformats op kleurrijke magneetposters en kaarten worden kinderen actiever, gaan ze de uitdaging aan en beleven ze nog meer plezier op jouw club.',
       color: 'bg-sky-400', // More vibrant blue
     },
     {

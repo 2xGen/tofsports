@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 const TofMethodePage = () => {
   const heroRef = useRef(null);
@@ -34,7 +35,7 @@ const TofMethodePage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
             >
-              Spelen. Ontwikkelen. Verbinden. 365 dagen per jaar.
+              Spelen. Leren. Sparen. 365 dagen per jaar.
             </motion.p>
           </div>
         </div>
@@ -105,18 +106,15 @@ const TofMethodePage = () => {
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center text-lg font-bold">2</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Ontwikkelen: Leren door te doen</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Leren: Ontwikkelen door te doen</h3>
                 </div>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  Ontwikkeling stopt niet bij techniek alleen. Binnen TOF leren jeugdspelers spelenderwijs meer over tennis en padel, de spelregels én de clubcultuur.
-                </p>
                 <ul className="space-y-2 text-gray-700 mb-4">
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Regels en fair play direct toepassen op de baan</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Samen leren tijdens speelformats en clubactiviteiten</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Regels direct toepassen op de baan</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Fairplay direct toepassen op en naast de baan</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Mentaal weerbaarder op en naast de baan</li>
                   <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Meer zelfvertrouwen en zelfstandigheid</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Betere aansluiting tussen trainer, speler en club</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Meer interactie tussen speler(s), leraar en vereniging</li>
                 </ul>
-                <p className="text-gray-600 leading-relaxed italic">Een kind dat begrijpt hoe het spel werkt en zich thuis voelt op de club, speelt met meer plezier en blijft langer lid.</p>
               </div>
             </div>
 
@@ -125,18 +123,17 @@ const TofMethodePage = () => {
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center text-lg font-bold">3</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Verbinden: Samen bouwen aan clubgevoel</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Sparen: Samen bouwen aan clubgevoel</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  De TOF-methode versterkt de sociale kant van sport. Jeugdspelers worden geen losse deelnemers meer, maar actieve clubspelers.
+                  Binnen gamification betekent sparen dat kinderen (samen) punten en beloningen verzamelen door actief mee te doen en inzet te tonen.
                 </p>
                 <ul className="space-y-2 text-gray-700 mb-4">
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Meer ontmoetingen tussen jeugdleden</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Sterkere band met trainers en begeleiders</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Ouders raken meer betrokken bij de vereniging</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Een levendige jeugdstructuur die blijft groeien</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Maakt deelname leuker</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Versterkt onderlinge verbinding</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Jeugdleden voelen zich meer betrokken</li>
+                  <li className="flex items-center gap-2"><span className="text-orange-500">•</span> Draagt bij aan een levendige jeugdcultuur op de vereniging</li>
                 </ul>
-                <p className="text-gray-600 leading-relaxed italic">Zo ontstaat een clubcultuur waarin jeugdspelers elkaar uitdagen, ondersteunen en samen plezier maken.</p>
               </div>
             </div>
           </div>
@@ -154,13 +151,13 @@ const TofMethodePage = () => {
             <div className="p-6 md:p-10">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">De 365-mentaliteit</h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                Bij TOF stopt tennis en padel niet na één uur per week. Wij werken vanuit de 365-mentaliteit: jeugdspelers voelen zich het hele jaar door onderdeel van de vereniging. Vrij spelen, onderlinge challenges, clubactiviteiten en speelmomenten maken tennis en padel tot een doorlopende clubervaring. De TOF-methode helpt verenigingen om deze cultuur structureel te verankeren.
+                Bij TOF Sports stopt het niet na een lesuur per week. Wij werken vanuit de 365-mentaliteit: jeugdspelers voelen zich het hele jaar door onderdeel van de vereniging. Vrij spelen, onderlinge challenges, clubactiviteiten en speelmomenten maken sport tot een doorlopende clubervaring, waarbij de TOF-methode helpt om deze cultuur structureel te verankeren.
               </p>
               <Link
                 href="/tof-score"
                 className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-colors shadow-md"
               >
-                <span className="flex-shrink-0 text-2xl" role="img" aria-label="Tennisbal">🎾</span>
+                <ArrowRight className="w-5 h-5 flex-shrink-0" />
                 Ontdek hoe de TOF Score deze betrokkenheid meetbaar maakt
               </Link>
             </div>

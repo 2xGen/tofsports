@@ -34,7 +34,7 @@ const TofScorePage = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
             >
-              Elk speelmoment telt.
+              Elk speelmoment telt mee.
             </motion.p>
           </div>
         </div>
@@ -81,14 +81,13 @@ const TofScorePage = () => {
               <span className="text-sm font-semibold text-orange-500 uppercase tracking-wide">Punten verdienen</span>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mt-1 mb-4">Hoe werkt de TOF 365-Score?</h3>
               <p className="text-gray-600 leading-relaxed mb-6">
-                Punten worden verzameld door speelmomenten en clubactiviteiten:
+                Punten worden verzameld op steeds terugkerende speelmomenten op de vereniging.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 {[
-                  'Deelname aan TOF-oefenformats (6–10 per jaar)',
-                  'Clubkampioenschappen en clubactiviteiten',
-                  'Vrij spelen met andere jeugdleden',
-                  'Onderlinge challenges op de club',
+                  'Deelname aan oefenformats',
+                  'Deelname aan de clubkampioenschappen',
+                  'Vrij spelen',
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold">{i + 1}</span>
@@ -96,7 +95,7 @@ const TofScorePage = () => {
                   </div>
                 ))}
               </div>
-              <p className="text-gray-600 text-sm italic">Elk bezoek aan de vereniging wordt zo waardevol en zichtbaar beloond.</p>
+              <p className="text-gray-600 text-sm italic">Een bezoek aan de club wordt zo waardevol en zichtbaar beloond.</p>
             </div>
           </div>
         </motion.section>
@@ -111,14 +110,17 @@ const TofScorePage = () => {
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-10">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Spelen zonder prestatiedruk</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Spelen zonder de druk om te moeten winnen</h3>
               <p className="text-gray-600 leading-relaxed mb-6">
                 Deelname telt meer dan resultaat. Inzet, aanwezigheid en plezier staan centraal.
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                Vaker meedoen en net verliezen levert bij TOF Score meer op dan af en toe aanwezig zijn en steeds winnen. Daarom draagt TOF Score bij aan:
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   'Meer motivatie om te spelen',
-                  'Meer zelfvertrouwen bij jeugdspelers',
+                  'Meer zelfvertrouwen',
                   'Een veilige leeromgeving',
                   'Snellere en bredere ontwikkeling',
                 ].map((text, i) => (
@@ -144,7 +146,7 @@ const TofScorePage = () => {
             <div className="p-6 md:p-10">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Zichtbare voortgang</h3>
               <p className="text-gray-600 leading-relaxed mb-6">
-                De score wordt zichtbaar gemaakt door de TOF Score Poster op de club, digitale registratie in de TOF Score App en fysieke TOF-buttons bij mijlpalen (100, 500, 1000 punten). De tas van een jeugdspeler wordt zo een uithangbord van inzet en betrokkenheid.
+                Dit is voortgang die echt gezien mag worden - zowel op de vereniging als via de digitale registratie in de TOF Score-app van de leraar. Het draait namelijk niet om hoe vaak je wint, maar om hoe vaak je er staat.
               </p>
             </div>
           </div>
@@ -162,13 +164,13 @@ const TofScorePage = () => {
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
               <h3 className="text-lg font-bold text-gray-900 mb-3">Gamification en motivatie</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Jeugdspelers werken toe naar XP 500 of XP 1000. “Wat is jouw TOF Score status?” zorgt voor extra betrokkenheid. Meedoen wordt vanzelf leuker: hoe TOF is dat?
+                Spelers werken toe naar steeds hogere scores, sparen voor leuke beloningen en bouwen zo aan hun TOF Score-status.
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
               <h3 className="text-lg font-bold text-gray-900 mb-3">Digitale tool</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Verenigingen houden scores en progressie digitaal bij. De tool richt zich op deelname en inzet. Aanwezigheid, betrokkenheid en initiatief tellen mee — het beheer wordt overzichtelijk en de 365-mentaliteit wordt versterkt.
+                Leraren houden scores en voortgang digitaal bij, waarbij de nadruk ligt op deelname en inzet. Aanwezigheid, betrokkenheid en initiatief tonen tellen mee. Zo blijft het beheer overzichtelijk en wordt de 365-mentaliteit versterkt.
               </p>
             </div>
           </div>
@@ -202,7 +204,7 @@ const TofScorePage = () => {
                 ))}
               </ul>
               <p className="text-gray-600 text-sm italic border-l-4 border-orange-200 pl-4">
-                De TOF 365-Score is geen doel op zich, maar een krachtig hulpmiddel om de 365-mentaliteit te versterken.
+                TOF Score is een krachtig hulpmiddel om de 365-mentaliteit te versterken.
               </p>
             </div>
           </div>
