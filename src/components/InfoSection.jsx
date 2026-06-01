@@ -22,8 +22,8 @@ const InfoSection = () => {
     >
       {/* Curved Shape Divider - top (matching hero section bottom) */}
       <div className="absolute top-0 left-0 right-0 z-10">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-20">
-          <path d="M0,50 Q250,0 500,50 T1000,50 L1000,0 L0,0 Z" fill="white" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-14 md:h-12">
+          <path d="M0,58 Q250,12 500,58 T1000,58 L1000,0 L0,0 Z" fill="white" />
         </svg>
       </div>
 
@@ -55,21 +55,29 @@ const InfoSection = () => {
             whileHover={{ scale: 1.02, boxShadow: '0 15px 40px rgba(0, 0, 0, 0.2)' }}
           >
             <div className="text-center mb-10">
-              <h1 className="font-poppins font-bold text-[#1B144C] text-[1.8em] md:text-[2.5em] leading-tight mb-6">
-                Zet je jeugdprogramma direct op scherp
+              <h1 className="font-poppins font-bold text-[#1B144C] text-[1.5em] md:text-[2.2em] leading-tight mb-6 max-w-4xl mx-auto">
+                Het Plug &amp; Play jeugdprogramma dat jouw tennis- of padelclub direct op scherp
+                zet.
               </h1>
-              <p className="font-poppins text-[#1B144C] text-[1.1em] md:text-[1.3em] leading-relaxed text-gray-700 max-w-3xl mx-auto">
-                Met kant-en-klare oefenformats en spelvormen voor padel en tennis. Alles wat je nodig hebt om direct te starten met effectieve trainingen.
+              <p className="font-poppins text-[#1B144C] text-[1.05em] md:text-[1.2em] leading-relaxed text-gray-700 max-w-3xl mx-auto">
+                Met de TOF Methode beschik je over een Plug &amp; Play systeem met spelvormen, een
+                zichtbaar scoresysteem en praktische tools die jeugdspelers stimuleren om vaker te
+                spelen, te leren en actief betrokken te zijn bij de club.
               </p>
             </div>
-            <motion.a
-              href="/webshop"
-              className="bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] text-white font-poppins font-bold px-[50px] md:px-[60px] py-[20px] md:py-[25px] rounded-[50px] hover:from-[#2A1F5C] hover:to-[#4A3F8A] transition-all text-[1.1em] md:text-[1.3em] shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Bekijk onze producten
-            </motion.a>
+            <div className="flex flex-col items-center">
+              <motion.a
+                href="/pakketten"
+                className="bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] text-white font-poppins font-bold px-[50px] md:px-[60px] py-[20px] md:py-[25px] rounded-[50px] hover:from-[#2A1F5C] hover:to-[#4A3F8A] transition-all text-[1.1em] md:text-[1.3em] shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Bekijk de pakketten voor jouw club
+              </motion.a>
+              <p className="mt-4 max-w-md text-center font-poppins text-sm text-gray-600 md:text-base">
+                Ontwikkeld in samenwerking met trainers en verenigingen
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

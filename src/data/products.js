@@ -1066,3 +1066,7 @@ export const getProductsByCategory = (category) => {
   return allProducts.filter(product => product.category === category);
 };
 
+export const getProductById = (id) => {
+  return allProducts.find((product) => product.id === id);
+};
+

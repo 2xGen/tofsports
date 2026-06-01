@@ -2,97 +2,91 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
 
-const ProductCard = ({ product, index }) => {
-  const { toast } = useToast();
+const DEFAULT_CTA_TEXT = 'Bekijk de pakketten';
+const DEFAULT_CTA_LINK = '/pakketten';
 
-  const handleLearnMore = () => {
-    toast({
-      title: "🚧 Deze functie is nog niet beschikbaar",
-      description: "Vraag het in je volgende prompt aan! 🚀",
-      duration: 3000,
-    });
-  };
+const ProductCard = ({ product }) => {
+  const linkUrl = product.linkUrl ?? DEFAULT_CTA_LINK;
+  const ctaText = product.ctaText ?? DEFAULT_CTA_TEXT;
 
-  // Check if this is the "Spelen", "Leren", "Sparen", "TOF Score", "TOF Producten", or "TOF Magneetposters" product
-  const isLeren = product.title === 'Leren' || product.id === 2;
-  const isTofScore = product.title === 'TOF Score' || product.id === 'h-1';
-  const isTofProducten = product.title === 'TOF Producten' || product.id === 'h-2';
-  const isSparen = product.title === 'Sparen' || product.id === 3;
-  const isSpelen = product.title === 'Spelen' || product.id === 1;
-  const isMagneetposters = product.title === 'TOF Magneetposters' || product.id === 'h-3';
+  const ctaButton = (
+    <Button
+      asChild
+      variant="secondary"
+      className="shrink-0 rounded-2xl border-none bg-white px-6 py-5 text-base font-bold text-gray-900 shadow-lg hover:bg-gray-100 md:px-8 md:py-6 md:text-lg w-full sm:w-auto"
+    >
+      <Link href={linkUrl}>{ctaText}</Link>
+    </Button>
+  );
 
-  // Determine the link URL
-  let linkUrl = null;
-  if (isLeren) {
-    linkUrl = '/leren';
-  } else if (isTofScore) {
-    linkUrl = '/tof-score';
-  } else if (isTofProducten) {
-    linkUrl = '/webshop';
-  } else if (isSparen) {
-    linkUrl = '/sparen';
-  } else if (isSpelen) {
-    linkUrl = '/spelen';
-  } else if (isMagneetposters) {
-    linkUrl = '/magneetposters';
+  if (product.image) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-5%' }}
+        className="w-full"
+      >
+        <div
+          className={`relative min-h-[420px] w-full overflow-hidden rounded-3xl border-4 shadow-2xl transition-transform duration-300 hover:scale-[1.01] md:min-h-[460px] ${product.borderColor ?? 'border-white'}`}
+        >
+          <Image
+            src={product.image}
+            alt={product.imageAlt ?? product.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+            quality={90}
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent"
+            aria-hidden
+          />
+
+          <div className="relative z-10 flex min-h-[420px] flex-col items-stretch justify-center p-5 md:min-h-[460px] md:p-8">
+            <div
+              className={`${product.color} flex w-full flex-col rounded-2xl border-2 border-white/30 p-5 shadow-xl md:p-6`}
+            >
+              <h3 className="text-2xl font-black tracking-tight text-white md:text-3xl">
+                {product.title}
+              </h3>
+              <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
+                {product.description}
+              </p>
+              {product.showCta !== false && (
+                <div className="mt-4 shrink-0 md:mt-5">{ctaButton}</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
   }
 
-  // Simplified Card - logic for sticking is now handled by parent wrapper in ProductsSection
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      viewport={{ once: true, margin: "-5%" }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      viewport={{ once: true, margin: '-5%' }}
       className="w-full"
     >
-      <div className={`${product.color} rounded-3xl shadow-2xl p-8 md:p-12 flex flex-col transform transition-transform duration-300 hover:scale-[1.01] border-4 border-white/20`}>
-        <div>
-          <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
+      <div
+        className={`${product.color} transform overflow-hidden rounded-3xl border-4 border-white/20 shadow-2xl transition-transform duration-300 hover:scale-[1.01]`}
+      >
+        <div className="flex flex-col p-8 md:p-10">
+          <h3 className="mb-4 text-3xl font-black tracking-tight text-white md:text-4xl">
             {product.title}
           </h3>
-          <div className="text-white/90 text-lg md:text-xl font-medium leading-relaxed mb-6">
-            {product.description.split('\n').map((line, idx) => (
-              <div key={idx} className="mb-2">
-                {line}
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        <div className="mt-4 flex flex-col md:flex-row gap-3">
-          {linkUrl ? (
-            <Button
-              asChild
-              variant="secondary"
-              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
-            >
-              <Link href={linkUrl}>
-                Meer informatie
-              </Link>
-            </Button>
-          ) : (
-            <Button
-              onClick={handleLearnMore}
-              variant="secondary"
-              className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
-            >
-              Meer informatie
-            </Button>
-          )}
-          <Button
-            asChild
-            variant="secondary"
-            className="bg-orange-500 text-white hover:bg-orange-600 font-bold text-lg py-6 px-8 rounded-2xl shadow-lg border-none w-full md:w-auto"
-          >
-            <Link href="/webshop">
-              Bekijk webshop
-            </Link>
-          </Button>
+          <p className="mb-6 flex-1 text-lg font-medium leading-relaxed text-white/90 md:text-xl">
+            {product.description}
+          </p>
+          <div className="mt-auto">{ctaButton}</div>
         </div>
       </div>
     </motion.div>

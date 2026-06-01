@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {/* Logo & About */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -83,6 +83,38 @@ const Footer = () => {
                   Speluitleg
                 </Link>
               </li>
+              <li>
+                <Link href="/kennisbank" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Kennisbank
+                </Link>
+              </li>
+              <li>
+                <Link href="/media" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Media
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* TOF Methode */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">TOF Methode</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/spelen" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Spelen
+                </Link>
+              </li>
+              <li>
+                <Link href="/leren" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Leren
+                </Link>
+              </li>
+              <li>
+                <Link href="/sparen" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Sparen
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -110,6 +142,12 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+            <Link
+              href="/contact"
+              className="inline-block mt-3 text-sm text-orange-500 hover:text-orange-400 transition-colors font-medium"
+            >
+              Contact opnemen
+            </Link>
           </div>
 
           {/* Business Info */}

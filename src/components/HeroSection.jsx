@@ -1,10 +1,107 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+
+import { HERO_SLIDES, HERO_WAVE_PATH } from '@/data/heroSlides';
+
+const HERO_SLIDE_INTERVAL_MS = 5000;
+const HERO_SLIDE_FADE_MS = 1000;
+
+/** Shown immediately while slideshow images load (same as first slide) */
+const HERO_PLACEHOLDER = HERO_SLIDES[0];
+
+const HERO_LOGO_SRC =
+  'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20logo%20wit.svg';
+
+const HeroBackgroundSlideshow = ({ scale }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [loadedSlides, setLoadedSlides] = useState(() => new Set());
+
+  const markSlideLoaded = (index) => {
+    setLoadedSlides((prev) => {
+      if (prev.has(index)) return prev;
+      const next = new Set(prev);
+      next.add(index);
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncMotionPreference = () => setReduceMotion(mediaQuery.matches);
+
+    syncMotionPreference();
+    mediaQuery.addEventListener('change', syncMotionPreference);
+    return () => mediaQuery.removeEventListener('change', syncMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    HERO_SLIDES.forEach((slide, index) => {
+      if (index === 0) return;
+      const img = new window.Image();
+      img.src = slide.src;
+      img.onload = () => markSlideLoaded(index);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || HERO_SLIDES.length <= 1) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % HERO_SLIDES.length);
+    }, HERO_SLIDE_INTERVAL_MS);
+
+    return () => window.clearInterval(timer);
+  }, [reduceMotion]);
+
+  const isSlideVisible = (index) =>
+    index === activeIndex && loadedSlides.has(index);
+
+  return (
+    <motion.div className="absolute inset-0" style={{ scale }} aria-hidden>
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={HERO_PLACEHOLDER.src}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+          quality={90}
+          onLoad={() => markSlideLoaded(0)}
+        />
+      </div>
+
+      {HERO_SLIDES.map((slide, index) => (
+        <div
+          key={slide.src}
+          className="absolute inset-0 transition-opacity ease-in-out"
+          style={{
+            opacity: isSlideVisible(index) ? 1 : 0,
+            transitionDuration: `${HERO_SLIDE_FADE_MS}ms`,
+            zIndex: isSlideVisible(index) ? 1 : 0,
+          }}
+        >
+          <Image
+            src={slide.src}
+            alt={isSlideVisible(index) ? slide.alt : ''}
+            fill
+            priority={index === 0}
+            sizes="100vw"
+            className="object-cover object-center"
+            quality={90}
+            onLoad={() => markSlideLoaded(index)}
+          />
+        </div>
+      ))}
+    </motion.div>
+  );
+};
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -15,70 +112,75 @@ const HeroSection = () => {
   
   const heroInView = useInView(sectionRef, { once: false, amount: 0.3 });
   const { scrollYProgress } = useScroll();
+  const bgScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Gradient Background with Motion Effects - scale 8-88%, blur 20-80%, speed 4px, blur 7px */}
-      <motion.div 
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to bottom right, rgba(180, 255, 200, 0.4), rgba(197, 223, 223, 0.5), rgba(62, 200, 188, 0.3))',
-          scale: useTransform(scrollYProgress, [0, 0.3], [1.08, 0.88]),
-          filter: useTransform(scrollYProgress, [0.1, 0.3], ['blur(0px)', 'blur(7px)']),
-        }}
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10 md:pb-8">
+      <HeroBackgroundSlideshow scale={bgScale} />
+
+      {/* Overlay — keeps title and description readable */}
+      <div
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/45 to-black/65"
+        aria-hidden
       />
 
-      <div className="container mx-auto px-4 relative z-30 -mt-20 md:-mt-10">
+      <div className="container mx-auto px-4 relative z-30 -mt-16 md:-mt-8">
         <div className="flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
-          {/* Logo - bounceInDown animation */}
           <motion.div
             initial={{ opacity: 0, y: -100 }}
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
-            transition={{ 
-              duration: 1, 
-              type: "spring",
+            transition={{
+              duration: 1,
+              type: 'spring',
               bounce: 0.6,
-              delay: 0.2
+              delay: 0.2,
             }}
+            className="relative mx-auto w-fit"
           >
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="absolute bottom-full right-0 mb-1.5 translate-x-[20%] whitespace-nowrap text-[10px] font-medium tracking-wide text-white md:mb-2 md:translate-x-[28%] md:text-[11px]"
+            >
+              Powered by KNLTB
+            </motion.span>
             <Link href="/" className="block">
-              <Image 
-                src="https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg" 
-                alt="TOF Tennis" 
+              <Image
+                src={HERO_LOGO_SRC}
+                alt="TOF Sports"
                 width={350}
                 height={200}
-                className="h-24 md:h-48 w-auto mx-auto"
+                className="h-24 w-auto mx-auto md:h-44"
                 priority
                 quality={90}
               />
             </Link>
           </motion.div>
 
-          {/* Headings - zoomInRight animation */}
           <motion.h2
             initial={{ opacity: 0, x: 100, scale: 0.5 }}
             animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
-            transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
-            className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
+            transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-md relative z-30 -mt-1"
           >
             Sports
           </motion.h2>
 
-          {/* Subtitle - fadeIn animation */}
-          <motion.h3
+          <motion.p
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-gray-600 relative z-30"
+            className="text-lg md:text-2xl text-white/95 drop-shadow-sm relative z-30 max-w-3xl mx-auto leading-relaxed font-medium px-2"
           >
-            Powered by KNLTB
-          </motion.h3>
+            Zet jouw jeugdprogramma direct op scherp.
+          </motion.p>
         </div>
       </div>
 
       {/* Floating Tennis Ball - bounceInLeft with scroll motion */}
       <motion.div
-        className="absolute bottom-20 left-10 md:left-20 z-[1]"
+        className="absolute bottom-14 left-10 md:bottom-16 md:left-20 z-20"
         initial={{ opacity: 0, x: -100 }}
         animate={heroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
         transition={{ duration: 0.8, delay: 0.8, type: "spring", bounce: 0.5 }}
@@ -86,17 +188,17 @@ const HeroSection = () => {
         <TennisBallRoll scrollYProgress={heroScrollProgress} />
       </motion.div>
 
-      {/* Curved Shape Divider - negative */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-20">
-          <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="white" />
+      {/* Curved shape divider — above overlay so it stays pure white */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-14 md:h-12">
+          <path d={HERO_WAVE_PATH} fill="#ffffff" />
         </svg>
       </div>
 
       {/* Down Arrow */}
       <motion.a
         href="#part2"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-gray-600 hover:text-orange-500 transition-colors"
+        className="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-40 text-white/90 hover:text-orange-300 transition-colors md:bottom-4"
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
       >

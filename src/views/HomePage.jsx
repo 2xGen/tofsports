@@ -1,18 +1,19 @@
 import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import InfoSection from '@/components/InfoSection';
-import ProductsSection from '@/components/ProductsSection';
-import ShopSection from '@/components/ShopSection';
 import HorizontalProductsSection from '@/components/HorizontalProductsSection';
+import ProductsSection from '@/components/ProductsSection';
+import RecognitionPunchSection from '@/components/RecognitionPunchSection';
+import ShopSection from '@/components/ShopSection';
 
 const HomePage = () => {
   return (
     <main>
       <HeroSection />
       <InfoSection />
-      <ProductsSection />
-      {/* Reordered: HorizontalProductsSection (formerly s5) moved before ShopSection */}
       <HorizontalProductsSection />
+      <ProductsSection />
+      <RecognitionPunchSection />
       <ShopSection />
     </main>
   );

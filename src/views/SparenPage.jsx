@@ -1,58 +1,26 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Smartphone, Medal, ClipboardList, Lightbulb, Flame, Eye, House, Target } from 'lucide-react';
+import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
+import { getPageHeroImage } from '@/data/heroSlides';
 
 const SparenPage = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
-
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section - Matching Other Pages Style */}
-      <section ref={heroRef} className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background - Lime/Green theme for Sparen */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom right, rgba(163, 230, 53, 0.4), rgba(132, 204, 22, 0.5), rgba(101, 163, 13, 0.3))',
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-30 py-16">
-          <div className="flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
-            {/* Main Heading - zoomInRight animation */}
-            <motion.h1
-              initial={{ opacity: 0, x: 100, scale: 0.5 }}
-              animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
-              transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-              className="text-5xl md:text-7xl font-bold text-white relative z-30"
-            >
-              Sparen
-            </motion.h1>
-
-            {/* Subtitle - fadeIn animation */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-white/90 relative z-30 max-w-2xl mx-auto"
-            >
+      <PageHero image={getPageHeroImage('/sparen')}>
+        {(heroInView) => (
+          <div className="flex flex-col items-center space-y-4 md:space-y-6">
+            <PageHeroTitle heroInView={heroInView}>Sparen</PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView}>
               Elk punt telt mee! Motiveer kinderen met beloningen en de TOF Score.
-            </motion.p>
+            </PageHeroSubtitle>
           </div>
-        </div>
-
-        {/* Curved Shape Divider - negative */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-20">
-            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="#F9FAFB" />
-          </svg>
-        </div>
-      </section>
+        )}
+      </PageHero>
 
       {/* Content Section */}
       <div className="container mx-auto px-4 py-12 max-w-7xl">

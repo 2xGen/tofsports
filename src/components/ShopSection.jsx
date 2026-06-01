@@ -33,7 +33,7 @@ const ShopSection = () => {
   ];
 
   return (
-    <section className="py-24 relative">
+    <section className="relative py-24">
        {/* Clearly visible background pattern - Distinct from Products section */}
       <div className="absolute inset-0 bg-indigo-50/80 z-0" 
            style={{ 
@@ -49,13 +49,18 @@ const ShopSection = () => {
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Onze Webshop</h2>
-              <p className="text-gray-500 text-lg">Professionele uitrusting voor elke speler</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+                Losse formats en materialen
+              </h2>
+              <p className="max-w-xl text-lg text-gray-600">
+                Heb je al een pakket of wil je uitbreiden? Ontdek onze spelvormen, posters en
+                clubmaterialen.
+              </p>
            </motion.div>
            
            <Button asChild variant="outline" className="hidden md:flex gap-2 bg-white/50 backdrop-blur-sm border-slate-300 hover:bg-white">
              <Link href="/webshop">
-               Bekijk alle artikelen <ArrowRight className="h-4 w-4"/>
+               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>
@@ -95,7 +100,7 @@ const ShopSection = () => {
         <div className="mt-12 md:hidden">
           <Button asChild className="w-full gap-2" size="lg">
              <Link href="/webshop">
-               Bekijk alle artikelen <ArrowRight className="h-4 w-4"/>
+               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>
