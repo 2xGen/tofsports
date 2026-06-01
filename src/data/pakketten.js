@@ -108,7 +108,12 @@ export const MAIN_PACKAGES = [
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20pakket.jpg',
     formatProductIds: ['piramide', 'davis', '4opeenrij', 'kraak-de-code'],
     bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboard', 'app'],
-    bundleExtrasPrice: null,
+    tierPrices: {
+      'tier-20': 545,
+      'tier-30': 585,
+      'tier-40': 615,
+      'tier-55': 615,
+    },
   },
   {
     id: 'padel',
@@ -123,7 +128,12 @@ export const MAIN_PACKAGES = [
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Padel%20pakket.jpg',
     formatProductIds: ['padel-piramide', 'padel-club-clash', 'uno-dos-tres-cuatro', 'unlock-the-code'],
     bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboard', 'app'],
-    bundleExtrasPrice: null,
+    tierPrices: {
+      'tier-20': 545,
+      'tier-30': 585,
+      'tier-40': 615,
+      'tier-55': 615,
+    },
   },
   {
     id: 'combi',
@@ -148,7 +158,15 @@ export const MAIN_PACKAGES = [
       'unlock-the-code',
     ],
     bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboardShared', 'app'],
-    bundleExtrasPrice: null,
+    /** Combi: 8 formats + clubpakket — vanaf €695; meerprijs bij grotere jeugdgroepen */
+    tierPrices: {
+      'tier-20': 695,
+      'tier-30': 735,
+      'tier-40': 765,
+      'tier-55': 765,
+    },
+    /** Vaste waarde clubpakket in prijsopbouw (o.a. whiteboard-bonus) */
+    bundleExtrasPrice: 150,
   },
 ];
 
@@ -159,10 +177,21 @@ function sumFormatPrices(packageConfig, tierId) {
   }, 0);
 }
 
+/** Vaste pakketprijs per jeugdgroep (ex. btw) */
+export function getPackageTotalExBtw(packageId, tierId) {
+  const config = MAIN_PACKAGES.find((p) => p.id === packageId);
+  if (!config) return 0;
+  return config.tierPrices?.[tierId] ?? config.vanafPrice;
+}
+
+/** Clubpakket-deel voor weergave in samenvatting (matrix, poster, whiteboard, app) */
 function getBundleExtrasPrice(packageConfig) {
-  if (packageConfig.bundleExtrasPrice != null) return packageConfig.bundleExtrasPrice;
-  const formatTotal = sumFormatPrices(packageConfig, 'tier-20');
-  return Math.round((packageConfig.vanafPrice - formatTotal) * 100) / 100;
+  if (packageConfig.bundleExtrasPrice != null) {
+    return packageConfig.bundleExtrasPrice;
+  }
+  const formatTotalAtBase = sumFormatPrices(packageConfig, 'tier-20');
+  const derived = packageConfig.vanafPrice - formatTotalAtBase;
+  return Math.max(0, Math.round(derived * 100) / 100);
 }
 
 export function buildPackageQuote(packageId, tierId) {
@@ -185,14 +214,15 @@ export function buildPackageQuote(packageId, tierId) {
     };
   }).filter(Boolean);
 
+  const totalExBtw = getPackageTotalExBtw(packageId, tierId);
   const bundleExtras = getBundleExtrasPrice(config);
   const bundleLines = config.bundleItemKeys.map((key) => ({
     ...BUNDLE_ITEMS[key],
     price: null,
   }));
 
-  const formatsSubtotal = formatLines.reduce((s, l) => s + l.price, 0);
-  const totalExBtw = Math.round((formatsSubtotal + bundleExtras) * 100) / 100;
+  const catalogFormatsSubtotal = formatLines.reduce((s, l) => s + l.price, 0);
+  const formatsSubtotal = Math.round((totalExBtw - bundleExtras) * 100) / 100;
   const btw = Math.round(totalExBtw * 0.21 * 100) / 100;
   const totalIncBtw = Math.round((totalExBtw + btw) * 100) / 100;
 
@@ -203,6 +233,7 @@ export function buildPackageQuote(packageId, tierId) {
     bundleLines,
     bundleExtras,
     formatsSubtotal,
+    catalogFormatsSubtotal,
     totalExBtw,
     btw,
     totalIncBtw,

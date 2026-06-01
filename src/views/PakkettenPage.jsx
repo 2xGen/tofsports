@@ -11,7 +11,6 @@ import {
   Users,
   Package,
   ClipboardList,
-  Mail,
   ShoppingCart,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,6 +24,7 @@ import {
   PLAYER_TIERS,
   buildPackageQuote,
   formatEuro,
+  getPackageTotalExBtw,
   getVanafPrice,
 } from '@/data/pakketten';
 
@@ -73,17 +73,6 @@ const PakkettenPage = () => {
       duration: 4000,
     });
   };
-
-  const mailSubject = quote
-    ? encodeURIComponent(
-        `Offerte ${quote.package.title} – ${quote.tier.label}`
-      )
-    : '';
-  const mailBody = quote
-    ? encodeURIComponent(
-        `Hoi TOF Sports,\n\nIk ben geïnteresseerd in het ${quote.package.title} voor ${quote.tier.label}.\nGeschatte prijs (ex. btw): ${formatEuro(quote.totalExBtw)}\n\nGraag hoor ik van jullie!\n`
-      )
-    : '';
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -231,12 +220,8 @@ const PakkettenPage = () => {
               <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
                 {PLAYER_TIERS.map((tier) => {
                   const selected = tierId === tier.id;
-                  const previewPrice =
-                    packageId &&
-                    formatEuro(
-                      buildPackageQuote(packageId, tier.id)?.totalExBtw ??
-                        getVanafPrice(packageId)
-                    );
+                  const tierPrice =
+                    packageId && formatEuro(getPackageTotalExBtw(packageId, tier.id));
                   return (
                     <button
                       key={tier.id}
@@ -253,7 +238,8 @@ const PakkettenPage = () => {
                           <p className="text-lg font-black text-gray-900">{tier.label}</p>
                           {packageId && (
                             <p className="mt-2 text-sm font-semibold text-[#1B144C]">
-                              Indicatie: {previewPrice} ex. btw
+                              {tierPrice}{' '}
+                              <span className="font-medium text-gray-600">ex. btw</span>
                             </p>
                           )}
                         </div>
@@ -386,28 +372,13 @@ const PakkettenPage = () => {
                       </div>
                     </dl>
 
-                    <p className="mt-4 text-xs text-gray-500">
-                      Indicatieve prijs op basis van plus-formats en jouw jeugdgroep. Neem
-                      contact op voor een definitieve offerte.
-                    </p>
-
-                    <div className="mt-6 flex flex-col gap-3">
+                    <div className="mt-6">
                       <Button
                         onClick={handleAddToCart}
                         className="w-full gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] py-6 font-bold"
                       >
                         <ShoppingCart className="h-5 w-5" />
                         In winkelwagen
-                      </Button>
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full gap-2 rounded-2xl py-6 font-bold"
-                      >
-                        <a href={`mailto:info@tofsports.nl?subject=${mailSubject}&body=${mailBody}`}>
-                          <Mail className="h-5 w-5" />
-                          Vraag offerte aan
-                        </a>
                       </Button>
                     </div>
                   </div>
