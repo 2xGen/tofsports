@@ -77,6 +77,12 @@ const InfoSection = () => {
               <p className="mt-4 max-w-md text-center font-poppins text-sm text-gray-600 md:text-base">
                 Ontwikkeld in samenwerking met trainers en verenigingen
               </p>
+              <a
+                href="/media#tof-warmup-track"
+                className="mt-2 inline-block text-sm font-semibold text-[#1B144C] underline decoration-2 underline-offset-4 transition-colors hover:text-[#3B2F7A]"
+              >
+                Luister de TOF Warm-up Track
+              </a>
             </div>
           </motion.div>
         </div>

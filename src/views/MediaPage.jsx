@@ -48,6 +48,7 @@ const MediaPage = () => {
 
       <div className="container mx-auto max-w-6xl px-4 py-12">
         <motion.section
+          id="tof-warmup-track"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -55,16 +56,36 @@ const MediaPage = () => {
           className="mb-10"
         >
           <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg md:p-8">
-            <div className="flex items-start gap-4">
-              <Images className="mt-0.5 h-8 w-8 shrink-0 text-orange-500" aria-hidden />
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 md:text-2xl">TOF in beeld</h2>
-                <p className="mt-3 text-gray-600 leading-relaxed">
-                  Een selectie van sfeerbeelden van jeugdprogramma&apos;s, formats en materialen op
-                  verenigingen. De galerij wordt aangevuld met nieuwe foto&apos;s.
-                </p>
-              </div>
+            <h3 className="text-xl font-bold text-gray-900 md:text-2xl">Warm-up Track</h3>
+            <p className="mt-2 text-sm text-gray-600 md:text-base">
+              Zet de TOF track aan voor een energieke start van je training.
+            </p>
+            <div className="mt-4 overflow-hidden rounded-xl border border-gray-200">
+              <iframe
+                data-testid="embed-iframe"
+                src="https://open.spotify.com/embed/track/308mknv2rdgHBls1LYhtzW?utm_source=generator"
+                width="100%"
+                height="352"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                title="TOF Sports Warm-up Track"
+                style={{ border: 0 }}
+              />
             </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-6"
+        >
+          <div className="flex items-center gap-3">
+            <Images className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Toffe foto&apos;s</h2>
           </div>
         </motion.section>
 
