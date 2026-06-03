@@ -53,6 +53,8 @@ const products = [
   },
 ];
 
+const MOBILE_STICKY_TOPS = ['top-28', 'top-36', 'top-44'];
+
 const ProductsSection = () => {
 
   return (
@@ -105,12 +107,12 @@ const ProductsSection = () => {
                </div>
             </div>
 
-            {/* LEFT on desktop — full-height sticky package cards */}
-            <div className="order-2 flex flex-col gap-16 md:order-1 md:w-1/2 md:gap-0">
+            {/* LEFT — mobile sticky stack / desktop full-height sticky cards */}
+            <div className="order-2 flex flex-col gap-16 pb-32 md:order-1 md:w-1/2 md:gap-0 md:pb-0">
               {products.map((product, index) => (
                 <div
                   key={product.id}
-                  className="md:min-h-[calc(100dvh-3rem)]"
+                  className={`sticky ${MOBILE_STICKY_TOPS[index]} md:static ${index < products.length - 1 ? 'pb-8 md:pb-0' : ''} md:min-h-[calc(100dvh-3rem)]`}
                   style={{ zIndex: index + 1 }}
                 >
                   <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">

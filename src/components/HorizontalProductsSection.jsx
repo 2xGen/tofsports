@@ -43,6 +43,8 @@ const pillarCards = [
   },
 ];
 
+const MOBILE_STICKY_TOPS = ['top-28', 'top-36', 'top-44'];
+
 const HorizontalProductsSection = () => {
   return (
     <section id="part-waarom" className="relative overflow-visible pb-20 md:pb-32">
@@ -74,12 +76,12 @@ const HorizontalProductsSection = () => {
             </div>
           </div>
 
-          {/* Right on desktop — full-height sticky cards, same top (no stack peek) */}
-          <div className="flex flex-col gap-16 md:w-1/2 md:gap-0">
+          {/* Right — mobile sticky stack / desktop full-height sticky cards */}
+          <div className="flex flex-col gap-16 pb-32 md:w-1/2 md:gap-0 md:pb-0">
             {pillarCards.map((product, index) => (
               <div
                 key={product.id}
-                className="md:min-h-[calc(100dvh-3rem)]"
+                className={`sticky ${MOBILE_STICKY_TOPS[index]} md:static ${index < pillarCards.length - 1 ? 'pb-8 md:pb-0' : ''} md:min-h-[calc(100dvh-3rem)]`}
                 style={{ zIndex: index + 1 }}
               >
                 <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">
