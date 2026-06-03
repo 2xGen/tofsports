@@ -15,6 +15,7 @@ const pillarCards = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/waarom%20tof%20500.jpg',
     imageAlt: 'Jeugd speelt en traint op de club',
+    imageLayout: 'split',
   },
   {
     id: 'betrokkenheid',
@@ -26,6 +27,7 @@ const pillarCards = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/waarom%20tof%20500kb.jpg',
     imageAlt: 'Kinderen zijn actief betrokken bij de club',
+    imageLayout: 'split',
   },
   {
     id: 'voorbereiding',
@@ -37,15 +39,16 @@ const pillarCards = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Waarom%20TOF.jpg',
     imageAlt: 'Trainers gebruiken TOF formats op de vereniging',
+    imageLayout: 'split',
   },
 ];
 
 const HorizontalProductsSection = () => {
   return (
-    <section id="part-waarom" className="relative overflow-visible pb-40">
+    <section id="part-waarom" className="relative overflow-visible pb-20 md:pb-32">
       <div className="absolute inset-0 z-0 bg-gradient-to-tl from-sky-50 via-indigo-50 to-purple-50" />
 
-      <div className="container relative z-10 mx-auto px-4 pt-20">
+      <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
         <div className="relative flex flex-col gap-12 md:flex-row">
           {/* Left on desktop — Waarom TOF Methode (sticky intro) */}
           <div className="md:w-1/2">
@@ -71,21 +74,19 @@ const HorizontalProductsSection = () => {
             </div>
           </div>
 
-          {/* Right on desktop — 3 pillar cards */}
-          <div className="flex flex-col gap-16 pb-32 md:w-1/2 md:gap-24 md:pb-40">
-            {pillarCards.map((product, index) => {
-              const topOffset =
-                index === 0 ? 'top-28' : index === 1 ? 'top-36' : 'top-44';
-              return (
-                <div
-                  key={product.id}
-                  className={`sticky ${topOffset} ${index < pillarCards.length - 1 ? 'pb-8 md:pb-12' : ''}`}
-                  style={{ zIndex: index + 1 }}
-                >
-                  <ProductCard product={product} />
+          {/* Right on desktop — full-height sticky cards, same top (no stack peek) */}
+          <div className="flex flex-col gap-16 md:w-1/2 md:gap-0">
+            {pillarCards.map((product, index) => (
+              <div
+                key={product.id}
+                className="md:min-h-[calc(100dvh-3rem)]"
+                style={{ zIndex: index + 1 }}
+              >
+                <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">
+                  <ProductCard product={{ ...product, fullHeight: true }} />
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>

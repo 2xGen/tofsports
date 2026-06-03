@@ -12,6 +12,8 @@ const DEFAULT_CTA_LINK = '/pakketten';
 const ProductCard = ({ product }) => {
   const linkUrl = product.linkUrl ?? DEFAULT_CTA_LINK;
   const ctaText = product.ctaText ?? DEFAULT_CTA_TEXT;
+  const imageLayout = product.imageLayout ?? 'overlay';
+  const fullHeight = product.fullHeight ?? false;
 
   const ctaButton = (
     <Button
@@ -22,6 +24,57 @@ const ProductCard = ({ product }) => {
       <Link href={linkUrl}>{ctaText}</Link>
     </Button>
   );
+
+  if (product.image && imageLayout === 'split') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-5%' }}
+        className={`w-full ${fullHeight ? 'h-full' : ''}`}
+      >
+        <div
+          className={`relative w-full overflow-hidden rounded-3xl border-4 shadow-2xl transition-transform duration-300 hover:scale-[1.01] ${product.borderColor ?? 'border-white'} ${
+            fullHeight
+              ? 'h-[420px] md:h-[calc(100dvh-9rem)]'
+              : 'min-h-[420px] md:min-h-[480px]'
+          }`}
+        >
+          <div className="absolute inset-0 overflow-hidden">
+            <Image
+              src={product.image}
+              alt={product.imageAlt ?? product.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={`object-cover ${product.imagePositionClass ?? ''}`}
+              style={
+                product.imageObjectPosition
+                  ? { objectPosition: product.imageObjectPosition }
+                  : undefined
+              }
+              quality={85}
+            />
+          </div>
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"
+            aria-hidden
+          />
+          <div className={`absolute inset-x-0 bottom-0 ${product.color} p-5 md:p-6`}>
+            <h3 className="text-xl font-black tracking-tight text-white md:text-2xl">
+              {product.title}
+            </h3>
+            <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
+              {product.description}
+            </p>
+            {product.showCta !== false && (
+              <div className="mt-4 shrink-0 md:mt-5">{ctaButton}</div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   if (product.image) {
     return (

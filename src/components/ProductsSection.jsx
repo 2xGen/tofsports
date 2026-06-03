@@ -17,6 +17,9 @@ const products = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20pakket.jpg',
     imageAlt: 'TOF Tennispakket op de tennisclub',
+    imageObjectPosition: 'center 40%',
+    imagePositionClass: 'scale-[1.2] -translate-y-[12%]',
+    imageLayout: 'split',
     linkUrl: '/pakketten',
     ctaText: 'Bekijk de pakketten',
   },
@@ -30,6 +33,7 @@ const products = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Padel%20pakket.jpg',
     imageAlt: 'TOF Padelpakket op de padelclub',
+    imageLayout: 'split',
     linkUrl: '/pakketten',
     ctaText: 'Bekijk de pakketten',
   },
@@ -43,6 +47,7 @@ const products = [
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
     imageAlt: 'TOF Combi-pakket voor tennis en padel',
+    imageLayout: 'split',
     linkUrl: '/pakketten',
     ctaText: 'Bekijk de pakketten',
   },
@@ -51,7 +56,7 @@ const products = [
 const ProductsSection = () => {
 
   return (
-    <section id="part3" className="relative pb-40 overflow-visible">
+    <section id="part3" className="relative overflow-visible pb-20 md:pb-32">
       {/* Vibrant Friendly Background */}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50"
            style={{ 
@@ -63,12 +68,12 @@ const ProductsSection = () => {
            }}>
       </div>
       
-      <div className="container mx-auto px-4 pt-20 relative z-10">
-         <div className="flex flex-col md:flex-row gap-12 relative">
+      <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
+         <div className="relative flex flex-col gap-12 md:flex-row">
             
             {/* RIGHT on desktop — Sticky intro (first on mobile) */}
             <div className="order-1 md:order-2 md:w-1/2">
-               <div className="sticky top-32 pb-20">
+               <div className="sticky top-28 pb-20 md:top-32">
                  <motion.div 
                    initial={{ opacity: 0, y: 20 }}
                    whileInView={{ opacity: 1, y: 0 }}
@@ -100,21 +105,19 @@ const ProductsSection = () => {
                </div>
             </div>
 
-            {/* LEFT on desktop — Stacking package cards */}
-            <div className="order-2 md:order-1 md:w-1/2 flex flex-col gap-16 pb-32 md:gap-24 md:pb-40">
-              {products.map((product, index) => {
-                const topOffset =
-                  index === 0 ? 'top-28' : index === 1 ? 'top-36' : 'top-44';
-                return (
-                  <div
-                    key={product.id}
-                    className={`sticky ${topOffset} ${index < products.length - 1 ? 'pb-8 md:pb-12' : ''}`}
-                    style={{ zIndex: index + 1 }}
-                  >
-                    <ProductCard product={product} />
+            {/* LEFT on desktop — full-height sticky package cards */}
+            <div className="order-2 flex flex-col gap-16 md:order-1 md:w-1/2 md:gap-0">
+              {products.map((product, index) => (
+                <div
+                  key={product.id}
+                  className="md:min-h-[calc(100dvh-3rem)]"
+                  style={{ zIndex: index + 1 }}
+                >
+                  <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">
+                    <ProductCard product={{ ...product, fullHeight: true }} />
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
 
          </div>
