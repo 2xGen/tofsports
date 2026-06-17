@@ -1,16 +1,11 @@
-import { Suspense } from 'react';
-import WebshopPage from '@/views/WebshopPage';
+import WebshopRedirect from '@/components/producten/WebshopRedirect';
 
 export const metadata = {
   title: 'Webshop - TOF Sports',
-  description: 'Bekijk onze volledige collectie tennis en padel materialen. Alles voor jouw sportclub bij TOF Sports.',
+  description: 'Bestel losse tennis- en padelformats bij TOF Sports.',
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {
-  return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Laden...</div>}>
-      <WebshopPage />
-    </Suspense>
-  );
+  return <WebshopRedirect />;
 }
-

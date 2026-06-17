@@ -4,7 +4,7 @@ import PakkettenPage from '@/views/PakkettenPage';
 export const metadata = {
   title: 'Pakketten - TOF Sports',
   description:
-    'Stel het TOF jeugdpakket samen voor jouw tennis- of padelclub. Tennispakket, Padelpakket of Combi-pakket — prijs op maat naar aantal jeugdspelers.',
+    'Stel het TOF jeugdpakket samen voor jouw tennis- of padelclub. Tennispakket, padelpakket of tennis- en padelpakket — prijs op maat naar aantal jeugdspelers.',
 };
 
 export default function Page() {

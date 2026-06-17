@@ -1,9 +1,20 @@
+import { getAllGuideSlugs } from '@/data/kennisbankGuides';
+
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tofsports.nl';
-const LAST_MOD = new Date('2026-02-13');
+const LAST_MOD = new Date('2026-06-16');
 
 export default function sitemap() {
   const routes = [
     { path: '', changeFrequency: 'weekly', priority: 1 },
+    { path: '/kennisbank', changeFrequency: 'weekly', priority: 0.9 },
+    ...getAllGuideSlugs().map((slug) => ({
+      path: `/kennisbank/${slug}`,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    })),
+    { path: '/over-tof', changeFrequency: 'monthly', priority: 0.95 },
+    { path: '/producten', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/pakketten', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/contact', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/tof-methode', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/tof-score', changeFrequency: 'monthly', priority: 0.9 },

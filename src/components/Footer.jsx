@@ -59,28 +59,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/webshop" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Webshop
+                <Link href="/over-tof" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Over TOF
                 </Link>
               </li>
               <li>
-                <Link href="/knltb" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  KNLTB
-                </Link>
-              </li>
-              <li>
-                <Link href="/missie-visie" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Visie & Missie
-                </Link>
-              </li>
-              <li>
-                <Link href="/tof-score" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  TOF Score
-                </Link>
-              </li>
-              <li>
-                <Link href="/handboek" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Speluitleg
+                <Link href="/producten" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Producten
                 </Link>
               </li>
               <li>
@@ -100,6 +85,11 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">TOF Methode</h3>
             <ul className="space-y-2">
+              <li>
+                <Link href="/tof-methode" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
+                  Over de methode
+                </Link>
+              </li>
               <li>
                 <Link href="/spelen" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   Spelen

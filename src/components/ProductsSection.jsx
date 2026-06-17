@@ -39,14 +39,14 @@ const products = [
   },
   {
     id: 'combi',
-    title: 'Combi-pakket',
+    title: 'Tennis- en padelpakket',
     description:
       'Voor verenigingen met zowel tennis als padel. De complete oplossing met alle formats en een gedeeld systeem voor de hele club.',
     color: 'bg-emerald-600',
     borderColor: 'border-emerald-600',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
-    imageAlt: 'TOF Combi-pakket voor tennis en padel',
+    imageAlt: 'TOF Tennis- en padelpakket',
     imageLayout: 'split',
     linkUrl: '/pakketten',
     ctaText: 'Bekijk de pakketten',

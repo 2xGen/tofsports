@@ -3,11 +3,17 @@
 import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Images, X } from 'lucide-react';
+import { Images, PlayCircle, X } from 'lucide-react';
 import PageHero, { PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
 import MediaGalleryItem, { MediaSpinner } from '@/components/MediaGalleryItem';
+import ProductVideo from '@/components/ProductVideo';
 import { getPageHeroImage } from '@/data/heroSlides';
 import { mediaItems } from '@/data/media';
+import { allProducts } from '@/data/products';
+
+const CATEGORY_LABELS = { tennis: 'Tennis', padel: 'Padel' };
+
+const productVideos = allProducts.filter((product) => product.videoUrl);
 
 const MediaPage = () => {
   const [lightboxItem, setLightboxItem] = useState(null);
@@ -75,6 +81,40 @@ const MediaPage = () => {
             </div>
           </div>
         </motion.section>
+
+        {productVideos.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            <div className="mb-6 flex items-center gap-3">
+              <PlayCircle className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
+              <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Formats in beeld</h2>
+            </div>
+            <p className="mb-6 max-w-2xl text-sm text-gray-600 md:text-base">
+              Bekijk hoe onze tennis- en padelformats werken op de club. Klik op een video om te spelen.
+            </p>
+            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {productVideos.map((product) => (
+                <li
+                  key={`${product.category}-${product.id}`}
+                  className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
+                >
+                  <ProductVideo videoUrl={product.videoUrl} title={product.name} />
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
+                    <p className="mt-0.5 text-sm font-medium text-orange-600">
+                      {CATEGORY_LABELS[product.category] || product.category}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.section>
+        )}
 
         <motion.section
           initial={{ opacity: 0, y: 24 }}

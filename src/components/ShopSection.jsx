@@ -6,31 +6,40 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { allProducts } from '@/data/products';
+
+const formatEuro = (amount) =>
+  new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+
+const getDisplayPrice = (pricing) => {
+  if (!pricing) return null;
+  if (pricing.type === 'fixed-bundle') return formatEuro(pricing.price);
+  if (pricing.type === 'poster-buttons-optional') return formatEuro(pricing.posterPrice);
+  if (pricing.type === 'poster-wizard') return formatEuro(pricing.posterPrice);
+  return null;
+};
 
 const ShopSection = () => {
-  const items = [
-    {
-      id: 1,
-      name: "PIRAMIDE TENNIS",
-      price: "€79,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2021-1.png",
-      link: "/webshop?category=tennis"
-    },
-    {
-      id: 2,
-      name: "4 OP EEN RIJ",
-      price: "€84,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%204%20OP%201%20RIJ-1.png",
-      link: "/webshop?category=tennis"
-    },
-    {
-      id: 3,
-      name: "PADEL PIRAMIDE",
-      price: "€79,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2021-1.png",
-      link: "/webshop?category=padel"
-    }
+  const featuredItemConfigs = [
+    { id: 'piramide', link: '/webshop?category=tennis' },
+    { id: '4opeenrij', link: '/webshop?category=tennis' },
+    { id: 'padel-piramide', link: '/webshop?category=padel' },
   ];
+
+  const items = featuredItemConfigs
+    .map(({ id, link }) => {
+      const product = allProducts.find((entry) => entry.id === id);
+      if (!product) return null;
+
+      return {
+        id: product.id,
+        name: product.name,
+        price: getDisplayPrice(product.pricing),
+        image: product.image,
+        link,
+      };
+    })
+    .filter(Boolean);
 
   return (
     <section className="relative py-24">
@@ -91,7 +100,7 @@ const ShopSection = () => {
                     </Button>
                  </div>
                  <h3 className="font-bold text-xl text-gray-900">{item.name}</h3>
-                 <p className="text-blue-600 font-semibold">{item.price}</p>
+                 {item.price && <p className="text-blue-600 font-semibold">{item.price}</p>}
                </motion.div>
              </Link>
           ))}

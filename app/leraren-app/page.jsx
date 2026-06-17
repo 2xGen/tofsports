@@ -1,11 +1,10 @@
-import LerarenAppPage from '@/views/LerarenAppPage';
+import OverTofSectionRedirect from '@/components/overTof/OverTofSectionRedirect';
 
 export const metadata = {
-  title: 'De Leraren App - TOF Sports',
-  description: 'Een complete digitale assistent voor tenniscoaches met lesplannen, oefeningen en voortgangsregistratie.',
+  title: 'Leraren-app - TOF Sports',
+  robots: { index: false, follow: true },
 };
 
-export default function LerarenApp() {
-  return <LerarenAppPage />;
+export default function Page() {
+  return <OverTofSectionRedirect sectionId="leraren-app" />;
 }
-

@@ -1,11 +1,10 @@
-import MagneetpostersPage from '@/views/MagneetpostersPage';
+import OverTofSectionRedirect from '@/components/overTof/OverTofSectionRedirect';
 
 export const metadata = {
   title: 'Magneetposters - TOF Sports',
-  description: 'Grootformaat magneetposters (60x90 cm) voor tennis- en padel-formats. Snel wisselbaar op een (rijdend) whiteboard voor professionele toernooi-organisatie.',
+  robots: { index: false, follow: true },
 };
 
 export default function Page() {
-  return <MagneetpostersPage />;
+  return <OverTofSectionRedirect sectionId="magneetposters" />;
 }
-

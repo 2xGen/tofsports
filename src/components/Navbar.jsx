@@ -4,136 +4,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Instagram, Facebook, ShoppingCart, ChevronDown } from 'lucide-react';
+import { Menu, X, Instagram, Facebook, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { isOverTofPath, isProductenPath } from '@/data/hubPages';
 
-const OVER_TOF_LINKS = [
-  { href: '/missie-visie', label: 'Visie & Missie' },
-  { href: '/knltb', label: 'KNLTB' },
-  { href: '/tof-methode', label: 'TOF Methode' },
-  { href: '/tof-score', label: 'TOF Score' },
-  { href: '/magneetposters', label: 'Magneetposters' },
-  { href: '/leraren-app', label: 'Leraren-app' },
-];
-
-const PRODUCTEN_LINKS = [
-  { href: '/pakketten', label: 'Clubpakketten' },
-  { href: '/handboek', label: 'Speluitleg' },
-  { href: '/webshop', label: 'Losse formats' },
-];
-
-const topNavLinkClass = (pathname, href) =>
+const topNavLinkClass = (pathname, href, isActive) =>
   `text-sm font-medium transition-colors ${
-    pathname === href || pathname.startsWith(`${href}/`)
+    isActive ?? (pathname === href || pathname.startsWith(`${href}/`))
       ? 'text-orange-600'
       : 'text-gray-700 hover:text-orange-600'
   }`;
 
-const linkClass = (active) =>
-  `block px-4 py-2.5 text-sm transition-colors ${
-    active ? 'bg-orange-50 text-orange-600 font-medium' : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
-  }`;
-
-const NavDropdown = ({ label, links, pathname, isOpen, onOpen, onClose }) => {
-  const isGroupActive = links.some(
-    (l) => pathname === l.href || pathname.startsWith(`${l.href}/`)
-  );
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={onOpen}
-      onMouseLeave={onClose}
-    >
-      <button
-        type="button"
-        className={`flex items-center gap-1 text-sm font-medium transition-colors ${
-          isGroupActive || isOpen ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
-        }`}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-        onClick={() => (isOpen ? onClose() : onOpen())}
-      >
-        {label}
-        <ChevronDown
-          className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          aria-hidden
-        />
-      </button>
-
-      {isOpen && (
-        <div className="absolute left-0 top-full z-50 min-w-[220px] pt-2">
-          <div className="overflow-hidden rounded-xl border border-gray-100 bg-white py-1 shadow-lg">
-            {links.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={linkClass(active)}
-                  onClick={onClose}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const MobileNavGroup = ({ label, links, pathname, isExpanded, onToggle, onNavigate }) => {
-  const isGroupActive = links.some(
-    (l) => pathname === l.href || pathname.startsWith(`${l.href}/`)
-  );
-
-  return (
-    <div className="border-b border-gray-100 last:border-0">
-      <button
-        type="button"
-        onClick={onToggle}
-        className={`flex w-full items-center justify-between py-3 text-base font-medium ${
-          isGroupActive ? 'text-orange-600' : 'text-gray-800'
-        }`}
-        aria-expanded={isExpanded}
-      >
-        {label}
-        <ChevronDown
-          className={`h-5 w-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-          aria-hidden
-        />
-      </button>
-      {isExpanded && (
-        <div className="space-y-1 pb-3 pl-3">
-          {links.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={onNavigate}
-                className={`block rounded-lg py-2 pl-3 text-sm font-medium ${
-                  active ? 'text-orange-600 bg-orange-50' : 'text-gray-600 hover:text-orange-600'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-};
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [mobileExpanded, setMobileExpanded] = useState(null);
   const pathname = usePathname();
   const { getCartCount, isLoaded } = useCart();
   const menuRef = useRef(null);
@@ -142,8 +25,6 @@ const Navbar = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
-    setOpenDropdown(null);
-    setMobileExpanded(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -155,10 +36,7 @@ const Navbar = () => {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isMenuOpen]);
 
-  const closeMobile = () => {
-    setIsMenuOpen(false);
-    setMobileExpanded(null);
-  };
+  const closeMobile = () => setIsMenuOpen(false);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
@@ -189,23 +67,19 @@ const Navbar = () => {
                 Home
               </Link>
 
-              <NavDropdown
-                label="Over TOF"
-                links={OVER_TOF_LINKS}
-                pathname={pathname}
-                isOpen={openDropdown === 'over-tof'}
-                onOpen={() => setOpenDropdown('over-tof')}
-                onClose={() => setOpenDropdown(null)}
-              />
+              <Link
+                href="/over-tof"
+                className={topNavLinkClass(pathname, '/over-tof', isOverTofPath(pathname))}
+              >
+                Over TOF
+              </Link>
 
-              <NavDropdown
-                label="Producten"
-                links={PRODUCTEN_LINKS}
-                pathname={pathname}
-                isOpen={openDropdown === 'producten'}
-                onOpen={() => setOpenDropdown('producten')}
-                onClose={() => setOpenDropdown(null)}
-              />
+              <Link
+                href="/producten"
+                className={topNavLinkClass(pathname, '/producten', isProductenPath(pathname))}
+              >
+                Producten
+              </Link>
 
               <Link href="/kennisbank" className={topNavLinkClass(pathname, '/kennisbank')}>
                 Kennisbank
@@ -288,27 +162,25 @@ const Navbar = () => {
                 Home
               </Link>
 
-              <MobileNavGroup
-                label="Over TOF"
-                links={OVER_TOF_LINKS}
-                pathname={pathname}
-                isExpanded={mobileExpanded === 'over-tof'}
-                onToggle={() =>
-                  setMobileExpanded((v) => (v === 'over-tof' ? null : 'over-tof'))
-                }
-                onNavigate={closeMobile}
-              />
+              <Link
+                href="/over-tof"
+                onClick={closeMobile}
+                className={`block border-b border-gray-100 py-3 text-base font-medium ${
+                  isOverTofPath(pathname) ? 'text-orange-600' : 'text-gray-800'
+                }`}
+              >
+                Over TOF
+              </Link>
 
-              <MobileNavGroup
-                label="Producten"
-                links={PRODUCTEN_LINKS}
-                pathname={pathname}
-                isExpanded={mobileExpanded === 'producten'}
-                onToggle={() =>
-                  setMobileExpanded((v) => (v === 'producten' ? null : 'producten'))
-                }
-                onNavigate={closeMobile}
-              />
+              <Link
+                href="/producten"
+                onClick={closeMobile}
+                className={`block border-b border-gray-100 py-3 text-base font-medium ${
+                  isProductenPath(pathname) ? 'text-orange-600' : 'text-gray-800'
+                }`}
+              >
+                Producten
+              </Link>
 
               <Link
                 href="/kennisbank"

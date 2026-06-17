@@ -3,13 +3,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { ChevronDown, Play, X } from 'lucide-react';
 
-import { HERO_SLIDES, HERO_WAVE_PATH } from '@/data/heroSlides';
+import { HERO_SLIDES, HERO_TAGLINES, HERO_WAVE_PATH } from '@/data/heroSlides';
 
 const HERO_SLIDE_INTERVAL_MS = 5000;
 const HERO_SLIDE_FADE_MS = 1000;
+const HERO_VIDEO_ID = 'i0TLJmyMUeM';
 
 /** Shown immediately while slideshow images load (same as first slide) */
 const HERO_PLACEHOLDER = HERO_SLIDES[0];
@@ -17,8 +18,7 @@ const HERO_PLACEHOLDER = HERO_SLIDES[0];
 const HERO_LOGO_SRC =
   'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20logo%20wit.svg';
 
-const HeroBackgroundSlideshow = ({ scale }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const HeroBackgroundSlideshow = ({ scale, activeIndex, onActiveIndexChange }) => {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [loadedSlides, setLoadedSlides] = useState(() => new Set());
 
@@ -53,11 +53,11 @@ const HeroBackgroundSlideshow = ({ scale }) => {
     if (reduceMotion || HERO_SLIDES.length <= 1) return undefined;
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % HERO_SLIDES.length);
+      onActiveIndexChange((current) => (current + 1) % HERO_SLIDES.length);
     }, HERO_SLIDE_INTERVAL_MS);
 
     return () => window.clearInterval(timer);
-  }, [reduceMotion]);
+  }, [reduceMotion, onActiveIndexChange]);
 
   const isSlideVisible = (index) =>
     index === activeIndex && loadedSlides.has(index);
@@ -104,7 +104,18 @@ const HeroBackgroundSlideshow = ({ scale }) => {
 };
 
 const HeroSection = () => {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!isVideoOpen) return undefined;
+    const handleKey = (e) => {
+      if (e.key === 'Escape') setIsVideoOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isVideoOpen]);
   const { scrollYProgress: heroScrollProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"]
@@ -113,10 +124,15 @@ const HeroSection = () => {
   const heroInView = useInView(sectionRef, { once: false, amount: 0.3 });
   const { scrollYProgress } = useScroll();
   const bgScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
+  const activeTaglineIndex = activeSlideIndex % HERO_TAGLINES.length;
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10 md:pb-8">
-      <HeroBackgroundSlideshow scale={bgScale} />
+      <HeroBackgroundSlideshow
+        scale={bgScale}
+        activeIndex={activeSlideIndex}
+        onActiveIndexChange={setActiveSlideIndex}
+      />
 
       {/* Overlay — keeps title and description readable */}
       <div
@@ -124,8 +140,8 @@ const HeroSection = () => {
         aria-hidden
       />
 
-      <div className="container mx-auto px-4 relative z-30 -mt-16 md:-mt-8">
-        <div className="flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
+      <div className="container mx-auto px-4 relative z-30 -mt-14 md:-mt-6">
+        <div className="flex flex-col items-center justify-center text-center space-y-3 md:space-y-4">
           <motion.div
             initial={{ opacity: 0, y: -100 }}
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
@@ -167,16 +183,89 @@ const HeroSection = () => {
             Sports
           </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg md:text-2xl text-white/95 drop-shadow-sm relative z-30 max-w-3xl mx-auto leading-relaxed font-medium px-2"
+          <div
+            className="relative z-30 mx-auto w-full max-w-3xl px-2 min-h-[3.75rem] md:min-h-[4.25rem]"
+            aria-live="polite"
           >
-            Zet jouw jeugdprogramma direct op scherp.
-          </motion.p>
+            {HERO_TAGLINES.map((tagline, index) => (
+              <p
+                key={tagline}
+                className="absolute inset-x-2 top-0 text-lg md:text-2xl text-white/95 drop-shadow-sm leading-relaxed font-medium transition-opacity ease-in-out"
+                style={{
+                  opacity: index === activeTaglineIndex ? 1 : 0,
+                  transitionDuration: `${HERO_SLIDE_FADE_MS}ms`,
+                }}
+              >
+                {tagline}
+              </p>
+            ))}
+          </div>
+
+          <motion.button
+            type="button"
+            onClick={() => setIsVideoOpen(true)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="group relative z-30 inline-flex items-center gap-3 rounded-full bg-white/95 px-6 py-3 font-bold text-gray-900 shadow-lg backdrop-blur transition hover:bg-white"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 text-white transition-transform duration-300 group-hover:scale-110">
+              <Play className="ml-0.5 h-4 w-4 fill-white" />
+            </span>
+            Bekijk video
+          </motion.button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isVideoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
+            onClick={() => setIsVideoOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsVideoOpen(false);
+              }}
+              className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+              aria-label="Sluiten"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="flex w-full max-w-5xl flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative aspect-video w-full">
+                <iframe
+                  className="absolute inset-0 h-full w-full rounded-xl"
+                  src={`https://www.youtube-nocookie.com/embed/${HERO_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+                  title="TOF Sports video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <Link
+                href="/producten"
+                onClick={() => setIsVideoOpen(false)}
+                className="group mt-5 inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 font-bold text-white shadow-lg transition hover:bg-orange-600"
+              >
+                Bekijk onze producten
+                <ChevronDown className="h-5 w-5 -rotate-90 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Floating Tennis Ball - bounceInLeft with scroll motion */}
       <motion.div

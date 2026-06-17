@@ -2,8 +2,8 @@ import KennisbankPage from '@/views/KennisbankPage';
 
 export const metadata = {
   title: 'Kennisbank - TOF Sports',
-  description:
-    'Gidsen, tips en praktische kennis over de TOF Methode, jeugdprogramma\'s en speelmomenten op de vereniging.',
+    description:
+      'Gidsen en praktische kennis voor jeugdprogramma\'s, speelmomenten en betrokkenheid op tennis- en padelverenigingen.',
   openGraph: {
     title: 'Kennisbank - TOF Sports',
     description:

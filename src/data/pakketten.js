@@ -1,98 +1,93 @@
 import { getProductById } from '@/data/products';
 import { getProductThumbnailSrc } from '@/lib/productImage';
 
-export const PLAYER_TIERS = [
+/** Jeugdgroep voor button-schatting en posteradvies */
+export const YOUTH_TIERS = [
   {
-    id: 'tier-20',
-    label: 'Tot 20 jeugdspelers',
-    shortLabel: '≤ 20',
-    min: 1,
-    max: 20,
+    id: 'youth-50',
+    label: 'Tot 50 jeugdspelers',
+    shortLabel: '≤ 50',
+    playerCount: 50,
   },
   {
-    id: 'tier-30',
-    label: '21–30 jeugdspelers',
-    shortLabel: '21–30',
-    min: 21,
-    max: 30,
+    id: 'youth-100',
+    label: 'Tot 100 jeugdspelers',
+    shortLabel: '≤ 100',
+    playerCount: 100,
   },
   {
-    id: 'tier-40',
-    label: '31–40 jeugdspelers',
-    shortLabel: '31–40',
-    min: 31,
-    max: 40,
-  },
-  {
-    id: 'tier-55',
-    label: '41–55 jeugdspelers',
-    shortLabel: '41–55',
-    min: 41,
-    max: 55,
+    id: 'youth-100plus',
+    label: 'Meer dan 100 jeugdspelers',
+    shortLabel: '100+',
+    playerCount: 125,
   },
 ];
 
-const TIER_ORDER = PLAYER_TIERS.map((t) => t.id);
+/** Postergrootte (spelers per magneetposter) */
+export const POSTER_SIZE_TIERS = [
+  { id: 'tier-21', label: 'Tot en met 21 spelers', maxPlayers: 21 },
+  { id: 'tier-36', label: 'Tot en met 36 spelers', maxPlayers: 36 },
+  { id: 'tier-55', label: 'Tot en met 55 spelers', maxPlayers: 55 },
+];
 
-/** Plus-prijs per format (stift + stiftremover inbegrepen waar van toepassing) */
-export function getFormatUnitPrice(format) {
-  const { packages } = format;
-  if (packages.plus) return packages.plus.price;
-  if (packages.standard) return packages.standard.price;
-  if (packages.basis) return packages.basis.price;
-  return 0;
-}
+export const PACKAGE_LEVELS = [
+  { id: 'basis', label: 'Basis', description: 'TOF Score poster, Swirl en Piramide' },
+  { id: 'plus', label: 'Plus', description: 'Basis + extra format + magneetbord 60×90 cm' },
+  { id: 'compleet', label: 'Compleet', description: 'Plus + alle formats voor jouw sport' },
+];
 
-export function getFormatIndexForTier(product, tierId) {
-  const { formats } = product;
-  const tierIdx = TIER_ORDER.indexOf(tierId);
-  if (formats.length === 1) return 0;
-  if (formats.length === 2) return tierIdx >= 1 ? 1 : 0;
-  if (tierIdx <= 0) return 0;
-  if (tierIdx === 1) return 1;
-  return 2;
-}
+export const LEVEL_PRICES = {
+  basis: 295,
+  plus: 445,
+  compleet: 595,
+};
 
-export function getFormatForTier(productId, tierId) {
-  const product = getProductById(productId);
-  if (!product?.formats?.length) return null;
-  const index = getFormatIndexForTier(product, tierId);
-  const format = product.formats[Math.min(index, product.formats.length - 1)];
-  return {
-    product,
-    format,
-    price: getFormatUnitPrice(format),
-    packageLabel:
-      format.packages.plus?.label ||
-      format.packages.standard?.label ||
-      format.packages.basis?.label,
-  };
-}
+export const COMBI_DISCOUNT = 0.1;
 
-const BUNDLE_ITEMS = {
-  matrix: {
-    name: 'Ontwikkelingsmatrix',
-    description: 'Matrix voor jeugdstructuur en niveau-indeling',
+export const BUTTON_PACK_SIZE = 10;
+export const BUTTON_PRICE_PER_PACK = 15;
+
+const PACKAGE_PRODUCTS = {
+  tennis: {
+    basis: ['scoreboard', 'swirl', 'piramide'],
+    plus: ['scoreboard', 'swirl', 'piramide', '4opeenrij'],
+    compleet: ['scoreboard', 'swirl', 'piramide', '4opeenrij', 'kraak-de-code', 'davis'],
   },
-  tofScorePoster: {
-    name: 'TOF Score poster',
-    description: 'Zichtbaar scoresysteem voor op de club',
-  },
-  whiteboard: {
-    name: 'Whiteboard',
-    description: 'Rijdbaar whiteboard voor formats op de baan',
-    includedValue: 150,
-  },
-  whiteboardShared: {
-    name: 'Gedeeld whiteboard',
-    description: 'Eén whiteboard voor tennis én padel op de club',
-    includedValue: 150,
-  },
-  app: {
-    name: 'Leraren-app (1 jaar)',
-    description: 'Digitale ondersteuning voor trainers',
+  padel: {
+    basis: ['padel-scoreboard', 'padel-swirl', 'padel-piramide'],
+    plus: ['padel-scoreboard', 'padel-swirl', 'padel-piramide', 'uno-dos-tres-cuatro'],
+    compleet: [
+      'padel-scoreboard',
+      'padel-swirl',
+      'padel-piramide',
+      'uno-dos-tres-cuatro',
+      'unlock-the-code',
+      'padel-club-clash',
+    ],
   },
 };
+
+const BUNDLE_ITEMS = {
+  whiteboard: {
+    name: 'Magneetbord 60×90 cm',
+    description: 'Met opklapbare poten',
+  },
+  kennisSessies: {
+    name: '4 online kennissessies',
+    description: 'Begeleiding bij de start op jouw club',
+  },
+  tofScoreApp: {
+    name: 'TOF Score app (1 jaar)',
+    description: 'Digitaal scoresysteem voor trainers en spelers',
+  },
+  verzending: {
+    name: 'Verzending',
+    description: 'Inbegrepen bij elk pakket',
+  },
+};
+
+/** @deprecated — gebruik YOUTH_TIERS */
+export const PLAYER_TIERS = YOUTH_TIERS;
 
 export const MAIN_PACKAGES = [
   {
@@ -100,149 +95,264 @@ export const MAIN_PACKAGES = [
     title: 'Tennispakket',
     subtitle: 'Voor tennisverenigingen',
     description:
-      '4 tennisformats, matrix, TOF Score poster, whiteboard en 1 jaar leraren-app. Plug & Play voor je hele tennisjeugd.',
-    vanafPrice: 545,
+      'Kies Basis, Plus of Compleet. Inclusief TOF Score, formats op maat, 4 kennissessies en 1 jaar app-toegang. Verzending inbegrepen.',
+    vanafPrice: LEVEL_PRICES.basis,
     color: 'from-sky-500 to-blue-600',
     borderColor: 'border-sky-500',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20pakket.jpg',
-    formatProductIds: ['piramide', 'davis', '4opeenrij', 'kraak-de-code'],
-    bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboard', 'app'],
-    tierPrices: {
-      'tier-20': 545,
-      'tier-30': 585,
-      'tier-40': 615,
-      'tier-55': 615,
-    },
+    sport: 'tennis',
   },
   {
     id: 'padel',
     title: 'Padelpakket',
     subtitle: 'Voor padelverenigingen',
     description:
-      '4 padelformats, matrix, TOF Score poster, whiteboard en 1 jaar leraren-app. Direct inzetbaar op je padelclub.',
-    vanafPrice: 545,
+      'Kies Basis, Plus of Compleet. Inclusief TOF Score, formats op maat, 4 kennissessies en 1 jaar app-toegang. Verzending inbegrepen.',
+    vanafPrice: LEVEL_PRICES.basis,
     color: 'from-orange-500 to-amber-600',
     borderColor: 'border-orange-500',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Padel%20pakket.jpg',
-    formatProductIds: ['padel-piramide', 'padel-club-clash', 'uno-dos-tres-cuatro', 'unlock-the-code'],
-    bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboard', 'app'],
-    tierPrices: {
-      'tier-20': 545,
-      'tier-30': 585,
-      'tier-40': 615,
-      'tier-55': 615,
-    },
+    sport: 'padel',
   },
   {
     id: 'combi',
-    title: 'Combi-pakket',
-    subtitle: 'Superdeal voor combinatieclubs',
+    title: 'Tennis- en padelpakket',
+    subtitle: 'Voor clubs met tennis én padel',
     description:
-      'Alle 8 formats, matrix, TOF Score poster, één gedeeld whiteboard en 1 jaar leraren-app. De complete cluboplossing.',
-    vanafPrice: 695,
+      'Kies per sport Basis, Plus of Compleet. 10% voordeel op het gecombineerde totaal. Inclusief kennissessies, app en verzending.',
+    vanafPrice: Math.round((LEVEL_PRICES.basis * 2) * (1 - COMBI_DISCOUNT)),
     badge: 'Meest compleet',
     color: 'from-emerald-500 to-teal-600',
     borderColor: 'border-emerald-600',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
-    formatProductIds: [
-      'piramide',
-      'davis',
-      '4opeenrij',
-      'kraak-de-code',
-      'padel-piramide',
-      'padel-club-clash',
-      'uno-dos-tres-cuatro',
-      'unlock-the-code',
-    ],
-    bundleItemKeys: ['matrix', 'tofScorePoster', 'whiteboardShared', 'app'],
-    /** Combi: 8 formats + clubpakket — vanaf €695; meerprijs bij grotere jeugdgroepen */
-    tierPrices: {
-      'tier-20': 695,
-      'tier-30': 735,
-      'tier-40': 765,
-      'tier-55': 765,
-    },
-    /** Vaste waarde clubpakket in prijsopbouw (o.a. whiteboard-bonus) */
-    bundleExtrasPrice: 150,
+    sport: 'combi',
   },
 ];
 
-function sumFormatPrices(packageConfig, tierId) {
-  return packageConfig.formatProductIds.reduce((sum, productId) => {
-    const row = getFormatForTier(productId, tierId);
-    return sum + (row?.price ?? 0);
-  }, 0);
-}
-
-/** Vaste pakketprijs per jeugdgroep (ex. btw) */
-export function getPackageTotalExBtw(packageId, tierId) {
-  const config = MAIN_PACKAGES.find((p) => p.id === packageId);
-  if (!config) return 0;
-  return config.tierPrices?.[tierId] ?? config.vanafPrice;
-}
-
-/** Clubpakket-deel voor weergave in samenvatting (matrix, poster, whiteboard, app) */
-function getBundleExtrasPrice(packageConfig) {
-  if (packageConfig.bundleExtrasPrice != null) {
-    return packageConfig.bundleExtrasPrice;
+export function getPackageProductIds(packageId, { tennisLevelId, padelLevelId } = {}) {
+  if (packageId === 'combi') {
+    const tennis = PACKAGE_PRODUCTS.tennis[tennisLevelId] ?? [];
+    const padel = PACKAGE_PRODUCTS.padel[padelLevelId] ?? [];
+    return [...tennis, ...padel];
   }
-  const formatTotalAtBase = sumFormatPrices(packageConfig, 'tier-20');
-  const derived = packageConfig.vanafPrice - formatTotalAtBase;
-  return Math.max(0, Math.round(derived * 100) / 100);
+  const sport = packageId === 'padel' ? 'padel' : 'tennis';
+  const levelId = sport === 'tennis' ? tennisLevelId : padelLevelId;
+  return PACKAGE_PRODUCTS[sport][levelId] ?? [];
 }
 
-export function buildPackageQuote(packageId, tierId) {
-  const config = MAIN_PACKAGES.find((p) => p.id === packageId);
-  const tier = PLAYER_TIERS.find((t) => t.id === tierId);
-  if (!config || !tier) return null;
+export function getCombiLevelPrice(tennisLevelId, padelLevelId) {
+  const tennis = LEVEL_PRICES[tennisLevelId] ?? 0;
+  const padel = LEVEL_PRICES[padelLevelId] ?? 0;
+  return Math.round((tennis + padel) * (1 - COMBI_DISCOUNT));
+}
 
-  const formatLines = config.formatProductIds.map((productId) => {
-    const row = getFormatForTier(productId, tierId);
-    if (!row) return null;
-    return {
-      productId,
-      name: row.product.name,
-      formatName: row.format.name,
-      players: row.format.players,
-      image: row.format.image,
-      thumbnail: getProductThumbnailSrc(row.format.image),
-      price: row.price,
-      packageLabel: row.packageLabel,
-    };
-  }).filter(Boolean);
-
-  const totalExBtw = getPackageTotalExBtw(packageId, tierId);
-  const bundleExtras = getBundleExtrasPrice(config);
-  const bundleLines = config.bundleItemKeys.map((key) => ({
-    ...BUNDLE_ITEMS[key],
-    price: null,
-  }));
-
-  const catalogFormatsSubtotal = formatLines.reduce((s, l) => s + l.price, 0);
-  const formatsSubtotal = Math.round((totalExBtw - bundleExtras) * 100) / 100;
-  const btw = Math.round(totalExBtw * 0.21 * 100) / 100;
-  const totalIncBtw = Math.round((totalExBtw + btw) * 100) / 100;
-
-  return {
-    package: config,
-    tier,
-    formatLines,
-    bundleLines,
-    bundleExtras,
-    formatsSubtotal,
-    catalogFormatsSubtotal,
-    totalExBtw,
-    btw,
-    totalIncBtw,
-  };
+export function getLevelPrice(packageId, levelId, { tennisLevelId, padelLevelId } = {}) {
+  if (packageId === 'combi') {
+    if (tennisLevelId && padelLevelId) {
+      return getCombiLevelPrice(tennisLevelId, padelLevelId);
+    }
+    const base = LEVEL_PRICES[levelId] ?? LEVEL_PRICES.basis;
+    return Math.round(base * 2 * (1 - COMBI_DISCOUNT));
+  }
+  return LEVEL_PRICES[levelId] ?? LEVEL_PRICES.basis;
 }
 
 export function getVanafPrice(packageId) {
   const config = MAIN_PACKAGES.find((p) => p.id === packageId);
-  return config?.vanafPrice ?? 0;
+  return config?.vanafPrice ?? LEVEL_PRICES.basis;
+}
+
+/** @deprecated */
+export function getPackageTotalExBtw(packageId, tierId, levelId = 'compleet') {
+  return getLevelPrice(packageId, levelId);
+}
+
+export function calculateSuggestedButtons(playerCount) {
+  const needed = Math.ceil(playerCount * 1.25);
+  return Math.ceil(needed / BUTTON_PACK_SIZE) * BUTTON_PACK_SIZE;
+}
+
+export function suggestPosterTierId(youthTierId) {
+  const youth = YOUTH_TIERS.find((t) => t.id === youthTierId);
+  const count = youth?.playerCount ?? 50;
+  if (count <= 21) return 'tier-21';
+  if (count <= 36) return 'tier-36';
+  return 'tier-55';
+}
+
+export function productNeedsPosterSize(productId) {
+  const product = getProductById(productId);
+  if (!product?.pricing) return false;
+  return product.pricing.type === 'poster-wizard';
+}
+
+export function getPosterSizeOptions(productId) {
+  const product = getProductById(productId);
+  if (!product) return [];
+
+  const fallbackImage =
+    product.galleryImages?.[product.galleryImages.length - 1]?.url ??
+    product.formats?.[0]?.image ??
+    product.image;
+
+  if (product.pricing?.type === 'poster-wizard' && product.pricing.tiers) {
+    return product.pricing.tiers.map((tier, index) => {
+      const galleryItem = product.galleryImages?.[index];
+      return {
+        id: tier.id,
+        label: tier.label,
+        image: galleryItem?.url ?? fallbackImage,
+      };
+    });
+  }
+
+  if (product.galleryImages?.length) {
+    return product.galleryImages.map((galleryItem, index) => {
+      const tier = POSTER_SIZE_TIERS[index];
+      return {
+        id: tier?.id ?? `gallery-${index}`,
+        label: galleryItem.label ?? tier?.label ?? 'Magneetposter',
+        image: galleryItem.url,
+      };
+    });
+  }
+
+  return [];
+}
+
+export function getProductsNeedingPosterSize(packageId, levels) {
+  return getPackageProductIds(packageId, levels).filter(productNeedsPosterSize);
+}
+
+export function suggestPosterTierIdForProduct(productId, youthTierId) {
+  const suggested = suggestPosterTierId(youthTierId);
+  const options = getPosterSizeOptions(productId);
+  if (!options.length) return suggested;
+
+  const exact = options.find((option) => option.id === suggested);
+  if (exact) return exact.id;
+
+  const tierOrder = ['tier-21', 'tier-36', 'tier-55'];
+  const suggestedIndex = tierOrder.indexOf(suggested);
+  for (let index = suggestedIndex; index >= 0; index -= 1) {
+    const match = options.find((option) => option.id === tierOrder[index]);
+    if (match) return match.id;
+  }
+
+  return options[options.length - 1].id;
+}
+
+export function calculateButtonCost(buttonCount) {
+  const packs = buttonCount / BUTTON_PACK_SIZE;
+  return Math.round(packs * BUTTON_PRICE_PER_PACK * 100) / 100;
+}
+
+export function buildPackageQuote({
+  packageId,
+  tennisLevelId,
+  padelLevelId,
+  youthTierId,
+  orderButtons = false,
+  buttonCount = 0,
+  posterSizes = {},
+}) {
+  const config = MAIN_PACKAGES.find((p) => p.id === packageId);
+  const youth = YOUTH_TIERS.find((t) => t.id === youthTierId);
+  if (!config || !youth) return null;
+
+  const isCombi = packageId === 'combi';
+  const activeTennisLevel = packageId === 'padel' ? null : tennisLevelId;
+  const activePadelLevel = packageId === 'tennis' ? null : padelLevelId;
+
+  if (isCombi) {
+    if (!activeTennisLevel || !activePadelLevel) return null;
+  } else if (packageId === 'tennis' && !activeTennisLevel) {
+    return null;
+  } else if (packageId === 'padel' && !activePadelLevel) {
+    return null;
+  }
+
+  const levelIds = { tennisLevelId: activeTennisLevel, padelLevelId: activePadelLevel };
+  const tennisLevel = PACKAGE_LEVELS.find((l) => l.id === activeTennisLevel);
+  const padelLevel = PACKAGE_LEVELS.find((l) => l.id === activePadelLevel);
+  const level = isCombi ? null : tennisLevel ?? padelLevel;
+
+  const productIds = getPackageProductIds(packageId, levelIds);
+  const formatLines = productIds.map((productId) => {
+    const product = getProductById(productId);
+    if (!product) return null;
+
+    const posterTierId =
+      posterSizes[productId] ?? suggestPosterTierIdForProduct(productId, youthTierId);
+    const posterTier = POSTER_SIZE_TIERS.find((t) => t.id === posterTierId);
+    const format = product.formats?.[0];
+
+    let sizeNote = '';
+    let posterImage = format?.image ?? product.image;
+    if (productNeedsPosterSize(productId)) {
+      const option = getPosterSizeOptions(productId).find((o) => o.id === posterTierId);
+      sizeNote = option?.label ?? posterTier?.label ?? '';
+      if (option?.image) posterImage = option.image;
+    }
+
+    return {
+      productId,
+      name: product.name,
+      formatName: format?.name ?? 'Magneetposter',
+      players: sizeNote,
+      image: posterImage,
+      thumbnail: getProductThumbnailSrc(posterImage),
+      posterTierId,
+    };
+  }).filter(Boolean);
+
+  const packageExBtw = getLevelPrice(packageId, null, levelIds);
+  const buttonsExBtw = orderButtons ? calculateButtonCost(buttonCount) : 0;
+  const totalExBtw = Math.round((packageExBtw + buttonsExBtw) * 100) / 100;
+  const btw = Math.round(totalExBtw * 0.21 * 100) / 100;
+  const totalIncBtw = Math.round((totalExBtw + btw) * 100) / 100;
+
+  const bundleLines = [
+    BUNDLE_ITEMS.kennisSessies,
+    BUNDLE_ITEMS.tofScoreApp,
+    BUNDLE_ITEMS.verzending,
+  ];
+
+  const includesWhiteboard =
+    activeTennisLevel === 'plus' ||
+    activeTennisLevel === 'compleet' ||
+    activePadelLevel === 'plus' ||
+    activePadelLevel === 'compleet';
+
+  if (includesWhiteboard) {
+    bundleLines.unshift(BUNDLE_ITEMS.whiteboard);
+  }
+
+  const levelLabel = isCombi
+    ? `Tennis ${tennisLevel.label} · Padel ${padelLevel.label}`
+    : level.label;
+
+  return {
+    package: config,
+    level,
+    levels: isCombi ? { tennis: tennisLevel, padel: padelLevel } : null,
+    levelLabel,
+    youth,
+    formatLines,
+    bundleLines,
+    packageExBtw,
+    buttonsExBtw,
+    buttonCount: orderButtons ? buttonCount : 0,
+    totalExBtw,
+    btw,
+    totalIncBtw,
+    posterSizes,
+    tennisLevelId: activeTennisLevel,
+    padelLevelId: activePadelLevel,
+  };
 }
 
 export function formatEuro(amount) {

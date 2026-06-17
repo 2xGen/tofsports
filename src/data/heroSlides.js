@@ -2,8 +2,8 @@
 export const HERO_SLIDES = [
   {
     id: 'tennis-jeugd',
-    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20nieuwe%20fotos/tof%20500kb.jpg',
-    alt: 'Jeugd speelt tennis op de club',
+    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/RB_08021.jpeg',
+    alt: 'Jeugd speelt padel op de club',
   },
   {
     id: 'padel-bord',
@@ -18,7 +18,7 @@ export const HERO_SLIDES = [
   {
     id: 'padel-club-clash',
     src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Padel%20500kb.jpg',
-    alt: 'Jeugd bij het Padel Club Clash TOF scoresysteem',
+    alt: 'Jeugd bij het Padel Clup Clash TOF scoresysteem',
   },
   {
     id: 'tennis-bord',
@@ -27,9 +27,14 @@ export const HERO_SLIDES = [
   },
   {
     id: 'padel-jeugd',
-    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Padel.jpg',
-    alt: 'Jeugd speelt padel op de club',
+    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/RB_08252.jpeg',
+    alt: 'Trainer en jeugd bij het TOF bord op de baan',
   },
+];
+
+export const HERO_TAGLINES = [
+  'Zet jouw jeugdprogramma direct op scherp.',
+  'Plezier in ontwikkelen',
 ];
 
 export const HERO_WAVE_PATH = 'M0,58 Q250,12 500,58 T1000,58 L1000,100 L0,100 Z';
@@ -42,7 +47,7 @@ export const EXTRA_HERO_IMAGES = {
   },
   combiPakket: {
     src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
-    alt: 'TOF Combi-pakket voor tennis en padel',
+    alt: 'TOF Tennis- en padelpakket',
   },
 };
 
@@ -58,6 +63,8 @@ export const PAGE_HERO_BY_ROUTE = {
   '/handboek': EXTRA_HERO_IMAGES.combiPakket,
   '/webshop': { tennis: EXTRA_HERO_IMAGES.herkenbaar, padel: HERO_SLIDES[1] },
   '/pakketten': HERO_SLIDES[1],
+  '/over-tof': HERO_SLIDES[0],
+  '/producten': EXTRA_HERO_IMAGES.combiPakket,
   '/contact': HERO_SLIDES[2],
   '/winkelmand': HERO_SLIDES[3],
   '/privacy': HERO_SLIDES[0],

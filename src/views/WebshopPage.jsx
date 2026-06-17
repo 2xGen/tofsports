@@ -20,7 +20,6 @@ const WebshopPage = () => {
   const cartCount = isLoaded ? getCartCount() : 0;
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [selectedOptions, setSelectedOptions] = useState({});
   
   const selectedCategory = searchParams.get('category') || 'tennis';
   const filteredProducts = getProductsByCategory(selectedCategory);
@@ -31,27 +30,15 @@ const WebshopPage = () => {
     router.push(`/webshop?category=${category}`);
   };
 
-  const handleAddToCart = (product, format, packageType, extra = null, extraQuantity = 0) => {
-    const extraTotal = extra && extraQuantity > 0 ? extra.price * extraQuantity : 0;
-    const price = format.packages[packageType].price + extraTotal;
-    
-    // Add to cart context
-    addToCart({
-      productId: product.id,
-      productName: product.name,
-      formatId: format.id,
-      formatName: format.name,
-      packageType: packageType,
-      packageLabel: format.packages[packageType].label,
-      extraName: extra && extraQuantity > 0 ? extra.name : null,
-      extraPrice: extra ? extra.price : 0,
-      extraQuantity: extraQuantity || 0,
-      price: price
-    });
-    
+  const formatEuro = (amount) =>
+    new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+
+  const handleAddConfiguredItem = (item) => {
+    addToCart(item);
+
     toast({
-      title: "Toegevoegd aan winkelwagen",
-      description: `${product.name} - ${format.name} (€${price.toFixed(2)}) zit nu in je mandje!`,
+      title: 'Toegevoegd aan winkelwagen',
+      description: `${item.productName} — ${item.packageLabel} (${formatEuro(item.price)}) zit nu in je mandje!`,
       duration: 3000,
     });
   };
@@ -108,9 +95,7 @@ const WebshopPage = () => {
 
           <ProductList
             products={filteredProducts}
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-            handleAddToCart={handleAddToCart}
+            onAddConfiguredItem={handleAddConfiguredItem}
           />
         </div>
 

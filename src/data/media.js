@@ -48,7 +48,7 @@ export const mediaItems = [
   {
     id: 'media-10',
     src: `${MEDIA_BASE}/media%2010.jpg`,
-    alt: 'Meisjes bij het Padel Club Clash scorebord op de padelclub',
+    alt: 'Meisjes bij het Padel Clup Clash scorebord op de padelclub',
   },
   {
     id: 'media-11',
@@ -68,7 +68,7 @@ export const mediaItems = [
   {
     id: 'combi-pakket',
     src: `${MEDIA_BASE}/TOF%20Combi%20pakket.jpg`,
-    alt: 'TOF Combi-pakket voor tennis en padel',
+    alt: 'TOF Tennis- en padelpakket',
   },
   {
     id: 'herkenbaar',
