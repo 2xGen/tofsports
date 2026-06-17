@@ -26,9 +26,9 @@ export const HERO_SLIDES = [
     alt: 'Trainer en jeugd gebruiken het TOF bord op de tennisbaan',
   },
   {
-    id: 'padel-jeugd',
-    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/RB_08252.jpeg',
-    alt: 'Trainer en jeugd bij het TOF bord op de baan',
+    id: 'tof-scoreboard',
+    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Davis%20clup%20500.jpeg',
+    alt: 'Jeugd bij het TOF scorebord op de baan',
   },
 ];
 
