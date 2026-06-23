@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -16,6 +15,8 @@ import {
   CircleDot,
   Minus,
   Plus,
+  X,
+  Play,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
@@ -23,6 +24,8 @@ import { useCart } from '@/context/CartContext';
 import PageHero, { PageHeroEyebrow, PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
 import FormatThumbnail from '@/components/FormatThumbnail';
+import { getYouTubeId } from '@/components/ProductVideo';
+import { buildPackageDetailsFromQuote } from '@/lib/packageOrderDetails';
 import {
   MAIN_PACKAGES,
   PACKAGE_LEVELS,
@@ -34,73 +37,395 @@ import {
   calculateSuggestedButtons,
   formatEuro,
   getCombiLevelPrice,
+  getDefaultWhiteboardChoice,
+  getPackageBundleLines,
+  getPackageFormatLines,
   getProductsNeedingPosterSize,
   getPosterSizeOptions,
+  packageIncludesFreeWhiteboard,
   suggestPosterTierIdForProduct,
+  TOF_SCORE_APP_FOOTNOTE,
+  WHITEBOARD_COMPACT_PRICE,
+  WHITEBOARD_IMAGE,
+  WHITEBOARD_PREMIUM_IMAGE,
+  WHITEBOARD_PREMIUM_PRICE,
 } from '@/data/pakketten';
 
 const STEPS = [
   { id: 1, label: 'Sport', icon: Package },
-  { id: 2, label: 'Niveau', icon: Layers },
+  { id: 2, label: 'Pakket', icon: Layers },
   { id: 3, label: 'Jeugd', icon: Users },
   { id: 4, label: 'Buttons', icon: CircleDot },
   { id: 5, label: 'Posters', icon: ClipboardList },
   { id: 6, label: 'Overzicht', icon: ShoppingCart },
 ];
 
-const LEVEL_DETAILS = {
-  basis: {
-    tennis: 'TOF Score poster, De Swirl en Piramide Tennis',
-    padel: 'TOF Score poster, De Swirl en Padel Piramide',
-  },
-  plus: {
-    tennis: 'Alles uit Basis + Vier op een Rij + magneetbord 60×90 cm',
-    padel: 'Alles uit Basis + Uno Dos Tres Cuatro + magneetbord 60×90 cm',
-  },
-  compleet: {
-    tennis: 'Alles uit Plus + Kraak de Code en Davis Clup',
-    padel: 'Alles uit Plus + Unlock the Code en Padel Clup Clash',
-  },
-};
+function PackageVideoModal({ video, onClose }) {
+  const videoId = getYouTubeId(video?.videoUrl);
 
-function getLevelDetail(sport, levelId) {
-  return LEVEL_DETAILS[levelId][sport];
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  if (!video) return null;
+
+  return (
+    <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Video: ${video.name}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4"
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute right-4 top-24 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 md:top-8"
+        aria-label="Sluiten"
+      >
+        <X className="h-6 w-6" />
+      </button>
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="w-full max-w-3xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
+          {videoId ? (
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+              title={`${video.name} — uitlegvideo`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-white">
+              Video niet beschikbaar
+            </div>
+          )}
+        </div>
+        <p className="mt-4 text-center text-lg font-bold text-white">{video.name}</p>
+      </motion.div>
+    </motion.div>
+  );
 }
 
 function LevelPicker({ sport, selectedLevelId, onSelect }) {
+  const [videoModal, setVideoModal] = useState(null);
+  const selectedLevel = PACKAGE_LEVELS.find((level) => level.id === selectedLevelId);
+  const selectedFormats = selectedLevelId
+    ? getPackageFormatLines(sport, selectedLevelId)
+    : [];
+  const selectedBundles = selectedLevelId ? getPackageBundleLines(selectedLevelId) : [];
+
   return (
-    <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
-      {PACKAGE_LEVELS.map((level) => {
-        const selected = selectedLevelId === level.id;
-        return (
-          <button
-            key={level.id}
-            type="button"
-            onClick={() => onSelect(level.id)}
-            className={`rounded-2xl border-2 p-6 text-left transition-all ${
-              selected
-                ? 'border-[#1B144C] bg-[#1B144C]/5 shadow-md'
-                : 'border-gray-200 bg-white hover:border-indigo-200 hover:shadow-sm'
-            }`}
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-lg font-black text-gray-900">{level.label}</p>
-                <p className="mt-2 text-sm text-gray-600">{getLevelDetail(sport, level.id)}</p>
-                <p className="mt-4 text-xl font-black text-[#1B144C]">
-                  {formatEuro(LEVEL_PRICES[level.id])}{' '}
-                  <span className="text-sm font-medium text-gray-600">ex. btw</span>
-                </p>
-              </div>
-              {selected && (
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1B144C] text-white">
-                  <Check className="h-4 w-4" strokeWidth={3} />
+    <>
+      <p className="mb-4 text-center text-sm text-gray-500">
+        Klik op een pakket om te selecteren — de volledige inhoud zie je daaronder.
+      </p>
+
+      <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
+        {PACKAGE_LEVELS.map((level) => {
+          const selected = selectedLevelId === level.id;
+          const formatCount = getPackageFormatLines(sport, level.id).length;
+          const hasFreeBoard = level.id === 'plus' || level.id === 'compleet';
+
+          return (
+            <button
+              key={level.id}
+              type="button"
+              onClick={() => onSelect(level.id)}
+              className={`relative flex h-full flex-col rounded-2xl border-2 p-5 text-left transition-all ${
+                selected
+                  ? 'border-[#1B144C] bg-[#1B144C] text-white shadow-lg ring-4 ring-[#1B144C]/15'
+                  : 'border-gray-200 bg-white text-gray-900 hover:border-indigo-300 hover:shadow-md'
+              }`}
+            >
+              {level.id === 'compleet' && (
+                <span
+                  className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold ${
+                    selected ? 'bg-white text-[#1B144C]' : 'bg-orange-500 text-white'
+                  }`}
+                >
+                  Populair
                 </span>
               )}
-            </div>
-          </button>
-        );
-      })}
+
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-xl font-black">{level.label}</p>
+                {selected && (
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1B144C]">
+                    <Check className="h-4 w-4" strokeWidth={3} />
+                  </span>
+                )}
+              </div>
+
+              <p className={`mt-3 text-2xl font-black ${selected ? 'text-white' : 'text-[#1B144C]'}`}>
+                {formatEuro(LEVEL_PRICES[level.id])}
+              </p>
+              <p className={`text-sm ${selected ? 'text-white/80' : 'text-gray-500'}`}>ex. btw</p>
+
+              <p className={`mt-4 text-sm leading-relaxed ${selected ? 'text-white/90' : 'text-gray-600'}`}>
+                {level.description}
+              </p>
+
+              <ul className={`mt-4 space-y-1.5 text-xs ${selected ? 'text-white/85' : 'text-gray-500'}`}>
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
+                  {formatCount} magneetformats
+                </li>
+                {hasFreeBoard && (
+                  <li className="flex items-center gap-2">
+                    <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
+                    Gratis magneetbord (actie)
+                  </li>
+                )}
+                <li className="flex items-center gap-2">
+                  <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
+                  Kennissessies &amp; TOF Score app
+                </li>
+              </ul>
+
+              <span
+                className={`mt-5 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold ${
+                  selected
+                    ? 'bg-white text-[#1B144C]'
+                    : 'bg-[#1B144C]/10 text-[#1B144C]'
+                }`}
+              >
+                {selected ? 'Geselecteerd' : `Kies ${level.label}`}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {selectedLevel && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto mt-8 max-w-2xl rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8"
+        >
+          <h3 className="text-lg font-black text-gray-900">
+            Inbegrepen in {selectedLevel.label}
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Bekijk alle formats en extra&apos;s in dit pakket.
+          </p>
+
+          <ul className="mt-5 space-y-3">
+            {selectedFormats.map((format) => (
+              <li
+                key={format.id}
+                className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  {format.image ? (
+                    <FormatThumbnail
+                      thumbnail={format.thumbnail}
+                      fallbackSrc={format.image}
+                      alt={format.name}
+                    />
+                  ) : (
+                    <Check className="h-4 w-4 text-emerald-500" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-900">{format.name}</p>
+                  {format.videoUrl && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setVideoModal({ name: format.name, videoUrl: format.videoUrl })
+                      }
+                      className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1B144C] hover:underline"
+                    >
+                      <Play className="h-3 w-3 fill-current" />
+                      Bekijk format uitleg video
+                    </button>
+                  )}
+                </div>
+              </li>
+            ))}
+            {selectedBundles.map((item) => (
+              <li
+                key={item.id}
+                className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-contain p-0.5"
+                      sizes="48px"
+                    />
+                  ) : (
+                    <Check className="h-4 w-4 text-emerald-500" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-900">
+                    {item.name}
+                    {item.footnote && '**'}
+                  </p>
+                  {item.description && (
+                    <p className="text-xs text-gray-500">{item.description}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+
+      <AnimatePresence>
+        {videoModal && (
+          <PackageVideoModal video={videoModal} onClose={() => setVideoModal(null)} />
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+function WhiteboardOption({
+  selected,
+  onSelect,
+  image,
+  title,
+  description,
+  priceLabel,
+  badge,
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex w-full gap-4 rounded-2xl border-2 p-4 text-left transition-all ${
+        selected
+          ? 'border-[#1B144C] bg-[#1B144C]/5 shadow-md'
+          : 'border-gray-200 bg-white hover:border-indigo-200 hover:shadow-sm'
+      }`}
+    >
+      <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+        <Image src={image} alt="" fill className="object-contain p-1" sizes="96px" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <p className="font-bold text-gray-900">{title}</p>
+          {priceLabel && (
+            <span className="shrink-0 text-sm font-bold text-[#1B144C]">{priceLabel}</span>
+          )}
+        </div>
+        {badge && (
+          <span className="mt-1 inline-flex rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
+            {badge}
+          </span>
+        )}
+        <p className="mt-2 text-sm text-gray-600">{description}</p>
+      </div>
+      {selected && (
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B144C] text-white">
+          <Check className="h-4 w-4" strokeWidth={3} />
+        </span>
+      )}
+    </button>
+  );
+}
+
+function WhiteboardPicker({ hasFreeWhiteboard, value, onChange }) {
+  return (
+    <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
+      <h3 className="font-bold text-gray-900">Magneetbord</h3>
+      {hasFreeWhiteboard ? (
+        <p className="mt-2 text-sm text-gray-600">
+          Bij Plus of Compleet ontvang je tijdelijk gratis een magneetbord van 90×60 cm met
+          opklapbare poten. Voor gebruik op de baan raden we het verrijdbare model van 120×90 cm
+          met wielen sterk aan.
+        </p>
+      ) : (
+        <p className="mt-2 text-sm text-gray-600">
+          Onze formats zijn ontworpen voor gebruik op een magneetbord. Heb je er nog geen? Wij
+          bestellen er graag een voor je — zo haal je het meeste uit je pakket.
+        </p>
+      )}
+
+      <div className="mt-5 space-y-3">
+        {hasFreeWhiteboard ? (
+          <>
+            <WhiteboardOption
+              selected={value === 'included'}
+              onSelect={() => onChange('included')}
+              image={WHITEBOARD_IMAGE}
+              title="Gratis magneetbord 90×60 cm"
+              description="Met opklapbare poten — inbegrepen bij je pakket (tijdelijke actie)."
+              priceLabel="Gratis"
+              badge="Tijdelijke actie"
+            />
+            <WhiteboardOption
+              selected={value === 'decline'}
+              onSelect={() => onChange('decline')}
+              image={WHITEBOARD_IMAGE}
+              title="Nee, ik wil geen gratis magneetbord"
+              description="Je pakket blijft hetzelfde; we sturen geen magneetbord mee."
+              priceLabel="€ 0,00"
+            />
+            <WhiteboardOption
+              selected={value === 'premium'}
+              onSelect={() => onChange('premium')}
+              image={WHITEBOARD_PREMIUM_IMAGE}
+              title="Upgrade: magneetbord 120×90 cm met wielen"
+              description="Verrijdbaar en ideaal om formats mee te nemen naar de baan — ons aanbevolen model."
+              priceLabel={`+ ${formatEuro(WHITEBOARD_PREMIUM_PRICE)}`}
+              badge="Aanbevolen"
+            />
+          </>
+        ) : (
+          <>
+            <WhiteboardOption
+              selected={value === 'none'}
+              onSelect={() => onChange('none')}
+              image={WHITEBOARD_IMAGE}
+              title="Geen magneetbord"
+              description="Ik heb al een geschikt magneetbord of bestel er later zelf een."
+              priceLabel="€ 0,00"
+            />
+            <WhiteboardOption
+              selected={value === 'compact'}
+              onSelect={() => onChange('compact')}
+              image={WHITEBOARD_IMAGE}
+              title="Magneetbord 90×60 cm"
+              description="Met opklapbare poten — compact en eenvoudig mee te nemen."
+              priceLabel={formatEuro(WHITEBOARD_COMPACT_PRICE)}
+            />
+            <WhiteboardOption
+              selected={value === 'premium'}
+              onSelect={() => onChange('premium')}
+              image={WHITEBOARD_PREMIUM_IMAGE}
+              title="Magneetbord 120×90 cm met wielen"
+              description="Verrijdbaar en ideaal om formats mee te nemen naar de baan — ons aanbevolen model."
+              priceLabel={formatEuro(WHITEBOARD_PREMIUM_PRICE)}
+              badge="Aanbevolen"
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -114,6 +439,7 @@ const PakkettenPage = () => {
   const [hasOwnButtons, setHasOwnButtons] = useState(null);
   const [buttonCount, setButtonCount] = useState(0);
   const [posterSizes, setPosterSizes] = useState({});
+  const [whiteboardChoice, setWhiteboardChoice] = useState('none');
   const { toast } = useToast();
   const { addToCart } = useCart();
 
@@ -128,6 +454,16 @@ const PakkettenPage = () => {
     if (packageId === 'padel') return Boolean(padelLevelId);
     return false;
   };
+
+  const hasFreeWhiteboard = useMemo(
+    () => packageIncludesFreeWhiteboard(packageId, { tennisLevelId, padelLevelId }),
+    [packageId, tennisLevelId, padelLevelId],
+  );
+
+  useEffect(() => {
+    if (!packageId || !hasLevelsSelected()) return;
+    setWhiteboardChoice(getDefaultWhiteboardChoice(packageId, { tennisLevelId, padelLevelId }));
+  }, [packageId, tennisLevelId, padelLevelId]);
 
   const youthTier = YOUTH_TIERS.find((t) => t.id === youthTierId);
   const posterProducts = useMemo(() => {
@@ -160,6 +496,7 @@ const PakkettenPage = () => {
       orderButtons: hasOwnButtons === false,
       buttonCount,
       posterSizes,
+      whiteboardChoice,
     });
   }, [
     packageId,
@@ -169,6 +506,7 @@ const PakkettenPage = () => {
     hasOwnButtons,
     buttonCount,
     posterSizes,
+    whiteboardChoice,
   ]);
 
   const skipPosterStep = posterProducts.length === 0;
@@ -224,6 +562,8 @@ const PakkettenPage = () => {
         posterSizes: quote.posterSizes,
         tennisLevelId: quote.tennisLevelId,
         padelLevelId: quote.padelLevelId,
+        whiteboardChoice: quote.whiteboardChoice,
+        packageDetails: buildPackageDetailsFromQuote(quote),
       },
     });
     toast({
@@ -238,13 +578,13 @@ const PakkettenPage = () => {
       <PageHero image={getPageHeroImage('/pakketten')} minHeight="45vh">
         {(heroInView) => (
           <div className="flex flex-col items-center">
-            <PageHeroEyebrow heroInView={heroInView}>Plug &amp; Play jeugdprogramma</PageHeroEyebrow>
+            <PageHeroEyebrow heroInView={heroInView}>Plug &amp; Play</PageHeroEyebrow>
             <PageHeroTitle heroInView={heroInView} className="font-black">
-              Stel jouw clubpakket samen
+              Stel jouw pakket samen
             </PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Kies je sport en niveau, geef aan hoeveel jeugd meedoet en wij helpen je met het juiste
-              aantal buttons en posterformaten.
+              Kies je sport en pakket, geef aan hoeveel jeugd meedoet en wij helpen je met het juiste
+              aantal buttons en formats.
             </PageHeroSubtitle>
           </div>
         )}
@@ -289,10 +629,10 @@ const PakkettenPage = () => {
               exit={{ opacity: 0, x: -20 }}
             >
               <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
-                Welk hoofdpakket past bij jouw club?
+                Welk pakket past bij jou?
               </h2>
               <p className="mb-10 text-center text-gray-600">
-                Tennis, padel of beide — bij combi kies je per sport je eigen niveau.
+                Tennis, padel of beide — bij combi kies je per sport Basis, Plus of Compleet.
               </p>
               <div className="grid gap-6 md:grid-cols-3">
                 {MAIN_PACKAGES.map((pkg) => {
@@ -306,7 +646,7 @@ const PakkettenPage = () => {
                         setTennisLevelId(null);
                         setPadelLevelId(null);
                       }}
-                      className={`group flex flex-col overflow-hidden rounded-3xl border-4 bg-white text-left shadow-lg transition-shadow ${
+                      className={`group flex h-full flex-col overflow-hidden rounded-3xl border-4 bg-white text-left shadow-lg transition-shadow ${
                         selected
                           ? `${pkg.borderColor} ring-4 ring-offset-2 ring-[#1B144C]/20`
                           : 'border-gray-100 hover:shadow-xl'
@@ -332,23 +672,21 @@ const PakkettenPage = () => {
                           </span>
                         )}
                       </div>
-                      <div className={`bg-gradient-to-r ${pkg.color} p-5 text-white`}>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-white/90">
-                          {pkg.subtitle}
-                        </p>
-                        <h3 className="mt-1 text-xl font-black">{pkg.title}</h3>
-                        <p className="mt-2 text-sm leading-relaxed text-white/95">{pkg.description}</p>
+                      <div className={`flex flex-1 flex-col bg-gradient-to-r ${pkg.color} p-5 text-white`}>
+                        <h3 className="text-xl font-black">{pkg.title}</h3>
                         <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                           <span className="text-2xl font-black">
                             vanaf {formatEuro(pkg.vanafPrice)}
                           </span>
                           <span className="text-sm font-medium text-white/85">ex. btw · incl. verzending</span>
                         </p>
-                        {pkg.id === 'combi' && (
-                          <p className="mt-2 inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white">
-                            10% combi voordeel
-                          </p>
-                        )}
+                        <div className="mt-2 min-h-7">
+                          {pkg.id === 'combi' && (
+                            <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white">
+                              10% combi voordeel
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </button>
                   );
@@ -366,13 +704,13 @@ const PakkettenPage = () => {
             >
               <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
                 {packageId === 'combi'
-                  ? 'Welk niveau voor tennis en padel?'
-                  : 'Welk niveau past bij jouw club?'}
+                  ? 'Welk pakket voor tennis en padel?'
+                  : 'Welk pakket past bij jouw club?'}
               </h2>
               <p className="mb-10 text-center text-gray-600">
                 {packageId === 'combi'
                   ? 'Kies per sport Basis, Plus of Compleet. Combi-prijs: 10% voordeel op het totaal.'
-                  : 'Elk niveau bevat 4 online kennissessies en 1 jaar TOF Score app-toegang.'}
+                  : 'Elk pakket bevat 4 online kennissessies en 1 jaar TOF Score app-toegang.'}
               </p>
 
               {packageId === 'combi' ? (
@@ -401,7 +739,7 @@ const PakkettenPage = () => {
                       </>
                     ) : (
                       <p className="mt-2 text-sm text-emerald-900">
-                        Kies per sport je niveau — de korting geldt op het gecombineerde totaal.
+                        Kies per sport je pakket — de korting geldt op het gecombineerde totaal.
                       </p>
                     )}
                   </div>
@@ -429,6 +767,10 @@ const PakkettenPage = () => {
                   onSelect={packageId === 'padel' ? setPadelLevelId : setTennisLevelId}
                 />
               )}
+
+              <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-gray-500">
+                <span className="font-semibold text-gray-600">**</span> {TOF_SCORE_APP_FOOTNOTE}
+              </p>
             </motion.div>
           )}
 
@@ -443,7 +785,7 @@ const PakkettenPage = () => {
                 Hoeveel jeugd gaat hier gebruik van maken?
               </h2>
               <p className="mb-10 text-center text-gray-600">
-                Op basis hiervan berekenen we een advies voor magneetbuttons en posterformaten.
+                Op basis hiervan berekenen we een advies voor magneetbuttons en formats.
               </p>
               <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
                 {YOUTH_TIERS.map((tier) => {
@@ -646,7 +988,13 @@ const PakkettenPage = () => {
               </p>
 
               <div className="grid gap-8 lg:grid-cols-5">
-                <div className="lg:col-span-3">
+                <div className="space-y-6 lg:col-span-3">
+                  <WhiteboardPicker
+                    hasFreeWhiteboard={hasFreeWhiteboard}
+                    value={whiteboardChoice}
+                    onChange={setWhiteboardChoice}
+                  />
+
                   <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
                     <h3 className="mb-4 font-bold text-gray-900">Formats in jouw pakket</h3>
                     <ul className="space-y-4">
@@ -675,17 +1023,46 @@ const PakkettenPage = () => {
                     <h3 className="mb-3 mt-8 font-bold text-gray-900">Ook inbegrepen</h3>
                     <ul className="space-y-3">
                       {quote.bundleLines.map((item) => (
-                        <li key={item.name} className="flex gap-2.5 text-sm text-gray-700">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                          <p>
-                            <strong className="text-gray-900">{item.name}</strong>
-                            {item.description ? (
-                              <span className="text-gray-600"> — {item.description}</span>
-                            ) : null}
-                          </p>
+                        <li
+                          key={item.id ?? item.name}
+                          className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+                        >
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                            {item.image ? (
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                width={48}
+                                height={48}
+                                className="h-full w-full object-contain p-0.5"
+                                sizes="48px"
+                              />
+                            ) : (
+                              <Check className="h-4 w-4 text-emerald-500" />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1 text-sm text-gray-700">
+                            <p className="font-bold text-gray-900">
+                              {item.name}
+                              {item.footnote && '**'}
+                              {item.price > 0 && (
+                                <span className="ml-2 font-bold text-[#1B144C]">
+                                  {formatEuro(item.price)}
+                                </span>
+                              )}
+                            </p>
+                            {item.description && (
+                              <p className="text-gray-600">{item.description}</p>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>
+                    {quote.bundleLines.some((item) => item.footnote) && (
+                      <p className="mt-3 text-xs leading-relaxed text-gray-500">
+                        <span className="font-semibold text-gray-600">**</span> {TOF_SCORE_APP_FOOTNOTE}
+                      </p>
+                    )}
 
                     {quote.buttonCount > 0 && (
                       <p className="mt-6 rounded-xl bg-orange-50 px-4 py-3 text-sm text-orange-900">
@@ -722,6 +1099,12 @@ const PakkettenPage = () => {
                         <div className="flex justify-between text-gray-600">
                           <dt>Magneetbuttons</dt>
                           <dd>{formatEuro(quote.buttonsExBtw)}</dd>
+                        </div>
+                      )}
+                      {quote.whiteboardExBtw > 0 && quote.whiteboardLine && (
+                        <div className="flex justify-between text-gray-600">
+                          <dt>{quote.whiteboardLine.name}</dt>
+                          <dd>{formatEuro(quote.whiteboardExBtw)}</dd>
                         </div>
                       )}
                       <div className="flex justify-between border-t border-gray-100 pt-2 font-bold text-gray-900">
@@ -774,8 +1157,14 @@ const PakkettenPage = () => {
               <ArrowRight className="h-4 w-4" />
             </Button>
           ) : (
-            <Button asChild variant="outline" className="gap-2">
-              <Link href="/producten">Losse formats bekijken</Link>
+            <Button
+              type="button"
+              onClick={handleAddToCart}
+              disabled={!quote}
+              className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              In winkelwagen
             </Button>
           )}
         </div>

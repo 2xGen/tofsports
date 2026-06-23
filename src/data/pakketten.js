@@ -32,7 +32,7 @@ export const POSTER_SIZE_TIERS = [
 
 export const PACKAGE_LEVELS = [
   { id: 'basis', label: 'Basis', description: 'TOF Score poster, Swirl en Piramide' },
-  { id: 'plus', label: 'Plus', description: 'Basis + extra format + magneetbord 60×90 cm' },
+  { id: 'plus', label: 'Plus', description: 'Basis + extra format + magneetbord 90×60 cm' },
   { id: 'compleet', label: 'Compleet', description: 'Plus + alle formats voor jouw sport' },
 ];
 
@@ -69,8 +69,8 @@ const PACKAGE_PRODUCTS = {
 
 const BUNDLE_ITEMS = {
   whiteboard: {
-    name: 'Magneetbord 60×90 cm',
-    description: 'Met opklapbare poten',
+    name: 'Magneetbord 90×60 cm',
+    description: 'Met opklapbare poten — tijdelijke actie: gratis bij Plus en Compleet',
   },
   kennisSessies: {
     name: '4 online kennissessies',
@@ -79,12 +79,17 @@ const BUNDLE_ITEMS = {
   tofScoreApp: {
     name: 'TOF Score app (1 jaar)',
     description: 'Digitaal scoresysteem voor trainers en spelers',
+    footnote: true,
   },
   verzending: {
     name: 'Verzending',
     description: 'Inbegrepen bij elk pakket',
   },
 };
+
+/** Voetnoot bij TOF Score app in pakketoverzichten */
+export const TOF_SCORE_APP_FOOTNOTE =
+  'Voor de TOF Score app: je beschikt over een geldige tennis- of padeltrainerslicentie en werkt actief samen met een bij de KNLTB aangesloten club.';
 
 /** @deprecated — gebruik YOUTH_TIERS */
 export const PLAYER_TIERS = YOUTH_TIERS;
@@ -157,12 +162,110 @@ export function getLevelPrice(packageId, levelId, { tennisLevelId, padelLevelId 
     const base = LEVEL_PRICES[levelId] ?? LEVEL_PRICES.basis;
     return Math.round(base * 2 * (1 - COMBI_DISCOUNT));
   }
-  return LEVEL_PRICES[levelId] ?? LEVEL_PRICES.basis;
+  const activeLevelId =
+    levelId ?? (packageId === 'padel' ? padelLevelId : tennisLevelId);
+  return LEVEL_PRICES[activeLevelId] ?? LEVEL_PRICES.basis;
 }
 
 export function getVanafPrice(packageId) {
   const config = MAIN_PACKAGES.find((p) => p.id === packageId);
   return config?.vanafPrice ?? LEVEL_PRICES.basis;
+}
+
+export const WHITEBOARD_IMAGE =
+  'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/tof%20webshop/magneet%20bord%2090x60.jpg';
+
+export const WHITEBOARD_PREMIUM_IMAGE =
+  'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/tof%20webshop/magneet%20bord%20120%20x90.jpg';
+
+export const WHITEBOARD_COMPACT_PRICE = 50;
+export const WHITEBOARD_PREMIUM_PRICE = 150;
+
+/** none | included | decline | compact | premium */
+export function packageIncludesFreeWhiteboard(packageId, { tennisLevelId, padelLevelId } = {}) {
+  const isPlusOrCompleet = (levelId) => levelId === 'plus' || levelId === 'compleet';
+  if (packageId === 'combi') {
+    return isPlusOrCompleet(tennisLevelId) || isPlusOrCompleet(padelLevelId);
+  }
+  const levelId = packageId === 'padel' ? padelLevelId : tennisLevelId;
+  return isPlusOrCompleet(levelId);
+}
+
+export function getDefaultWhiteboardChoice(packageId, levelIds) {
+  return packageIncludesFreeWhiteboard(packageId, levelIds) ? 'included' : 'none';
+}
+
+export function getWhiteboardExBtw(whiteboardChoice) {
+  if (whiteboardChoice === 'compact') return WHITEBOARD_COMPACT_PRICE;
+  if (whiteboardChoice === 'premium') return WHITEBOARD_PREMIUM_PRICE;
+  return 0;
+}
+
+export function buildWhiteboardLine(whiteboardChoice) {
+  if (!whiteboardChoice || whiteboardChoice === 'none' || whiteboardChoice === 'decline') {
+    return null;
+  }
+  if (whiteboardChoice === 'included') {
+    return {
+      id: 'whiteboard-included',
+      name: BUNDLE_ITEMS.whiteboard.name,
+      description: BUNDLE_ITEMS.whiteboard.description,
+      image: WHITEBOARD_IMAGE,
+      price: 0,
+    };
+  }
+  if (whiteboardChoice === 'compact') {
+    return {
+      id: 'whiteboard-compact',
+      name: 'Magneetbord 90×60 cm',
+      description: 'Met opklapbare poten',
+      image: WHITEBOARD_IMAGE,
+      price: WHITEBOARD_COMPACT_PRICE,
+    };
+  }
+  if (whiteboardChoice === 'premium') {
+    return {
+      id: 'whiteboard-premium',
+      name: 'Magneetbord 120×90 cm met wielen',
+      description: 'Verrijdbaar — ons aanbevolen model voor op de baan',
+      image: WHITEBOARD_PREMIUM_IMAGE,
+      price: WHITEBOARD_PREMIUM_PRICE,
+    };
+  }
+  return null;
+}
+
+export function getPackageFormatLines(sport, levelId) {
+  const productIds = PACKAGE_PRODUCTS[sport]?.[levelId] ?? [];
+  return productIds.map((productId) => {
+    const product = getProductById(productId);
+    const format = product?.formats?.[0];
+    return {
+      id: productId,
+      name: product?.name ?? productId,
+      videoUrl: product?.videoUrl ?? null,
+      image: format?.image ?? product?.image ?? null,
+      thumbnail: getProductThumbnailSrc(format?.image ?? product?.image ?? null),
+    };
+  });
+}
+
+export function getPackageBundleLines(levelId) {
+  const lines = [];
+  if (levelId === 'plus' || levelId === 'compleet') {
+    lines.push({
+      id: 'whiteboard',
+      name: BUNDLE_ITEMS.whiteboard.name,
+      description: BUNDLE_ITEMS.whiteboard.description,
+      image: WHITEBOARD_IMAGE,
+    });
+  }
+  lines.push(
+    { id: 'kennis', ...BUNDLE_ITEMS.kennisSessies },
+    { id: 'app', ...BUNDLE_ITEMS.tofScoreApp },
+    { id: 'verzending', ...BUNDLE_ITEMS.verzending },
+  );
+  return lines;
 }
 
 /** @deprecated */
@@ -258,6 +361,7 @@ export function buildPackageQuote({
   orderButtons = false,
   buttonCount = 0,
   posterSizes = {},
+  whiteboardChoice = 'none',
 }) {
   const config = MAIN_PACKAGES.find((p) => p.id === packageId);
   const youth = YOUTH_TIERS.find((t) => t.id === youthTierId);
@@ -278,7 +382,11 @@ export function buildPackageQuote({
   const levelIds = { tennisLevelId: activeTennisLevel, padelLevelId: activePadelLevel };
   const tennisLevel = PACKAGE_LEVELS.find((l) => l.id === activeTennisLevel);
   const padelLevel = PACKAGE_LEVELS.find((l) => l.id === activePadelLevel);
-  const level = isCombi ? null : tennisLevel ?? padelLevel;
+  const level = isCombi
+    ? null
+    : PACKAGE_LEVELS.find(
+        (l) => l.id === (packageId === 'padel' ? activePadelLevel : activeTennisLevel),
+      );
 
   const productIds = getPackageProductIds(packageId, levelIds);
   const formatLines = productIds.map((productId) => {
@@ -311,24 +419,20 @@ export function buildPackageQuote({
 
   const packageExBtw = getLevelPrice(packageId, null, levelIds);
   const buttonsExBtw = orderButtons ? calculateButtonCost(buttonCount) : 0;
-  const totalExBtw = Math.round((packageExBtw + buttonsExBtw) * 100) / 100;
+  const whiteboardExBtw = getWhiteboardExBtw(whiteboardChoice);
+  const totalExBtw = Math.round((packageExBtw + buttonsExBtw + whiteboardExBtw) * 100) / 100;
   const btw = Math.round(totalExBtw * 0.21 * 100) / 100;
   const totalIncBtw = Math.round((totalExBtw + btw) * 100) / 100;
 
   const bundleLines = [
-    BUNDLE_ITEMS.kennisSessies,
-    BUNDLE_ITEMS.tofScoreApp,
-    BUNDLE_ITEMS.verzending,
+    { id: 'kennis', ...BUNDLE_ITEMS.kennisSessies },
+    { id: 'app', ...BUNDLE_ITEMS.tofScoreApp },
+    { id: 'verzending', ...BUNDLE_ITEMS.verzending },
   ];
 
-  const includesWhiteboard =
-    activeTennisLevel === 'plus' ||
-    activeTennisLevel === 'compleet' ||
-    activePadelLevel === 'plus' ||
-    activePadelLevel === 'compleet';
-
-  if (includesWhiteboard) {
-    bundleLines.unshift(BUNDLE_ITEMS.whiteboard);
+  const whiteboardLine = buildWhiteboardLine(whiteboardChoice);
+  if (whiteboardLine) {
+    bundleLines.unshift(whiteboardLine);
   }
 
   const levelLabel = isCombi
@@ -343,8 +447,11 @@ export function buildPackageQuote({
     youth,
     formatLines,
     bundleLines,
+    whiteboardChoice,
+    whiteboardLine,
     packageExBtw,
     buttonsExBtw,
+    whiteboardExBtw,
     buttonCount: orderButtons ? buttonCount : 0,
     totalExBtw,
     btw,

@@ -7,6 +7,7 @@ import { Images, PlayCircle, X } from 'lucide-react';
 import PageHero, { PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
 import MediaGalleryItem, { MediaSpinner } from '@/components/MediaGalleryItem';
 import ProductVideo from '@/components/ProductVideo';
+import WarmupLiedCard from '@/components/WarmupLiedCard';
 import { getPageHeroImage } from '@/data/heroSlides';
 import { mediaItems } from '@/data/media';
 import { allProducts } from '@/data/products';
@@ -54,7 +55,7 @@ const MediaPage = () => {
 
       <div className="container mx-auto max-w-6xl px-4 py-12">
         <motion.section
-          id="tof-warmup-track"
+          id="tof-warmup-lied"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -62,23 +63,7 @@ const MediaPage = () => {
           className="mb-10"
         >
           <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg md:p-8">
-            <h3 className="text-xl font-bold text-gray-900 md:text-2xl">Warm-up Track</h3>
-            <p className="mt-2 text-sm text-gray-600 md:text-base">
-              Zet de TOF track aan voor een energieke start van je training.
-            </p>
-            <div className="mt-4 overflow-hidden rounded-xl border border-gray-200">
-              <iframe
-                data-testid="embed-iframe"
-                src="https://open.spotify.com/embed/track/308mknv2rdgHBls1LYhtzW?utm_source=generator"
-                width="100%"
-                height="352"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                title="TOF Sports Warm-up Track"
-                style={{ border: 0 }}
-              />
-            </div>
+            <WarmupLiedCard />
           </div>
         </motion.section>
 

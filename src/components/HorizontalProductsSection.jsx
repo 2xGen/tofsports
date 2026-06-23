@@ -27,13 +27,12 @@ const HorizontalProductsSection = () => {
                   <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
                     TOF Sports
                   </span>{' '}
-                  verenigingen helpt groeien
+                  helpt
                 </h2>
                 <p className="text-lg font-medium leading-relaxed text-gray-600 md:text-xl">
-                  Met TOF Sports helpen we tennis- en padelverenigingen om het jeugdprogramma op
-                  scherp te zetten, spelers meer betrokken te houden bij de vereniging en met plezier te
-                  blijven ontwikkelen. Trainers ondersteunen we met praktische, direct inzetbare tools en
-                  spelvormen.
+                  Wij zetten je jeugdprogramma op scherp en zorgen voor plezier in ontwikkelen. Dat
+                  doen we met meer speelmomenten, meer betrokkenheid en minder voorbereiding voor
+                  trainers.
                 </p>
               </motion.div>
             </div>

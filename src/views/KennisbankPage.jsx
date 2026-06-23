@@ -55,12 +55,11 @@ const KennisbankPage = () => {
               <BookOpen className="mt-0.5 h-8 w-8 shrink-0 text-orange-500" aria-hidden />
               <div>
                 <h2 className="text-xl font-bold text-gray-900 md:text-2xl">
-                  Begrijp eerst waarom TOF Sports werkt
+                  Praktische kennis voor je jeugd op de club
                 </h2>
                 <p className="mt-3 leading-relaxed text-gray-600">
-                  Niet elke vereniging wil meteen kopen. Deze gidsen helpen je begrijpen hoe je
-                  meer speelmomenten creëert, jeugd betrokken houdt en trainers ontlast — voordat je
-                  een pakket kiest.
+                  In onze gidsen vind je ideeën en handvatten over speelmomenten, jeugdbetrokkenheid
+                  en het ontlasten van trainers — vrij te verkennen, in je eigen tempo.
                 </p>
               </div>
             </div>

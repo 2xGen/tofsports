@@ -116,11 +116,6 @@ const HeroSection = () => {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [isVideoOpen]);
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"]
-  });
-  
   const heroInView = useInView(sectionRef, { once: false, amount: 0.3 });
   const { scrollYProgress } = useScroll();
   const bgScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
@@ -267,16 +262,6 @@ const HeroSection = () => {
         )}
       </AnimatePresence>
 
-      {/* Floating Tennis Ball - bounceInLeft with scroll motion */}
-      <motion.div
-        className="absolute bottom-14 left-10 md:bottom-16 md:left-20 z-20"
-        initial={{ opacity: 0, x: -100 }}
-        animate={heroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
-        transition={{ duration: 0.8, delay: 0.8, type: "spring", bounce: 0.5 }}
-      >
-        <TennisBallRoll scrollYProgress={heroScrollProgress} />
-      </motion.div>
-
       {/* Curved shape divider — above overlay so it stays pure white */}
       <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-14 md:h-12">
@@ -299,41 +284,6 @@ const HeroSection = () => {
         </motion.div>
       </motion.a>
     </section>
-  );
-};
-
-// Tennis Ball Roll Component - rolling in positive direction (right) all the way across
-const TennisBallRoll = ({ scrollYProgress }) => {
-  // Ball dimensions: mobile 96px (48px radius), desktop 128px (64px radius)
-  // Average radius for calculation: ~56px
-  const ballRadius = 56; // pixels
-  // Max distance to roll all the way across screen (viewport width minus ball width and padding)
-  // Using a large value that will work for most screens - will roll from left edge to right edge
-  const maxDistance = 1200; // pixels to travel (adjust based on typical viewport width)
-  
-  // Calculate x position based on scroll - positive direction (right), all the way across
-  const x = useTransform(scrollYProgress, [0, 1], [0, maxDistance]);
-  
-  // Calculate rotation based on distance traveled - positive direction
-  // For a rolling ball: rotation (degrees) = (distance / radius) * (180 / π)
-  const maxRotation = (maxDistance / ballRadius) * (180 / Math.PI);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, maxRotation]);
-
-  return (
-    <motion.div
-      style={{ x, rotate }}
-      className="relative w-32 h-32"
-    >
-      <Image 
-        src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20bal.png" 
-        alt="Tennis ball" 
-        width={128}
-        height={128}
-        className="w-32 h-32 drop-shadow-lg"
-        loading="lazy"
-        quality={85}
-      />
-    </motion.div>
   );
 };
 

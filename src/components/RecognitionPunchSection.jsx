@@ -13,9 +13,9 @@ const BACKGROUND_IMAGE =
 const outcomes = [
   'Spelen kinderen vaker',
   'Blijven jeugdleden langer betrokken',
-  'Ontstaat meer verbinding tussen spelers',
+  'Ontstaat meer interactie tussen spelers',
   'Worden trainers ontzorgd',
-  'Groeit het clubgevoel binnen de vereniging',
+  'Groeit het clubgevoel',
 ];
 
 const RecognitionPunchSection = () => {
@@ -45,10 +45,7 @@ const RecognitionPunchSection = () => {
           className="mx-auto w-full max-w-3xl rounded-[2rem] border border-white/20 bg-white/95 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-md md:rounded-[2.5rem] md:p-11 lg:p-12"
         >
           <h2 className="text-center font-poppins text-2xl font-black leading-tight tracking-tight text-[#1B144C] md:text-3xl lg:text-4xl">
-            Herken je dit binnen{' '}
-            <span className="bg-gradient-to-r from-orange-500 to-rose-500 bg-clip-text text-transparent">
-              jouw vereniging?
-            </span>
+            Herken jij dit?
           </h2>
 
           <p className="mt-6 text-center font-poppins text-base font-medium leading-relaxed text-gray-600 md:text-lg">
@@ -58,8 +55,8 @@ const RecognitionPunchSection = () => {
           </p>
 
           <p className="mt-5 text-center font-poppins text-base font-medium leading-relaxed text-gray-800 md:text-lg">
-            Met de TOF Methode creëer je een omgeving waarin jeugdspelers vaker spelen, samen
-            uitdagingen aangaan en actief betrokken blijven bij de vereniging.
+            Met TOF Sports creëer je een omgeving waarin jeugdspelers vaker spelen, samen uitdagingen
+            aangaan en actief betrokken blijven.
           </p>
 
           <p className="mt-8 text-center font-poppins text-lg font-bold text-[#1B144C] md:text-xl">

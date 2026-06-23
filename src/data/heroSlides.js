@@ -33,7 +33,7 @@ export const HERO_SLIDES = [
 ];
 
 export const HERO_TAGLINES = [
-  'Zet jouw jeugdprogramma direct op scherp.',
+  'Zet jouw jeugdprogramma direct op scherp',
   'Plezier in ontwikkelen',
 ];
 

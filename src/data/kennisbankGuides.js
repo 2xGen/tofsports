@@ -21,7 +21,7 @@ export const KENNISBANK_GUIDES = [
     pillarColor: 'bg-sky-500',
     pillarBorderColor: 'border-sky-500',
     pillarDescription:
-      'Kinderen ontwikkelen zich sneller wanneer plezier, uitdaging en herhaling samenkomen op de baan. TOF Sports stimuleert jeugdspelers om actief deel te nemen aan speelse formats, uitdagingen en clubactiviteiten waarin leren en spelen in elkaar overlopen.',
+      'Kinderen ontwikkelen zich sneller wanneer plezier, uitdaging en herhaling samenkomen op de baan. TOF Sports stimuleert jeugdspelers om actief deel te nemen aan clubactiviteiten waarin speelse formats en uitdagingen samenkomen — leren en spelen ook.',
     sections: [
       {
         type: 'paragraph',
@@ -140,7 +140,7 @@ export const KENNISBANK_GUIDES = [
     pillarColor: 'bg-violet-500',
     pillarBorderColor: 'border-violet-500',
     pillarDescription:
-      'Door spelvormen, uitdagingen en TOF Score worden jeugdspelers actiever betrokken bij de vereniging en ontstaat er meer verbinding tussen spelers, trainers en de club.',
+      'Door spelvormen, uitdagingen en TOF Score worden jeugdspelers actiever en meer betrokken — met meer interactie tussen spelers, trainers en de club.',
     sections: [
       {
         type: 'paragraph',

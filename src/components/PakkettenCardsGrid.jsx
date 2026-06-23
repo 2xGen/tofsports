@@ -9,10 +9,12 @@ import { Button } from '@/components/ui/button';
 import { MAIN_PACKAGES, formatEuro } from '@/data/pakketten';
 
 const PakkettenCardsGrid = ({
-  title = 'Kies de oplossing die past bij jouw vereniging:',
+  title = 'Kies de oplossing die bij jou past',
   description = 'Kies Basis (vanaf €295), Plus (€445) of Compleet (€595) — tennis, padel of combi met 10% voordeel. Inclusief kennissessies, TOF Score app en verzending. Prijzen ex. btw.',
   showCta = true,
   showPackageDetails = true,
+  showSubtitle = true,
+  ctaLabel = 'Stel jouw pakket samen',
   className = '',
 }) => {
   return (
@@ -30,6 +32,7 @@ const PakkettenCardsGrid = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: index * 0.08 }}
+            className="h-full"
           >
             <Link
               href="/pakketten"
@@ -57,10 +60,14 @@ const PakkettenCardsGrid = ({
                 )}
               </div>
               <div className={`flex flex-1 flex-col bg-gradient-to-r ${pkg.color} p-5 text-white`}>
-                <p className="text-xs font-semibold uppercase tracking-wide text-white/90">
-                  {pkg.subtitle}
-                </p>
-                <h3 className="mt-1 text-xl font-black">{pkg.title}</h3>
+                {showSubtitle && pkg.subtitle && (
+                  <p className="text-xs font-semibold uppercase tracking-wide text-white/90">
+                    {pkg.subtitle}
+                  </p>
+                )}
+                <h3 className={`text-xl font-black ${showSubtitle && pkg.subtitle ? 'mt-1' : ''}`}>
+                  {pkg.title}
+                </h3>
                 {showPackageDetails && (
                   <>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-white/95">
@@ -86,7 +93,7 @@ const PakkettenCardsGrid = ({
             className="gap-2 rounded-full bg-[#1B144C] px-8 font-bold hover:bg-[#2A1F5C]"
           >
             <Link href="/pakketten">
-              Stel jouw clubpakket samen <ArrowRight className="h-4 w-4" />
+              {ctaLabel} <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>

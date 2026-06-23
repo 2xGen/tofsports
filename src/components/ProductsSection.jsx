@@ -10,8 +10,6 @@ const products = [
   {
     id: 'tennis',
     title: 'Tennispakket',
-    description:
-      'Voor tennisverenigingen die meer structuur, speelmomenten en betrokken jeugd willen creëren. Inclusief 4 formats, TOF Score en alle tools om direct te starten.',
     color: 'bg-sky-500',
     borderColor: 'border-sky-500',
     image:
@@ -26,8 +24,6 @@ const products = [
   {
     id: 'padel',
     title: 'Padelpakket',
-    description:
-      'Voor padelverenigingen die jeugdspelers actiever willen betrekken en meer spelmomenten op de club willen organiseren.',
     color: 'bg-orange-500',
     borderColor: 'border-orange-500',
     image:
@@ -40,8 +36,6 @@ const products = [
   {
     id: 'combi',
     title: 'Tennis- en padelpakket',
-    description:
-      'Voor verenigingen met zowel tennis als padel. De complete oplossing met alle formats en een gedeeld systeem voor de hele club.',
     color: 'bg-emerald-600',
     borderColor: 'border-emerald-600',
     image:
@@ -89,13 +83,13 @@ const ProductsSection = () => {
                       </span>
                    </h2>
                    <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-4">
-                      Onze Plug &amp; Play-pakketten helpen jouw vereniging om het jeugdprogramma te versterken en meer structuur, speelmomenten en betrokkenheid te creëren.
+                      Onze Plug &amp; Play-pakketten helpen je om het jeugdprogramma te versterken en meer structuur, speelmomenten en betrokkenheid te creëren.
                    </p>
                    <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
-                      Met de TOF Methode voeg je spelvormen, scores en praktische tools toe die direct inzetbaar zijn op de club.
+                      Met TOF Sports voeg je spelvormen, scores en praktische tools toe die direct inzetbaar zijn op de club.
                    </p>
                    <p className="text-lg md:text-xl font-bold text-gray-900 mb-6">
-                      Welke oplossing past bij jouw club?
+                      Welke oplossing past bij jou?
                    </p>
                    <Button
                      asChild
@@ -116,7 +110,7 @@ const ProductsSection = () => {
                   style={{ zIndex: index + 1 }}
                 >
                   <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">
-                    <ProductCard product={{ ...product, fullHeight: true }} />
+                    <ProductCard product={{ ...product, fullHeight: true, hideDescription: true }} />
                   </div>
                 </div>
               ))}

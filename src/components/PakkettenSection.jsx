@@ -22,11 +22,14 @@ const PakkettenSection = () => {
       >
         <div className="mb-10 text-center md:mb-12">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#1B144C]/70">
-            Plug &amp; Play jeugdprogramma
+            Plug &amp; Play
           </p>
         </div>
         <PakkettenCardsGrid
           showPackageDetails={false}
+          showSubtitle={false}
+          title="Kies de oplossing die bij jou past"
+          ctaLabel="Stel jouw pakket samen"
           description="Kies Basis, Plus of Compleet — tennis, padel of combi. Inclusief kennissessies, TOF Score app en verzending."
         />
       </motion.div>

@@ -64,9 +64,11 @@ const ProductCard = ({ product }) => {
             <h3 className="text-xl font-black tracking-tight text-white md:text-2xl">
               {product.title}
             </h3>
-            <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
-              {product.description}
-            </p>
+            {product.description && !product.hideDescription && (
+              <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
+                {product.description}
+              </p>
+            )}
             {product.showCta !== false && (
               <div className="mt-4 shrink-0 md:mt-5">{ctaButton}</div>
             )}
@@ -108,9 +110,11 @@ const ProductCard = ({ product }) => {
               <h3 className="text-2xl font-black tracking-tight text-white md:text-3xl">
                 {product.title}
               </h3>
-              <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
-                {product.description}
-              </p>
+              {product.description && !product.hideDescription && (
+                <p className="mt-2 text-sm font-medium leading-relaxed text-white/95 md:text-base">
+                  {product.description}
+                </p>
+              )}
               {product.showCta !== false && (
                 <div className="mt-4 shrink-0 md:mt-5">{ctaButton}</div>
               )}
@@ -136,9 +140,11 @@ const ProductCard = ({ product }) => {
           <h3 className="mb-4 text-3xl font-black tracking-tight text-white md:text-4xl">
             {product.title}
           </h3>
-          <p className="mb-6 flex-1 text-lg font-medium leading-relaxed text-white/90 md:text-xl">
-            {product.description}
-          </p>
+          {product.description && !product.hideDescription && (
+            <p className="mb-6 flex-1 text-lg font-medium leading-relaxed text-white/90 md:text-xl">
+              {product.description}
+            </p>
+          )}
           <div className="mt-auto">{ctaButton}</div>
         </div>
       </div>
