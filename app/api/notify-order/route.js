@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { formatPackageDetailLines } from '@/lib/packageOrderDetails';
 
 const TOF_EMAIL = process.env.ORDER_NOTIFICATION_EMAIL || 'info@tofsports.nl';
 
@@ -17,11 +18,23 @@ function buildEmailBody(order) {
     '--- Bestelling ---',
   ];
   items.forEach((item) => {
-    const extra = item.extraName && (item.extraQuantity ?? 0) > 0
-      ? ` + ${item.extraName} x ${item.extraQuantity}`
-      : item.extraName ? ` + ${item.extraName}` : '';
+    const extra =
+      item.extraName && (item.extraQuantity ?? 0) > 0
+        ? ` + ${item.extraName} x ${item.extraQuantity}`
+        : item.extraName
+          ? ` + ${item.extraName}`
+          : '';
     const label = item.packageLabel + extra;
-    lines.push(`${item.quantity}x ${item.productName} - ${item.formatName}: ${label} = €${(item.price * item.quantity).toFixed(2)}`);
+    lines.push(
+      `${item.quantity}x ${item.productName} — ${item.formatName}: ${label} = €${(item.price * item.quantity).toFixed(2)}`,
+    );
+    const detailLines = formatPackageDetailLines(item);
+    if (detailLines.length > 0) {
+      detailLines.forEach((detailLine) => {
+        lines.push(detailLine === '' ? '' : `  ${detailLine}`);
+      });
+    }
+    lines.push('');
   });
   lines.push('', '--- Totaal ---', `Subtotaal: €${subtotal.toFixed(2)}`, `BTW (21%): €${btw.toFixed(2)}`, `Totaal: €${total.toFixed(2)}`);
   return lines.join('\n');

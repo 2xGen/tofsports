@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Poppins } from 'next/font/google';
 import ConditionalNavbar from '@/components/ConditionalNavbar';
 import Footer from '@/components/Footer';
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
           {!MAINTENANCE_MODE && <CookieConsent />}
           {!MAINTENANCE_MODE && <Toaster />}
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

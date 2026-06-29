@@ -1,42 +1,20 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
+import PageHero, { PageHeroTitle } from '@/components/PageHero';
+import { getPageHeroImage } from '@/data/heroSlides';
 
 const PrivacyPage = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
-
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom right, rgba(180, 200, 255, 0.4), rgba(197, 223, 240, 0.5), rgba(100, 180, 220, 0.3))',
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-30 py-12">
-          <div className="flex flex-col items-center justify-center text-center space-y-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-gray-800"
-            >
-              Privacy Verklaring
-            </motion.h1>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-16">
-            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="#F9FAFB" />
-          </svg>
-        </div>
-      </section>
+      <PageHero image={getPageHeroImage('/privacy')} minHeight="40vh">
+        {(heroInView) => (
+          <PageHeroTitle heroInView={heroInView} className="text-4xl md:text-6xl">
+            Privacy Verklaring
+          </PageHeroTitle>
+        )}
+      </PageHero>
 
       {/* Content */}
       <div className="container mx-auto px-4 py-12 max-w-4xl">

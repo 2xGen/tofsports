@@ -3,77 +3,99 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, BookOpen, ChevronDown, ChevronUp, X, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, BookOpen, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductRulesModal from './ProductRulesModal';
+import ProductConfigureModal from './ProductConfigureModal';
+import ProductVideo from './ProductVideo';
+import { getProductImageGallery } from '@/data/products';
 
-const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddToCart }) => {
+const formatEuro = (amount) =>
+  new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+
+const getDisplayPrice = (product) => {
+  const pricing = product.pricing;
+  if (!pricing) return null;
+  if (pricing.type === 'fixed-bundle') return formatEuro(pricing.price);
+  if (pricing.type === 'poster-buttons-optional') {
+    return formatEuro(pricing.posterPrice);
+  }
+  if (pricing.type === 'poster-wizard') {
+    return formatEuro(pricing.posterPrice);
+  }
+  return null;
+};
+
+const getPricingSubtitle = (pricing) => {
+  if (!pricing) return '';
+  if (pricing.type === 'poster-buttons-optional') {
+    return pricing.subtitle || 'Kies of je magneetbuttons wilt bijbestellen';
+  }
+  if (pricing.type === 'poster-wizard') {
+    return 'Stel je poster samen: kies spelersaantal en buttons';
+  }
+  if (pricing.type === 'fixed-bundle') {
+    if (pricing.extras?.length) return pricing.label;
+    return pricing.subtitle || 'Inclusief poster en magneetbuttons';
+  }
+  return '';
+};
+
+const ProductList = ({ products, onAddConfiguredItem }) => {
   const [openModal, setOpenModal] = useState(null);
-  const [expandedProducts, setExpandedProducts] = useState({});
-  const [isMobile, setIsMobile] = useState(false);
-  const [fullscreenImage, setFullscreenImage] = useState(null);
-  
-  // Initialize expanded state for desktop (always expanded), collapsed on mobile
+  const [configureProduct, setConfigureProduct] = useState(null);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
+  const [imageIndexByProduct, setImageIndexByProduct] = useState({});
+  const [fullscreenGallery, setFullscreenGallery] = useState(null);
   useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      // On desktop, expand all products by default
-      // On mobile, keep them collapsed (don't set, so they're undefined/false)
-      if (!mobile) {
-        const allExpanded = {};
-        products.forEach(product => {
-          allExpanded[product.id] = true;
-        });
-        setExpandedProducts(allExpanded);
-      } else {
-        // On mobile, ensure all are collapsed (set to false or clear)
-        setExpandedProducts({});
-      }
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [products]);
+    if (!fullscreenGallery) return undefined;
 
-  // Handle ESC key to close fullscreen image
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && fullscreenImage) {
-        setFullscreenImage(null);
+    const handleKey = (e) => {
+      if (e.key === 'Escape') {
+        setFullscreenGallery(null);
+        return;
+      }
+      if (fullscreenGallery.images.length <= 1) return;
+      if (e.key === 'ArrowRight') {
+        setFullscreenGallery((prev) => ({
+          ...prev,
+          index: (prev.index + 1) % prev.images.length,
+        }));
+      }
+      if (e.key === 'ArrowLeft') {
+        setFullscreenGallery((prev) => ({
+          ...prev,
+          index: (prev.index - 1 + prev.images.length) % prev.images.length,
+        }));
       }
     };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [fullscreenImage]);
+
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [fullscreenGallery]);
   
-  const toggleProduct = (productId) => {
-    setExpandedProducts(prev => ({
+  const toggleDescription = (productId) => {
+    setExpandedDescriptions(prev => ({
       ...prev,
       [productId]: !prev[productId]
     }));
   };
 
-  const handleSelectOption = (productId, formatId, packageType, extra = null, extraQuantity = 0) => {
-    setSelectedOptions(prev => ({
-      ...prev,
-      [productId]: { formatId, packageType, extra, extraQuantity }
-    }));
+  const shiftProductImage = (productId, delta, galleryLength) => {
+    setImageIndexByProduct((prev) => {
+      const current = prev[productId] ?? 0;
+      const next = (current + delta + galleryLength) % galleryLength;
+      return { ...prev, [productId]: next };
+    });
   };
 
-  const changeExtraQuantity = (productId, formatId, extra, delta) => {
-    setSelectedOptions(prev => {
-      const current = prev[productId];
-      if (!current || current.formatId !== formatId) return prev;
-      const nextQty = Math.max(0, (current.extraQuantity ?? 0) + delta);
-      return {
-        ...prev,
-        [productId]: {
-          ...current,
-          extra: nextQty > 0 ? extra : null,
-          extraQuantity: nextQty
-        }
-      };
+  const openFullscreenGallery = (product, startIndex = 0) => {
+    const images = getProductImageGallery(product);
+    if (!images.length) return;
+    setFullscreenGallery({
+      productName: product.name,
+      images,
+      index: startIndex,
     });
   };
 
@@ -87,7 +109,17 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
 
   return (
     <div className="space-y-6">
-      {products.map((product, productIndex) => (
+      {products.map((product, productIndex) => {
+        const gallery = getProductImageGallery(product);
+        const imageIndex = imageIndexByProduct[product.id] ?? 0;
+        const currentImage = gallery[imageIndex] ?? gallery[0];
+        const productImage = currentImage?.url;
+        const displayPrice = getDisplayPrice(product);
+        const pricingSubtitle = getPricingSubtitle(product.pricing);
+        const hasMultipleImages = gallery.length > 1;
+        const isHeroSlide = currentImage?.variant === 'hero';
+
+        return (
         <motion.div
           key={product.id}
           initial={{ opacity: 0, y: 20 }}
@@ -96,215 +128,188 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
           transition={{ duration: 0.3, delay: productIndex * 0.1 }}
           className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
         >
-          {/* Product Header */}
-          <div className="p-6 md:p-8">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+          <div className="flex flex-col p-6 md:p-8">
+            <div className="order-1 mb-4 flex flex-col gap-4 md:mb-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
-                {/* Clickable header on mobile for expand/collapse */}
-                <button
-                  onClick={() => toggleProduct(product.id)}
-                  className="md:pointer-events-none w-full text-left flex items-start justify-between gap-2 md:block"
-                >
-                  <div className="flex-1">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                      {product.name}
-                    </h2>
-                    <p className="text-gray-600 font-medium mb-1">{product.ageGroup}</p>
-                    <p className="text-gray-500 text-sm">{product.description}</p>
-                  </div>
-                  {/* Chevron icon for mobile */}
-                  <div className="md:hidden flex-shrink-0 mt-1">
-                    {expandedProducts[product.id] ? (
-                      <ChevronUp className="h-5 w-5 text-gray-500" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-500" />
-                    )}
-                  </div>
-                </button>
+                <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{product.name}</h2>
+                <p className="mt-1 text-base font-medium text-gray-600 md:text-lg">{product.ageGroup}</p>
               </div>
-              <div className="flex flex-col gap-2 w-full md:w-auto">
-                {product.detailedRules && (
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenModal(product.id);
-                    }}
-                    variant="outline"
-                    className="flex items-center justify-center gap-2 w-full md:w-auto md:whitespace-nowrap text-sm md:text-base px-4 py-2 md:px-6 md:py-3"
-                  >
-                    <BookOpen className="h-4 w-4 flex-shrink-0" />
-                    <span className="text-center">Officiële Spelregels & Handleiding</span>
-                  </Button>
-                )}
-                {/* Count button - shows number of formats (only on mobile since desktop always shows products) */}
+              {product.detailedRules && (
                 <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleProduct(product.id);
-                  }}
-                  variant="default"
-                  className="flex md:hidden items-center justify-center gap-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2"
+                  onClick={() => setOpenModal(product.id)}
+                  variant="outline"
+                  className="flex w-full items-center justify-center gap-2 text-sm md:w-auto md:whitespace-nowrap md:text-base md:px-6 md:py-3"
                 >
-                  <span>Bekijk producten</span>
-                  <span className="bg-white text-blue-600 rounded-full px-2 py-0.5 text-xs font-bold min-w-[24px]">
-                    {product.formats.length}
-                  </span>
+                  <BookOpen className="h-4 w-4 flex-shrink-0" />
+                  <span className="text-center">Officiële Spelregels & Handleiding</span>
                 </Button>
-              </div>
+              )}
             </div>
-          </div>
 
-          {/* Product Content - Collapsible on mobile, always visible on desktop */}
-          <AnimatePresence>
-            {(isMobile ? expandedProducts[product.id] === true : true) && (
-              <motion.div
-                initial={isMobile ? { height: 0, opacity: 0 } : false}
-                animate={isMobile ? { height: 'auto', opacity: 1 } : false}
-                exit={isMobile ? { height: 0, opacity: 0 } : false}
-                transition={{ duration: 0.3 }}
-                className="border-t border-gray-200 overflow-hidden md:!block"
-              >
-                <div className="p-6 md:p-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {product.formats.map((format, formatIndex) => (
-                <div
-                  key={format.id}
-                  className="bg-gray-50 rounded-xl p-6 border border-gray-200"
-                >
-                  {/* Format Image */}
-                  <div 
-                    className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-gray-100 cursor-pointer group" 
-                    style={{ minHeight: '200px' }}
-                    onClick={() => format.image && setFullscreenImage(format.image)}
+            <div className="order-2 mb-6 md:order-4">
+              <p className="text-base leading-relaxed text-gray-700 whitespace-pre-line md:text-lg">
+                {product.description}
+              </p>
+
+              {product.highlights?.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {product.highlights.map((highlight, i) => (
+                    <li key={i} className="flex items-start gap-2 text-base text-gray-700 md:text-lg">
+                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
+                      <span className="leading-relaxed">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {product.descriptionLong && (
+                <>
+                  <AnimatePresence initial={false}>
+                    {expandedDescriptions[product.id] && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <p className="mt-4 text-base leading-relaxed text-gray-700 whitespace-pre-line md:text-lg">
+                          {product.descriptionLong}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <button
+                    type="button"
+                    onClick={() => toggleDescription(product.id)}
+                    className="mt-3 inline-flex items-center gap-1 text-base font-semibold text-orange-600 hover:text-orange-700"
                   >
-                    {format.image ? (
-                      <>
-                        <Image
-                          src={format.image}
-                          alt={`${product.name} - ${format.name}`}
-                          fill
-                          className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-                          priority={productIndex === 0 && formatIndex === 0}
-                          loading={productIndex === 0 && formatIndex === 0 ? 'eager' : 'lazy'}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          quality={85}
-                          unoptimized={true}
-                          style={{ objectFit: 'contain' }}
-                        />
-                        {/* Overlay hint on hover */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-black/50 px-3 py-1 rounded">
-                            Klik om te vergroten
-                          </div>
-                        </div>
-                        {/* Loading placeholder */}
-                        <div className="absolute inset-0 bg-gray-200 animate-pulse" style={{ display: 'none' }} id={`loading-${product.id}-${format.id}`} />
-                      </>
+                    {expandedDescriptions[product.id] ? 'Lees minder' : 'Lees meer'}
+                    {expandedDescriptions[product.id] ? (
+                      <ChevronUp className="h-4 w-4" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <span>Geen afbeelding</span>
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </button>
+                </>
+              )}
+            </div>
+
+            {(productImage || product.videoUrl) && (
+              <div
+                className={`order-3 mb-6 grid items-stretch gap-4 md:order-2 md:gap-6 ${
+                  productImage && product.videoUrl ? 'md:grid-cols-2' : ''
+                }`}
+              >
+                {productImage && (
+                  <div className="group relative w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-100">
+                    <button
+                      type="button"
+                      className="relative block w-full cursor-pointer"
+                      onClick={() => openFullscreenGallery(product, imageIndex)}
+                    >
+                      <div className="relative aspect-video w-full">
+                        <Image
+                          src={productImage}
+                          alt={currentImage?.label ? `${product.name} — ${currentImage.label}` : product.name}
+                          fill
+                          className={
+                            isHeroSlide
+                              ? 'object-cover transition-transform duration-300 group-hover:scale-[1.02]'
+                              : 'object-contain p-4 transition-transform duration-300 group-hover:scale-[1.01]'
+                          }
+                          priority={productIndex === 0 && imageIndex === 0}
+                          loading={productIndex === 0 && imageIndex === 0 ? 'eager' : 'lazy'}
+                          sizes="(max-width: 768px) 90vw, 640px"
+                          quality={90}
+                          unoptimized
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/10">
+                        <div className="rounded bg-black/50 px-3 py-1 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
+                          Klik om te vergroten
+                        </div>
+                      </div>
+                    </button>
+
+                    {hasMultipleImages && (
+                      <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/55 px-2 py-1 text-white backdrop-blur-sm">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            shiftProductImage(product.id, -1, gallery.length);
+                          }}
+                          className="rounded-full p-1 hover:bg-white/20"
+                          aria-label="Vorige afbeelding"
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <span className="min-w-[3rem] text-center text-xs font-medium">
+                          {imageIndex + 1} / {gallery.length}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            shiftProductImage(product.id, 1, gallery.length);
+                          }}
+                          className="rounded-full p-1 hover:bg-white/20"
+                          aria-label="Volgende afbeelding"
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    )}
+
+                    {currentImage?.label && imageIndex > 0 && (
+                      <div className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                        {currentImage.label}
                       </div>
                     )}
                   </div>
+                )}
 
-                  {/* Format Info */}
-                  <h3 className="font-bold text-lg text-gray-900 mb-1">
-                    {format.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">{format.players}</p>
+                {product.videoUrl && (
+                  <ProductVideo videoUrl={product.videoUrl} title={product.name} />
+                )}
+              </div>
+            )}
 
-                  {/* Package Options */}
-                  <div className="space-y-3 mb-4">
-                    {Object.entries(format.packages).map(([packageType, packageInfo]) => (
-                      <div key={packageType} className="space-y-2">
-                        <label className="flex items-start gap-2 cursor-pointer">
-                          <input
-                            type="radio"
-                            name={`${product.id}-${format.id}`}
-                            checked={selectedOptions[product.id]?.formatId === format.id && 
-                                    selectedOptions[product.id]?.packageType === packageType}
-                            onChange={() => handleSelectOption(product.id, format.id, packageType, null, 0)}
-                            className="mt-1"
-                          />
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">
-                              {packageInfo.label}
-                            </div>
-                            <div className="text-lg font-bold text-blue-600">
-                              €{packageInfo.price.toFixed(2)}
-                            </div>
-                          </div>
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Extra Options (if available) - plus/minus quantity */}
-                  {format.extras && format.extras.length > 0 && (
-                    <div className="space-y-2 mb-4 pt-4 border-t border-gray-300">
-                      <p className="text-sm font-medium text-gray-700 mb-2">Extra opties:</p>
-                      {format.extras.map((extra, extraIndex) => {
-                        const isSelected = selectedOptions[product.id]?.formatId === format.id;
-                        const qty = isSelected ? (selectedOptions[product.id]?.extraQuantity ?? 0) : 0;
-                        return (
-                          <div key={extraIndex} className="flex items-center justify-between gap-3">
-                            <span className="text-sm text-gray-700 flex-1">{extra.name}</span>
-                            <span className="text-sm font-bold text-gray-900">€{extra.price.toFixed(2)}</span>
-                            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-                              <button
-                                type="button"
-                                onClick={() => changeExtraQuantity(product.id, format.id, extra, -1)}
-                                disabled={!isSelected || qty <= 0}
-                                className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                                aria-label="Minder"
-                              >
-                                <Minus className="w-4 h-4" />
-                              </button>
-                              <span className="w-8 text-center text-sm font-medium">{qty}</span>
-                              <button
-                                type="button"
-                                onClick={() => changeExtraQuantity(product.id, format.id, extra, 1)}
-                                disabled={!isSelected}
-                                className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                                aria-label="Meer"
-                              >
-                                <Plus className="w-4 h-4" />
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })}
+            {product.pricing && (
+              <div className="order-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-gradient-to-r from-orange-50 to-amber-50 p-5 md:order-3 md:flex-row md:items-center md:justify-between md:p-6">
+                <div className="text-left">
+                  {displayPrice && (
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-black text-gray-900 md:text-4xl">{displayPrice}</span>
+                      <span className="text-sm font-medium text-gray-500">incl. btw</span>
                     </div>
                   )}
-
-                  {/* Add to Cart Button */}
-                  <Button
-                    onClick={() => {
-                      const selected = selectedOptions[product.id];
-                      if (selected && selected.formatId === format.id) {
-                        const extraQty = selected.extraQuantity ?? 0;
-                        handleAddToCart(product, format, selected.packageType, extraQty > 0 ? selected.extra : null, extraQty);
-                      } else {
-                        // Default to first package if nothing selected
-                        const defaultPackage = Object.keys(format.packages)[0];
-                        handleAddToCart(product, format, defaultPackage, null, 0);
-                      }
-                    }}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
-                    size="lg"
-                  >
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    In winkelwagen
-                  </Button>
+                  {pricingSubtitle && (
+                    <p className="mt-1 max-w-md text-sm text-gray-600 md:text-base">{pricingSubtitle}</p>
+                  )}
                 </div>
-              ))}
-                  </div>
-                </div>
-              </motion.div>
+                <Button
+                  onClick={() => setConfigureProduct(product)}
+                  className="w-full shrink-0 bg-orange-500 font-bold text-white shadow-sm hover:bg-orange-600 md:w-auto md:px-8"
+                  size="lg"
+                >
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Samenstellen & bestellen
+                </Button>
+              </div>
             )}
-          </AnimatePresence>
+          </div>
         </motion.div>
-      ))}
+        );
+      })}
+
+      <ProductConfigureModal
+        product={configureProduct}
+        isOpen={Boolean(configureProduct)}
+        onClose={() => setConfigureProduct(null)}
+        onAddToCart={onAddConfiguredItem}
+      />
 
       {/* Modals for each product with detailed rules */}
       {products.map((product) => {
@@ -320,46 +325,98 @@ const ProductList = ({ products, selectedOptions, setSelectedOptions, handleAddT
         );
       })}
 
-      {/* Fullscreen Image Modal */}
+      {/* Fullscreen Image Gallery */}
       <AnimatePresence>
-        {fullscreenImage && (
+        {fullscreenGallery && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
-            onClick={() => setFullscreenImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
+            onClick={() => setFullscreenGallery(null)}
           >
-            {/* Close Button */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setFullscreenImage(null);
+                setFullscreenGallery(null);
               }}
-              className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full p-2 hover:bg-black/70"
+              className="absolute top-4 right-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
               aria-label="Sluiten"
             >
               <X className="h-6 w-6" />
             </button>
 
-            {/* Fullscreen Image */}
+            {fullscreenGallery.images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFullscreenGallery((prev) => ({
+                      ...prev,
+                      index: (prev.index - 1 + prev.images.length) % prev.images.length,
+                    }));
+                  }}
+                  className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
+                  aria-label="Vorige afbeelding"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFullscreenGallery((prev) => ({
+                      ...prev,
+                      index: (prev.index + 1) % prev.images.length,
+                    }));
+                  }}
+                  className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
+                  aria-label="Volgende afbeelding"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </button>
+              </>
+            )}
+
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              key={fullscreenGallery.images[fullscreenGallery.index]?.url}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center"
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative flex h-full w-full max-h-[90vh] max-w-7xl flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={fullscreenImage}
-                alt="Fullscreen product image"
-                fill
-                className="object-contain"
-                quality={100}
-                unoptimized={true}
-                priority
-              />
+              <div
+                className={`relative h-full w-full ${
+                  fullscreenGallery.images[fullscreenGallery.index]?.variant === 'poster'
+                    ? 'max-w-md md:max-w-lg'
+                    : 'max-w-7xl'
+                }`}
+              >
+                <Image
+                  src={fullscreenGallery.images[fullscreenGallery.index].url}
+                  alt={fullscreenGallery.productName}
+                  fill
+                  className="object-contain"
+                  quality={100}
+                  unoptimized
+                  priority
+                />
+              </div>
+              <div className="mt-4 text-center text-white">
+                {fullscreenGallery.images[fullscreenGallery.index]?.label && (
+                  <p className="text-sm text-white/80">
+                    {fullscreenGallery.images[fullscreenGallery.index].label}
+                  </p>
+                )}
+                {fullscreenGallery.images.length > 1 && (
+                  <p className="mt-1 text-xs text-white/60">
+                    {fullscreenGallery.index + 1} / {fullscreenGallery.images.length}
+                  </p>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}

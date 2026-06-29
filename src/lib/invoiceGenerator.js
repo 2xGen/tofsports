@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { formatPackageDetailLines } from '@/lib/packageOrderDetails';
 
 // Business details
 const BUSINESS_INFO = {
@@ -104,35 +105,74 @@ export const generateInvoice = (orderData) => {
   // Products
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  
-  items.forEach((item) => {
-    // Check if we need a new page
-    if (yPos > 250) {
+
+  const contentWidth = pageWidth - 50;
+  const priceColX = pageWidth - 25;
+
+  const ensureSpace = (needed) => {
+    if (yPos + needed > 265) {
       doc.addPage();
       yPos = 20;
     }
-    
+  };
+
+  const drawWrapped = (text, x, y, maxWidth, color = darkColor, fontSize = 9) => {
+    doc.setFontSize(fontSize);
+    doc.setTextColor(...color);
+    const wrapped = doc.splitTextToSize(text, maxWidth);
+    doc.text(wrapped, x, y);
+    return y + wrapped.length * (fontSize * 0.45);
+  };
+
+  items.forEach((item) => {
+    ensureSpace(20);
+
     const itemTotal = (item.price * item.quantity).toFixed(2);
-    
-    // Product name (may need wrapping for long names)
-    const productText = `${item.productName} - ${item.formatName}`;
-    const extraPart = item.extraName && (item.extraQuantity ?? 0) > 0
-      ? ` + ${item.extraName} x ${item.extraQuantity}`
-      : item.extraName ? ` + ${item.extraName}` : '';
+    const productText = `${item.productName} — ${item.formatName}`;
+    const extraPart =
+      item.extraName && (item.extraQuantity ?? 0) > 0
+        ? ` + ${item.extraName} x ${item.extraQuantity}`
+        : item.extraName
+          ? ` + ${item.extraName}`
+          : '';
     const packageText = item.packageLabel + extraPart;
-    
+    const detailLines = formatPackageDetailLines(item);
+    const rowStartY = yPos;
+
+    doc.setFont('helvetica', 'bold');
+    yPos = drawWrapped(productText, 25, yPos, 88, darkColor, 9);
+    doc.setFont('helvetica', 'normal');
+    yPos = drawWrapped(packageText, 25, yPos + 1, 88, grayColor, 8);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
     doc.setTextColor(...darkColor);
-    doc.text(productText.substring(0, 45), 25, yPos);
-    yPos += 4;
-    doc.setTextColor(...grayColor);
-    doc.text(packageText.substring(0, 45), 25, yPos);
-    
-    doc.setTextColor(...darkColor);
-    doc.text(item.quantity.toString(), 125, yPos - 2);
-    doc.text(`€${item.price.toFixed(2)}`, 145, yPos - 2);
-    doc.text(`€${itemTotal}`, pageWidth - 25, yPos - 2, { align: 'right' });
-    
-    yPos += 10;
+    doc.text(item.quantity.toString(), 125, rowStartY);
+    doc.text(`€${item.price.toFixed(2)}`, 145, rowStartY);
+    doc.text(`€${itemTotal}`, priceColX, rowStartY, { align: 'right' });
+
+    if (detailLines.length > 0) {
+      yPos += 2;
+      detailLines.forEach((line) => {
+        ensureSpace(6);
+        if (line === '') {
+          yPos += 2;
+          return;
+        }
+        const isSection = !line.startsWith('  ');
+        yPos = drawWrapped(
+          line,
+          28,
+          yPos,
+          contentWidth - 30,
+          isSection ? darkColor : grayColor,
+          isSection ? 8 : 7.5,
+        );
+        yPos += 1;
+      });
+    }
+
+    yPos += 6;
   });
   
   yPos += 5;

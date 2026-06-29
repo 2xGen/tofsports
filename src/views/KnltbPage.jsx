@@ -1,105 +1,68 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
+import { getPageHeroImage } from '@/data/heroSlides';
 
 const KnltbPage = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Get category from URL, default to 'tennis'
   const selectedCategory = searchParams.get('category') || 'tennis';
+  const heroImage = getPageHeroImage('/knltb', selectedCategory);
 
-  // Update URL when category changes
   const handleCategoryChange = (category) => {
     router.push(`/knltb?category=${category}`);
   };
 
-  // Hero background gradient based on category
-  const heroBackground = selectedCategory === 'padel'
-    ? 'linear-gradient(to bottom right, rgba(180, 255, 200, 0.4), rgba(197, 223, 223, 0.5), rgba(62, 200, 188, 0.3))'
-    : 'linear-gradient(to bottom right, rgba(180, 200, 255, 0.4), rgba(197, 223, 240, 0.5), rgba(100, 180, 220, 0.3))';
-
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background - Changes based on category */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: heroBackground,
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-30 py-16">
-          <div className="flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
-            <motion.h1
-              initial={{ opacity: 0, x: 100, scale: 0.5 }}
-              animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
-              transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-              className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
-            >
+      <PageHero image={heroImage}>
+        {(heroInView) => (
+          <div className="flex flex-col items-center space-y-4 md:space-y-6">
+            <PageHeroTitle heroInView={heroInView}>
               {selectedCategory === 'padel' ? 'TOF Padel' : 'Tenniskids'}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
-            >
-              Powered by KNLTB
-            </motion.p>
-
-            {/* Category Buttons in Hero */}
+            </PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView}>Powered by KNLTB</PageHeroSubtitle>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex justify-center gap-3 md:gap-4 mt-8 flex-wrap relative z-30"
+              className="mt-4 flex flex-wrap justify-center gap-3 md:gap-4"
             >
               <Button
                 onClick={() => handleCategoryChange('tennis')}
                 variant={selectedCategory === 'tennis' ? 'default' : 'outline'}
                 size="lg"
-                className={`px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold flex-1 md:flex-none min-w-[120px] ${
+                className={`min-w-[120px] flex-1 px-6 py-2 text-base font-bold md:flex-none md:px-8 md:py-3 md:text-lg ${
                   selectedCategory === 'tennis'
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
+                    ? 'bg-orange-500 text-white hover:bg-orange-600'
+                    : 'border-2 border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
                 }`}
               >
                 Tennis
               </Button>
-              <Button 
+              <Button
                 onClick={() => handleCategoryChange('padel')}
                 variant={selectedCategory === 'padel' ? 'default' : 'outline'}
                 size="lg"
-                className={`px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold flex-1 md:flex-none min-w-[120px] ${
+                className={`min-w-[120px] flex-1 px-6 py-2 text-base font-bold md:flex-none md:px-8 md:py-3 md:text-lg ${
                   selectedCategory === 'padel'
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
+                    ? 'bg-orange-500 text-white hover:bg-orange-600'
+                    : 'border-2 border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
                 }`}
               >
                 Padel
               </Button>
             </motion.div>
           </div>
-        </div>
-
-        {/* Curved Shape Divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-20">
-            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="#F9FAFB" />
-          </svg>
-        </div>
-      </section>
+        )}
+      </PageHero>
 
       {/* Content Sections */}
       <div className="container mx-auto px-4 py-12 max-w-7xl">

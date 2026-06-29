@@ -1,11 +1,53 @@
 // Shared products data for all webshop pages
+
+const WEBSHOP_MEDIA =
+  'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/tof%20webshop';
+
+export const POSTER_WIZARD_PRICING = {
+  type: 'poster-wizard',
+  posterPrice: 95,
+  tiers: [
+    { id: 'tier-21', label: 'Tot en met 21 spelers', buttonAddon: 30 },
+    { id: 'tier-36', label: 'Tot en met 36 spelers', buttonAddon: 40 },
+    { id: 'tier-55', label: 'Tot en met 55 spelers', buttonAddon: 60 },
+  ],
+};
+
+/** Padel Piramide — alleen 21 en 36 spelers */
+export const POSTER_WIZARD_PRICING_36 = {
+  type: 'poster-wizard',
+  posterPrice: 95,
+  tiers: [
+    { id: 'tier-21', label: 'Tot en met 21 spelers', buttonAddon: 30 },
+    { id: 'tier-36', label: 'Tot en met 36 spelers', buttonAddon: 40 },
+  ],
+};
+
+export const POSTER_BUTTONS_30_PRICING = {
+  type: 'poster-buttons-optional',
+  posterPrice: 95,
+  buttonAddon: 30,
+  buttonLabel: '30 magneetbuttons (3 dozen à 10)',
+  subtitle: 'Kies of je magneetbuttons wilt bijbestellen (min. 30 stuks)',
+};
+
 export const allProducts = [
   {
     id: 'piramide',
     name: 'PIRAMIDE TENNIS',
     category: 'tennis',
     ageGroup: 'Tenniskids Rood | Tenniskids Oranje',
-    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
+    videoUrl: 'https://www.youtube.com/watch?v=wtJjEy9Js0g',
+    description: 'Het competitieve klassementsformat waarin spelers elkaar uitdagen en zo hoog mogelijk in de piramide proberen te klimmen. Laagdrempelig en doorlopend: spelers organiseren hun wedstrijden zelf, zonder extra organisatie voor de trainer.',
+    highlights: [
+      'Spelers dagen elkaar uit en spelen doorlopend wedstrijden op de club',
+      'Draai de button om tijdens een wedstrijd, zo zie je direct wie beschikbaar is',
+      'Geschikt voor jeugd én volwassenen, in enkel- én dubbelspel',
+      'Resultaten koppelbaar aan TOF Score en de TOF app',
+    ],
+    descriptionLong: `Spelers proberen zo hoog mogelijk op de piramide te komen door onderlinge wedstrijden te spelen. Wanneer een wedstrijd start, wordt dit zichtbaar gemaakt door de button om te draaien. Na afloop wisselen spelers van positie afhankelijk van de uitslag, waarna de button weer teruggaat om aan te geven dat iemand opnieuw beschikbaar is voor een nieuwe uitdaging.
+
+Zo ontstaat een continu en laagdrempelig systeem waarin spelers zelf wedstrijden organiseren en de club levendiger wordt, zonder extra druk of organisatie voor trainers. Gespeelde wedstrijden en resultaten kunnen worden bijgehouden en gekoppeld aan TOF Score en de TOF app.`,
     detailedRules: `PIRAMIDE TENNIS
 Officiële Spelregels & Handleiding
 
@@ -217,90 +259,72 @@ In de box:
 
 Veel speelplezier met PIRAMIDE TENNIS!
 TOF Tennis - Tennis + Strategie + Actie = Onvergetelijk Speelplezier`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Piramide%20tennis%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/piramide%20tennis%2021.jpg`, label: 'Poster t/m 21 spelers' },
+      { url: `${WEBSHOP_MEDIA}/piramide%20tennis%2036.jpg`, label: 'Poster t/m 36 spelers' },
+      { url: `${WEBSHOP_MEDIA}/piramide%20tennis%2055.jpg`, label: 'Poster t/m 55 spelers' },
+    ],
+    pricing: POSTER_WIZARD_PRICING,
     formats: [
       {
-        id: 'piramide-21',
-        name: 'Poster 1',
-        players: 'T/m 21 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2021-1.png',
-        packages: {
-          basis: { price: 79.95, label: 'Basis pakket (incl. 21 buttons)' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
+        id: 'piramide',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/piramide%20tennis%2036.jpg`,
+        packages: {},
       },
-      {
-        id: 'piramide-36',
-        name: 'Poster 2',
-        players: '21-36 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2036-1.png',
-        packages: {
-          basis: { price: 89.95, label: 'Basis pakket (incl. 36 buttons)' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      },
-      {
-        id: 'piramide-55',
-        name: 'Poster 3',
-        players: '37-55 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2055-1.png',
-        packages: {
-          basis: { price: 99.95, label: 'Basis pakket (incl. 55 buttons)' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      }
-    ]
+    ],
   },
   {
     id: 'davis',
     name: 'DAVIS CLUP',
     category: 'tennis',
     ageGroup: 'Tenniskids Oranje | Tenniskids Groen | Jeugd Geel',
-    description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
+    videoUrl: 'https://www.youtube.com/watch?v=iw1PehVTvI4',
+    description: 'Een teamcompetitie voor de oudere jeugd, met een knipoog naar de Davis Cup. Spelers vormen hun eigen teams op de club en strijden in onderlinge wedstrijden: persoonlijke ontwikkeling en teamspirit in één format.',
+    highlights: [
+      'Spelers maken hun eigen teams en spelen tegen andere teams',
+      'Punten tellen zowel individueel als per team op',
+      'Combineert persoonlijke ontwikkeling met teamcompetitie',
+      'Ruimte om een beloning of eindscore te koppelen',
+    ],
+    descriptionLong: `Het Davis Clup format is een speels en competitief oefenformat voor de oudere jeugd op de tennisclub, met een knipoog naar de Davis Cup waarin landen tegen elkaar spelen. Binnen dit format maken spelers hun eigen teams op de club en spelen ze onderling wedstrijden tegen andere teams.
+
+Resultaten worden per wedstrijd bijgehouden door een streepje achter de teamnaam te zetten met het aantal punten. De punten tellen zowel individueel als per team op. Zo ontstaat een combinatie van persoonlijke ontwikkeling en teamcompetitie, met ruimte om hieraan een beloning of eindscore te koppelen.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Davis%20clup%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/davis%20clup%20tennis%2021.jpg`, label: 'Tot en met 21 spelers' },
+      { url: `${WEBSHOP_MEDIA}/davis%20club%20tennis%2036.jpg`, label: 'Tot en met 36 spelers' },
+      { url: `${WEBSHOP_MEDIA}/davis%20clup%20tennis%2055.jpg`, label: 'Tot en met 55 spelers' },
+    ],
+    pricing: POSTER_WIZARD_PRICING,
     formats: [
       {
-        id: 'davis-20',
-        name: 'Poster 1',
-        players: 'T/m 20 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2020-1.png',
-        packages: {
-          basis: { price: 79.95, label: 'Basis pakket (incl. 20 buttons)' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
+        id: 'davis',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/davis%20club%20tennis%2036.jpg`,
+        packages: {},
       },
-      {
-        id: 'davis-30',
-        name: 'Poster 2',
-        players: '21-30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2030-1.png',
-        packages: {
-          basis: { price: 89.95, label: 'Basis pakket (incl. 30 buttons)' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      },
-      {
-        id: 'davis-40',
-        name: 'Poster 3',
-        players: '31-40 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Davis%20Clup%2040-1.png',
-        packages: {
-          basis: { price: 99.95, label: 'Basis pakket (incl. 40 buttons)' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      }
-    ]
+    ],
   },
   {
     id: '4opeenrij',
     name: 'VIER OP EEN RIJ',
     category: 'tennis',
     ageGroup: 'Alle leeftijden',
-    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF Score status. Op naar de 100, 500 of zelfs 1000 punten! Elk punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
+    videoUrl: 'https://www.youtube.com/watch?v=gAYHvXSPl5o',
+    description: 'Een speels en competitief format rond korte wedstrijden en snelle uitdagingen. Win je duel en zet een stap in het spelbord: wie als eerste vier op een rij heeft, wint. Eenvoudig te begrijpen en breed inzetbaar.',
+    highlights: [
+      'Korte wedstrijden en opdrachten houden iedereen actief',
+      'Na elke overwinning een button plaatsen richting vier op een rij',
+      'Breed inzetbaar voor verschillende leeftijden en niveaus',
+      'Individuele prestaties koppelbaar aan TOF Score en de TOF app',
+    ],
+    descriptionLong: `Spelers nemen het tegen elkaar op in korte wedstrijden of opdrachten. Na elke overwinning mag een speler of team een stap zetten in het spelbord, met als doel om als eerste vier op een rij te behalen of binnen een bepaalde tijd zoveel mogelijk combinaties te maken. Het format is eenvoudig te begrijpen en daardoor breed inzetbaar voor verschillende leeftijden en niveaus binnen de tennisjeugd.
+
+Naast het teamdoel kan ook op individueel niveau worden bijgehouden hoeveel overwinningen en activiteiten spelers behalen. Deze resultaten kunnen worden gekoppeld aan TOF Score en verwerkt worden in de TOF app. Zo ontstaat een dynamische spelvorm waarin spelers continu worden uitgedaagd om actief te spelen, te winnen en betrokken te blijven op de club.`,
     detailedRules: `VIER OP EEN RIJ TENNIS
 Officiële Spelregels & Handleiding
 
@@ -579,24 +603,41 @@ In de box:
 
 Veel speelplezier met VIER OP EEN RIJ Tennis!
 TOF Tennis - Tennis + Strategie = Onvergetelijk Speelplezier`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Vier%20op%20een%20rij%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/vier%20op%20een%20rij.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: {
+      type: 'fixed-bundle',
+      price: 145,
+      label: 'Poster + gekleurde buttons',
+    },
     formats: [
       {
-        id: '4opeenrij-30',
-        name: 'Poster 1',
-        players: 'T/m 30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%204%20OP%201%20RIJ-1.png',
-        packages: {
-          standard: { price: 84.95, label: 'Standaard set (1 poster + 49 gekleurde buttons)' }
-        }
-      }
-    ]
+        id: '4opeenrij',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/vier%20op%20een%20rij.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'kraak-de-code',
     name: 'KRAAK DE CODE',
     category: 'tennis',
     ageGroup: 'Alle leeftijden',
-    description: 'Strijd in twee tot vier teams om de geheime code te kraken door vijf dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF Score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
+    videoUrl: 'https://www.youtube.com/watch?v=REM_Lal8Wco',
+    description: 'Een spannend codekraakspel waarin spelers door te winnen beurten verdienen om de juiste kleurcode te raden. Achter de vraagtekens zitten kleuren verstopt: wie kraakt als eerste de code? Competitief, actief en altijd anders.',
+    highlights: [
+      'Verdien een beurt door een oefening of wedstrijd te winnen',
+      'Raad de verborgen kleurcode; de trainer controleert',
+      'Meerdere teams spelen tegelijk voor extra spanning',
+      'Koppel TOF Score voor bonuspunten en beloningen',
+    ],
+    descriptionLong: `Bij Kraak de Code draait het om zo snel mogelijk de juiste kleurcode te raden. Achter de vraagtekens zitten verschillende kleuren verstopt. Spelers — individueel, in duo's of als team — verdienen een beurt door bijvoorbeeld een oefening of wedstrijd te winnen. Daarna mogen ze naar het bord om een kleurcode in te vullen die zij denken dat juist is. De trainer controleert de code. Is hij niet goed, dan volgt er een nieuwe oefening en een nieuwe kans.
+
+Zo blijven spelers actief en gemotiveerd bezig. Meerdere teams kunnen tegelijk spelen, waardoor er een competitief en spannend spel ontstaat op de club. Door TOF Score eraan te koppelen kun je extra punten geven, bijvoorbeeld voor het eerste team dat de juiste code raadt. Deze punten tellen op binnen de TOF Score en kunnen gekoppeld worden aan een beloning.`,
     detailedRules: `KRAAK DE CODE TENNIS
 Officiële Spelregels & Handleiding
 
@@ -831,62 +872,55 @@ In de box:
 
 Veel speelplezier met KRAAK DE CODE Tennis!
 TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/kraak%20de%20code%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/kraak%20de%20code%20tennis.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: {
+      type: 'fixed-bundle',
+      price: 135,
+      label: 'Poster + gekleurde buttons',
+    },
     formats: [
       {
-        id: 'kraak-de-code-30',
-        name: 'Standaard set',
-        players: 'T/m 30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20KRAAK%20DE%20CODE-1.png',
-        packages: {
-          standard: { price: 84.95, label: '1 poster + 40 gekleurde buttons' }
-        }
-      }
-    ]
+        id: 'kraak-de-code',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/kraak%20de%20code%20tennis.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'swirl',
     name: 'DE SWIRL',
     category: 'tennis',
     ageGroup: 'Tenniskids Rood | Tenniskids Oranje | Tenniskids Groen',
-    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
+    videoUrl: 'https://www.youtube.com/watch?v=EdDnRoxkcFk',
+    description: 'Het veelzijdige format dat direct aansluit op de TOF Tennis Spelerskaarten. Laat spelers zelf kiezen waar ze aan willen werken, óf speel de Swirl als snelle wedstrijdvorm naar het midden toe. Eigenaarschap én speelplezier.',
+    highlights: [
+      'Sluit naadloos aan op de TOF Tennis Spelerskaarten',
+      'Spelers kiezen zelf hun ontwikkelpunt: voetenwerk, netspel, rally of wedstrijd',
+      'Ook als wedstrijdvorm: elk gewonnen punt is een stap richting het midden',
+      'Koppelbaar aan TOF Score voor inzicht in voortgang en activiteit',
+    ],
+    descriptionLong: `TOF Tennis Swirl sluit direct aan op de TOF Tennis Spelerskaarten en kan op verschillende manieren ingezet worden binnen het jeugdprogramma. Een leuke toepassing is om spelers zelf te laten kiezen waar zij de komende periode aan willen werken — denk aan voetenwerk, netspel, rallyvaardigheden of het spelen van wedstrijden. Door kinderen hierin een stem te geven, ontstaat meer eigenaarschap en motivatie.
+
+Daarnaast kan de Swirl gebruikt worden als speelse wedstrijdvorm: twee teams spelen korte wedstrijden tegen elkaar en voor ieder gewonnen punt mag een team één stap verder bewegen binnen de Swirl. Het team dat als eerste het midden bereikt, wint. Uiteraard kan ook TOF Score aan de Swirl worden gekoppeld, zodat trainers de voortgang van spelers volgen én inzicht krijgen in hoeveel wedstrijden en activiteiten er op de club worden gespeeld.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/de%20swirl%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/tennis%20swirl.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: POSTER_BUTTONS_30_PRICING,
     formats: [
       {
-        id: 'swirl-lila',
-        name: 'Poster Lila',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20SWIRL%20LILA-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      },
-      {
-        id: 'swirl-oranje',
-        name: 'Poster Oranje',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20SWIRL%20Oranje-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      },
-      {
         id: 'swirl-pistache',
-        name: 'Poster Pistache',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20SWIRL%20Pistache-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      }
-    ]
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/tennis%20swirl.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'scoreboard',
@@ -894,150 +928,186 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     category: 'tennis',
     ageGroup: 'Alle leeftijden',
     description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Scoreboard.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/tennis%20scoreboard.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: POSTER_BUTTONS_30_PRICING,
     formats: [
       {
         id: 'scoreboard-1',
-        name: 'Standaard set',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Scorbord-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 20 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      }
-    ]
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/tennis%20scoreboard.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'padel-piramide',
     name: 'PADEL PIRAMIDE',
     category: 'padel',
     ageGroup: 'Ontwikkelingsmatrix 1 | T/m 11 jaar',
-    description: 'De strijd om de top én de actie! Daag spelers naast of boven je uit om te klimmen in de piramide. Het gaat niet alleen om wie bovenaan eindigt, maar ook om wie de meeste \'klimacties\' maakt en de meeste wedstrijden speelt. Omdat elk gespeeld punt direct wordt bijgeschreven op jouw TOF Score, is vaker spelen belangrijker dan winnen. Wat is jouw status vandaag?',
+    videoUrl: 'https://www.youtube.com/watch?v=RkwfcItUHZM',
+    description: 'Het klassementsformat voor de jongste jeugd binnen Explore Padel, vaak gespeeld over de breedte van de baan. Spelers dagen elkaar uit en klimmen in de piramide: het draait vooral om onderlinge uitdaging en veel spelmomenten.',
+    highlights: [
+      'Spelers dagen elkaar uit en organiseren zelf hun wedstrijden',
+      'Draai de button om tijdens het spelen, zo zie je wie beschikbaar is',
+      'Ideaal voor de jongste jeugd; ook geschikt als dubbelspel-variant voor ouderen',
+      'Resultaten koppelbaar aan TOF Score en de TOF app',
+    ],
+    descriptionLong: `De Padel Piramide wordt vooral gebruikt voor de jongste jeugd binnen Explore Padel, waar vaak over de breedte van de baan wordt gespeeld. Spelers dagen elkaar uit om wedstrijden te spelen en proberen zo hoog mogelijk op de piramide te klimmen. Het belangrijkste doel is niet alleen winnen, maar vooral het stimuleren van onderlinge uitdaging en spelmomenten op de club.
+
+Zodra een wedstrijd start, wordt de button omgedraaid om aan te geven dat er gespeeld wordt. Na de wedstrijd wisselen spelers van positie afhankelijk van de uitslag, en wordt de button weer teruggedraaid om te laten zien dat de speler opnieuw beschikbaar is. Zo leren kinderen zelf wedstrijden te organiseren en elkaar uit te dagen. Gespeelde wedstrijden en resultaten kunnen worden bijgehouden en gekoppeld aan TOF Score en de TOF app.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/padel%20piramide%20500.jpg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/padel%20piramide%2021.jpg`, label: 'Tot en met 21 spelers' },
+      { url: `${WEBSHOP_MEDIA}/padel%20piramide%2036.jpg`, label: 'Tot en met 36 spelers' },
+    ],
+    pricing: POSTER_WIZARD_PRICING_36,
     formats: [
       {
-        id: 'padel-piramide-21',
-        name: 'Poster 1',
-        players: 'T/m 21 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2021-1.png',
-        packages: {
-          basis: { price: 79.95, label: 'Basis pakket (incl. 21 buttons)' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
+        id: 'padel-piramide',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/padel%20piramide%2036.jpg`,
+        packages: {},
       },
-      {
-        id: 'padel-piramide-36',
-        name: 'Poster 2',
-        players: '21-36 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2036-1.png',
-        packages: {
-          basis: { price: 89.95, label: 'Basis pakket (incl. 36 buttons)' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      }
-    ]
+    ],
   },
   {
     id: 'padel-club-clash',
-    name: 'PADEL CLUB CLASH',
+    name: 'PADEL CLUP CLASH',
     category: 'padel',
     ageGroup: 'Ontwikkelingsmatrix 2 | 11-16 jaar',
-    description: 'Magneet poster systeem met witte buttons, watervaste stift en spelregelkaart',
+    videoUrl: 'https://www.youtube.com/watch?v=MZm8bETmIuQ',
+    description: 'Een laagdrempelig teamformat voor de iets oudere jeugd (Experience of Expert Padel). Spelers maken zelf groepjes en spelen wedstrijdjes tegen andere groepjes: spelenderwijs wedstrijdervaring opdoen op de eigen club.',
+    highlights: [
+      'Spelers maken zelf groepjes en spelen tegen andere groepjes',
+      'Scores noteren op het TOF Score-formulier, digitaal bij te houden',
+      'Vertrouwde setting op de eigen club als opstap naar officiële wedstrijden',
+      'Een waardevolle aanvulling op het jeugdprogramma',
+    ],
+    descriptionLong: `Clup Clash Padel is een oefenformat van TOF Sports voor de iets oudere jeugd binnen de club, zoals Experience Padel of Expert Padel, bedoeld als aanvulling op het jeugdprogramma. Spelers maken zelf groepjes en spelen vervolgens wedstrijdjes tegen andere groepjes op de club.
+
+De scores worden genoteerd op het TOF Score-formulier en kunnen digitaal worden bijgehouden binnen het TOF-systeem. Zo ontstaat een laagdrempelige en vertrouwde setting op de eigen club, waarin spelers spelenderwijs wedstrijdervaring opdoen en beter worden voorbereid op officiële wedstrijden.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/padel%20club%20clash%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/padel%20clup%20clash%2021.jpg`, label: 'Tot en met 21 spelers' },
+      { url: `${WEBSHOP_MEDIA}/padel%20clup%20clash%2036.jpg`, label: 'Tot en met 36 spelers' },
+      { url: `${WEBSHOP_MEDIA}/padel%20clup%20clash%2055.jpg`, label: 'Tot en met 55 spelers' },
+    ],
+    pricing: POSTER_WIZARD_PRICING,
     formats: [
       {
-        id: 'padel-club-clash-20',
-        name: 'Poster 1',
-        players: 'T/m 20 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2020-1.png',
-        packages: {
-          basis: { price: 79.95, label: 'Basis pakket (incl. 20 buttons)' },
-          plus: { price: 89.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 99.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
+        id: 'padel-club-clash',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/padel%20clup%20clash%2036.jpg`,
+        packages: {},
       },
-      {
-        id: 'padel-club-clash-30',
-        name: 'Poster 2',
-        players: '21-30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2020-1.png',
-        packages: {
-          basis: { price: 89.95, label: 'Basis pakket (incl. 30 buttons)' },
-          plus: { price: 99.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 109.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      },
-      {
-        id: 'padel-club-clash-40',
-        name: 'Poster 3',
-        players: '31-40 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20CLUB%20CLASH%2040-1.png',
-        packages: {
-          basis: { price: 99.95, label: 'Basis pakket (incl. 40 buttons)' },
-          plus: { price: 109.95, label: 'Plus pakket (basis + stift + stiftremover)' },
-          compleet: { price: 119.95, label: 'Compleet pakket (plus + 10 extra buttons)' }
-        }
-      }
-    ]
+    ],
   },
   {
     id: 'uno-dos-tres-cuatro',
     name: 'UNO DOS TRES CUATRO',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Win korte wedstrijden en plaats buttons om als eerste vier op een rij te scoren. Of je nu wint of verliest, met elke gespeelde game groeit jouw TOF Score status. Op naar de 100, 500 of zelfs 1000 punten! Elk punt telt mee voor jouw persoonlijke totaal. Hoe TOF is dat?!',
+    videoUrl: 'https://www.youtube.com/watch?v=qH1gAcVx6S8',
+    description: 'Het padelformat rond snelheid, uitdaging en het verzamelen van overwinningen. Speel korte wedstrijden, creëer patronen van vier op een rij en win zoveel mogelijk rondes. Eenvoudig te begrijpen en op elk niveau toepasbaar.',
+    highlights: [
+      'Korte wedstrijden en uitdagingen binnen een duidelijke spelstructuur',
+      'Maak zo snel mogelijk patronen van vier op een rij',
+      'Toepasbaar voor zowel jongere als oudere jeugdspelers',
+      'Prestaties koppelbaar aan TOF Score en de TOF app',
+    ],
+    descriptionLong: `Spelers spelen korte wedstrijden of uitdagingen tegen elkaar. Het doel is om zo snel mogelijk patronen van vier op een rij te creëren of binnen een bepaalde tijd zoveel mogelijk succesvolle rondes te winnen. Het format is eenvoudig te begrijpen en kan op verschillende niveaus worden toegepast, waardoor het geschikt is voor zowel jongere als oudere jeugdspelers.
+
+Naast het teamdoel kan ook op individueel niveau worden bijgehouden hoeveel prestaties en overwinningen spelers behalen. Deze resultaten kunnen worden gekoppeld aan TOF Score en vervolgens worden verwerkt in de TOF app. Zo ontstaat een dynamische spelvorm waarin spelers continu worden uitgedaagd om actief te blijven spelen en hun niveau te ontwikkelen op de padelbaan.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/un%20dos%20tres%20500.jpg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/uno%20dos%20tres%20cuatro.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: {
+      type: 'fixed-bundle',
+      price: 145,
+      label: 'Poster + gekleurde buttons',
+    },
     formats: [
       {
-        id: 'uno-dos-tres-cuatro-30',
-        name: 'Poster 1',
-        players: 'T/m 30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20UNO%20DOS%20TRES%20CUATRO-1.png',
-        packages: {
-          standard: { price: 84.95, label: 'Standaard set (1 poster + 49 gekleurde buttons)' }
-        }
-      }
-    ]
+        id: 'uno-dos-tres-cuatro',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/uno%20dos%20tres%20cuatro.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'unlock-the-code',
     name: 'UNLOCK THE CODE',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Strijd in twee tot vier teams om de geheime code te kraken door vijf dezelfde buttons op de juiste plek te krijgen. Door te spelen verdien je het recht om buttons te verplaatsen. Ondertussen bouw je razendsnel aan je TOF Score. Of de code nu gekraakt wordt of niet, jouw inzet brengt je dichter bij de volgende mijlpaal van 200 of 1000 punten!',
+    videoUrl: 'https://www.youtube.com/watch?v=Gek0aHuhR8A',
+    description: 'Samenwerken, uitdagingen aangaan en als eerste de juiste kleurcode kraken. Achter de magneetjes met vraagtekens zitten kleuren verborgen: verdien pogingen door te winnen en achterhaal stap voor stap de code.',
+    highlights: [
+      'Verdien een poging via een opdracht, oefening of gewonnen wedstrijd',
+      'Juiste kleuren blijven staan: kraak de code stap voor stap',
+      'Meerdere teams spelen tegelijk voor maximale competitie',
+      'Koppel TOF Score voor extra punten binnen het TOF-systeem',
+    ],
+    descriptionLong: `Bij Unlock the Code Padel draait alles om samenwerken, uitdagingen aangaan en als eerste de juiste kleurcode kraken. Achter de magneetjes met vraagtekens zitten verschillende kleuren verborgen. Spelers verdienen een poging door een opdracht uit te voeren, een oefening te voltooien of een wedstrijd te winnen. Daarna mogen zij een kleurencombinatie invullen waarvan zij denken dat deze overeenkomt met de verborgen code. De trainer controleert de gekozen combinatie: kloppen één of meerdere kleuren, dan blijven deze staan voor de volgende ronde.
+
+Op basis van die informatie proberen de spelers stap voor stap de volledige kleurcode te achterhalen. Is de code nog niet gekraakt, dan volgt een nieuwe opdracht en een nieuwe kans. Meerdere teams kunnen tegelijkertijd deelnemen, waardoor een uitdagende en competitieve spelvorm ontstaat. Het team dat als eerste de volledige kleurcode kraakt, wint. Door het format te koppelen aan TOF Score kunnen extra punten worden verdiend die meetellen binnen het TOF-systeem en eenvoudig worden bijgehouden in de TOF app.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/unlock%20the%20code%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/unlock%20the%20code.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: {
+      type: 'fixed-bundle',
+      price: 135,
+      label: 'Poster + gekleurde buttons',
+    },
     formats: [
       {
-        id: 'unlock-the-code-30',
-        name: 'Standaard set',
-        players: 'T/m 30 spelers',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20UNLOCK%20THE%20CODE-1.png',
-        packages: {
-          standard: { price: 84.95, label: '1 poster + 40 gekleurde buttons' }
-        }
-      }
-    ]
+        id: 'unlock-the-code',
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/unlock%20the%20code.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'padel-swirl',
     name: 'DE SWIRL',
     category: 'padel',
     ageGroup: 'Alle leeftijden',
-    description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
+    videoUrl: 'https://www.youtube.com/watch?v=NsVjU-huVWE',
+    description: 'Het veelzijdige format dat aansluit bij de padelkaarten die veel jeugdspelers al kennen. Laat spelers zelf hun ontwikkelpunt kiezen, óf speel de Swirl als dynamische wedstrijdvorm. Herkenbaar, motiverend en breed inzetbaar.',
+    highlights: [
+      'Sluit aan bij de bekende padelkaarten, spelers stappen direct in',
+      'Spelers kiezen zelf hun focus: wand en hek, voetenwerk of ander spelonderdeel',
+      'Ook als wedstrijdvorm: elk gewonnen punt is een stap verder in de Swirl',
+      'Alle punten koppelbaar aan TOF Score',
+    ],
+    descriptionLong: `TOF Padel Swirl sluit aan bij de padelkaarten die veel jeugdspelers al kennen, waardoor kinderen het format direct herkennen en gemakkelijk instappen. De Swirl kan op verschillende manieren worden ingezet, bijvoorbeeld door spelers zelf te laten kiezen waar zij de komende periode aan willen werken — denk aan de wand en het hek, voetenwerk of een ander onderdeel van hun spel. Zo krijgen spelers meer invloed op hun eigen ontwikkeling en ontstaat extra motivatie tijdens trainingen.
+
+Daarnaast kan de Swirl gebruikt worden als speelse wedstrijdvorm: twee teams spelen korte, dynamische wedstrijdjes en na ieder gewonnen punt mag een team een stap verder in de Swirl zetten. Het team dat als eerste de volledige ronde aflegt, wint. Alle behaalde punten kunnen worden gekoppeld aan TOF Score, zodat ontwikkeling, eigenaarschap en wedstrijdplezier samenkomen op de baan.`,
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/the%20swirl%20padel%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/padel%20swirl.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: POSTER_BUTTONS_30_PRICING,
     formats: [
       {
         id: 'padel-swirl-1',
-        name: 'Standaard set',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20SWIRL-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 30 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      }
-    ]
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/padel%20swirl.jpg`,
+        packages: {},
+      },
+    ],
   },
   {
     id: 'padel-scoreboard',
@@ -1045,24 +1115,51 @@ TOF Tennis - Tennis + Logica = De Ultieme Teamuitdaging!`,
     category: 'padel',
     ageGroup: 'Alle leeftijden',
     description: 'Magneet poster met buttons en spelregelkaart. Tip: aantal benodigde buttons is gelijk aan aantal jeugdspelers.',
+    image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/padel%20scoreboard%20500.jpeg',
+    galleryImages: [
+      { url: `${WEBSHOP_MEDIA}/padel%20scoreboard.jpg`, label: 'Magneetposter' },
+    ],
+    pricing: POSTER_BUTTONS_30_PRICING,
     formats: [
       {
         id: 'padel-scoreboard-1',
-        name: 'Standaard set',
-        players: 'Standaard',
-        image: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20SCOREBORD-1.png',
-        packages: {
-          standard: { price: 79.95, label: '1 poster + 20 witte buttons' }
-        },
-        extras: [
-          { name: 'Set van 10 witte buttons', price: 15.00 }
-        ]
-      }
-    ]
+        name: 'Magneetposter',
+        players: '',
+        image: `${WEBSHOP_MEDIA}/padel%20scoreboard.jpg`,
+        packages: {},
+      },
+    ],
   }
 ];
 
+export const getProductImageGallery = (product) => {
+  const images = [];
+  const add = (url, label = null, variant = 'poster') => {
+    if (!url || images.some((item) => item.url === url)) return;
+    images.push({ url, label, variant });
+  };
+
+  if (product.image) {
+    add(product.image, 'In gebruik', 'hero');
+  }
+
+  (product.galleryImages || []).forEach((item) => {
+    if (typeof item === 'string') add(item, null, 'poster');
+    else add(item.url, item.label, item.variant || 'poster');
+  });
+
+  (product.formats || []).forEach((format) => {
+    if (format.image) add(format.image, format.name, 'poster');
+  });
+
+  return images;
+};
+
 export const getProductsByCategory = (category) => {
   return allProducts.filter(product => product.category === category);
+};
+
+export const getProductById = (id) => {
+  return allProducts.find((product) => product.id === id);
 };
 

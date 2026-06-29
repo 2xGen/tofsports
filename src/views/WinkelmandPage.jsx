@@ -1,18 +1,17 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, Send, CheckCircle, Download, CreditCard, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCart } from '@/context/CartContext';
 import { downloadInvoice, generateOrderNumber, formatDate, BUSINESS_INFO } from '@/lib/invoiceGenerator';
+import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
+import { getPageHeroImage } from '@/data/heroSlides';
 
 const WinkelmandPage = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
-  
   const { 
     cartItems, 
     removeFromCart, 
@@ -44,6 +43,12 @@ const WinkelmandPage = () => {
   const [includeWhiteboard, setIncludeWhiteboard] = useState(false);
   
   const WHITEBOARD_PRICE = 150;
+
+  /** Clubpakketten bevatten al een whiteboard — geen losse upsell tonen */
+  const hasClubPackage = useMemo(
+    () => cartItems.some((item) => String(item.productId).startsWith('hoofdpakket-')),
+    [cartItems]
+  );
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -94,7 +99,7 @@ const WinkelmandPage = () => {
     let orderItems = [...cartItems];
     let orderSubtotal = getSubtotal();
     
-    if (includeWhiteboard) {
+    if (includeWhiteboard && !hasClubPackage) {
       orderItems.push({
         id: 'whiteboard',
         productId: 'whiteboard',
@@ -334,52 +339,28 @@ const WinkelmandPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom right, rgba(251, 146, 60, 0.3), rgba(249, 115, 22, 0.4), rgba(234, 88, 12, 0.3))',
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-30 py-12">
-          <div className="flex flex-col items-center justify-center text-center space-y-4">
+      <PageHero image={getPageHeroImage('/winkelmand')} minHeight="40vh">
+        {(heroInView) => (
+          <div className="flex flex-col items-center space-y-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
               transition={{ duration: 0.5 }}
-              className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg"
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-lg"
             >
-              <ShoppingCart className="w-8 h-8 text-orange-500" />
+              <ShoppingCart className="h-8 w-8 text-orange-500" />
             </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-gray-800"
-            >
+            <PageHeroTitle heroInView={heroInView} className="text-4xl md:text-6xl">
               Winkelmand
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-600"
-            >
-              {cartItems.length > 0 
+            </PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView} className="text-lg md:text-xl">
+              {cartItems.length > 0
                 ? `${cartItems.reduce((sum, item) => sum + item.quantity, 0)} product${cartItems.reduce((sum, item) => sum + item.quantity, 0) !== 1 ? 'en' : ''} in je mandje`
                 : 'Je winkelmand is leeg'}
-            </motion.p>
+            </PageHeroSubtitle>
           </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-16">
-            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="#F9FAFB" />
-          </svg>
-        </div>
-      </section>
+        )}
+      </PageHero>
 
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {cartItems.length === 0 ? (
@@ -480,7 +461,8 @@ const WinkelmandPage = () => {
                 </motion.div>
               ))}
 
-              {/* Whiteboard Upsell Banner */}
+              {/* Whiteboard upsell — alleen bij losse webshop-producten, niet bij clubpakket */}
+              {!hasClubPackage && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -529,6 +511,14 @@ const WinkelmandPage = () => {
                   </div>
                 </div>
               </motion.div>
+              )}
+
+              {hasClubPackage && (
+                <p className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+                  Je clubpakket bevat al een rijdbaar whiteboard (ter waarde van €150) — geen extra
+                  bestelling nodig.
+                </p>
+              )}
 
               <div className="mt-4">
                 <Button asChild variant="outline" className="w-full md:w-auto">
@@ -551,7 +541,7 @@ const WinkelmandPage = () => {
                     <span>Subtotaal producten</span>
                     <span>€{getSubtotal().toFixed(2)}</span>
                   </div>
-                  {includeWhiteboard && (
+                  {includeWhiteboard && !hasClubPackage && (
                     <div className="flex justify-between text-gray-600">
                       <span>Whiteboard (120x90cm)</span>
                       <span>€{WHITEBOARD_PRICE.toFixed(2)}</span>
@@ -559,12 +549,26 @@ const WinkelmandPage = () => {
                   )}
                   <div className="flex justify-between text-gray-600">
                     <span>BTW (21%)</span>
-                    <span>€{((getSubtotal() + (includeWhiteboard ? WHITEBOARD_PRICE : 0)) * 0.21).toFixed(2)}</span>
+                    <span>
+                      €
+                      {(
+                        (getSubtotal() +
+                          (includeWhiteboard && !hasClubPackage ? WHITEBOARD_PRICE : 0)) *
+                        0.21
+                      ).toFixed(2)}
+                    </span>
                   </div>
                   <div className="border-t border-gray-200 pt-3">
                     <div className="flex justify-between text-xl font-bold text-gray-900">
                       <span>Totaal</span>
-                      <span>€{((getSubtotal() + (includeWhiteboard ? WHITEBOARD_PRICE : 0)) * 1.21).toFixed(2)}</span>
+                      <span>
+                        €
+                        {(
+                          (getSubtotal() +
+                            (includeWhiteboard && !hasClubPackage ? WHITEBOARD_PRICE : 0)) *
+                          1.21
+                        ).toFixed(2)}
+                      </span>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">Inclusief BTW</p>
                   </div>

@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { allProducts } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { BookOpen } from 'lucide-react';
 import ProductRulesModal from '@/components/ProductRulesModal';
+import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
+import { getPageHeroImage } from '@/data/heroSlides';
 
 const HandboekPage = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
   const [openModal, setOpenModal] = useState(null);
 
   // Filter products that have detailedRules
@@ -20,47 +20,16 @@ const HandboekPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      {/* Hero Section - Matching Webshop Style */}
-      <section ref={heroRef} className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Gradient Background - Static */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom right, rgba(180, 200, 255, 0.4), rgba(197, 223, 240, 0.5), rgba(100, 180, 220, 0.3))',
-          }}
-        />
-
-        <div className="container mx-auto px-4 relative z-30 py-16">
-          <div className="flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
-            {/* Main Heading - zoomInRight animation */}
-            <motion.h1
-              initial={{ opacity: 0, x: 100, scale: 0.5 }}
-              animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
-              transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-              className="text-5xl md:text-7xl font-bold text-gray-800 relative z-30"
-            >
-              Speluitleg
-            </motion.h1>
-
-            {/* Subtitle - fadeIn animation */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 relative z-30 max-w-2xl mx-auto"
-            >
+      <PageHero image={getPageHeroImage('/handboek')}>
+        {(heroInView) => (
+          <div className="flex flex-col items-center space-y-4 md:space-y-6">
+            <PageHeroTitle heroInView={heroInView}>Speluitleg</PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView}>
               Officiële spelregels en handleidingen voor alle TOF producten
-            </motion.p>
+            </PageHeroSubtitle>
           </div>
-        </div>
-
-        {/* Curved Shape Divider - negative */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-20">
-            <path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z" fill="#F9FAFB" />
-          </svg>
-        </div>
-      </section>
+        )}
+      </PageHero>
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-12 max-w-7xl">

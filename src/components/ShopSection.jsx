@@ -6,34 +6,43 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { allProducts } from '@/data/products';
+
+const formatEuro = (amount) =>
+  new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+
+const getDisplayPrice = (pricing) => {
+  if (!pricing) return null;
+  if (pricing.type === 'fixed-bundle') return formatEuro(pricing.price);
+  if (pricing.type === 'poster-buttons-optional') return formatEuro(pricing.posterPrice);
+  if (pricing.type === 'poster-wizard') return formatEuro(pricing.posterPrice);
+  return null;
+};
 
 const ShopSection = () => {
-  const items = [
-    {
-      id: 1,
-      name: "PIRAMIDE TENNIS",
-      price: "€79,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%20Piramide%2021-1.png",
-      link: "/webshop?category=tennis"
-    },
-    {
-      id: 2,
-      name: "4 OP EEN RIJ",
-      price: "€84,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20TENNIS%204%20OP%201%20RIJ-1.png",
-      link: "/webshop?category=tennis"
-    },
-    {
-      id: 3,
-      name: "PADEL PIRAMIDE",
-      price: "€79,95",
-      image: "https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20PADEL%20Piramide%2021-1.png",
-      link: "/webshop?category=padel"
-    }
+  const featuredItemConfigs = [
+    { id: 'piramide', link: '/webshop?category=tennis' },
+    { id: '4opeenrij', link: '/webshop?category=tennis' },
+    { id: 'padel-piramide', link: '/webshop?category=padel' },
   ];
 
+  const items = featuredItemConfigs
+    .map(({ id, link }) => {
+      const product = allProducts.find((entry) => entry.id === id);
+      if (!product) return null;
+
+      return {
+        id: product.id,
+        name: product.name,
+        price: getDisplayPrice(product.pricing),
+        image: product.image,
+        link,
+      };
+    })
+    .filter(Boolean);
+
   return (
-    <section className="py-24 relative">
+    <section className="relative py-24">
        {/* Clearly visible background pattern - Distinct from Products section */}
       <div className="absolute inset-0 bg-indigo-50/80 z-0" 
            style={{ 
@@ -49,13 +58,18 @@ const ShopSection = () => {
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Onze Webshop</h2>
-              <p className="text-gray-500 text-lg">Professionele uitrusting voor elke speler</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+                Losse formats en materialen
+              </h2>
+              <p className="max-w-xl text-lg text-gray-600">
+                Heb je al een pakket of wil je uitbreiden? Ontdek onze spelvormen, posters en
+                clubmaterialen.
+              </p>
            </motion.div>
            
            <Button asChild variant="outline" className="hidden md:flex gap-2 bg-white/50 backdrop-blur-sm border-slate-300 hover:bg-white">
              <Link href="/webshop">
-               Bekijk alle artikelen <ArrowRight className="h-4 w-4"/>
+               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>
@@ -86,7 +100,7 @@ const ShopSection = () => {
                     </Button>
                  </div>
                  <h3 className="font-bold text-xl text-gray-900">{item.name}</h3>
-                 <p className="text-blue-600 font-semibold">{item.price}</p>
+                 {item.price && <p className="text-blue-600 font-semibold">{item.price}</p>}
                </motion.div>
              </Link>
           ))}
@@ -95,7 +109,7 @@ const ShopSection = () => {
         <div className="mt-12 md:hidden">
           <Button asChild className="w-full gap-2" size="lg">
              <Link href="/webshop">
-               Bekijk alle artikelen <ArrowRight className="h-4 w-4"/>
+               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>
