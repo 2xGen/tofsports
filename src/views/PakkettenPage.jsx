@@ -620,6 +620,41 @@ const PakkettenPage = () => {
           })}
         </nav>
 
+        {step > 1 && (
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={goBack}
+              className="gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Vorige
+            </Button>
+            {step < 6 ? (
+              <Button
+                type="button"
+                onClick={goNext}
+                disabled={!canGoNext()}
+                className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+              >
+                Volgende
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                onClick={handleAddToCart}
+                disabled={!quote}
+                className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                In winkelwagen
+              </Button>
+            )}
+          </div>
+        )}
+
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -645,6 +680,7 @@ const PakkettenPage = () => {
                         setPackageId(pkg.id);
                         setTennisLevelId(null);
                         setPadelLevelId(null);
+                        setStep(2);
                       }}
                       className={`group flex h-full flex-col overflow-hidden rounded-3xl border-4 bg-white text-left shadow-lg transition-shadow ${
                         selected
@@ -795,7 +831,10 @@ const PakkettenPage = () => {
                     <button
                       key={tier.id}
                       type="button"
-                      onClick={() => setYouthTierId(tier.id)}
+                      onClick={() => {
+                        setYouthTierId(tier.id);
+                        setStep(4);
+                      }}
                       className={`rounded-2xl border-2 p-6 text-left transition-all ${
                         selected
                           ? 'border-[#1B144C] bg-[#1B144C]/5 shadow-md'
