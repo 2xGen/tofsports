@@ -4,39 +4,55 @@ export const OVER_TOF_ITEMS = [
   {
     href: '/missie-visie',
     label: 'Visie & Missie',
-    description:
-      'De 365-mentaliteit: waarom we jeugd het hele jaar betrokken willen houden op de club.',
+    description: {
+      nl: 'De 365-mentaliteit: waarom we jeugd het hele jaar betrokken willen houden op de club.',
+      en: 'The 365 mindset: why we keep juniors engaged at the club all year round.',
+    },
     imageRoute: '/missie-visie',
   },
   {
     href: '/knltb',
     label: 'KNLTB',
-    description:
-      'Powered by KNLTB — Tenniskids TOF en TOF padel als basis van je jeugdprogramma.',
+    description: {
+      nl: 'Powered by KNLTB — Tenniskids TOF en TOF padel als basis van je jeugdprogramma.',
+      en: 'Powered by KNLTB — Tenniskids TOF and TOF padel as the foundation of your youth programme.',
+    },
     imageRoute: '/knltb',
   },
   {
     href: '/tof-methode',
     label: 'TOF Methode',
-    description: 'Spelen, leren en sparen: het Plug & Play systeem voor je vereniging.',
+    description: {
+      nl: 'Spelen, leren en sparen: het Plug & Play systeem voor je vereniging.',
+      en: 'Play, learn and save: the Plug & Play system for your club.',
+    },
     imageRoute: '/tof-methode',
   },
   {
     href: '/tof-score',
     label: 'TOF Score',
-    description: 'Meet betrokkenheid en motiveer jeugd met punten, status en speelmomenten.',
+    description: {
+      nl: 'Meet betrokkenheid en motiveer jeugd met punten, status en speelmomenten.',
+      en: 'Measure engagement and motivate juniors with points, status and play moments.',
+    },
     imageRoute: '/tof-score',
   },
   {
     href: '/magneetposters',
     label: 'Magneetposters',
-    description: 'Format-posters op magneet voor whiteboard — professioneel op de baan.',
+    description: {
+      nl: 'Format-posters op magneet voor whiteboard — professioneel op de baan.',
+      en: 'Format posters on magnets for whiteboards — professional on court.',
+    },
     imageRoute: '/magneetposters',
   },
   {
     href: '/leraren-app',
     label: 'Leraren-app',
-    description: 'Lesplannen, TOF Score en clubbeheer digitaal in de KNLTB leraren-app.',
+    description: {
+      nl: 'Lesplannen, TOF Score en clubbeheer digitaal in de KNLTB leraren-app.',
+      en: 'Lesson plans, TOF Score and club management, all digital in the KNLTB coach app.',
+    },
     imageRoute: '/leraren-app',
   },
 ];
@@ -45,20 +61,28 @@ export const PRODUCTEN_ITEMS = [
   {
     href: '/pakketten',
     label: 'Clubpakketten',
-    description:
-      'Stel je clubpakket samen: tennispakket, padelpakket of tennis- en padelpakket op maat.',
+    description: {
+      nl: 'Stel je clubpakket samen: tennispakket, padelpakket of tennis- en padelpakket op maat.',
+      en: 'Build your club package: a tailored tennis, padel or combined tennis and padel package.',
+    },
     imageRoute: '/pakketten',
   },
   {
     href: '/handboek',
     label: 'Speluitleg',
-    description: 'Het handboek met alle formats en uitleg om direct op de club te starten.',
+    description: {
+      nl: 'Het handboek met alle formats en uitleg om direct op de club te starten.',
+      en: 'The handbook with all formats and instructions to get started at the club right away.',
+    },
     imageRoute: '/handboek',
   },
   {
     href: '/webshop',
     label: 'Losse formats',
-    description: 'Bestel individuele tennis- en padelformats via de webshop.',
+    description: {
+      nl: 'Bestel individuele tennis- en padelformats via de webshop.',
+      en: 'Order individual tennis and padel formats through the webshop.',
+    },
     imageRoute: '/webshop',
   },
 ];

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, Send, CheckCircle, Download, CreditCard, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,17 +10,19 @@ import { useCart } from '@/context/CartContext';
 import { downloadInvoice, generateOrderNumber, formatDate, BUSINESS_INFO } from '@/lib/invoiceGenerator';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const WinkelmandPage = () => {
-  const { 
-    cartItems, 
-    removeFromCart, 
-    updateQuantity, 
+  const { locale, t } = useLocale();
+  const {
+    cartItems,
+    removeFromCart,
+    updateQuantity,
     clearCart,
-    getSubtotal, 
-    getBTW, 
+    getSubtotal,
+    getBTW,
     getTotal,
-    isLoaded 
+    isLoaded,
   } = useCart();
 
   const [formData, setFormData] = useState({
@@ -61,22 +63,22 @@ const WinkelmandPage = () => {
 
   const validateForm = () => {
     const errors = {};
-    
-    if (!formData.naam.trim()) errors.naam = 'Naam is verplicht';
+
+    if (!formData.naam.trim()) errors.naam = t('cart.errors.nameRequired');
     if (!formData.email.trim()) {
-      errors.email = 'E-mailadres is verplicht';
+      errors.email = t('cart.errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      errors.email = 'Voer een geldig e-mailadres in';
+      errors.email = t('cart.errors.emailInvalid');
     }
-    if (!formData.telefoon.trim()) errors.telefoon = 'Telefoonnummer is verplicht';
-    if (!formData.straat.trim()) errors.straat = 'Straat is verplicht';
-    if (!formData.huisnummer.trim()) errors.huisnummer = 'Huisnummer is verplicht';
+    if (!formData.telefoon.trim()) errors.telefoon = t('cart.errors.phoneRequired');
+    if (!formData.straat.trim()) errors.straat = t('cart.errors.streetRequired');
+    if (!formData.huisnummer.trim()) errors.huisnummer = t('cart.errors.houseNumberRequired');
     if (!formData.postcode.trim()) {
-      errors.postcode = 'Postcode is verplicht';
+      errors.postcode = t('cart.errors.postalRequired');
     } else if (!/^\d{4}\s?[A-Za-z]{2}$/.test(formData.postcode.trim())) {
-      errors.postcode = 'Voer een geldige postcode in (bijv. 1234 AB)';
+      errors.postcode = t('cart.errors.postalInvalid');
     }
-    if (!formData.plaats.trim()) errors.plaats = 'Plaats is verplicht';
+    if (!formData.plaats.trim()) errors.plaats = t('cart.errors.cityRequired');
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -156,7 +158,7 @@ const WinkelmandPage = () => {
       clearCart();
     } catch (err) {
       console.error('Order save failed:', err);
-      setSubmitError('Je bestelling kon niet worden opgeslagen. Probeer het opnieuw of neem contact op.');
+      setSubmitError(t('cart.orderSaveFailed'));
       setIsSubmitting(false);
     }
   };
@@ -195,15 +197,15 @@ const WinkelmandPage = () => {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Bedankt voor je bestelling!</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('cart.thankYou')}</h1>
               <p className="text-gray-600">
-                Factuurnummer: <span className="font-semibold">{orderData.orderNumber}</span>
+                {t('cart.invoiceNumber')}: <span className="font-semibold">{orderData.orderNumber}</span>
               </p>
             </div>
 
             {/* Order Summary */}
             <div className="bg-gray-50 rounded-xl p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Besteloverzicht</h2>
+              <h2 className="text-lg font-bold text-gray-900 mb-4">{t('cart.orderSummary')}</h2>
               <div className="space-y-2 mb-4">
                 {orderData.items.map((item, index) => (
                   <div key={index} className="flex justify-between text-sm">
@@ -216,15 +218,15 @@ const WinkelmandPage = () => {
               </div>
               <div className="border-t border-gray-200 pt-3 space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotaal</span>
+                  <span className="text-gray-600">{t('cart.subtotal')}</span>
                   <span>€{orderData.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">BTW (21%)</span>
+                  <span className="text-gray-600">{t('cart.vat')}</span>
                   <span>€{orderData.btw.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2">
-                  <span>Totaal</span>
+                  <span>{t('cart.total')}</span>
                   <span className="text-orange-500">€{orderData.total.toFixed(2)}</span>
                 </div>
               </div>
@@ -234,11 +236,9 @@ const WinkelmandPage = () => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <CreditCard className="w-5 h-5 text-yellow-600" />
-                <h2 className="text-lg font-bold text-gray-900">Direct Betalen</h2>
+                <h2 className="text-lg font-bold text-gray-900">{t('cart.payDirect')}</h2>
               </div>
-              <p className="text-gray-600 text-sm mb-4">
-                Maak het bedrag over naar onderstaande rekening. Je bestelling wordt verwerkt zodra de betaling is ontvangen.
-              </p>
+              <p className="text-gray-600 text-sm mb-4">{t('cart.payInstructions')}</p>
               
               <div className="space-y-3">
                 <div className="flex items-center justify-between bg-white rounded-lg p-3">
@@ -269,7 +269,7 @@ const WinkelmandPage = () => {
                 
                 <div className="flex items-center justify-between bg-white rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">Ten name van</p>
+                    <p className="text-xs text-gray-500">{t('cart.accountName')}</p>
                     <p className="font-medium">{BUSINESS_INFO.name}</p>
                   </div>
                   <button 
@@ -282,11 +282,11 @@ const WinkelmandPage = () => {
                 
                 <div className="flex items-center justify-between bg-white rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">Omschrijving</p>
-                    <p className="font-medium">Factuur {orderData.orderNumber}</p>
+                    <p className="text-xs text-gray-500">{t('cart.description')}</p>
+                    <p className="font-medium">{t('cart.invoiceRef')} {orderData.orderNumber}</p>
                   </div>
                   <button 
-                    onClick={() => copyToClipboard(`Factuur ${orderData.orderNumber}`, 'ref')}
+                    onClick={() => copyToClipboard(`${t('cart.invoiceRef')} ${orderData.orderNumber}`, 'ref')}
                     className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                   >
                     {copiedField === 'ref' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
@@ -295,7 +295,7 @@ const WinkelmandPage = () => {
                 
                 <div className="flex items-center justify-between bg-orange-100 rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-orange-600">Te betalen bedrag</p>
+                    <p className="text-xs text-orange-600">{t('cart.amountToPay')}</p>
                     <p className="font-bold text-lg text-orange-600">€{orderData.total.toFixed(2)}</p>
                   </div>
                   <button 
@@ -316,26 +316,28 @@ const WinkelmandPage = () => {
                 size="lg"
               >
                 <Download className="w-5 h-5 mr-2" />
-                Download Factuur (PDF)
+                {t('cart.downloadInvoice')}
               </Button>
               <Button asChild variant="outline" className="flex-1 py-6" size="lg">
                 <Link href="/webshop">
-                  Verder winkelen
+                  {t('cart.continueShopping')}
                 </Link>
               </Button>
             </div>
 
             {/* Contact Info */}
             <div className="mt-6 text-center text-sm text-gray-500">
-              <p>Vragen over je bestelling? Neem contact op:</p>
+              <p>{t('cart.questionsContact')}</p>
               <p className="font-medium text-gray-700">Tel: {BUSINESS_INFO.phone}</p>
-              <p>of email ons <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
+              <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
             </div>
           </motion.div>
         </div>
       </div>
     );
   }
+
+  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -351,12 +353,12 @@ const WinkelmandPage = () => {
               <ShoppingCart className="h-8 w-8 text-orange-500" />
             </motion.div>
             <PageHeroTitle heroInView={heroInView} className="text-4xl md:text-6xl">
-              Winkelmand
+              {t('cart.title')}
             </PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView} className="text-lg md:text-xl">
               {cartItems.length > 0
-                ? `${cartItems.reduce((sum, item) => sum + item.quantity, 0)} product${cartItems.reduce((sum, item) => sum + item.quantity, 0) !== 1 ? 'en' : ''} in je mandje`
-                : 'Je winkelmand is leeg'}
+                ? t(itemCount === 1 ? 'cart.itemsInCartOne' : 'cart.itemsInCartOther', { count: itemCount })
+                : t('cart.empty')}
             </PageHeroSubtitle>
           </div>
         )}
@@ -372,12 +374,12 @@ const WinkelmandPage = () => {
             <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <ShoppingCart className="w-12 h-12 text-gray-400" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Je winkelmand is leeg</h2>
-            <p className="text-gray-600 mb-6">Voeg producten toe vanuit onze webshop om te beginnen.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('cart.empty')}</h2>
+            <p className="text-gray-600 mb-6">{t('cart.emptyBody')}</p>
             <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600">
               <Link href="/webshop" className="flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" />
-                Naar de webshop
+                {t('cart.goToShop')}
               </Link>
             </Button>
           </motion.div>
@@ -386,7 +388,7 @@ const WinkelmandPage = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">Je producten</h2>
+                <h2 className="text-2xl font-bold text-gray-900">{t('cart.yourProducts')}</h2>
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -394,7 +396,7 @@ const WinkelmandPage = () => {
                   className="text-red-500 hover:text-red-600 hover:bg-red-50"
                 >
                   <Trash2 className="w-4 h-4 mr-2" />
-                  Alles verwijderen
+                  {t('cart.removeAll')}
                 </Button>
               </div>
 
@@ -445,7 +447,7 @@ const WinkelmandPage = () => {
                           €{(item.price * item.quantity).toFixed(2)}
                         </p>
                         {item.quantity > 1 && (
-                          <p className="text-gray-500 text-xs">€{item.price.toFixed(2)} per stuk</p>
+                          <p className="text-gray-500 text-xs">€{item.price.toFixed(2)} {t('cart.perItem')}</p>
                         )}
                       </div>
 
@@ -482,17 +484,16 @@ const WinkelmandPage = () => {
                   {/* Content */}
                   <div className="flex-1">
                     <div className="flex items-start gap-2 mb-2">
-                      <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">AANBEVOLEN</span>
+                      <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">{t('cart.whiteboardBadge')}</span>
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">
-                      Magnetisch Whiteboard (120 x 90 cm)
+                      {t('cart.whiteboardTitle')}
                     </h3>
                     <p className="text-sm text-gray-600 mb-3">
-                      Om het meeste uit het TOF programma te halen, raden we sterk aan om een magnetisch whiteboard te gebruiken. 
-                      Heeft jouw tennisclub er nog geen? Wij kunnen er een voor je bestellen!
+                      {t('cart.whiteboardBody')}
                     </p>
                     <p className="text-xs text-gray-500 italic mb-3">
-                      * Whiteboard kleuren en stijl kunnen enigszins variëren op basis van beschikbaarheid
+                      {t('cart.whiteboardNote')}
                     </p>
                     
                     {/* Checkbox */}
@@ -504,7 +505,7 @@ const WinkelmandPage = () => {
                         className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
                       />
                       <div className="flex-1">
-                        <span className="font-medium text-gray-900">Ja, voeg whiteboard toe aan mijn bestelling</span>
+                        <span className="font-medium text-gray-900">{t('cart.whiteboardCheckbox')}</span>
                       </div>
                       <span className="font-bold text-orange-500 text-lg">€{WHITEBOARD_PRICE.toFixed(2)}</span>
                     </label>
@@ -515,8 +516,7 @@ const WinkelmandPage = () => {
 
               {hasClubPackage && (
                 <p className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
-                  Je clubpakket bevat al een rijdbaar whiteboard (ter waarde van €150) — geen extra
-                  bestelling nodig.
+                  {t('cart.clubPackageNote')}
                 </p>
               )}
 
@@ -524,7 +524,7 @@ const WinkelmandPage = () => {
                 <Button asChild variant="outline" className="w-full md:w-auto">
                   <Link href="/webshop" className="flex items-center justify-center gap-2">
                     <ArrowLeft className="w-4 h-4" />
-                    Verder winkelen
+                    {t('cart.continueShopping')}
                   </Link>
                 </Button>
               </div>
@@ -534,21 +534,21 @@ const WinkelmandPage = () => {
             <div className="lg:col-span-1">
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24">
                 {/* Price Summary */}
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Overzicht</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('cart.summary')}</h3>
                 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-gray-600">
-                    <span>Subtotaal producten</span>
+                    <span>{t('cart.subtotalProducts')}</span>
                     <span>€{getSubtotal().toFixed(2)}</span>
                   </div>
                   {includeWhiteboard && !hasClubPackage && (
                     <div className="flex justify-between text-gray-600">
-                      <span>Whiteboard (120x90cm)</span>
+                      <span>{t('cart.whiteboardLine')}</span>
                       <span>€{WHITEBOARD_PRICE.toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-gray-600">
-                    <span>BTW (21%)</span>
+                    <span>{t('cart.vat')}</span>
                     <span>
                       €
                       {(
@@ -560,7 +560,7 @@ const WinkelmandPage = () => {
                   </div>
                   <div className="border-t border-gray-200 pt-3">
                     <div className="flex justify-between text-xl font-bold text-gray-900">
-                      <span>Totaal</span>
+                      <span>{t('cart.total')}</span>
                       <span>
                         €
                         {(
@@ -570,24 +570,24 @@ const WinkelmandPage = () => {
                         ).toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">Inclusief BTW</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('cart.inclVat')}</p>
                   </div>
                 </div>
 
                 {/* Contact Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <h3 className="text-lg font-bold text-gray-900 pt-4 border-t border-gray-200">Jouw gegevens</h3>
+                  <h3 className="text-lg font-bold text-gray-900 pt-4 border-t border-gray-200">{t('cart.yourDetails')}</h3>
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Naam <span className="text-red-500">*</span>
+                      {t('cart.name')} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       type="text"
                       name="naam"
                       value={formData.naam}
                       onChange={handleInputChange}
-                      placeholder="Volledige naam"
+                      placeholder={t('cart.fullName')}
                       className={formErrors.naam ? 'border-red-500' : ''}
                     />
                     {formErrors.naam && <p className="text-red-500 text-xs mt-1">{formErrors.naam}</p>}
@@ -595,14 +595,14 @@ const WinkelmandPage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      E-mailadres <span className="text-red-500">*</span>
+                      {t('cart.emailAddress')} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="voorbeeld@email.nl"
+                      placeholder={locale === 'en' ? 'example@email.com' : 'voorbeeld@email.nl'}
                       className={formErrors.email ? 'border-red-500' : ''}
                     />
                     {formErrors.email && <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>}
@@ -610,7 +610,7 @@ const WinkelmandPage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Telefoonnummer <span className="text-red-500">*</span>
+                      {t('cart.phone')} <span className="text-red-500">*</span>
                     </label>
                     <Input
                       type="tel"
@@ -626,21 +626,21 @@ const WinkelmandPage = () => {
                   <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Straat <span className="text-red-500">*</span>
+                        {t('cart.street')} <span className="text-red-500">*</span>
                       </label>
                       <Input
                         type="text"
                         name="straat"
                         value={formData.straat}
                         onChange={handleInputChange}
-                        placeholder="Straatnaam"
+                        placeholder={locale === 'en' ? 'Street name' : 'Straatnaam'}
                         className={formErrors.straat ? 'border-red-500' : ''}
                       />
                       {formErrors.straat && <p className="text-red-500 text-xs mt-1">{formErrors.straat}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Nr. <span className="text-red-500">*</span>
+                        {t('cart.number')} <span className="text-red-500">*</span>
                       </label>
                       <Input
                         type="text"
@@ -657,7 +657,7 @@ const WinkelmandPage = () => {
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Postcode <span className="text-red-500">*</span>
+                        {t('cart.postalCode')} <span className="text-red-500">*</span>
                       </label>
                       <Input
                         type="text"
@@ -671,7 +671,7 @@ const WinkelmandPage = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Plaats <span className="text-red-500">*</span>
+                        {t('cart.city')} <span className="text-red-500">*</span>
                       </label>
                       <Input
                         type="text"
@@ -687,14 +687,14 @@ const WinkelmandPage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Tennisclub / Padelclub (optioneel)
+                      {t('cart.club')}
                     </label>
                     <Input
                       type="text"
                       name="tennisclub"
                       value={formData.tennisclub}
                       onChange={handleInputChange}
-                      placeholder="Naam van je club"
+                      placeholder={t('cart.clubPlaceholder')}
                     />
                   </div>
 
@@ -706,27 +706,27 @@ const WinkelmandPage = () => {
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                        Bestelling versturen...
+                        {t('cart.submitting')}
                       </span>
                     ) : (
                       <span className="flex items-center justify-center gap-2">
                         <Send className="w-5 h-5" />
-                        Bestelling plaatsen
+                        {t('cart.placeOrder')}
                       </span>
                     )}
                   </Button>
 
                   <p className="text-xs text-gray-500 text-center mt-2">
-                    Na het plaatsen van je bestelling nemen we contact met je op voor de betaling.
+                    {t('cart.afterOrderNote')}
                   </p>
                   {submitError && (
                     <p className="text-sm text-red-600 text-center">{submitError}</p>
                   )}
 
                   <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-600">
-                    <p className="font-medium text-gray-700">Vragen over je bestelling? Neem contact op:</p>
+                    <p className="font-medium text-gray-700">{t('cart.questionsContact')}</p>
                     <p>Tel: 06 13 25 25 59</p>
-                    <p>of email ons <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
+                    <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
                   </div>
                 </form>
               </div>

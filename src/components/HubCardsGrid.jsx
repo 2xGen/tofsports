@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { getPageHeroImage } from '@/data/heroSlides';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { ot } from '@/i18n/content/overTof';
 
 const HUB_LABEL_KEYS = {
   '/missie-visie': 'hub.overTof.missie',
@@ -21,7 +22,7 @@ const HUB_LABEL_KEYS = {
 };
 
 const HubCardsGrid = ({ items, columns = 3 }) => {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const gridClass =
     columns === 3
       ? 'md:grid-cols-2 lg:grid-cols-3'
@@ -62,7 +63,7 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
               <div className="flex flex-1 flex-col p-5 md:p-6">
                 <h3 className="text-lg font-black text-gray-900 md:text-xl">{label}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
-                  {item.description}
+                  {ot(locale, item.description)}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange-600 group-hover:gap-2 transition-all">
                   {t('common.learnMore')} <ArrowRight className="h-4 w-4" aria-hidden />

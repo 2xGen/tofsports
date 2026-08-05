@@ -4,8 +4,10 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
+  const { t } = useLocale();
   if (!rules) return null;
 
   return (
@@ -101,7 +103,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
                   size="lg"
                 >
-                  Sluiten
+                  {t('common.close')}
                 </Button>
               </div>
             </motion.div>

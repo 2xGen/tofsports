@@ -110,7 +110,7 @@ const MediaPage = () => {
         >
           <div className="flex items-center gap-3">
             <Images className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
-            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Toffe foto&apos;s</h2>
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{t('media.photosTitle')}</h2>
           </div>
         </motion.section>
 
@@ -118,8 +118,10 @@ const MediaPage = () => {
           <p className="mb-4 flex items-center gap-2 text-sm text-gray-500">
             <MediaSpinner size="md" />
             <span>
-              Afbeeldingen laden ({Math.min(activeLoadIndex + 1, mediaItems.length)} van{' '}
-              {mediaItems.length})…
+              {t('media.loadingImages', {
+                current: Math.min(activeLoadIndex + 1, mediaItems.length),
+                total: mediaItems.length,
+              })}
             </span>
           </p>
         )}
@@ -160,7 +162,7 @@ const MediaPage = () => {
               type="button"
               onClick={closeLightbox}
               className="absolute right-4 top-24 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 md:top-8"
-              aria-label="Sluiten"
+              aria-label={t('common.close')}
             >
               <X className="h-6 w-6" />
             </button>
