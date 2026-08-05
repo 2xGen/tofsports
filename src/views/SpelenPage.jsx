@@ -1,24 +1,26 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Target, Circle, Pencil, RotateCcw, Calendar, Search, User, Users, Lightbulb, Sparkles } from 'lucide-react';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { ot, SPELEN_CONTENT as C } from '@/i18n/content/methodPages';
 
 const SpelenPage = () => {
+  const { locale } = useLocale();
+  const t = (node) => ot(locale, node);
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <PageHero image={getPageHeroImage('/spelen')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Spelen</PageHeroTitle>
-            <PageHeroSubtitle heroInView={heroInView}>
-              Maak van elke training een avontuur met onze interactieve magneetposters en
-              whiteboardtools.
-            </PageHeroSubtitle>
+            <PageHeroTitle heroInView={heroInView}>{t(C.hero.title)}</PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView}>{t(C.hero.subtitle)}</PageHeroSubtitle>
           </div>
         )}
       </PageHero>
@@ -34,37 +36,21 @@ const SpelenPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
         >
           <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Wat zit er in het Spelen pakket?</h2>
-            
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.intro.heading)}</h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-                <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
-                  <Pencil className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Whiteboard + tools</h3>
-                <p className="text-gray-600">Stiften en markers om aantekeningen te maken en scores bij te houden.</p>
-              </div>
-              <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-                <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Magneetposters</h3>
-                <p className="text-gray-600">Spelvormen en oefeningen in handig 60x90cm formaat, verpakt in een stevige bewaarkoker.</p>
-              </div>
-              <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-                <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
-                  <Circle className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">magneetbuttons</h3>
-                <p className="text-gray-600">Kleurrijke magneten om spelers te markeren en oefeningen interactief te maken.</p>
-              </div>
-              <div className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-                <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
-                  <Lightbulb className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Support</h3>
-                <p className="text-gray-600">Praktische instructie en begeleiding voor trainers, zodat je direct met de spelvormen aan de slag kunt en iedere les soepel verloopt.</p>
-              </div>
+              {[Pencil, Target, Circle, Lightbulb].map((Icon, i) => {
+                const card = C.intro.cards[i];
+                return (
+                  <div key={i} className="bg-sky-50 rounded-xl p-6 border border-sky-100">
+                    <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t(card.title)}</h3>
+                    <p className="text-gray-600">{t(card.desc)}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </motion.section>
@@ -82,48 +68,35 @@ const SpelenPage = () => {
               <div className="bg-gradient-to-r from-sky-400 to-blue-500 text-white p-3 rounded-xl">
                 <RotateCcw className="w-8 h-8" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">De Swirl: Regie over je eigen Training</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{t(C.swirl.heading)}</h2>
             </div>
-            
-            <p className="text-lg leading-relaxed">
-              De Swirl is een krachtige visuele tool om de voortgang van jonge tennissers in kaart te brengen. 
-              Het biedt talloze mogelijkheden voor trainers om interne competitie en motivatie toe te voegen aan de les.
-            </p>
+
+            <p className="text-lg leading-relaxed">{t(C.swirl.intro1)}</p>
 
             <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-xl p-6 border border-sky-100 my-6">
-              <p className="text-lg font-medium text-gray-800">
-                De Swirl is een visueel dashboard dat kinderen zeggenschap geeft over hun eigen ontwikkeling. 
-                In plaats van alleen maar opdrachten uit te voeren, maken ze bewuste keuzes over hun voortgang.
-              </p>
+              <p className="text-lg font-medium text-gray-800">{t(C.swirl.callout)}</p>
             </div>
 
             {/* Zelfsturend Leren */}
             <div className="space-y-4">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                 <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">1</span>
-                Zelfsturend Leren
+                {t(C.swirl.section1.title)}
               </h3>
-              <p className="text-gray-600">De Swirl biedt kinderen de ruimte om hun eigen training vorm te geven:</p>
-              
+              <p className="text-gray-600">{t(C.swirl.section1.intro)}</p>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                  <h4 className="font-bold text-sky-600 mb-2 flex items-center gap-2">
-                    <Target className="w-4 h-4" /> Kiezen
-                  </h4>
-                  <p className="text-sm text-gray-600">Een kind kan aan het begin van de les een magneet plakken op een onderdeel dat hij die dag graag wil trainen.</p>
-                </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                  <h4 className="font-bold text-sky-600 mb-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" /> Plannen
-                  </h4>
-                  <p className="text-sm text-gray-600">Kinderen kunnen aangeven wat ze de volgende week willen aanpakken, waardoor ze alvast vooruitkijken.</p>
-                </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                  <h4 className="font-bold text-sky-600 mb-2 flex items-center gap-2">
-                    <Search className="w-4 h-4" /> Reflecteren
-                  </h4>
-                  <p className="text-sm text-gray-600">De magneetjes werken als een thermometer. Een kind kan aanwijzen waar het goed gaat en waar nog hulp nodig is.</p>
-                </div>
+                {[Target, Calendar, Search].map((Icon, i) => {
+                  const card = C.swirl.section1.cards[i];
+                  return (
+                    <div key={i} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                      <h4 className="font-bold text-sky-600 mb-2 flex items-center gap-2">
+                        <Icon className="w-4 h-4" /> {t(card.title)}
+                      </h4>
+                      <p className="text-sm text-gray-600">{t(card.desc)}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -131,55 +104,55 @@ const SpelenPage = () => {
             <div className="space-y-4 mt-8">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                 <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">2</span>
-                Spelenderwijs Groeien: De Swirl-Race
+                {t(C.swirl.section2.title)}
               </h3>
-              <p className="text-gray-600">Naast de zelfstandige keuzes kan de trainer de kaart gebruiken om de motivatie te verhogen met wedstrijdjes.</p>
-              
+              <p className="text-gray-600">{t(C.swirl.section2.intro)}</p>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                 <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-200">
                   <h4 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
-                    <User className="w-5 h-5 text-yellow-600" /> Individuele Race naar de Kern
+                    <User className="w-5 h-5 text-yellow-600" /> {t(C.swirl.section2.individual.title)}
                   </h4>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-yellow-500">•</span>
-                      <span>Iedereen start bij vakje 1 en volgt de spiraalvormige route (30 stappen: 3 rondes van 10)</span>
+                      <span>{t(C.swirl.section2.individual.items[0])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-green-500">✓</span>
-                      <span><strong>Winst:</strong> Zet 2 stappen vooruit richting de kern</span>
+                      <span>{t(C.swirl.section2.individual.items[1])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-orange-500">→</span>
-                      <span><strong>Verlies:</strong> Zet 1 stap vooruit</span>
+                      <span>{t(C.swirl.section2.individual.items[2])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-yellow-500">•</span>
-                      <span>Wie bereikt als eerste de gouden tennisbal in het midden?</span>
+                      <span>{t(C.swirl.section2.individual.items[3])}</span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
                   <h4 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
-                    <Users className="w-5 h-5 text-blue-600" /> Team-Challenge: Samen Sterk
+                    <Users className="w-5 h-5 text-blue-600" /> {t(C.swirl.section2.team.title)}
                   </h4>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="text-blue-500">•</span>
-                      <span>Verdeel de groep in twee teams (bijv. Rood en Blauw)</span>
+                      <span>{t(C.swirl.section2.team.items[0])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-blue-500">•</span>
-                      <span>Elk team heeft één magneet die de route aflegt op basis van teamprestaties</span>
+                      <span>{t(C.swirl.section2.team.items[1])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-green-500">✓</span>
-                      <span><strong>Teamwinst:</strong> Magneet gaat 2 stappen vooruit</span>
+                      <span>{t(C.swirl.section2.team.items[2])}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-red-500">✗</span>
-                      <span><strong>Verlies:</strong> Magneet gaat 1 stap terug</span>
+                      <span>{t(C.swirl.section2.team.items[3])}</span>
                     </li>
                   </ul>
                 </div>
@@ -188,7 +161,7 @@ const SpelenPage = () => {
               <div className="bg-green-50 border-l-4 border-green-500 p-4 mt-4">
                 <p className="text-gray-700 flex items-start gap-2">
                   <Lightbulb className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-                  <span><strong>Tip voor de trainer:</strong> Voeg een "Power-up" toe! Als kinderen een opdracht uitvoeren die bij het specifieke cijfer van dat vakje hoort (bijv. een compliment geven bij vakje 9: Fairplay), mogen ze een extra stap zetten.</span>
+                  <span>{t(C.swirl.section2.tip)}</span>
                 </p>
               </div>
             </div>
@@ -197,32 +170,23 @@ const SpelenPage = () => {
             <div className="space-y-4 mt-8">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                 <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">3</span>
-                De "Thema-Bingo" Wedstrijdvorm
+                {t(C.swirl.section3.title)}
               </h3>
-              <p className="text-gray-600">De trainer koppelt de wedstrijdjes aan specifieke thema's op de kaart (bijv. Netspel of Fairplay).</p>
-              
+              <p className="text-gray-600">{t(C.swirl.section3.intro)}</p>
+
               <div className="bg-purple-50 rounded-xl p-6 border border-purple-200 mt-4">
-                <h4 className="font-bold text-purple-700 mb-2">Hoe het werkt:</h4>
-                <p className="text-gray-600 mb-3">
-                  Speel korte tie-breaks. Als een leerling wint én een punt scoort dat past bij het thema van die baan 
-                  (bijv. een volley bij 'Netspel'), mag hij/zij een extra stap zetten op de Swirl.
-                </p>
-                <p className="text-gray-700 font-medium">
-                  Dit stimuleert kinderen om niet alleen te winnen, maar ook de geleerde technieken uit de verschillende fases toe te passen!
-                </p>
+                <h4 className="font-bold text-purple-700 mb-2">{t(C.swirl.section3.howHeading)}</h4>
+                <p className="text-gray-600 mb-3">{t(C.swirl.section3.how1)}</p>
+                <p className="text-gray-700 font-medium">{t(C.swirl.section3.how2)}</p>
               </div>
             </div>
 
             {/* Waarom dit werkt */}
             <div className="bg-gradient-to-r from-sky-100 to-blue-100 rounded-xl p-6 mt-8">
               <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-sky-600" /> Waarom dit werkt
+                <Sparkles className="w-5 h-5 text-sky-600" /> {t(C.swirl.why.title)}
               </h3>
-              <p className="text-gray-700 leading-relaxed">
-                Door de combinatie van <strong>zeggenschap</strong> (vrij kiezen) en <strong>gamification</strong> (de race naar het midden) 
-                ontstaat er een unieke leeromgeving. Kinderen zijn meer betrokken omdat ze zelf hebben mogen kiezen waar ze aan werken, 
-                en ze zijn extra gemotiveerd om die skills in de wedstrijdjes te laten zien om hun magneet dichter bij de kern te krijgen.
-              </p>
+              <p className="text-gray-700 leading-relaxed">{t(C.swirl.why.body)}</p>
             </div>
           </div>
         </motion.section>
@@ -235,30 +199,22 @@ const SpelenPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-gradient-to-r from-rose-400 to-pink-500 rounded-2xl shadow-lg p-8 text-center"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Klaar voor leren?
-          </h3>
-          <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
-            Ontdek onze inspirerende leermiddelen waarmee kinderen meer bewegen en spelenderwijs groeien!
-          </p>
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t(C.cta.title)}</h3>
+          <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">{t(C.cta.body)}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               asChild
               size="lg"
               className="bg-white text-rose-500 hover:bg-gray-100 font-bold text-lg"
             >
-              <Link href="/leren">
-                Bekijk Leren →
-              </Link>
+              <Link href="/leren">{t(C.cta.ctaLeren)}</Link>
             </Button>
             <Button
               asChild
               size="lg"
               className="bg-orange-500 text-white hover:bg-orange-600 font-bold text-lg"
             >
-              <Link href="/webshop">
-                Bekijk Webshop
-              </Link>
+              <Link href="/webshop">{t(C.cta.ctaWebshop)}</Link>
             </Button>
           </div>
         </motion.section>

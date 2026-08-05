@@ -4,6 +4,7 @@ import ConditionalNavbar from '@/components/ConditionalNavbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
 import Providers from '@/components/Providers';
+import HtmlLang from '@/components/HtmlLang';
 import { Toaster } from '@/components/ui/toaster';
 import { MAINTENANCE_MODE } from '@/config/site';
 import './globals.css';
@@ -59,6 +60,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen bg-white font-poppins flex flex-col">
         <Providers>
+          <HtmlLang />
           {!MAINTENANCE_MODE && <ConditionalNavbar />}
           <main className="flex-grow">{children}</main>
           {!MAINTENANCE_MODE && <Footer />}

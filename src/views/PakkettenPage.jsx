@@ -50,14 +50,16 @@ import {
   WHITEBOARD_PREMIUM_IMAGE,
   WHITEBOARD_PREMIUM_PRICE,
 } from '@/data/pakketten';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { localizePackage, localizeLevel } from '@/i18n/content/packages';
 
-const STEPS = [
-  { id: 1, label: 'Sport', icon: Package },
-  { id: 2, label: 'Pakket', icon: Layers },
-  { id: 3, label: 'Jeugd', icon: Users },
-  { id: 4, label: 'Buttons', icon: CircleDot },
-  { id: 5, label: 'Posters', icon: ClipboardList },
-  { id: 6, label: 'Overzicht', icon: ShoppingCart },
+const STEP_DEFS = [
+  { id: 1, labelKey: 'packages.steps.sport', icon: Package },
+  { id: 2, labelKey: 'packages.steps.package', icon: Layers },
+  { id: 3, labelKey: 'packages.steps.youth', icon: Users },
+  { id: 4, labelKey: 'packages.steps.buttons', icon: CircleDot },
+  { id: 5, labelKey: 'packages.steps.posters', icon: ClipboardList },
+  { id: 6, labelKey: 'packages.steps.summary', icon: ShoppingCart },
 ];
 
 function PackageVideoModal({ video, onClose }) {
@@ -125,8 +127,12 @@ function PackageVideoModal({ video, onClose }) {
 }
 
 function LevelPicker({ sport, selectedLevelId, onSelect }) {
+  const { locale, t } = useLocale();
   const [videoModal, setVideoModal] = useState(null);
   const selectedLevel = PACKAGE_LEVELS.find((level) => level.id === selectedLevelId);
+  const selectedLevelLocalized = selectedLevel
+    ? localizeLevel(selectedLevel, locale)
+    : null;
   const selectedFormats = selectedLevelId
     ? getPackageFormatLines(sport, selectedLevelId)
     : [];
@@ -135,11 +141,12 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
   return (
     <>
       <p className="mb-4 text-center text-sm text-gray-500">
-        Klik op een pakket om te selecteren — de volledige inhoud zie je daaronder.
+        {t('packages.step2Hint')}
       </p>
 
       <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
-        {PACKAGE_LEVELS.map((level) => {
+        {PACKAGE_LEVELS.map((rawLevel) => {
+          const level = localizeLevel(rawLevel, locale);
           const selected = selectedLevelId === level.id;
           const formatCount = getPackageFormatLines(sport, level.id).length;
           const hasFreeBoard = level.id === 'plus' || level.id === 'compleet';
@@ -161,7 +168,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                     selected ? 'bg-white text-[#1B144C]' : 'bg-orange-500 text-white'
                   }`}
                 >
-                  Populair
+                  {t('packages.popular')}
                 </span>
               )}
 
@@ -177,7 +184,9 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <p className={`mt-3 text-2xl font-black ${selected ? 'text-white' : 'text-[#1B144C]'}`}>
                 {formatEuro(LEVEL_PRICES[level.id])}
               </p>
-              <p className={`text-sm ${selected ? 'text-white/80' : 'text-gray-500'}`}>ex. btw</p>
+              <p className={`text-sm ${selected ? 'text-white/80' : 'text-gray-500'}`}>
+                {t('packages.exVat')}
+              </p>
 
               <p className={`mt-4 text-sm leading-relaxed ${selected ? 'text-white/90' : 'text-gray-600'}`}>
                 {level.description}
@@ -186,17 +195,17 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <ul className={`mt-4 space-y-1.5 text-xs ${selected ? 'text-white/85' : 'text-gray-500'}`}>
                 <li className="flex items-center gap-2">
                   <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
-                  {formatCount} magneetformats
+                  {t('packages.formatsCount', { count: formatCount })}
                 </li>
                 {hasFreeBoard && (
                   <li className="flex items-center gap-2">
                     <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
-                    Gratis magneetbord (actie)
+                    {t('packages.freeBoardAction')}
                   </li>
                 )}
                 <li className="flex items-center gap-2">
                   <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
-                  Kennissessies &amp; TOF Score app
+                  {t('packages.sessionsAndApp')}
                 </li>
               </ul>
 
@@ -207,24 +216,26 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                     : 'bg-[#1B144C]/10 text-[#1B144C]'
                 }`}
               >
-                {selected ? 'Geselecteerd' : `Kies ${level.label}`}
+                {selected
+                  ? t('packages.selected')
+                  : t('packages.choose', { label: level.label })}
               </span>
             </button>
           );
         })}
       </div>
 
-      {selectedLevel && (
+      {selectedLevelLocalized && (
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto mt-8 max-w-2xl rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8"
         >
           <h3 className="text-lg font-black text-gray-900">
-            Inbegrepen in {selectedLevel.label}
+            {t('packages.includedIn', { label: selectedLevelLocalized.label })}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Bekijk alle formats en extra&apos;s in dit pakket.
+            {t('packages.includedHint')}
           </p>
 
           <ul className="mt-5 space-y-3">
@@ -255,7 +266,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                       className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1B144C] hover:underline"
                     >
                       <Play className="h-3 w-3 fill-current" />
-                      Bekijk format uitleg video
+                      {t('packages.viewVideo')}
                     </button>
                   )}
                 </div>
@@ -431,6 +442,8 @@ function WhiteboardPicker({ hasFreeWhiteboard, value, onChange }) {
 }
 
 const PakkettenPage = () => {
+  const { locale, t } = useLocale();
+  const STEPS = STEP_DEFS.map((s) => ({ ...s, label: t(s.labelKey) }));
   const [step, setStep] = useState(1);
   const [packageId, setPackageId] = useState(null);
   const [tennisLevelId, setTennisLevelId] = useState(null);
@@ -578,13 +591,12 @@ const PakkettenPage = () => {
       <PageHero image={getPageHeroImage('/pakketten')} minHeight="45vh">
         {(heroInView) => (
           <div className="flex flex-col items-center">
-            <PageHeroEyebrow heroInView={heroInView}>Plug &amp; Play</PageHeroEyebrow>
+            <PageHeroEyebrow heroInView={heroInView}>{t('packages.heroEyebrow')}</PageHeroEyebrow>
             <PageHeroTitle heroInView={heroInView} className="font-black">
-              Stel jouw pakket samen
+              {t('packages.heroTitle')}
             </PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Kies je sport en pakket, geef aan hoeveel jeugd meedoet en wij helpen je met het juiste
-              aantal buttons en formats.
+              {t('packages.heroSubtitle')}
             </PageHeroSubtitle>
           </div>
         )}
@@ -629,7 +641,7 @@ const PakkettenPage = () => {
               className="gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
-              Vorige
+              {t('packages.prev')}
             </Button>
             {step < 6 ? (
               <Button
@@ -638,7 +650,7 @@ const PakkettenPage = () => {
                 disabled={!canGoNext()}
                 className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
               >
-                Volgende
+                {t('packages.next')}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             ) : (
@@ -649,7 +661,7 @@ const PakkettenPage = () => {
                 className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
               >
                 <ShoppingCart className="h-5 w-5" />
-                In winkelwagen
+                {t('packages.addToCart')}
               </Button>
             )}
           </div>
@@ -664,13 +676,14 @@ const PakkettenPage = () => {
               exit={{ opacity: 0, x: -20 }}
             >
               <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
-                Welk pakket past bij jou?
+                {t('packages.step1Title')}
               </h2>
               <p className="mb-10 text-center text-gray-600">
-                Tennis, padel of beide — bij combi kies je per sport Basis, Plus of Compleet.
+                {t('packages.step1Subtitle')}
               </p>
               <div className="grid gap-6 md:grid-cols-3">
-                {MAIN_PACKAGES.map((pkg) => {
+                {MAIN_PACKAGES.map((rawPkg) => {
+                  const pkg = localizePackage(rawPkg, locale);
                   const selected = packageId === pkg.id;
                   return (
                     <button
@@ -740,13 +753,13 @@ const PakkettenPage = () => {
             >
               <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
                 {packageId === 'combi'
-                  ? 'Welk pakket voor tennis en padel?'
-                  : 'Welk pakket past bij jouw club?'}
+                  ? t('packages.step2TitleCombi')
+                  : t('packages.step2Title')}
               </h2>
               <p className="mb-10 text-center text-gray-600">
                 {packageId === 'combi'
-                  ? 'Kies per sport Basis, Plus of Compleet. Combi-prijs: 10% voordeel op het totaal.'
-                  : 'Elk pakket bevat 4 online kennissessies en 1 jaar TOF Score app-toegang.'}
+                  ? t('packages.step2SubtitleCombi')
+                  : t('packages.step2Subtitle')}
               </p>
 
               {packageId === 'combi' ? (
@@ -1165,7 +1178,7 @@ const PakkettenPage = () => {
                       className="mt-6 w-full gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] py-6 font-bold"
                     >
                       <ShoppingCart className="h-5 w-5" />
-                      In winkelwagen
+                      {t('packages.addToCart')}
                     </Button>
                   </div>
                 </div>
@@ -1183,7 +1196,7 @@ const PakkettenPage = () => {
             className="gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Vorige
+            {t('packages.prev')}
           </Button>
           {step < 6 ? (
             <Button
@@ -1192,7 +1205,7 @@ const PakkettenPage = () => {
               disabled={!canGoNext()}
               className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
             >
-              Volgende
+              {t('packages.next')}
               <ArrowRight className="h-4 w-4" />
             </Button>
           ) : (
@@ -1203,7 +1216,7 @@ const PakkettenPage = () => {
               className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
             >
               <ShoppingCart className="h-5 w-5" />
-              In winkelwagen
+              {t('packages.addToCart')}
             </Button>
           )}
         </div>

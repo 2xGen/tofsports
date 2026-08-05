@@ -3,11 +3,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
-import { KENNISBANK_PILLAR_CARDS } from '@/data/kennisbankGuides';
+import { getKennisbankPillarCards } from '@/data/kennisbankGuides';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const MOBILE_STICKY_TOPS = ['top-28', 'top-36', 'top-44'];
 
 const HorizontalProductsSection = () => {
+  const { locale } = useLocale();
+  const pillarCards = getKennisbankPillarCards(locale);
+
   return (
     <section id="part-waarom" className="relative overflow-visible pb-20 md:pb-32">
       <div className="absolute inset-0 z-0 bg-gradient-to-tl from-sky-50 via-indigo-50 to-purple-50" />
@@ -23,26 +27,38 @@ const HorizontalProductsSection = () => {
                 className="rounded-[2.5rem] border border-indigo-100/50 bg-white/80 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl md:p-10"
               >
                 <h2 className="mb-5 text-3xl font-black leading-tight tracking-tight text-gray-900 md:text-4xl">
-                  Hoe{' '}
-                  <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
-                    TOF Sports
-                  </span>{' '}
-                  helpt
+                  {locale === 'en' ? (
+                    <>
+                      How{' '}
+                      <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
+                        TOF Sports
+                      </span>{' '}
+                      helps
+                    </>
+                  ) : (
+                    <>
+                      Hoe{' '}
+                      <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
+                        TOF Sports
+                      </span>{' '}
+                      helpt
+                    </>
+                  )}
                 </h2>
                 <p className="text-lg font-medium leading-relaxed text-gray-600 md:text-xl">
-                  Wij zetten je jeugdprogramma op scherp en zorgen voor plezier in ontwikkelen. Dat
-                  doen we met meer speelmomenten, meer betrokkenheid en minder voorbereiding voor
-                  trainers.
+                  {locale === 'en'
+                    ? 'We sharpen your youth programme and create joy in developing — with more play moments, more engagement and less prep for coaches.'
+                    : 'Wij zetten je jeugdprogramma op scherp en zorgen voor plezier in ontwikkelen. Dat doen we met meer speelmomenten, meer betrokkenheid en minder voorbereiding voor trainers.'}
                 </p>
               </motion.div>
             </div>
           </div>
 
           <div className="flex flex-col gap-16 pb-32 md:w-1/2 md:gap-0 md:pb-0">
-            {KENNISBANK_PILLAR_CARDS.map((product, index) => (
+            {pillarCards.map((product, index) => (
               <div
                 key={product.id}
-                className={`sticky ${MOBILE_STICKY_TOPS[index]} md:static ${index < KENNISBANK_PILLAR_CARDS.length - 1 ? 'pb-8 md:pb-0' : ''} md:min-h-[calc(100dvh-3rem)]`}
+                className={`sticky ${MOBILE_STICKY_TOPS[index]} md:static ${index < pillarCards.length - 1 ? 'pb-8 md:pb-0' : ''} md:min-h-[calc(100dvh-3rem)]`}
                 style={{ zIndex: index + 1 }}
               >
                 <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">

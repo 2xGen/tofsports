@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import { ChevronDown, Play, X } from 'lucide-react';
 
-import { HERO_SLIDES, HERO_TAGLINES, HERO_WAVE_PATH } from '@/data/heroSlides';
+import { HERO_SLIDES, HERO_TAGLINES, HERO_TAGLINES_EN, HERO_WAVE_PATH } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const HERO_SLIDE_INTERVAL_MS = 5000;
 const HERO_SLIDE_FADE_MS = 1000;
@@ -104,9 +105,11 @@ const HeroBackgroundSlideshow = ({ scale, activeIndex, onActiveIndexChange }) =>
 };
 
 const HeroSection = () => {
+  const { locale } = useLocale();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const sectionRef = useRef(null);
+  const taglines = locale === 'en' ? HERO_TAGLINES_EN : HERO_TAGLINES;
 
   useEffect(() => {
     if (!isVideoOpen) return undefined;
@@ -119,7 +122,7 @@ const HeroSection = () => {
   const heroInView = useInView(sectionRef, { once: false, amount: 0.3 });
   const { scrollYProgress } = useScroll();
   const bgScale = useTransform(scrollYProgress, [0, 0.3], [1.05, 1]);
-  const activeTaglineIndex = activeSlideIndex % HERO_TAGLINES.length;
+  const activeTaglineIndex = activeSlideIndex % taglines.length;
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10 md:pb-8">
@@ -182,7 +185,7 @@ const HeroSection = () => {
             className="relative z-30 mx-auto w-full max-w-3xl px-2 min-h-[3.75rem] md:min-h-[4.25rem]"
             aria-live="polite"
           >
-            {HERO_TAGLINES.map((tagline, index) => (
+            {taglines.map((tagline, index) => (
               <p
                 key={tagline}
                 className="absolute inset-x-2 top-0 text-lg md:text-2xl text-white/95 drop-shadow-sm leading-relaxed font-medium transition-opacity ease-in-out"
@@ -254,7 +257,7 @@ const HeroSection = () => {
                 onClick={() => setIsVideoOpen(false)}
                 className="group mt-5 inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 font-bold text-white shadow-lg transition hover:bg-orange-600"
               >
-                Bekijk onze producten
+                {locale === 'en' ? 'View our products' : 'Bekijk onze producten'}
                 <ChevronDown className="h-5 w-5 -rotate-90 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>

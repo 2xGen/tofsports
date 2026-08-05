@@ -12,8 +12,23 @@ import MagneetpostersContent from '@/components/overTof/sections/MagneetpostersC
 import LerarenAppContent from '@/components/overTof/sections/LerarenAppContent';
 import OverTofDividerImage, { OVER_TOF_DIVIDER_IMAGES } from '@/components/overTof/OverTofDividerImage';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { OVER_TOF, ot } from '@/i18n/content/overTof';
+import { useLocale } from '@/i18n/LocaleProvider';
+
+const SECTION_CONTENT = {
+  'visie-missie': MissieVisieContent,
+  knltb: KnltbContent,
+  'tof-methode': TofMethodeContent,
+  'tof-score': TofScoreContent,
+  magneetposters: MagneetpostersContent,
+  'leraren-app': LerarenAppContent,
+};
+
+const ANCHOR_SECTIONS = new Set(['visie-missie', 'tof-methode', 'tof-score']);
 
 const OverTofPage = () => {
+  const { locale } = useLocale();
+
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     if (!hash) return undefined;
@@ -32,9 +47,11 @@ const OverTofPage = () => {
       <PageHero image={getPageHeroImage('/over-tof')} minHeight="50vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Over TOF</PageHeroTitle>
+            <PageHeroTitle heroInView={heroInView}>
+              {ot(locale, OVER_TOF.page.title)}
+            </PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Alles over onze visie, methode en tools voor tennis- en padelverenigingen.
+              {ot(locale, OVER_TOF.page.subtitle)}
             </PageHeroSubtitle>
           </div>
         )}
@@ -43,64 +60,27 @@ const OverTofPage = () => {
       <SectionJumpNav />
 
       <div className="container mx-auto max-w-7xl px-4 py-12 md:py-16">
-        <OverTofSection
-          id="visie-missie"
-          title="Visie & Missie"
-          subtitle="De 365-mentaliteit: waarom we jeugd het hele jaar betrokken willen houden op de club."
-          isFirst
-        >
-          <MissieVisieContent useAnchors />
-        </OverTofSection>
-
-        <OverTofDividerImage {...OVER_TOF_DIVIDER_IMAGES[0]} />
-
-        <OverTofSection
-          id="knltb"
-          title="KNLTB"
-          subtitle="Powered by KNLTB — Tenniskids TOF en TOF padel als basis van je jeugdprogramma."
-        >
-          <KnltbContent />
-        </OverTofSection>
-
-        <OverTofDividerImage {...OVER_TOF_DIVIDER_IMAGES[1]} />
-
-        <OverTofSection
-          id="tof-methode"
-          title="TOF Methode"
-          subtitle="Spelen, leren en sparen: het Plug & Play systeem voor je vereniging."
-        >
-          <TofMethodeContent useAnchors />
-        </OverTofSection>
-
-        <OverTofDividerImage {...OVER_TOF_DIVIDER_IMAGES[2]} />
-
-        <OverTofSection
-          id="tof-score"
-          title="TOF Score"
-          subtitle="Meet betrokkenheid en motiveer jeugd met punten, status en speelmomenten."
-        >
-          <TofScoreContent useAnchors />
-        </OverTofSection>
-
-        <OverTofDividerImage {...OVER_TOF_DIVIDER_IMAGES[3]} />
-
-        <OverTofSection
-          id="magneetposters"
-          title="Magneetposters"
-          subtitle="Format-posters op magneet voor whiteboard — professioneel op de baan."
-        >
-          <MagneetpostersContent />
-        </OverTofSection>
-
-        <OverTofDividerImage {...OVER_TOF_DIVIDER_IMAGES[4]} />
-
-        <OverTofSection
-          id="leraren-app"
-          title="Leraren-app"
-          subtitle="Lesplannen, TOF Score en clubbeheer digitaal in de KNLTB leraren-app."
-        >
-          <LerarenAppContent />
-        </OverTofSection>
+        {OVER_TOF.sections.map((section, index) => {
+          const Content = SECTION_CONTENT[section.id];
+          return (
+            <React.Fragment key={section.id}>
+              {index > 0 && (
+                <OverTofDividerImage
+                  {...OVER_TOF_DIVIDER_IMAGES[index - 1]}
+                  alt={ot(locale, OVER_TOF.dividers[index - 1])}
+                />
+              )}
+              <OverTofSection
+                id={section.id}
+                title={ot(locale, section.title)}
+                subtitle={ot(locale, section.subtitle)}
+                isFirst={index === 0}
+              >
+                <Content useAnchors={ANCHOR_SECTIONS.has(section.id)} />
+              </OverTofSection>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );

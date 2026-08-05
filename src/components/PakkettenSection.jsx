@@ -3,10 +3,12 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import PakkettenCardsGrid from '@/components/PakkettenCardsGrid';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const PakkettenSection = () => {
   const sectionRef = useRef(null);
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const { locale, t } = useLocale();
 
   return (
     <section
@@ -22,15 +24,19 @@ const PakkettenSection = () => {
       >
         <div className="mb-10 text-center md:mb-12">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#1B144C]/70">
-            Plug &amp; Play
+            {t('home.packagesEyebrow')}
           </p>
         </div>
         <PakkettenCardsGrid
           showPackageDetails={false}
           showSubtitle={false}
-          title="Kies de oplossing die bij jou past"
-          ctaLabel="Stel jouw pakket samen"
-          description="Kies Basis, Plus of Compleet — tennis, padel of combi. Inclusief kennissessies, TOF Score app en verzending."
+          title={t('home.packagesTitle')}
+          ctaLabel={t('home.packagesCta')}
+          description={
+            locale === 'en'
+              ? 'Choose Basic, Plus or Complete — tennis, padel or combi. Includes knowledge sessions, TOF Score app and shipping.'
+              : 'Kies Basis, Plus of Compleet — tennis, padel of combi. Inclusief kennissessies, TOF Score app en verzending.'
+          }
         />
       </motion.div>
     </section>

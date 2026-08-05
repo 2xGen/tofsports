@@ -37,6 +37,11 @@ export const HERO_TAGLINES = [
   'Plezier in ontwikkelen',
 ];
 
+export const HERO_TAGLINES_EN = [
+  'Sharpen your youth programme right away',
+  'Joy in developing',
+];
+
 export const HERO_WAVE_PATH = 'M0,58 Q250,12 500,58 T1000,58 L1000,100 L0,100 Z';
 
 /** Extra images (not in homepage rotation) */

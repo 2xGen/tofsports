@@ -1,18 +1,19 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Calendar, Tag } from 'lucide-react';
 import PageHero, { PageHeroEyebrow, PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
 import KennisbankArticleBody from '@/components/KennisbankArticleBody';
 import PakkettenCardsGrid from '@/components/PakkettenCardsGrid';
 import OtherGuidesSection from '@/components/OtherGuidesSection';
-import { KENNISBANK_GUIDES } from '@/data/kennisbankGuides';
+import { KENNISBANK_GUIDES, localizeGuide } from '@/data/kennisbankGuides';
+import Link from '@/i18n/Link';
+import { useLocale } from '@/i18n/LocaleProvider';
 
-const formatDate = (iso) => {
+const formatDate = (iso, locale) => {
   try {
-    return new Intl.DateTimeFormat('nl-NL', {
+    return new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'nl-NL', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -22,7 +23,9 @@ const formatDate = (iso) => {
   }
 };
 
-const KennisbankArticlePage = ({ guide }) => {
+const KennisbankArticlePage = ({ guide: rawGuide }) => {
+  const { locale, t } = useLocale();
+  const guide = localizeGuide(rawGuide, locale);
   const heroImage = { src: guide.image, alt: guide.imageAlt };
 
   return (
@@ -30,7 +33,7 @@ const KennisbankArticlePage = ({ guide }) => {
       <PageHero image={heroImage} minHeight="50vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroEyebrow heroInView={heroInView}>Kennisbank</PageHeroEyebrow>
+            <PageHeroEyebrow heroInView={heroInView}>{t('knowledge.title')}</PageHeroEyebrow>
             <PageHeroTitle heroInView={heroInView}>{guide.heroTitle}</PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>{guide.subtitle}</PageHeroSubtitle>
           </div>
@@ -50,10 +53,10 @@ const KennisbankArticlePage = ({ guide }) => {
           </span>
           <span className="inline-flex items-center gap-1">
             <Calendar className="h-3.5 w-3.5" aria-hidden />
-            {formatDate(guide.date)}
+            {formatDate(guide.date, locale)}
           </span>
           <Link href="/kennisbank" className="font-medium text-[#1B144C] hover:underline">
-            ← Terug naar kennisbank
+            {t('knowledge.back')}
           </Link>
         </motion.div>
 
@@ -70,19 +73,18 @@ const KennisbankArticlePage = ({ guide }) => {
       <section className="border-t border-gray-200 bg-white py-16 md:py-20">
         <div className="container mx-auto max-w-7xl px-4">
           <PakkettenCardsGrid
-            title="Klaar voor de volgende stap?"
-            description="Ontdek welk clubpakket past bij jouw tennis- of padelvereniging."
+            title={t('knowledge.nextStepTitle')}
+            description={t('knowledge.nextStepBody')}
             showPackageDetails={false}
           />
         </div>
       </section>
 
       <section className="container mx-auto max-w-7xl px-4 pb-20">
-        <OtherGuidesSection guides={KENNISBANK_GUIDES} currentSlug={guide.slug} />
+        <OtherGuidesSection guides={KENNISBANK_GUIDES} currentSlug={rawGuide.slug} />
       </section>
     </div>
   );
 };
 
 export default KennisbankArticlePage;
-

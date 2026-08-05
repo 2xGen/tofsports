@@ -1,12 +1,13 @@
 'use client';
 
 import { CartProvider } from '@/context/CartContext';
+import { LocaleProvider } from '@/i18n/LocaleProvider';
 
 const Providers = ({ children }) => {
   return (
-    <CartProvider>
-      {children}
-    </CartProvider>
+    <LocaleProvider>
+      <CartProvider>{children}</CartProvider>
+    </LocaleProvider>
   );
 };
 

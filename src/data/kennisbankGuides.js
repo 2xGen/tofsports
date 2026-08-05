@@ -1,3 +1,5 @@
+import { KENNISBANK_GUIDES_EN } from '@/i18n/content/kennisbankGuides.en';
+
 const MEDIA_BASE =
   'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports';
 
@@ -375,28 +377,87 @@ export const KENNISBANK_GUIDES = [
   },
 ];
 
+const TEXT_FIELDS = [
+  'title',
+  'cardTitle',
+  'heroTitle',
+  'subtitle',
+  'excerpt',
+  'metaDescription',
+  'category',
+  'imageAlt',
+  'ctaText',
+  'pillarDescription',
+  'sections',
+];
+
+export function getGuideSlug(guide, locale = 'nl') {
+  if (!guide) return null;
+  if (locale === 'en') {
+    return KENNISBANK_GUIDES_EN[guide.id]?.slug ?? guide.slug;
+  }
+  return guide.slug;
+}
+
+/** Merge English overlay onto a guide when locale is en */
+export function localizeGuide(guide, locale = 'nl') {
+  if (!guide || locale !== 'en') return guide;
+  const en = KENNISBANK_GUIDES_EN[guide.id];
+  if (!en) return guide;
+  const localized = { ...guide, slug: en.slug };
+  TEXT_FIELDS.forEach((key) => {
+    if (en[key] != null) localized[key] = en[key];
+  });
+  return localized;
+}
+
 export function getGuideBySlug(slug) {
-  return KENNISBANK_GUIDES.find((guide) => guide.slug === slug) ?? null;
+  if (!slug) return null;
+  const byNl = KENNISBANK_GUIDES.find((guide) => guide.slug === slug);
+  if (byNl) return byNl;
+  const enEntry = Object.entries(KENNISBANK_GUIDES_EN).find(([, en]) => en.slug === slug);
+  if (!enEntry) return null;
+  return KENNISBANK_GUIDES.find((guide) => guide.id === enEntry[0]) ?? null;
+}
+
+/** Map NL slug → EN slug (and reverse) for redirects */
+export function getAlternateGuideSlug(slug, targetLocale) {
+  const guide = getGuideBySlug(slug);
+  if (!guide) return null;
+  return getGuideSlug(guide, targetLocale);
 }
 
 export function getOtherGuides(slug) {
-  return KENNISBANK_GUIDES.filter((guide) => guide.slug !== slug);
+  const current = getGuideBySlug(slug);
+  return KENNISBANK_GUIDES.filter((guide) => guide.id !== current?.id);
 }
 
 export function getAllGuideSlugs() {
-  return KENNISBANK_GUIDES.map((guide) => guide.slug);
+  const slugs = KENNISBANK_GUIDES.map((guide) => guide.slug);
+  Object.values(KENNISBANK_GUIDES_EN).forEach((en) => {
+    if (en.slug && !slugs.includes(en.slug)) slugs.push(en.slug);
+  });
+  return slugs;
 }
 
 /** Homepage pillar cards — kennisbank-ingangen, geen saleskaarten */
-export const KENNISBANK_PILLAR_CARDS = KENNISBANK_GUIDES.map((guide) => ({
-  id: guide.id,
-  title: guide.cardTitle ?? guide.title,
-  description: guide.pillarDescription,
-  color: guide.pillarColor,
-  borderColor: guide.pillarBorderColor,
-  image: guide.image,
-  imageAlt: guide.imageAlt,
-  imageLayout: 'split',
-  linkUrl: `/kennisbank/${guide.slug}`,
-  ctaText: guide.ctaText,
-}));
+export function getKennisbankPillarCards(locale = 'nl') {
+  return KENNISBANK_GUIDES.map((guide) => {
+    const localized = localizeGuide(guide, locale);
+    return {
+      id: localized.id,
+      title: localized.cardTitle ?? localized.title,
+      description: localized.pillarDescription,
+      color: localized.pillarColor,
+      borderColor: localized.pillarBorderColor,
+      image: localized.image,
+      imageAlt: localized.imageAlt,
+      imageLayout: 'split',
+      linkUrl: `/kennisbank/${getGuideSlug(localized, locale)}`,
+      ctaText: localized.ctaText,
+    };
+  });
+}
+
+/** @deprecated use getKennisbankPillarCards(locale) */
+export const KENNISBANK_PILLAR_CARDS = getKennisbankPillarCards('nl');

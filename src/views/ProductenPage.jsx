@@ -1,36 +1,39 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BookOpen, Package, ShoppingBag } from 'lucide-react';
 import PageHero, { PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
 import PakkettenCardsGrid from '@/components/PakkettenCardsGrid';
 import WebshopContent from '@/components/producten/WebshopContent';
 import { getPageHeroImage } from '@/data/heroSlides';
-
-const PRODUCT_PATHS = [
-  {
-    icon: Package,
-    label: 'Clubpakket',
-    description: 'Direct starten met een compleet jeugdprogramma',
-    href: '#clubpakketten',
-  },
-  {
-    icon: BookOpen,
-    label: 'Handboek',
-    description: 'Formats uitproberen via speluitleg',
-    href: '/handboek',
-  },
-  {
-    icon: ShoppingBag,
-    label: 'Losse formats',
-    description: 'Individuele producten bestellen',
-    href: '#losse-formats',
-  },
-];
+import Link from '@/i18n/Link';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const ProductenPage = () => {
+  const { t } = useLocale();
+
+  const productPaths = [
+    {
+      icon: Package,
+      label: t('producten.pathPackage'),
+      description: t('producten.pathPackageDesc'),
+      href: '#clubpakketten',
+    },
+    {
+      icon: BookOpen,
+      label: t('producten.pathHandbook'),
+      description: t('producten.pathHandbookDesc'),
+      href: '/handboek',
+    },
+    {
+      icon: ShoppingBag,
+      label: t('producten.pathShop'),
+      description: t('producten.pathShopDesc'),
+      href: '#losse-formats',
+    },
+  ];
+
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
     if (!hash) return undefined;
@@ -48,10 +51,8 @@ const ProductenPage = () => {
       <PageHero image={getPageHeroImage('/producten')} minHeight="50vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Producten</PageHeroTitle>
-            <PageHeroSubtitle heroInView={heroInView}>
-              Kies wat past bij jouw vereniging: compleet pakket, handboek of losse formats.
-            </PageHeroSubtitle>
+            <PageHeroTitle heroInView={heroInView}>{t('producten.title')}</PageHeroTitle>
+            <PageHeroSubtitle heroInView={heroInView}>{t('producten.subtitle')}</PageHeroSubtitle>
           </div>
         )}
       </PageHero>
@@ -66,12 +67,11 @@ const ProductenPage = () => {
           <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg">
             <div className="border-b border-orange-100 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5 md:px-8">
               <p className="max-w-3xl text-base leading-relaxed text-gray-700 md:text-lg">
-                Of je nu direct wilt starten met een clubpakket, formats wilt uitproberen via het
-                handboek of losse producten wilt bestellen — hier vind je alle opties op een rij.
+                {t('producten.intro')}
               </p>
             </div>
             <div className="grid gap-px bg-gray-100 sm:grid-cols-3">
-              {PRODUCT_PATHS.map(({ icon: Icon, label, description, href }) => (
+              {productPaths.map(({ icon: Icon, label, description, href }) => (
                 <Link
                   key={label}
                   href={href}
@@ -93,7 +93,7 @@ const ProductenPage = () => {
         <section id="clubpakketten" className="scroll-mt-40">
           <PakkettenCardsGrid
             showPackageDetails={false}
-            description="Tennispakket, padelpakket of tennis- en padelpakket — elk pakket bevat formats, matrix, TOF Score poster, whiteboard en 1 jaar leraren-app."
+            description={t('producten.packagesDesc')}
           />
         </section>
 
@@ -103,11 +103,9 @@ const ProductenPage = () => {
         >
           <div className="mb-8 text-left md:mb-10">
             <h2 className="font-poppins text-2xl font-black text-gray-900 md:text-3xl">
-              Liever losse formats?
+              {t('producten.looseTitle')}
             </h2>
-            <p className="mt-2 text-lg text-gray-600">
-              Bestel individuele tennis- en padelformats via de webshop.
-            </p>
+            <p className="mt-2 text-lg text-gray-600">{t('producten.looseBody')}</p>
           </div>
           <WebshopContent />
         </section>

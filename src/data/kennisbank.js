@@ -1,15 +1,29 @@
-import { KENNISBANK_GUIDES } from '@/data/kennisbankGuides';
+import { KENNISBANK_GUIDES, getGuideSlug, localizeGuide } from '@/data/kennisbankGuides';
 
-export const kennisbankArticles = KENNISBANK_GUIDES.map((guide) => ({
-  id: guide.id,
-  slug: guide.slug,
-  title: guide.title,
-  excerpt: guide.excerpt,
-  category: guide.category,
-  date: guide.date,
-  image: guide.image,
-  imageAlt: guide.imageAlt,
-  href: `/kennisbank/${guide.slug}`,
-}));
+export function getKennisbankArticles(locale = 'nl') {
+  return KENNISBANK_GUIDES.map((guide) => {
+    const localized = localizeGuide(guide, locale);
+    const slug = getGuideSlug(guide, locale);
+    return {
+      id: localized.id,
+      slug,
+      title: localized.title,
+      excerpt: localized.excerpt,
+      category: localized.category,
+      date: localized.date,
+      image: localized.image,
+      imageAlt: localized.imageAlt,
+      href: `/kennisbank/${slug}`,
+    };
+  });
+}
+
+/** @deprecated prefer getKennisbankArticles(locale) */
+export const kennisbankArticles = getKennisbankArticles('nl');
 
 export const kennisbankCategories = ['Alle', 'Gids'];
+
+export function getKennisbankCategories(locale = 'nl') {
+  if (locale === 'en') return ['All', 'Guide'];
+  return kennisbankCategories;
+}

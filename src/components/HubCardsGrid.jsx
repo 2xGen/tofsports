@@ -2,12 +2,26 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
+
+const HUB_LABEL_KEYS = {
+  '/missie-visie': 'hub.overTof.missie',
+  '/knltb': 'hub.overTof.knltb',
+  '/tof-methode': 'hub.overTof.methode',
+  '/tof-score': 'hub.overTof.score',
+  '/magneetposters': 'hub.overTof.posters',
+  '/leraren-app': 'hub.overTof.app',
+  '/pakketten': 'hub.producten.packages',
+  '/handboek': 'hub.producten.handbook',
+  '/webshop': 'hub.producten.shop',
+};
 
 const HubCardsGrid = ({ items, columns = 3 }) => {
+  const { t } = useLocale();
   const gridClass =
     columns === 3
       ? 'md:grid-cols-2 lg:grid-cols-3'
@@ -17,6 +31,7 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
     <div className={`grid gap-6 ${gridClass}`}>
       {items.map((item, index) => {
         const image = getPageHeroImage(item.imageRoute);
+        const label = HUB_LABEL_KEYS[item.href] ? t(HUB_LABEL_KEYS[item.href]) : item.label;
 
         return (
           <motion.div
@@ -45,12 +60,12 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
                 />
               </div>
               <div className="flex flex-1 flex-col p-5 md:p-6">
-                <h3 className="text-lg font-black text-gray-900 md:text-xl">{item.label}</h3>
+                <h3 className="text-lg font-black text-gray-900 md:text-xl">{label}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
                   {item.description}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange-600 group-hover:gap-2 transition-all">
-                  Lees meer <ArrowRight className="h-4 w-4" aria-hidden />
+                  {t('common.learnMore')} <ArrowRight className="h-4 w-4" aria-hidden />
                 </span>
               </div>
             </Link>

@@ -11,12 +11,12 @@ import WarmupLiedCard from '@/components/WarmupLiedCard';
 import { getPageHeroImage } from '@/data/heroSlides';
 import { mediaItems } from '@/data/media';
 import { allProducts } from '@/data/products';
-
-const CATEGORY_LABELS = { tennis: 'Tennis', padel: 'Padel' };
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const productVideos = allProducts.filter((product) => product.videoUrl);
 
 const MediaPage = () => {
+  const { t } = useLocale();
   const [lightboxItem, setLightboxItem] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
   const [activeLoadIndex, setActiveLoadIndex] = useState(0);
@@ -45,9 +45,9 @@ const MediaPage = () => {
       <PageHero image={getPageHeroImage('/media')} minHeight="50vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Media</PageHeroTitle>
+            <PageHeroTitle heroInView={heroInView}>{t('media.title')}</PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Foto&apos;s en beelden van TOF op de club.
+              {t('media.subtitle')}
             </PageHeroSubtitle>
           </div>
         )}
@@ -77,10 +77,10 @@ const MediaPage = () => {
           >
             <div className="mb-6 flex items-center gap-3">
               <PlayCircle className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
-              <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Formats in beeld</h2>
+              <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{t('media.videosTitle')}</h2>
             </div>
             <p className="mb-6 max-w-2xl text-sm text-gray-600 md:text-base">
-              Bekijk hoe onze tennis- en padelformats werken op de club. Klik op een video om te spelen.
+              {t('media.videosSubtitle')}
             </p>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {productVideos.map((product) => (
@@ -92,7 +92,7 @@ const MediaPage = () => {
                   <div className="p-4">
                     <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
                     <p className="mt-0.5 text-sm font-medium text-orange-600">
-                      {CATEGORY_LABELS[product.category] || product.category}
+                      {product.category === 'padel' ? t('packages.padel') : t('packages.tennis')}
                     </p>
                   </div>
                 </li>

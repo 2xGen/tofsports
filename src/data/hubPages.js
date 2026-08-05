@@ -1,3 +1,5 @@
+import { stripLocale, toInternalPath } from '@/i18n/config';
+
 export const OVER_TOF_ITEMS = [
   {
     href: '/missie-visie',
@@ -65,17 +67,19 @@ export const OVER_TOF_PATHS = OVER_TOF_ITEMS.map((item) => item.href);
 export const PRODUCTEN_PATHS = PRODUCTEN_ITEMS.map((item) => item.href);
 
 export function isOverTofPath(pathname) {
-  return pathname === '/over-tof' || OVER_TOF_PATHS.some(
-    (href) => pathname === href || pathname.startsWith(`${href}/`)
+  const path = toInternalPath(stripLocale(pathname));
+  return path === '/over-tof' || OVER_TOF_PATHS.some(
+    (href) => path === href || path.startsWith(`${href}/`)
   );
 }
 
 export function isProductenPath(pathname) {
+  const path = toInternalPath(stripLocale(pathname));
   return (
-    pathname === '/producten' ||
-    pathname === '/webshop' ||
+    path === '/producten' ||
+    path === '/webshop' ||
     PRODUCTEN_PATHS.some(
-      (href) => pathname === href || pathname.startsWith(`${href}/`)
+      (href) => path === href || path.startsWith(`${href}/`)
     )
   );
 }

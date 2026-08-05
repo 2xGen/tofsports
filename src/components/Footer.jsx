@@ -1,38 +1,36 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import Link from '@/i18n/Link';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLocale();
 
   return (
     <footer className="bg-gray-900 text-white">
-      {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {/* Logo & About */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <div className="space-y-4">
             <Link href="/" className="inline-block">
-              <Image 
-                src="https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg" 
-                alt="TOF Sports" 
+              <Image
+                src="https://toftennis.nl/wp-content/uploads/2024/04/TOF-logo.svg"
+                alt="TOF Sports"
                 width={150}
                 height={50}
                 className="h-10 w-auto brightness-0 invert"
               />
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Powered by KNLTB. Professionele, speelse tools voor een modern tennis- en padelprogramma.
-            </p>
+            <p className="text-sm leading-relaxed text-gray-400">{t('footer.tagline')}</p>
             <div className="flex items-center gap-4 pt-2">
               <a
                 href="https://www.instagram.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-orange-500 transition-colors"
+                className="text-gray-400 transition-colors hover:text-orange-500"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -41,7 +39,7 @@ const Footer = () => {
                 href="https://www.facebook.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-orange-500 transition-colors"
+                className="text-gray-400 transition-colors hover:text-orange-500"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
@@ -49,101 +47,122 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Snelle Links</h3>
+            <h3 className="mb-4 text-lg font-bold">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Home
+                <Link href="/" className="text-sm text-gray-400 transition-colors hover:text-orange-500">
+                  {t('nav.home')}
                 </Link>
               </li>
               <li>
-                <Link href="/over-tof" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Over TOF
+                <Link
+                  href="/over-tof"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('nav.about')}
                 </Link>
               </li>
               <li>
-                <Link href="/producten" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Producten
+                <Link
+                  href="/producten"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('nav.products')}
                 </Link>
               </li>
               <li>
-                <Link href="/kennisbank" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Kennisbank
+                <Link
+                  href="/kennisbank"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('nav.knowledge')}
                 </Link>
               </li>
               <li>
-                <Link href="/media" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Media
+                <Link
+                  href="/media"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('nav.media')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* TOF Methode */}
           <div>
-            <h3 className="text-lg font-bold mb-4">TOF Methode</h3>
+            <h3 className="mb-4 text-lg font-bold">{t('footer.method')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/tof-methode" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Over de methode
+                <Link
+                  href="/tof-methode"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('footer.aboutMethod')}
                 </Link>
               </li>
               <li>
-                <Link href="/spelen" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Spelen
+                <Link
+                  href="/spelen"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('footer.play')}
                 </Link>
               </li>
               <li>
-                <Link href="/leren" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Leren
+                <Link
+                  href="/leren"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('footer.learn')}
                 </Link>
               </li>
               <li>
-                <Link href="/sparen" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                  Sparen
+                <Link
+                  href="/sparen"
+                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                >
+                  {t('footer.save')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Contact</h3>
+            <h3 className="mb-4 text-lg font-bold">{t('footer.contact')}</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
-                <MapPin className="h-4 w-4 mt-0.5 text-orange-500 flex-shrink-0" />
+              <li className="flex items-start gap-3 text-sm text-gray-400">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" />
                 <span>
-                  M. van Nispenstraat 16<br />
+                  M. van Nispenstraat 16
+                  <br />
                   3201KC Spijkenisse
                 </span>
               </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm">
-                <Phone className="h-4 w-4 text-orange-500 flex-shrink-0" />
-                <a href="tel:0613252559" className="hover:text-orange-500 transition-colors">
+              <li className="flex items-center gap-3 text-sm text-gray-400">
+                <Phone className="h-4 w-4 shrink-0 text-orange-500" />
+                <a href="tel:0613252559" className="transition-colors hover:text-orange-500">
                   06 13 25 25 59
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm">
-                <Mail className="h-4 w-4 text-orange-500 flex-shrink-0" />
-                <a href="mailto:info@tofsports.nl" className="hover:text-orange-500 transition-colors">
+              <li className="flex items-center gap-3 text-sm text-gray-400">
+                <Mail className="h-4 w-4 shrink-0 text-orange-500" />
+                <a href="mailto:info@tofsports.nl" className="transition-colors hover:text-orange-500">
                   info@tofsports.nl
                 </a>
               </li>
             </ul>
             <Link
               href="/contact"
-              className="inline-block mt-3 text-sm text-orange-500 hover:text-orange-400 transition-colors font-medium"
+              className="mt-3 inline-block text-sm font-medium text-orange-500 transition-colors hover:text-orange-400"
             >
-              Contact opnemen
+              {t('footer.getInTouch')}
             </Link>
           </div>
 
-          {/* Business Info */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Bedrijfsgegevens</h3>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <h3 className="mb-4 text-lg font-bold">{t('footer.companyDetails')}</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <span className="text-gray-500">KVK:</span> 70507929
               </li>
@@ -161,26 +180,29 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm text-center md:text-left">
-              © TOF Sports 2018-{currentYear}. Alle rechten voorbehouden.
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-center text-sm text-gray-500 md:text-left">
+              © TOF Sports 2018-{currentYear}. {t('footer.rights')}
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/privacy" className="text-gray-500 hover:text-orange-500 transition-colors text-sm">
-                Privacy Policy
+              <Link
+                href="/privacy"
+                className="text-sm text-gray-500 transition-colors hover:text-orange-500"
+              >
+                {t('footer.privacyPolicy')}
               </Link>
-              <button 
+              <button
+                type="button"
                 onClick={() => {
                   if (typeof window !== 'undefined' && window.openCookieSettings) {
                     window.openCookieSettings();
                   }
                 }}
-                className="text-gray-500 hover:text-orange-500 transition-colors text-sm"
+                className="text-sm text-gray-500 transition-colors hover:text-orange-500"
               >
-                Cookie Instellingen
+                {t('footer.cookieSettings')}
               </button>
             </div>
           </div>

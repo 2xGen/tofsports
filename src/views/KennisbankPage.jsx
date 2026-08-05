@@ -2,16 +2,17 @@
 
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Calendar, Tag } from 'lucide-react';
 import PageHero, { PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
-import { kennisbankArticles, kennisbankCategories } from '@/data/kennisbank';
+import { getKennisbankArticles, getKennisbankCategories } from '@/data/kennisbank';
+import Link from '@/i18n/Link';
+import { useLocale } from '@/i18n/LocaleProvider';
 
-const formatDate = (iso) => {
+const formatDate = (iso, locale) => {
   try {
-    return new Intl.DateTimeFormat('nl-NL', {
+    return new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'nl-NL', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
@@ -22,21 +23,27 @@ const formatDate = (iso) => {
 };
 
 const KennisbankPage = () => {
-  const [activeCategory, setActiveCategory] = useState('Alle');
+  const { locale, t } = useLocale();
+  const allLabel = t('knowledge.all');
+  const guideLabel = t('knowledge.guide');
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const articles = useMemo(() => getKennisbankArticles(locale), [locale]);
+  const categoryOptions = useMemo(() => getKennisbankCategories(locale), [locale]);
 
   const filteredArticles = useMemo(() => {
-    if (activeCategory === 'Alle') return kennisbankArticles;
-    return kennisbankArticles.filter((a) => a.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'all') return articles;
+    return articles.filter((a) => a.category === guideLabel || a.category === 'Gids' || a.category === 'Guide');
+  }, [activeCategory, articles, guideLabel]);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <PageHero image={getPageHeroImage('/kennisbank')} minHeight="50vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Kennisbank</PageHeroTitle>
+            <PageHeroTitle heroInView={heroInView}>{t('knowledge.title')}</PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Gidsen en praktische kennis voor je jeugdprogramma op de club.
+              {t('knowledge.subtitle')}
             </PageHeroSubtitle>
           </div>
         )}
@@ -55,11 +62,10 @@ const KennisbankPage = () => {
               <BookOpen className="mt-0.5 h-8 w-8 shrink-0 text-orange-500" aria-hidden />
               <div>
                 <h2 className="text-xl font-bold text-gray-900 md:text-2xl">
-                  Praktische kennis voor je jeugd op de club
+                  {t('knowledge.introTitle')}
                 </h2>
                 <p className="mt-3 leading-relaxed text-gray-600">
-                  In onze gidsen vind je ideeën en handvatten over speelmomenten, jeugdbetrokkenheid
-                  en het ontlasten van trainers — vrij te verkennen, in je eigen tempo.
+                  {t('knowledge.introBody')}
                 </p>
               </div>
             </div>
@@ -67,24 +73,28 @@ const KennisbankPage = () => {
         </motion.section>
 
         <div className="mb-8 flex flex-wrap gap-2">
-          {kennisbankCategories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                activeCategory === cat
-                  ? 'bg-orange-500 text-white'
-                  : 'border border-gray-200 bg-white text-gray-700 hover:border-orange-300 hover:text-orange-600'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categoryOptions.map((cat) => {
+            const isAll = cat === allLabel || cat === 'Alle' || cat === 'All';
+            const selected = isAll ? activeCategory === 'all' : activeCategory === 'guide';
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(isAll ? 'all' : 'guide')}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  selected
+                    ? 'bg-orange-500 text-white'
+                    : 'border border-gray-200 bg-white text-gray-700 hover:border-orange-300 hover:text-orange-600'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
         {filteredArticles.length === 0 ? (
-          <p className="py-12 text-center text-gray-500">Geen artikelen in deze categorie.</p>
+          <p className="py-12 text-center text-gray-500">{t('knowledge.empty')}</p>
         ) : (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredArticles.map((article, index) => (
@@ -119,7 +129,7 @@ const KennisbankPage = () => {
                       </span>
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="h-3 w-3" aria-hidden />
-                        {formatDate(article.date)}
+                        {formatDate(article.date, locale)}
                       </span>
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#1B144C]">
@@ -129,7 +139,8 @@ const KennisbankPage = () => {
                       {article.excerpt}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#1B144C]">
-                      Lees de gids <ArrowRight className="h-4 w-4" />
+                      {locale === 'en' ? 'Read the guide' : 'Lees de gids'}{' '}
+                      <ArrowRight className="h-4 w-4" />
                     </span>
                   </div>
                 </Link>
