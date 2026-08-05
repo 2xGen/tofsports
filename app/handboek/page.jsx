@@ -1,9 +1,39 @@
+import { cookies, headers } from 'next/headers';
 import HandboekPage from '@/views/HandboekPage';
+import { localizePath, resolveRequestLocale } from '@/i18n/config';
+import { getDictionary, translate } from '@/i18n/getDictionary';
 
-export const metadata = {
-  title: 'Speluitleg - TOF Sports',
-  description: 'Officiële spelregels en handleidingen voor alle TOF producten. Bekijk de complete uitleg voor PIRAMIDE TENNIS, 4 OP EEN RIJ en KRAAK DE CODE.',
-};
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tofsports.nl';
+
+export function generateMetadata() {
+  const locale = resolveRequestLocale(headers(), cookies());
+  const dict = getDictionary(locale);
+  const title = `${translate(dict, 'handboek.heroTitle')} - TOF Sports`;
+  const description = translate(dict, 'handboek.heroSubtitle');
+  const path = localizePath('/handboek', locale);
+  const url = `${SITE_URL}${path}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'TOF Sports',
+      locale: locale === 'en' ? 'en_GB' : 'nl_NL',
+      type: 'website',
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        nl: `${SITE_URL}${localizePath('/handboek', 'nl')}`,
+        en: `${SITE_URL}${localizePath('/handboek', 'en')}`,
+        'x-default': `${SITE_URL}${localizePath('/handboek', 'nl')}`,
+      },
+    },
+  };
+}
 
 export default function Handboek() {
   return <HandboekPage />;

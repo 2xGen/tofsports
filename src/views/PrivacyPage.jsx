@@ -4,14 +4,20 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import PageHero, { PageHeroTitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { ot } from '@/i18n/content/overTof';
+import { PRIVACY } from '@/i18n/content/privacy';
 
 const PrivacyPage = () => {
+  const { locale } = useLocale();
+  const t = (node) => ot(locale, node);
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <PageHero image={getPageHeroImage('/privacy')} minHeight="40vh">
         {(heroInView) => (
           <PageHeroTitle heroInView={heroInView} className="text-4xl md:text-6xl">
-            Privacy Verklaring
+            {t(PRIVACY.heroTitle)}
           </PageHeroTitle>
         )}
       </PageHero>
@@ -25,70 +31,59 @@ const PrivacyPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-10"
         >
           <div className="prose prose-gray max-w-none">
-            <p className="text-lg text-gray-600 mb-8">
-              Om door TOF Sports diensten aan bezoekers beschikbaar te kunnen stellen, is het noodzakelijk dat wij in een aantal gevallen persoonsgegevens verwerken. TOF Sports respecteert de privacy van haar deelnemers en/of bezoekers en zorgt dat alle persoonsgegevens vertrouwelijk worden behandeld. In deze privacy verklaring wordt uitgelegd welke gegevens worden verwerkt, wat er met de gegevens wordt gedaan en welke rechten u heeft.
-            </p>
+            <p className="text-lg text-gray-600 mb-8">{t(PRIVACY.intro)}</p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Wij verwerken gegevens indien u:</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+              {t(PRIVACY.weProcessTitle)}
+            </h2>
 
             <div className="space-y-6">
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Een bestelformulier invult</h3>
-                <p className="text-gray-600">
-                  De gegevens die wij nodig hebben voor de verwerking van uw bestelling zullen wij niet langer dan noodzakelijk is voor de verwerking van de hierboven omschreven doeleinden bewaren.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Contact met ons opneemt (via een contactformulier)</h3>
-                <p className="text-gray-600">
-                  Het gaat dan om de gegevens waarover u contact met ons opneemt en die u zelf heeft doorgegeven voor het opnemen van contact. Het kan gaan om uw email adres en/of telefoonnummer in combinatie met uw voor- en achternaam.
-                </p>
-              </div>
-
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">U aanmeldt voor nieuwsbrieven</h3>
-                <p className="text-gray-600">
-                  Het gaat dan om de gegevens die u zelf hebt doorgegeven voor het ontvangen van bijvoorbeeld een nieuwsbrief, waaronder in ieder geval uw naam en email adres.
-                </p>
-              </div>
+              {PRIVACY.cards.map((card) => (
+                <div key={t(card.title)} className="bg-gray-50 rounded-lg p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{t(card.title)}</h3>
+                  <p className="text-gray-600">{t(card.body)}</p>
+                </div>
+              ))}
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Doel van de verwerking</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
+              {t(PRIVACY.purposeTitle)}
+            </h2>
             <ul className="list-disc list-inside space-y-2 text-gray-600">
-              <li>Het optimaal kunnen bedienen van de deelnemers binnen onze organisatie en het verbeteren van onze dienstverlening;</li>
-              <li>Het organiseren van informatie bijeenkomsten;</li>
-              <li>Het verstrekken van door u gevraagde informatie;</li>
-              <li>Het aanbieden van producten en diensten van TOF Sports of andere partijen waar TOF Sports mee samenwerkt.</li>
+              {PRIVACY.purposeItems.map((item) => (
+                <li key={t(item)}>{t(item)}</li>
+              ))}
             </ul>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Verstrekking aan derden</h2>
-            <p className="text-gray-600">
-              De door ons verzamelde gegevens zijn nodig in het kader van de hierboven beschreven doeleinden. Indien verstrekking van de gegevens aan derden nodig is voor het uitvoeren van de hiervoor genoemde doeleinden, stellen wij uw gegevens aan deze derden ter beschikking onder door TOF Sports opgestelde voorwaarden en in lijn met de daarvoor geldende wettelijke eisen en richtlijnen.
-            </p>
+            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
+              {t(PRIVACY.thirdPartiesTitle)}
+            </h2>
+            <p className="text-gray-600">{t(PRIVACY.thirdPartiesBody)}</p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Bewaartermijn</h2>
-            <p className="text-gray-600">
-              De persoonsgegevens worden alleen voor de hierboven gestelde doelen verwerkt. TOF Sports bewaart uw persoonsgegevens niet langer dan noodzakelijk is voor de verwerking van de hierboven omschreven doeleinden, tenzij deze gegevens noodzakelijk zijn ter voldoening aan een wettelijke plicht.
-            </p>
+            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
+              {t(PRIVACY.retentionTitle)}
+            </h2>
+            <p className="text-gray-600">{t(PRIVACY.retentionBody)}</p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Beveiliging</h2>
-            <p className="text-gray-600">
-              Wij gaan uiterst zorgvuldig om met de verwerking van uw gegevens. TOF Sports treft voortdurend passende maatregelen om uw gegevens te beveiligen tegen verlies, ongeoorloofd gebruik of de wijziging ervan. Deze maatregelen zijn in lijn met de daarvoor geldende wettelijke eisen en richtlijnen.
-            </p>
+            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
+              {t(PRIVACY.securityTitle)}
+            </h2>
+            <p className="text-gray-600">{t(PRIVACY.securityBody)}</p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">Uw rechten</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">
+              {t(PRIVACY.rightsTitle)}
+            </h2>
             <p className="text-gray-600">
-              Als u vragen en/of opmerkingen heeft met betrekking tot de verwerking van uw persoonsgegevens kunt u contact opnemen door een email te sturen aan{' '}
+              {t(PRIVACY.rightsBodyBefore)}{' '}
               <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:text-orange-600 font-medium">
                 info@tofsports.nl
               </a>
-              . Gebruik dit email adres ook voor het afmelden voor het ontvangen van informatie.
+              {t(PRIVACY.rightsBodyAfter)}
             </p>
 
             <div className="mt-10 pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-500 text-center">
-                © TOF Sports 2018-{new Date().getFullYear()}. Alle auteursrechten voorbehouden. ® TOF Sports™
+                © TOF Sports 2018-{new Date().getFullYear()}. {t(PRIVACY.copyright)} ® TOF Sports™
               </p>
             </div>
           </div>

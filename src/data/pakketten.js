@@ -1,33 +1,41 @@
 import { getProductById } from '@/data/products';
 import { getProductThumbnailSrc } from '@/lib/productImage';
+import { ot } from '@/i18n/content/overTof';
+import { localizePackage, localizeLevel } from '@/i18n/content/packages';
+import { translateLabel } from '@/i18n/content/products.en';
 
 /** Jeugdgroep voor button-schatting en posteradvies */
 export const YOUTH_TIERS = [
   {
     id: 'youth-50',
-    label: 'Tot 50 jeugdspelers',
+    label: { nl: 'Tot 50 jeugdspelers', en: 'Up to 50 junior players' },
     shortLabel: '≤ 50',
     playerCount: 50,
   },
   {
     id: 'youth-100',
-    label: 'Tot 100 jeugdspelers',
+    label: { nl: 'Tot 100 jeugdspelers', en: 'Up to 100 junior players' },
     shortLabel: '≤ 100',
     playerCount: 100,
   },
   {
     id: 'youth-100plus',
-    label: 'Meer dan 100 jeugdspelers',
+    label: { nl: 'Meer dan 100 jeugdspelers', en: 'More than 100 junior players' },
     shortLabel: '100+',
     playerCount: 125,
   },
 ];
 
+export function localizeYouthTier(tier, locale) {
+  if (!tier) return tier;
+  return { ...tier, label: ot(locale, tier.label) };
+}
+
 /** Postergrootte (spelers per magneetposter) */
 export const POSTER_SIZE_TIERS = [
-  { id: 'tier-21', label: 'Tot en met 21 spelers', maxPlayers: 21 },
-  { id: 'tier-36', label: 'Tot en met 36 spelers', maxPlayers: 36 },
-  { id: 'tier-55', label: 'Tot en met 55 spelers', maxPlayers: 55 },
+  { id: 'tier-21', label: { nl: 'Tot en met 21 spelers', en: 'Up to 21 players' }, maxPlayers: 21 },
+  { id: 'tier-36', label: { nl: 'Tot en met 36 spelers', en: 'Up to 36 players' }, maxPlayers: 36 },
+  { id: 'tier-55', label: { nl: 'Tot en met 55 spelers', en: 'Up to 55 players' }, maxPlayers: 55 },
 ];
 
 export const PACKAGE_LEVELS = [
@@ -69,27 +77,35 @@ const PACKAGE_PRODUCTS = {
 
 const BUNDLE_ITEMS = {
   whiteboard: {
-    name: 'Magneetbord 90×60 cm',
-    description: 'Met opklapbare poten — tijdelijke actie: gratis bij Plus en Compleet',
+    name: { nl: 'Magneetbord 90×60 cm', en: 'Magnetic board 90×60 cm' },
+    description: {
+      nl: 'Met opklapbare poten — tijdelijke actie: gratis bij Plus en Compleet',
+      en: 'With foldable legs — limited-time offer: free with Plus and Complete',
+    },
   },
   kennisSessies: {
-    name: '4 online kennissessies',
-    description: 'Begeleiding bij de start op jouw club',
+    name: { nl: '4 online kennissessies', en: '4 online knowledge sessions' },
+    description: { nl: 'Begeleiding bij de start op jouw club', en: 'Guidance to get started at your club' },
   },
   tofScoreApp: {
-    name: 'TOF Score app (1 jaar)',
-    description: 'Digitaal scoresysteem voor trainers en spelers',
+    name: { nl: 'TOF Score app (1 jaar)', en: 'TOF Score app (1 year)' },
+    description: {
+      nl: 'Digitaal scoresysteem voor trainers en spelers',
+      en: 'Digital scoring system for coaches and players',
+    },
     footnote: true,
   },
   verzending: {
-    name: 'Verzending',
-    description: 'Inbegrepen bij elk pakket',
+    name: { nl: 'Verzending', en: 'Shipping' },
+    description: { nl: 'Inbegrepen bij elk pakket', en: 'Included with every package' },
   },
 };
 
 /** Voetnoot bij TOF Score app in pakketoverzichten */
-export const TOF_SCORE_APP_FOOTNOTE =
-  'Voor de TOF Score app: je beschikt over een geldige tennis- of padeltrainerslicentie en werkt actief samen met een bij de KNLTB aangesloten club.';
+export const TOF_SCORE_APP_FOOTNOTE = {
+  nl: 'Voor de TOF Score app: je beschikt over een geldige tennis- of padeltrainerslicentie en werkt actief samen met een bij de KNLTB aangesloten club.',
+  en: 'For the TOF Score app: you hold a valid tennis or padel coaching licence and work actively with a KNLTB-affiliated club.',
+};
 
 /** @deprecated — gebruik YOUTH_TIERS */
 export const PLAYER_TIERS = YOUTH_TIERS;
@@ -201,15 +217,15 @@ export function getWhiteboardExBtw(whiteboardChoice) {
   return 0;
 }
 
-export function buildWhiteboardLine(whiteboardChoice) {
+export function buildWhiteboardLine(whiteboardChoice, locale) {
   if (!whiteboardChoice || whiteboardChoice === 'none' || whiteboardChoice === 'decline') {
     return null;
   }
   if (whiteboardChoice === 'included') {
     return {
       id: 'whiteboard-included',
-      name: BUNDLE_ITEMS.whiteboard.name,
-      description: BUNDLE_ITEMS.whiteboard.description,
+      name: ot(locale, BUNDLE_ITEMS.whiteboard.name),
+      description: ot(locale, BUNDLE_ITEMS.whiteboard.description),
       image: WHITEBOARD_IMAGE,
       price: 0,
     };
@@ -217,8 +233,8 @@ export function buildWhiteboardLine(whiteboardChoice) {
   if (whiteboardChoice === 'compact') {
     return {
       id: 'whiteboard-compact',
-      name: 'Magneetbord 90×60 cm',
-      description: 'Met opklapbare poten',
+      name: ot(locale, { nl: 'Magneetbord 90×60 cm', en: 'Magnetic board 90×60 cm' }),
+      description: ot(locale, { nl: 'Met opklapbare poten', en: 'With foldable legs' }),
       image: WHITEBOARD_IMAGE,
       price: WHITEBOARD_COMPACT_PRICE,
     };
@@ -226,8 +242,11 @@ export function buildWhiteboardLine(whiteboardChoice) {
   if (whiteboardChoice === 'premium') {
     return {
       id: 'whiteboard-premium',
-      name: 'Magneetbord 120×90 cm met wielen',
-      description: 'Verrijdbaar — ons aanbevolen model voor op de baan',
+      name: ot(locale, { nl: 'Magneetbord 120×90 cm met wielen', en: 'Magnetic board 120×90 cm with wheels' }),
+      description: ot(locale, {
+        nl: 'Verrijdbaar — ons aanbevolen model voor op de baan',
+        en: 'On wheels — our recommended model for on court',
+      }),
       image: WHITEBOARD_PREMIUM_IMAGE,
       price: WHITEBOARD_PREMIUM_PRICE,
     };
@@ -250,20 +269,35 @@ export function getPackageFormatLines(sport, levelId) {
   });
 }
 
-export function getPackageBundleLines(levelId) {
+export function getPackageBundleLines(levelId, locale) {
   const lines = [];
   if (levelId === 'plus' || levelId === 'compleet') {
     lines.push({
       id: 'whiteboard',
-      name: BUNDLE_ITEMS.whiteboard.name,
-      description: BUNDLE_ITEMS.whiteboard.description,
+      name: ot(locale, BUNDLE_ITEMS.whiteboard.name),
+      description: ot(locale, BUNDLE_ITEMS.whiteboard.description),
       image: WHITEBOARD_IMAGE,
     });
   }
   lines.push(
-    { id: 'kennis', ...BUNDLE_ITEMS.kennisSessies },
-    { id: 'app', ...BUNDLE_ITEMS.tofScoreApp },
-    { id: 'verzending', ...BUNDLE_ITEMS.verzending },
+    {
+      id: 'kennis',
+      ...BUNDLE_ITEMS.kennisSessies,
+      name: ot(locale, BUNDLE_ITEMS.kennisSessies.name),
+      description: ot(locale, BUNDLE_ITEMS.kennisSessies.description),
+    },
+    {
+      id: 'app',
+      ...BUNDLE_ITEMS.tofScoreApp,
+      name: ot(locale, BUNDLE_ITEMS.tofScoreApp.name),
+      description: ot(locale, BUNDLE_ITEMS.tofScoreApp.description),
+    },
+    {
+      id: 'verzending',
+      ...BUNDLE_ITEMS.verzending,
+      name: ot(locale, BUNDLE_ITEMS.verzending.name),
+      description: ot(locale, BUNDLE_ITEMS.verzending.description),
+    },
   );
   return lines;
 }
@@ -292,7 +326,7 @@ export function productNeedsPosterSize(productId) {
   return product.pricing.type === 'poster-wizard';
 }
 
-export function getPosterSizeOptions(productId) {
+export function getPosterSizeOptions(productId, locale) {
   const product = getProductById(productId);
   if (!product) return [];
 
@@ -306,7 +340,7 @@ export function getPosterSizeOptions(productId) {
       const galleryItem = product.galleryImages?.[index];
       return {
         id: tier.id,
-        label: tier.label,
+        label: translateLabel(tier.label, locale),
         image: galleryItem?.url ?? fallbackImage,
       };
     });
@@ -317,7 +351,9 @@ export function getPosterSizeOptions(productId) {
       const tier = POSTER_SIZE_TIERS[index];
       return {
         id: tier?.id ?? `gallery-${index}`,
-        label: galleryItem.label ?? tier?.label ?? 'Magneetposter',
+        label: galleryItem.label
+          ? translateLabel(galleryItem.label, locale)
+          : ot(locale, tier?.label) || translateLabel('Magneetposter', locale),
         image: galleryItem.url,
       };
     });
@@ -362,9 +398,12 @@ export function buildPackageQuote({
   buttonCount = 0,
   posterSizes = {},
   whiteboardChoice = 'none',
+  locale = 'nl',
 }) {
-  const config = MAIN_PACKAGES.find((p) => p.id === packageId);
-  const youth = YOUTH_TIERS.find((t) => t.id === youthTierId);
+  const rawConfig = MAIN_PACKAGES.find((p) => p.id === packageId);
+  const config = rawConfig ? localizePackage(rawConfig, locale) : null;
+  const rawYouth = YOUTH_TIERS.find((t) => t.id === youthTierId);
+  const youth = rawYouth ? localizeYouthTier(rawYouth, locale) : null;
   if (!config || !youth) return null;
 
   const isCombi = packageId === 'combi';
@@ -380,13 +419,16 @@ export function buildPackageQuote({
   }
 
   const levelIds = { tennisLevelId: activeTennisLevel, padelLevelId: activePadelLevel };
-  const tennisLevel = PACKAGE_LEVELS.find((l) => l.id === activeTennisLevel);
-  const padelLevel = PACKAGE_LEVELS.find((l) => l.id === activePadelLevel);
-  const level = isCombi
+  const rawTennisLevel = PACKAGE_LEVELS.find((l) => l.id === activeTennisLevel);
+  const rawPadelLevel = PACKAGE_LEVELS.find((l) => l.id === activePadelLevel);
+  const tennisLevel = rawTennisLevel ? localizeLevel(rawTennisLevel, locale) : null;
+  const padelLevel = rawPadelLevel ? localizeLevel(rawPadelLevel, locale) : null;
+  const rawLevel = isCombi
     ? null
     : PACKAGE_LEVELS.find(
         (l) => l.id === (packageId === 'padel' ? activePadelLevel : activeTennisLevel),
       );
+  const level = rawLevel ? localizeLevel(rawLevel, locale) : null;
 
   const productIds = getPackageProductIds(packageId, levelIds);
   const formatLines = productIds.map((productId) => {
@@ -401,15 +443,15 @@ export function buildPackageQuote({
     let sizeNote = '';
     let posterImage = format?.image ?? product.image;
     if (productNeedsPosterSize(productId)) {
-      const option = getPosterSizeOptions(productId).find((o) => o.id === posterTierId);
-      sizeNote = option?.label ?? posterTier?.label ?? '';
+      const option = getPosterSizeOptions(productId, locale).find((o) => o.id === posterTierId);
+      sizeNote = option?.label ?? ot(locale, posterTier?.label) ?? '';
       if (option?.image) posterImage = option.image;
     }
 
     return {
       productId,
       name: product.name,
-      formatName: format?.name ?? 'Magneetposter',
+      formatName: translateLabel(format?.name, locale) || translateLabel('Magneetposter', locale),
       players: sizeNote,
       image: posterImage,
       thumbnail: getProductThumbnailSrc(posterImage),
@@ -424,13 +466,9 @@ export function buildPackageQuote({
   const btw = Math.round(totalExBtw * 0.21 * 100) / 100;
   const totalIncBtw = Math.round((totalExBtw + btw) * 100) / 100;
 
-  const bundleLines = [
-    { id: 'kennis', ...BUNDLE_ITEMS.kennisSessies },
-    { id: 'app', ...BUNDLE_ITEMS.tofScoreApp },
-    { id: 'verzending', ...BUNDLE_ITEMS.verzending },
-  ];
+  const bundleLines = getPackageBundleLines(null, locale).filter((line) => line.id !== 'whiteboard');
 
-  const whiteboardLine = buildWhiteboardLine(whiteboardChoice);
+  const whiteboardLine = buildWhiteboardLine(whiteboardChoice, locale);
   if (whiteboardLine) {
     bundleLines.unshift(whiteboardLine);
   }

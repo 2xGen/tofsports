@@ -1,20 +1,22 @@
 'use client';
-// Current localhost state - ensure 100% match with deployment - 2026-01-06
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
+import Link from '@/i18n/Link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
 import { getProductsByCategory } from '@/data/products';
+import { localizeProducts } from '@/data/products.en';
 import ProductList from '@/components/ProductList';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useCart } from '@/context/CartContext';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const WebshopPage = () => {
+  const { locale, t } = useLocale();
   const { toast } = useToast();
   const { addToCart, getCartCount, getSubtotal, getBTW, getTotal, isLoaded } = useCart();
   const cartCount = isLoaded ? getCartCount() : 0;
@@ -22,7 +24,7 @@ const WebshopPage = () => {
   const router = useRouter();
   
   const selectedCategory = searchParams.get('category') || 'tennis';
-  const filteredProducts = getProductsByCategory(selectedCategory);
+  const filteredProducts = localizeProducts(getProductsByCategory(selectedCategory), locale);
   const heroImage = getPageHeroImage('/webshop', selectedCategory);
 
   // Update URL when category changes
@@ -37,21 +39,25 @@ const WebshopPage = () => {
     addToCart(item);
 
     toast({
-      title: 'Toegevoegd aan winkelwagen',
-      description: `${item.productName} — ${item.packageLabel} (${formatEuro(item.price)}) zit nu in je mandje!`,
+      title: t('webshop.addedToCart'),
+      description: t('webshop.addedToCartDesc', {
+        product: item.productName,
+        label: item.packageLabel,
+        price: formatEuro(item.price),
+      }),
       duration: 3000,
     });
   };
 
-  // Hero title based on category
-  const heroTitle = selectedCategory === 'padel' 
-    ? 'TOF Webshop Padel'
-    : 'TOF Webshop Tennis';
+  // Hero title/description based on category
+  const heroTitle = selectedCategory === 'padel'
+    ? (locale === 'en' ? 'TOF Webshop Padel' : 'TOF Webshop Padel')
+    : (locale === 'en' ? 'TOF Webshop Tennis' : 'TOF Webshop Tennis');
 
-  // Hero description based on category
-  const heroDescription = selectedCategory === 'padel' 
-    ? 'Alles wat je nodig hebt voor een compleet jeugdprogramma.'
-    : 'Alles wat je nodig hebt voor een compleet jeugdprogramma.';
+  const heroDescription =
+    locale === 'en'
+      ? 'Everything you need for a complete youth programme.'
+      : 'Alles wat je nodig hebt voor een compleet jeugdprogramma.';
 
   return (
       <div className="min-h-screen bg-gray-50 pt-20">
@@ -77,7 +83,7 @@ const WebshopPage = () => {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
               }`}
             >
-              Tennis
+              {t('webshop.tennis')}
             </Button>
             <Button 
               onClick={() => handleCategoryChange('padel')}
@@ -89,7 +95,7 @@ const WebshopPage = () => {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300'
               }`}
             >
-              Padel
+              {t('webshop.padel')}
             </Button>
           </div>
 
@@ -121,10 +127,10 @@ const WebshopPage = () => {
                     </div>
                     <div className="hidden sm:block">
                       <p className="text-sm text-gray-600">
-                        {cartCount} {cartCount === 1 ? 'product' : 'producten'} in je mandje
+                        {t(cartCount === 1 ? 'webshop.itemsInCartOne' : 'webshop.itemsInCartOther', { count: cartCount })}
                       </p>
                       <p className="text-xs text-gray-500">
-                        Subtotaal: €{getSubtotal().toFixed(2)}
+                        {t('webshop.subtotal')}: €{getSubtotal().toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -132,7 +138,7 @@ const WebshopPage = () => {
                   {/* Price & Checkout Button */}
                   <div className="flex items-center gap-4">
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 hidden sm:block">Totaal incl. BTW</p>
+                      <p className="text-xs text-gray-500 hidden sm:block">{t('webshop.totalInclVat')}</p>
                       <p className="text-xl md:text-2xl font-bold text-gray-900">
                         €{getTotal().toFixed(2)}
                       </p>
@@ -143,8 +149,7 @@ const WebshopPage = () => {
                       className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 md:px-8 shadow-lg"
                     >
                       <Link href="/winkelmand" className="flex items-center gap-2">
-                        <span className="hidden sm:inline">Afrekenen</span>
-                        <span className="sm:hidden">Checkout</span>
+                        <span>{t('webshop.checkout')}</span>
                         <ArrowRight className="w-4 h-4" />
                       </Link>
                     </Button>

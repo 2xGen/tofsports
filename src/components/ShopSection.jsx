@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { allProducts } from '@/data/products';
+import { localizeProduct } from '@/data/products.en';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const formatEuro = (amount) =>
   new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -20,6 +22,7 @@ const getDisplayPrice = (pricing) => {
 };
 
 const ShopSection = () => {
+  const { locale, t } = useLocale();
   const featuredItemConfigs = [
     { id: 'piramide', link: '/webshop?category=tennis' },
     { id: '4opeenrij', link: '/webshop?category=tennis' },
@@ -30,12 +33,13 @@ const ShopSection = () => {
     .map(({ id, link }) => {
       const product = allProducts.find((entry) => entry.id === id);
       if (!product) return null;
+      const localized = localizeProduct(product, locale);
 
       return {
-        id: product.id,
-        name: product.name,
-        price: getDisplayPrice(product.pricing),
-        image: product.image,
+        id: localized.id,
+        name: localized.name,
+        price: getDisplayPrice(localized.pricing),
+        image: localized.image,
         link,
       };
     })
@@ -59,17 +63,16 @@ const ShopSection = () => {
              viewport={{ once: true }}
            >
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
-                Losse formats en materialen
+                {t('home.shopSection.title')}
               </h2>
               <p className="max-w-xl text-lg text-gray-600">
-                Heb je al een pakket of wil je uitbreiden? Ontdek onze spelvormen, posters en
-                clubmaterialen.
+                {t('home.shopSection.subtitle')}
               </p>
            </motion.div>
            
            <Button asChild variant="outline" className="hidden md:flex gap-2 bg-white/50 backdrop-blur-sm border-slate-300 hover:bg-white">
              <Link href="/webshop">
-               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
+               {t('home.shopSection.viewAll')} <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>
@@ -109,7 +112,7 @@ const ShopSection = () => {
         <div className="mt-12 md:hidden">
           <Button asChild className="w-full gap-2" size="lg">
              <Link href="/webshop">
-               Bekijk het volledige assortiment <ArrowRight className="h-4 w-4"/>
+               {t('home.shopSection.viewAll')} <ArrowRight className="h-4 w-4"/>
              </Link>
            </Button>
         </div>

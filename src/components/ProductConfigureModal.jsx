@@ -4,11 +4,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ShoppingCart, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const formatEuro = (amount) =>
   new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
 
 const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
+  const { t } = useLocale();
   const pricing = product?.pricing;
   const [step, setStep] = useState(1);
   const [tierId, setTierId] = useState(null);
@@ -82,11 +84,11 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
         productId: product.id,
         productName: product.name,
         formatId: format?.id ?? 'poster',
-        formatName: format?.name ?? 'Magneetposter',
+        formatName: format?.name ?? t('configure.magneticPoster'),
         packageType: withButtons ? 'poster-buttons' : 'poster-only',
         packageLabel: withButtons
-          ? `Poster + ${pricing.buttonLabel || 'magneetbuttons'}`
-          : 'Alleen poster',
+          ? `${t('configure.magneticPoster')} + ${pricing.buttonLabel || t('configure.magnetButtonsGeneric')}`
+          : t('configure.posterOnly'),
         price: totalPrice,
       };
     }
@@ -100,8 +102,8 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
         formatName: selectedTier.label,
         packageType: withButtons ? 'poster-buttons' : 'poster-only',
         packageLabel: withButtons
-          ? `Poster + magneetbuttons (${selectedTier.label.toLowerCase()})`
-          : `Alleen poster (${selectedTier.label.toLowerCase()})`,
+          ? `${t('configure.posterPlusButtons')} (${selectedTier.label.toLowerCase()})`
+          : `${t('configure.posterOnly')} (${selectedTier.label.toLowerCase()})`,
         price: totalPrice,
       };
     }
@@ -141,14 +143,14 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               type="button"
               onClick={onClose}
               className="absolute right-4 top-4 rounded-full p-2 text-gray-500 hover:bg-gray-100"
-              aria-label="Sluiten"
+              aria-label={t('configure.close')}
             >
               <X className="h-5 w-5" />
             </button>
 
             <div className="border-b border-gray-100 px-6 pb-4 pt-6">
               <p className="text-xs font-semibold uppercase tracking-wide text-orange-500">
-                Samenstellen
+                {t('configure.configure')}
               </p>
               <h2 className="pr-8 font-poppins text-xl font-black text-gray-900">{product.name}</h2>
             </div>
@@ -163,7 +165,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
 
                   {bundleExtra && (
                     <div className="rounded-xl border border-gray-200 bg-white p-5">
-                      <p className="mb-3 text-sm font-semibold text-gray-900">Extra opties</p>
+                      <p className="mb-3 text-sm font-semibold text-gray-900">{t('configure.extraOptions')}</p>
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1">
                           <p className="text-sm text-gray-700">{bundleExtra.name}</p>
@@ -175,7 +177,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                             onClick={() => setExtraQuantity((q) => Math.max(0, q - 1))}
                             disabled={extraQuantity <= 0}
                             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40"
-                            aria-label="Minder"
+                            aria-label={t('configure.less')}
                           >
                             <Minus className="h-4 w-4" />
                           </button>
@@ -184,7 +186,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                             type="button"
                             onClick={() => setExtraQuantity((q) => q + 1)}
                             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-200"
-                            aria-label="Meer"
+                            aria-label={t('configure.more')}
                           >
                             <Plus className="h-4 w-4" />
                           </button>
@@ -197,7 +199,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
 
               {type !== 'fixed-bundle' && step >= 1 && (
                 <div className="rounded-xl border border-orange-200 bg-orange-50 p-5">
-                  <p className="text-sm font-medium text-gray-700">Magneetposter</p>
+                  <p className="text-sm font-medium text-gray-700">{t('configure.magneticPoster')}</p>
                   <p className="mt-1 text-2xl font-black text-gray-900">
                     {formatEuro(pricing.posterPrice)}
                   </p>
@@ -207,7 +209,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {type === 'poster-wizard' && step >= 2 && (
                 <div>
                   <p className="mb-3 font-semibold text-gray-900">
-                    Voor hoeveel spelers wil je het gebruiken?
+                    {t('configure.playersQuestion')}
                   </p>
                   <div className="space-y-2">
                     {pricing.tiers.map((tier) => (
@@ -224,7 +226,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                         <span className="font-semibold text-gray-900">{tier.label}</span>
                         {wantsButtons === true && (
                           <span className="mt-1 block text-sm text-gray-600">
-                            + {formatEuro(tier.buttonAddon)} magneetbuttons
+                            + {formatEuro(tier.buttonAddon)} {t('configure.buttonsAddonSuffix')}
                           </span>
                         )}
                       </button>
@@ -236,10 +238,9 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {((type === 'poster-wizard' && step >= 3) ||
                 (type === 'poster-buttons-optional' && step >= 2)) && (
                 <div>
-                  <p className="mb-3 font-semibold text-gray-900">Wil je ook magneetbuttons?</p>
+                  <p className="mb-3 font-semibold text-gray-900">{t('configure.buttonsQuestion')}</p>
                   <p className="mb-4 text-sm text-gray-600">
-                    {pricing.buttonsHelpText ||
-                      'Buttons worden per stuk gerekend (€1) en in dozen van 10 verkocht.'}
+                    {pricing.buttonsHelpText || t('configure.buttonsHelpDefault')}
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <button
@@ -251,7 +252,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                           : 'border-gray-200 hover:border-orange-300'
                       }`}
                     >
-                      <span className="font-semibold text-gray-900">Nee, die heb ik al</span>
+                      <span className="font-semibold text-gray-900">{t('configure.alreadyHaveButtons')}</span>
                     </button>
                     <button
                       type="button"
@@ -262,7 +263,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                           : 'border-gray-200 hover:border-orange-300'
                       }`}
                     >
-                      <span className="font-semibold text-gray-900">Ja graag</span>
+                      <span className="font-semibold text-gray-900">{t('configure.yesPlease')}</span>
                       <span className="mt-1 block text-sm text-gray-600">
                         +
                         {formatEuro(
@@ -279,7 +280,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {canAdd && (
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">Totaal</span>
+                    <span className="font-medium text-gray-700">{t('configure.total')}</span>
                     <span className="text-2xl font-black text-gray-900">{formatEuro(totalPrice)}</span>
                   </div>
                 </div>
@@ -290,11 +291,11 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {step > 1 && type !== 'fixed-bundle' ? (
                 <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)}>
                   <ChevronLeft className="mr-1 h-4 w-4" />
-                  Terug
+                  {t('configure.back')}
                 </Button>
               ) : (
                 <Button type="button" variant="outline" onClick={onClose}>
-                  Annuleren
+                  {t('configure.cancel')}
                 </Button>
               )}
 
@@ -305,7 +306,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   onClick={handleAdd}
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  In winkelwagen — {formatEuro(totalPrice)}
+                  {t('configure.addToCart')} — {formatEuro(totalPrice)}
                 </Button>
               ) : canAdd ? (
                 <Button
@@ -314,7 +315,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   onClick={handleAdd}
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  In winkelwagen — {formatEuro(totalPrice)}
+                  {t('configure.addToCart')} — {formatEuro(totalPrice)}
                 </Button>
               ) : step < maxStep ? (
                 <Button
@@ -323,11 +324,11 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   onClick={() => setStep((s) => s + 1)}
                   disabled={!canProceed}
                 >
-                  Volgende
+                  {t('configure.next')}
                 </Button>
               ) : (
                 <Button type="button" className="flex-1" disabled>
-                  Maak je keuze
+                  {t('configure.makeYourChoice')}
                 </Button>
               )}
             </div>

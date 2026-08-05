@@ -12,11 +12,12 @@ import { getPageHeroImage } from '@/data/heroSlides';
 import { mediaItems } from '@/data/media';
 import { allProducts } from '@/data/products';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { ot } from '@/i18n/content/overTof';
 
 const productVideos = allProducts.filter((product) => product.videoUrl);
 
 const MediaPage = () => {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [lightboxItem, setLightboxItem] = useState(null);
   const [lightboxReady, setLightboxReady] = useState(false);
   const [activeLoadIndex, setActiveLoadIndex] = useState(0);
@@ -136,6 +137,8 @@ const MediaPage = () => {
             >
               <MediaGalleryItem
                 item={item}
+                alt={ot(locale, item.alt)}
+                spinnerLabel={t('common.loading')}
                 index={index}
                 activeLoadIndex={activeLoadIndex}
                 onLoadComplete={handleLoadComplete}
@@ -151,7 +154,7 @@ const MediaPage = () => {
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label={lightboxItem.alt}
+            aria-label={ot(locale, lightboxItem.alt)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -181,7 +184,7 @@ const MediaPage = () => {
                 )}
                 <Image
                   src={lightboxItem.src}
-                  alt={lightboxItem.alt}
+                  alt={ot(locale, lightboxItem.alt)}
                   fill
                   sizes="100vw"
                   className={`object-contain transition-opacity duration-300 ${

@@ -3,17 +3,22 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { allProducts } from '@/data/products';
+import { localizeProduct } from '@/data/products.en';
 import { Button } from '@/components/ui/button';
 import { BookOpen } from 'lucide-react';
 import ProductRulesModal from '@/components/ProductRulesModal';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const HandboekPage = () => {
+  const { locale, t } = useLocale();
   const [openModal, setOpenModal] = useState(null);
 
   // Filter products that have detailedRules
-  const productsWithRules = allProducts.filter(product => product.detailedRules);
+  const productsWithRules = allProducts
+    .filter((product) => product.detailedRules)
+    .map((product) => localizeProduct(product, locale));
 
   // Get the product for the modal
   const modalProduct = productsWithRules.find(p => p.id === openModal);
@@ -23,9 +28,9 @@ const HandboekPage = () => {
       <PageHero image={getPageHeroImage('/handboek')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Speluitleg</PageHeroTitle>
+            <PageHeroTitle heroInView={heroInView}>{t('handboek.heroTitle')}</PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Officiële spelregels en handleidingen voor alle TOF producten
+              {t('handboek.heroSubtitle')}
             </PageHeroSubtitle>
           </div>
         )}
@@ -56,7 +61,7 @@ const HandboekPage = () => {
                   size="lg"
                 >
                   <BookOpen className="h-4 w-4" />
-                  Officiële Spelregels & Handleiding
+                  {t('webshop.officialRules')}
                 </Button>
               </div>
             </motion.div>
@@ -78,4 +83,3 @@ const HandboekPage = () => {
 };
 
 export default HandboekPage;
-

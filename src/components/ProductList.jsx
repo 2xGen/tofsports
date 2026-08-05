@@ -9,6 +9,7 @@ import ProductRulesModal from './ProductRulesModal';
 import ProductConfigureModal from './ProductConfigureModal';
 import ProductVideo from './ProductVideo';
 import { getProductImageGallery } from '@/data/products';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const formatEuro = (amount) =>
   new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -26,22 +27,33 @@ const getDisplayPrice = (product) => {
   return null;
 };
 
-const getPricingSubtitle = (pricing) => {
+const getPricingSubtitle = (pricing, locale) => {
   if (!pricing) return '';
   if (pricing.type === 'poster-buttons-optional') {
-    return pricing.subtitle || 'Kies of je magneetbuttons wilt bijbestellen';
+    return (
+      pricing.subtitle ||
+      (locale === 'en'
+        ? 'Choose whether to add magnet buttons'
+        : 'Kies of je magneetbuttons wilt bijbestellen')
+    );
   }
   if (pricing.type === 'poster-wizard') {
-    return 'Stel je poster samen: kies spelersaantal en buttons';
+    return locale === 'en'
+      ? 'Configure your poster: choose number of players and buttons'
+      : 'Stel je poster samen: kies spelersaantal en buttons';
   }
   if (pricing.type === 'fixed-bundle') {
     if (pricing.extras?.length) return pricing.label;
-    return pricing.subtitle || 'Inclusief poster en magneetbuttons';
+    return (
+      pricing.subtitle ||
+      (locale === 'en' ? 'Includes poster and magnet buttons' : 'Inclusief poster en magneetbuttons')
+    );
   }
   return '';
 };
 
 const ProductList = ({ products, onAddConfiguredItem }) => {
+  const { locale, t } = useLocale();
   const [openModal, setOpenModal] = useState(null);
   const [configureProduct, setConfigureProduct] = useState(null);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
@@ -102,7 +114,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
   if (products.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">Geen producten gevonden.</p>
+        <p className="text-gray-500 text-lg">{t('webshop.noProducts')}</p>
       </div>
     );
   }
@@ -115,7 +127,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
         const currentImage = gallery[imageIndex] ?? gallery[0];
         const productImage = currentImage?.url;
         const displayPrice = getDisplayPrice(product);
-        const pricingSubtitle = getPricingSubtitle(product.pricing);
+        const pricingSubtitle = getPricingSubtitle(product.pricing, locale);
         const hasMultipleImages = gallery.length > 1;
         const isHeroSlide = currentImage?.variant === 'hero';
 
@@ -141,7 +153,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                   className="flex w-full items-center justify-center gap-2 text-sm md:w-auto md:whitespace-nowrap md:text-base md:px-6 md:py-3"
                 >
                   <BookOpen className="h-4 w-4 flex-shrink-0" />
-                  <span className="text-center">Officiële Spelregels & Handleiding</span>
+                  <span className="text-center">{t('webshop.officialRules')}</span>
                 </Button>
               )}
             </div>
@@ -184,7 +196,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                     onClick={() => toggleDescription(product.id)}
                     className="mt-3 inline-flex items-center gap-1 text-base font-semibold text-orange-600 hover:text-orange-700"
                   >
-                    {expandedDescriptions[product.id] ? 'Lees minder' : 'Lees meer'}
+                    {expandedDescriptions[product.id] ? t('webshop.readLess') : t('webshop.readMore')}
                     {expandedDescriptions[product.id] ? (
                       <ChevronUp className="h-4 w-4" />
                     ) : (
@@ -227,7 +239,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                       </div>
                       <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/10">
                         <div className="rounded bg-black/50 px-3 py-1 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
-                          Klik om te vergroten
+                          {t('webshop.clickToEnlarge')}
                         </div>
                       </div>
                     </button>
@@ -241,7 +253,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                             shiftProductImage(product.id, -1, gallery.length);
                           }}
                           className="rounded-full p-1 hover:bg-white/20"
-                          aria-label="Vorige afbeelding"
+                          aria-label={t('webshop.previousImage')}
                         >
                           <ChevronLeft className="h-4 w-4" />
                         </button>
@@ -255,7 +267,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                             shiftProductImage(product.id, 1, gallery.length);
                           }}
                           className="rounded-full p-1 hover:bg-white/20"
-                          aria-label="Volgende afbeelding"
+                          aria-label={t('webshop.nextImage')}
                         >
                           <ChevronRight className="h-4 w-4" />
                         </button>
@@ -282,7 +294,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                   {displayPrice && (
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-black text-gray-900 md:text-4xl">{displayPrice}</span>
-                      <span className="text-sm font-medium text-gray-500">incl. btw</span>
+                      <span className="text-sm font-medium text-gray-500">{t('webshop.inclVat')}</span>
                     </div>
                   )}
                   {pricingSubtitle && (
@@ -295,7 +307,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                   size="lg"
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
-                  Samenstellen & bestellen
+                  {t('webshop.configureAndOrder')}
                 </Button>
               </div>
             )}
@@ -341,7 +353,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                 setFullscreenGallery(null);
               }}
               className="absolute top-4 right-4 z-10 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/70"
-              aria-label="Sluiten"
+              aria-label={t('webshop.close')}
             >
               <X className="h-6 w-6" />
             </button>
@@ -358,7 +370,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                     }));
                   }}
                   className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
-                  aria-label="Vorige afbeelding"
+                  aria-label={t('webshop.previousImage')}
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
@@ -372,7 +384,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                     }));
                   }}
                   className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-colors hover:bg-black/70"
-                  aria-label="Volgende afbeelding"
+                  aria-label={t('webshop.nextImage')}
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>

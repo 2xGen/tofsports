@@ -1,23 +1,28 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { ot } from '@/i18n/content/overTof';
+import { SPELERS_KAARTEN } from '@/i18n/content/spelersKaarten';
 
 const SpelersKaartenPage = () => {
+  const { locale } = useLocale();
+  const t = (node) => ot(locale, node);
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <PageHero image={getPageHeroImage('/spelers-kaarten')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>Spelerskaarten</PageHeroTitle>
+            <PageHeroTitle heroInView={heroInView}>{t(SPELERS_KAARTEN.hero.title)}</PageHeroTitle>
             <PageHeroSubtitle heroInView={heroInView}>
-              Interactieve oefenkaarten die spelers uitdagen met verschillende technieken en
-              vaardigheden.
+              {t(SPELERS_KAARTEN.hero.subtitle)}
             </PageHeroSubtitle>
           </div>
         )}
@@ -35,24 +40,18 @@ const SpelersKaartenPage = () => {
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">TOF Tennis</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(SPELERS_KAARTEN.tennis.title)}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="space-y-4 text-gray-700">
-                  <p>
-                    Tenniskids TOF (Training Ontwikkelings Fases) is een onderdeel van het Tenniskids programma waarbij kinderen zich op hun eigen manier en tempo kunnen ontwikkelen.
-                  </p>
+                  <p>{t(SPELERS_KAARTEN.tennis.intro)}</p>
                   
                   <div>
-                    <h4 className="font-bold text-lg mb-2">Spelerskaart</h4>
-                    <p>
-                      Met de TOF Tennis spelerskaart krijgen kinderen en ouders inzicht in de ontwikkeling. De kaart is beschikbaar in de Tenniskids kleur waarin het kind speelt en kan aan de tennistas worden gehangen.
-                    </p>
+                    <h4 className="font-bold text-lg mb-2">{t(SPELERS_KAARTEN.tennis.cardTitle)}</h4>
+                    <p>{t(SPELERS_KAARTEN.tennis.cardBody)}</p>
                   </div>
 
-                  <p>
-                    Op de voorkant van de kaart kunnen kinderen bolletjes inkleuren wanneer ze een level hebben doorlopen. Op de achterkant worden bolletjes ingekleurd voor elke keer dat het kind op de baan staat - tijdens trainingen, wedstrijden, vrij spelen of clubactiviteiten. Dit werkt motiverend en geeft duidelijkheid over de voortgang.
-                  </p>
+                  <p>{t(SPELERS_KAARTEN.tennis.body2)}</p>
 
                   <div className="pt-4">
                     <Button
@@ -60,8 +59,8 @@ const SpelersKaartenPage = () => {
                       size="lg"
                       className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
                     >
-                      <Link href="/webshop?category=tennis">
-                        Bekijk in webshop
+                      <Link href={SPELERS_KAARTEN.tennis.ctaHref}>
+                        {t(SPELERS_KAARTEN.tennis.cta)}
                       </Link>
                     </Button>
                   </div>
@@ -96,21 +95,15 @@ const SpelersKaartenPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 {/* Text content - first on mobile, second on desktop (alternate) */}
                 <div className="space-y-4 text-gray-700 order-1 md:order-2">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">TOF Padel</h2>
-                  <p>
-                    TOF Padel (Training Ontwikkelings Fases) is de basis van het padel jeugdprogramma. Spelers ontwikkelen zich op hun eigen tempo en manier, wat hun motivatie en spelplezier vergroot.
-                  </p>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t(SPELERS_KAARTEN.padel.title)}</h2>
+                  <p>{t(SPELERS_KAARTEN.padel.intro)}</p>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-2">Spelerskaart</h4>
-                    <p>
-                      De TOF Padel spelerskaart geeft jeugdspelers en ouders inzicht in de padelontwikkeling. Er zijn drie verschillende spelerskaarten, afgestemd op het ontwikkelingsniveau. Op de voorkant staat de fase waarin de speler zich bevindt, op de achterkant kunnen spelers vakjes inkleuren na elke les, vrij spel, clubevent of wedstrijd.
-                    </p>
+                    <h4 className="font-bold text-lg mb-2">{t(SPELERS_KAARTEN.padel.cardTitle)}</h4>
+                    <p>{t(SPELERS_KAARTEN.padel.cardBody)}</p>
                   </div>
 
-                  <p>
-                    TOF Padel bestaat uit drie elementen: de ontwikkelingsmatrix (met technische, tactische, mentale en sociale competenties), de spelerskaart en de Leraren app (met oefenstofvideo's en voortgangsregistratie).
-                  </p>
+                  <p>{t(SPELERS_KAARTEN.padel.body2)}</p>
 
                   <div className="pt-4">
                     <Button
@@ -118,8 +111,8 @@ const SpelersKaartenPage = () => {
                       size="lg"
                       className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
                     >
-                      <Link href="/webshop?category=padel">
-                        Bekijk in webshop
+                      <Link href={SPELERS_KAARTEN.padel.ctaHref}>
+                        {t(SPELERS_KAARTEN.padel.cta)}
                       </Link>
                     </Button>
                   </div>
@@ -152,27 +145,19 @@ const SpelersKaartenPage = () => {
         >
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">TOF Rolstoeltennis</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(SPELERS_KAARTEN.rolstoel.title)}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div className="space-y-4 text-gray-700">
-                  <p>
-                    TOF Rolstoeltennis (Training Ontwikkelings Fases) is een volledig uitgewerkt jeugdprogramma voor rolstoeltennis. Spelers ontwikkelen zich op hun eigen manier en tempo, wat hun motivatie en spelplezier vergroot.
-                  </p>
+                  <p>{t(SPELERS_KAARTEN.rolstoel.intro)}</p>
 
                   <div>
-                    <h4 className="font-bold text-lg mb-2">Spelerskaart</h4>
-                    <p>
-                      De TOF Rolstoeltennis spelerskaart geeft spelers en ouders inzicht in de ontwikkeling. Er zijn drie verschillende spelerskaarten, afgestemd op het ontwikkelingsniveau en passend bij een eigen wedstrijdformat. De kaart kan aan de tas of sportrolstoel worden gehangen.
-                    </p>
-                    <p className="mt-2">
-                      Op de voorkant staat per fase het level van de speler. Op de achterkant kunnen spelers vakjes inkleuren na elke les, vrij spel, clubevent of wedstrijd. Dit werkt motiverend en bevordert de binding met de club.
-                    </p>
+                    <h4 className="font-bold text-lg mb-2">{t(SPELERS_KAARTEN.rolstoel.cardTitle)}</h4>
+                    <p>{t(SPELERS_KAARTEN.rolstoel.cardBody)}</p>
+                    <p className="mt-2">{t(SPELERS_KAARTEN.rolstoel.body3)}</p>
                   </div>
 
-                  <p>
-                    TOF Rolstoeltennis bestaat uit drie elementen: de ontwikkelingsmatrix (met technische, tactische, mentale en sociale competenties), de spelerskaart en de Leraren app (met oefenstofvideo's en voortgangsregistratie).
-                  </p>
+                  <p>{t(SPELERS_KAARTEN.rolstoel.body4)}</p>
 
                   <div className="pt-4">
                     <Button
@@ -180,8 +165,8 @@ const SpelersKaartenPage = () => {
                       size="lg"
                       className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
                     >
-                      <Link href="/webshop?category=tennis">
-                        Bekijk in webshop
+                      <Link href={SPELERS_KAARTEN.rolstoel.ctaHref}>
+                        {t(SPELERS_KAARTEN.rolstoel.cta)}
                       </Link>
                     </Button>
                   </div>
@@ -208,4 +193,3 @@ const SpelersKaartenPage = () => {
 };
 
 export default SpelersKaartenPage;
-

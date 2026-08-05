@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export const MediaSpinner = ({ size = 'md' }) => {
+export const MediaSpinner = ({ size = 'md', label = 'Loading…' }) => {
   const sizeClass = size === 'lg' ? 'h-12 w-12 border-[3px]' : 'h-10 w-10 border-2';
   return (
     <div
       className={`${sizeClass} animate-spin rounded-full border-gray-300 border-t-orange-500`}
       role="status"
-      aria-label="Afbeelding laden"
+      aria-label={label}
     />
   );
 };
@@ -20,6 +20,8 @@ const MediaGalleryItem = ({
   activeLoadIndex,
   onLoadComplete,
   onOpen,
+  alt,
+  spinnerLabel,
 }) => {
   const [imageReady, setImageReady] = useState(false);
   const isQueued = index > activeLoadIndex;
@@ -47,14 +49,14 @@ const MediaGalleryItem = ({
     >
       {showSpinner && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-200">
-          <MediaSpinner />
+          <MediaSpinner label={spinnerLabel} />
         </div>
       )}
 
       {!isQueued && (
         <Image
           src={item.src}
-          alt={item.alt}
+          alt={alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           priority={index === 0}

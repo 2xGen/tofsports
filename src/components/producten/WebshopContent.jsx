@@ -1,35 +1,42 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/Link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
 import { getProductsByCategory } from '@/data/products';
+import { localizeProducts } from '@/data/products.en';
 import ProductList from '@/components/ProductList';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useCart } from '@/context/CartContext';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const WebshopContent = () => {
+  const { locale, t } = useLocale();
   const { toast } = useToast();
   const { addToCart, getCartCount, getSubtotal, getTotal, isLoaded } = useCart();
   const cartCount = isLoaded ? getCartCount() : 0;
   const [selectedCategory, setSelectedCategory] = useState('tennis');
 
-  const filteredProducts = getProductsByCategory(selectedCategory);
+  const filteredProducts = localizeProducts(getProductsByCategory(selectedCategory), locale);
+
+  const formatEuro = (amount) =>
+    new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
 
   const handleAddConfiguredItem = (item) => {
     addToCart(item);
 
     toast({
-      title: 'Toegevoegd aan winkelwagen',
-      description: `${item.productName} — ${item.packageLabel} (${formatEuro(item.price)}) zit nu in je mandje!`,
+      title: t('webshop.addedToCart'),
+      description: t('webshop.addedToCartDesc', {
+        product: item.productName,
+        label: item.packageLabel,
+        price: formatEuro(item.price),
+      }),
       duration: 3000,
     });
   };
-
-  const formatEuro = (amount) =>
-    new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
 
   return (
     <>
@@ -45,7 +52,7 @@ const WebshopContent = () => {
               : 'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
           }`}
         >
-          Tennis
+          {t('webshop.tennis')}
         </Button>
         <Button
           type="button"
@@ -58,7 +65,7 @@ const WebshopContent = () => {
               : 'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
           }`}
         >
-          Padel
+          {t('webshop.padel')}
         </Button>
       </div>
 
@@ -89,14 +96,14 @@ const WebshopContent = () => {
                   </div>
                   <div className="hidden sm:block">
                     <p className="text-sm text-gray-600">
-                      {cartCount} {cartCount === 1 ? 'product' : 'producten'} in je mandje
+                      {t(cartCount === 1 ? 'webshop.itemsInCartOne' : 'webshop.itemsInCartOther', { count: cartCount })}
                     </p>
-                    <p className="text-xs text-gray-500">Subtotaal: €{getSubtotal().toFixed(2)}</p>
+                    <p className="text-xs text-gray-500">{t('webshop.subtotal')}: €{getSubtotal().toFixed(2)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="hidden text-xs text-gray-500 sm:block">Totaal incl. BTW</p>
+                    <p className="hidden text-xs text-gray-500 sm:block">{t('webshop.totalInclVat')}</p>
                     <p className="text-xl font-bold text-gray-900 md:text-2xl">
                       €{getTotal().toFixed(2)}
                     </p>
@@ -107,8 +114,7 @@ const WebshopContent = () => {
                     className="bg-orange-500 px-6 font-bold text-white shadow-lg hover:bg-orange-600 md:px-8"
                   >
                     <Link href="/winkelmand" className="flex items-center gap-2">
-                      <span className="hidden sm:inline">Afrekenen</span>
-                      <span className="sm:hidden">Checkout</span>
+                      <span>{t('webshop.checkout')}</span>
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
