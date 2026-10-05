@@ -105,7 +105,7 @@ const HeroBackgroundSlideshow = ({ scale, activeIndex, onActiveIndexChange }) =>
 };
 
 const HeroSection = () => {
-  const { locale } = useLocale();
+  const { locale, t } = useLocale();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const sectionRef = useRef(null);
@@ -134,7 +134,7 @@ const HeroSection = () => {
 
       {/* Overlay — keeps title and description readable */}
       <div
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/45 to-black/65"
+        className="absolute inset-0 z-[1] bg-black/50"
         aria-hidden
       />
 
@@ -176,7 +176,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 100, scale: 0.5 }}
             animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
             transition={{ duration: 0.8, delay: 0.4, type: 'spring' }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-md relative z-30 -mt-1"
+            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white drop-shadow-md relative z-30 -mt-1"
           >
             Sports
           </motion.h2>
@@ -205,12 +205,12 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="group relative z-30 inline-flex items-center gap-3 rounded-full bg-white/95 px-6 py-3 font-bold text-gray-900 shadow-lg backdrop-blur transition hover:bg-white"
+            className="group relative z-30 inline-flex items-center gap-3 rounded-full bg-white/95 px-6 py-3 font-bold text-tof-indigo shadow-lg backdrop-blur transition hover:bg-white"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 text-white transition-transform duration-300 group-hover:scale-110">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-tof-orange text-white transition-transform duration-300 group-hover:scale-110">
               <Play className="ml-0.5 h-4 w-4 fill-white" />
             </span>
-            Bekijk video
+            {t('home.watchVideo')}
           </motion.button>
         </div>
       </div>
@@ -231,7 +231,7 @@ const HeroSection = () => {
                 setIsVideoOpen(false);
               }}
               className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-              aria-label="Sluiten"
+              aria-label={t('common.close')}
             >
               <X className="h-6 w-6" />
             </button>

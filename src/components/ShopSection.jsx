@@ -48,12 +48,7 @@ const ShopSection = () => {
   return (
     <section className="relative py-24">
        {/* Clearly visible background pattern - Distinct from Products section */}
-      <div className="absolute inset-0 bg-indigo-50/80 z-0" 
-           style={{ 
-             backgroundImage: 'radial-gradient(rgba(79, 70, 229, 0.15) 1.5px, transparent 1.5px)', 
-             backgroundSize: '24px 24px' 
-           }}>
-      </div>
+      <div className="absolute inset-0 z-0 bg-tof-indigo/5" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-between items-end mb-12">
@@ -87,7 +82,7 @@ const ShopSection = () => {
                  transition={{ delay: index * 0.1 }}
                  className="group cursor-pointer"
                >
-                 <div className="relative aspect-square overflow-hidden rounded-2xl bg-white shadow-md mb-4 border border-indigo-100">
+                 <div className="relative aspect-square overflow-hidden rounded-2xl bg-white shadow-md mb-4 border border-tof-indigo/10">
                     <Image 
                       src={item.image} 
                       alt={item.name} 

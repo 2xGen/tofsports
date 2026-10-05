@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/next';
-import { Poppins } from 'next/font/google';
+import { Inter, Manrope } from 'next/font/google';
 import ConditionalNavbar from '@/components/ConditionalNavbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
@@ -9,10 +9,16 @@ import { Toaster } from '@/components/ui/toaster';
 import { MAINTENANCE_MODE } from '@/config/site';
 import './globals.css';
 
-const poppins = Poppins({
-  weight: ['400', '500', '700'],
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-poppins',
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+  display: 'swap',
 });
 
 export const metadata = MAINTENANCE_MODE
@@ -53,12 +59,8 @@ export const metadata = MAINTENANCE_MODE
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="nl-NL" className={poppins.variable}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="min-h-screen bg-white font-poppins flex flex-col">
+    <html lang="nl-NL" className={`${inter.variable} ${manrope.variable}`}>
+      <body className="flex min-h-screen flex-col bg-white font-sans text-tof-indigo">
         <Providers>
           <HtmlLang />
           {!MAINTENANCE_MODE && <ConditionalNavbar />}
@@ -72,4 +74,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

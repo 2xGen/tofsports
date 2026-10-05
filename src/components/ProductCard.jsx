@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
     <Button
       asChild
       variant="secondary"
-      className="shrink-0 rounded-2xl border-none bg-white px-6 py-5 text-base font-bold text-gray-900 shadow-lg hover:bg-gray-100 md:px-8 md:py-6 md:text-lg w-full sm:w-auto"
+      className="shrink-0 rounded-2xl border-none bg-white px-6 py-5 text-base font-bold text-tof-indigo shadow-lg hover:bg-white/90 md:px-8 md:py-6 md:text-lg w-full sm:w-auto"
     >
       <Link href={linkUrl}>{ctaText}</Link>
     </Button>
@@ -57,7 +57,7 @@ const ProductCard = ({ product }) => {
             />
           </div>
           <div
-            className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"
+            className="absolute inset-0 bg-black/45"
             aria-hidden
           />
           <div className={`absolute inset-x-0 bottom-0 ${product.color} p-5 md:p-6`}>
@@ -99,7 +99,7 @@ const ProductCard = ({ product }) => {
             quality={90}
           />
           <div
-            className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent"
+            className="absolute inset-0 bg-black/40"
             aria-hidden
           />
 

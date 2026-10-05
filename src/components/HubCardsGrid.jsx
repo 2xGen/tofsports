@@ -56,7 +56,7 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
                   quality={75}
                 />
                 <div
-                  className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
+                  className="absolute inset-0 bg-black/40"
                   aria-hidden
                 />
               </div>

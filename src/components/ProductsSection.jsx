@@ -16,8 +16,8 @@ const ProductsSection = () => {
     {
       id: 'tennis',
       title: t('home.productsSection.tennisPackage'),
-      color: 'bg-sky-500',
-      borderColor: 'border-sky-500',
+      color: 'bg-tof-blue',
+      borderColor: 'border-tof-blue',
       image:
         'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20pakket.jpg',
       imageAlt: 'TOF Tennispakket op de tennisclub',
@@ -30,8 +30,8 @@ const ProductsSection = () => {
     {
       id: 'padel',
       title: t('home.productsSection.padelPackage'),
-      color: 'bg-orange-500',
-      borderColor: 'border-orange-500',
+      color: 'bg-tof-orange',
+      borderColor: 'border-tof-orange',
       image:
         'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Padel%20pakket.jpg',
       imageAlt: 'TOF Padelpakket op de padelclub',
@@ -42,8 +42,8 @@ const ProductsSection = () => {
     {
       id: 'combi',
       title: t('home.productsSection.combiPackage'),
-      color: 'bg-emerald-600',
-      borderColor: 'border-emerald-600',
+      color: 'bg-tof-green',
+      borderColor: 'border-tof-green',
       image:
         'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
       imageAlt: 'TOF Tennis- en padelpakket',
@@ -56,15 +56,7 @@ const ProductsSection = () => {
   return (
     <section id="part3" className="relative overflow-visible pb-20 md:pb-32">
       {/* Vibrant Friendly Background */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50"
-           style={{ 
-             backgroundImage: `
-                radial-gradient(circle at 10% 20%, rgba(255, 165, 0, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 20%),
-                linear-gradient(to bottom right, #FFFBEB, #FFF7ED)
-             `
-           }}>
-      </div>
+      <div className="absolute inset-0 z-0 bg-tof-orange/5" />
       
       <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
          <div className="relative flex flex-col gap-12 md:flex-row">
@@ -76,11 +68,11 @@ const ProductsSection = () => {
                    initial={{ opacity: 0, y: 20 }}
                    whileInView={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.5 }}
-                   className="text-left bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-orange-100/50"
+                   className="text-left bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-tof-orange/20"
                  >
-                   <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-5 leading-tight tracking-tight">
+                   <h2 className="text-3xl md:text-4xl font-black text-tof-indigo mb-5 leading-tight tracking-tight">
                       {t('home.productsSection.titlePrefix')}{' '}
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500">
+                      <span className="text-tof-orange">
                         {t('home.productsSection.titleHighlight')}
                       </span>
                    </h2>
@@ -90,12 +82,12 @@ const ProductsSection = () => {
                    <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
                       {t('home.productsSection.body2')}
                    </p>
-                   <p className="text-lg md:text-xl font-bold text-gray-900 mb-6">
+                   <p className="text-lg md:text-xl font-bold text-tof-indigo mb-6">
                       {t('home.productsSection.question')}
                    </p>
                    <Button
                      asChild
-                     className="bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] text-white font-bold text-base md:text-lg py-6 px-8 rounded-2xl shadow-lg hover:from-[#2A1F5C] hover:to-[#4A3F8A] w-full md:w-auto"
+                     className="bg-tof-indigo text-white font-bold text-base md:text-lg py-6 px-8 rounded-2xl shadow-lg hover:bg-tof-indigo/90 w-full md:w-auto"
                    >
                      <Link href="/pakketten">{t('home.productsSection.viewPackages')}</Link>
                    </Button>

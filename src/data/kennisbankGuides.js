@@ -20,8 +20,8 @@ export const KENNISBANK_GUIDES = [
     image: `${MEDIA_BASE}/waarom%20tof%20500.jpg`,
     imageAlt: 'Jeugd speelt en traint op de club',
     ctaText: 'Lees meer over speelmomenten',
-    pillarColor: 'bg-sky-500',
-    pillarBorderColor: 'border-sky-500',
+    pillarColor: 'bg-tof-blue',
+    pillarBorderColor: 'border-tof-blue',
     pillarDescription:
       'Kinderen ontwikkelen zich sneller wanneer plezier, uitdaging en herhaling samenkomen op de baan. TOF Sports stimuleert jeugdspelers om actief deel te nemen aan clubactiviteiten waarin speelse formats en uitdagingen samenkomen — leren en spelen ook.',
     sections: [
@@ -139,8 +139,8 @@ export const KENNISBANK_GUIDES = [
     image: `${MEDIA_BASE}/waarom%20tof%20500kb.jpg`,
     imageAlt: 'Kinderen zijn actief betrokken bij de club',
     ctaText: 'Lees meer over betrokkenheid',
-    pillarColor: 'bg-violet-500',
-    pillarBorderColor: 'border-violet-500',
+    pillarColor: 'bg-tof-red',
+    pillarBorderColor: 'border-tof-red',
     pillarDescription:
       'Door spelvormen, uitdagingen en TOF Score worden jeugdspelers actiever en meer betrokken — met meer interactie tussen spelers, trainers en de club.',
     sections: [
@@ -267,8 +267,8 @@ export const KENNISBANK_GUIDES = [
     image: `${MEDIA_BASE}/Waarom%20TOF.jpg`,
     imageAlt: 'Trainers gebruiken TOF formats op de vereniging',
     ctaText: 'Lees meer over trainers ontzorgen',
-    pillarColor: 'bg-teal-400',
-    pillarBorderColor: 'border-teal-400',
+    pillarColor: 'bg-tof-green',
+    pillarBorderColor: 'border-tof-green',
     pillarDescription:
       'Met direct inzetbare formats, materialen en tools beschikken trainers altijd over voldoende inspiratie en structuur voor aantrekkelijke trainingen en activiteiten.',
     sections: [

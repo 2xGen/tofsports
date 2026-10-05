@@ -289,7 +289,7 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
             )}
 
             {product.pricing && (
-              <div className="order-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-gradient-to-r from-orange-50 to-amber-50 p-5 md:order-3 md:flex-row md:items-center md:justify-between md:p-6">
+              <div className="order-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-tof-orange/10 p-5 md:order-3 md:flex-row md:items-center md:justify-between md:p-6">
                 <div className="text-left">
                   {displayPrice && (
                     <div className="flex items-baseline gap-2">

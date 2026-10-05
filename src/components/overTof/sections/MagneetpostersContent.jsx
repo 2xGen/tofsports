@@ -26,14 +26,14 @@ const MagneetpostersContent = () => {
               <strong>{ot(locale, c.importantLabel)}</strong> {ot(locale, c.importantBody)}
             </p>
           </div>
-          <div className="border-l-4 border-teal-500 bg-teal-50 p-4">
+          <div className="border-l-4 border-tof-green bg-tof-green/10 p-4">
             <h4 className="mb-3 text-lg font-bold text-gray-900">{ot(locale, c.bestTitle)}</h4>
             <ul className="space-y-2">
               {c.bestItems.map((item) => {
                 const text = ot(locale, item);
                 return (
                   <li key={text} className="flex items-start gap-2">
-                    <span className="font-bold text-teal-500">•</span>
+                    <span className="font-bold text-tof-green">•</span>
                     <span>{text}</span>
                   </li>
                 );

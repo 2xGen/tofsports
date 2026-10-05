@@ -44,6 +44,7 @@ const nl = {
   },
   home: {
     heroCta: 'Stel jouw pakket samen',
+    watchVideo: 'Bekijk video',
     packagesEyebrow: 'Plug & Play',
     packagesTitle: 'Kies de oplossing die bij jou past',
     packagesCta: 'Stel jouw pakket samen',

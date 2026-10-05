@@ -31,12 +31,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
               className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
             >
               {/* Header - Matching Hero Section Style */}
-              <div 
-                className="relative text-gray-800 p-6 md:p-8 flex items-center justify-between overflow-hidden"
-                style={{
-                  background: 'linear-gradient(to bottom right, rgba(180, 255, 200, 0.4), rgba(197, 223, 223, 0.5), rgba(62, 200, 188, 0.3))',
-                }}
-              >
+              <div className="relative bg-tof-blue/10 p-6 text-tof-indigo md:p-8 flex items-center justify-between overflow-hidden">
                 <h2 className="text-2xl md:text-4xl font-bold relative z-10">{productName}</h2>
                 <Button
                   onClick={onClose}

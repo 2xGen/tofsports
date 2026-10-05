@@ -14,7 +14,7 @@ const HorizontalProductsSection = () => {
 
   return (
     <section id="part-waarom" className="relative overflow-visible pb-20 md:pb-32">
-      <div className="absolute inset-0 z-0 bg-gradient-to-tl from-sky-50 via-indigo-50 to-purple-50" />
+      <div className="absolute inset-0 z-0 bg-tof-indigo/5" />
 
       <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
         <div className="relative flex flex-col gap-12 md:flex-row">
@@ -24,13 +24,13 @@ const HorizontalProductsSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="rounded-[2.5rem] border border-indigo-100/50 bg-white/80 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl md:p-10"
+                className="rounded-[2.5rem] border border-tof-indigo/10 bg-white/80 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl md:p-10"
               >
-                <h2 className="mb-5 text-3xl font-black leading-tight tracking-tight text-gray-900 md:text-4xl">
+                <h2 className="mb-5 font-heading text-3xl font-black leading-tight tracking-tight text-tof-indigo md:text-4xl">
                   {locale === 'en' ? (
                     <>
                       How{' '}
-                      <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
+                      <span className="text-tof-blue">
                         TOF Sports
                       </span>{' '}
                       helps
@@ -38,7 +38,7 @@ const HorizontalProductsSection = () => {
                   ) : (
                     <>
                       Hoe{' '}
-                      <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
+                      <span className="text-tof-blue">
                         TOF Sports
                       </span>{' '}
                       helpt

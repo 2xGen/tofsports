@@ -44,6 +44,7 @@ const en = {
   },
   home: {
     heroCta: 'Build your package',
+    watchVideo: 'Watch video',
     packagesEyebrow: 'Plug & Play',
     packagesTitle: 'Choose the solution that fits you',
     packagesCta: 'Build your package',

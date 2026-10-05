@@ -18,7 +18,7 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
 
   return (
     <section className="mt-16 border-t border-gray-200 pt-12">
-      <h2 className="mb-6 font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+      <h2 className="mb-6 font-heading text-2xl font-black text-tof-indigo md:text-3xl">
         {t('knowledge.otherGuides')}
       </h2>
       <div className="grid gap-6 sm:grid-cols-2">
@@ -48,13 +48,13 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
                 <p className="text-xs font-semibold uppercase tracking-wide text-orange-600">
                   {guide.category}
                 </p>
-                <h3 className="mt-1 text-lg font-bold text-gray-900 group-hover:text-[#1B144C]">
+                <h3 className="mt-1 text-lg font-bold text-tof-indigo group-hover:text-tof-indigo">
                   {guide.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
                   {guide.excerpt}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#1B144C]">
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-indigo">
                   {guide.ctaText} <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
@@ -65,7 +65,7 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
       <div className="mt-8">
         <Link
           href="/kennisbank"
-          className="inline-flex items-center gap-2 font-semibold text-[#1B144C] hover:underline"
+          className="inline-flex items-center gap-2 font-semibold text-tof-indigo hover:underline"
         >
           {t('knowledge.allGuides')} <ArrowRight className="h-4 w-4" />
         </Link>

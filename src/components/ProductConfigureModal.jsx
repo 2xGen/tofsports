@@ -152,7 +152,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               <p className="text-xs font-semibold uppercase tracking-wide text-orange-500">
                 {t('configure.configure')}
               </p>
-              <h2 className="pr-8 font-poppins text-xl font-black text-gray-900">{product.name}</h2>
+              <h2 className="pr-8 font-heading text-xl font-black text-tof-indigo">{product.name}</h2>
             </div>
 
             <div className="space-y-6 px-6 py-6">
@@ -160,16 +160,16 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                 <>
                   <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
                     <p className="text-sm text-gray-600">{pricing.label}</p>
-                    <p className="mt-2 text-3xl font-black text-gray-900">{formatEuro(pricing.price)}</p>
+                    <p className="mt-2 text-3xl font-black text-tof-indigo">{formatEuro(pricing.price)}</p>
                   </div>
 
                   {bundleExtra && (
                     <div className="rounded-xl border border-gray-200 bg-white p-5">
-                      <p className="mb-3 text-sm font-semibold text-gray-900">{t('configure.extraOptions')}</p>
+                      <p className="mb-3 text-sm font-semibold text-tof-indigo">{t('configure.extraOptions')}</p>
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1">
                           <p className="text-sm text-gray-700">{bundleExtra.name}</p>
-                          <p className="text-sm font-bold text-gray-900">{formatEuro(bundleExtra.price)}</p>
+                          <p className="text-sm font-bold text-tof-indigo">{formatEuro(bundleExtra.price)}</p>
                         </div>
                         <div className="flex items-center gap-1 rounded-lg bg-gray-100 p-1">
                           <button
@@ -200,7 +200,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {type !== 'fixed-bundle' && step >= 1 && (
                 <div className="rounded-xl border border-orange-200 bg-orange-50 p-5">
                   <p className="text-sm font-medium text-gray-700">{t('configure.magneticPoster')}</p>
-                  <p className="mt-1 text-2xl font-black text-gray-900">
+                  <p className="mt-1 text-2xl font-black text-tof-indigo">
                     {formatEuro(pricing.posterPrice)}
                   </p>
                 </div>
@@ -208,7 +208,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
 
               {type === 'poster-wizard' && step >= 2 && (
                 <div>
-                  <p className="mb-3 font-semibold text-gray-900">
+                  <p className="mb-3 font-semibold text-tof-indigo">
                     {t('configure.playersQuestion')}
                   </p>
                   <div className="space-y-2">
@@ -223,7 +223,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                             : 'border-gray-200 hover:border-orange-300'
                         }`}
                       >
-                        <span className="font-semibold text-gray-900">{tier.label}</span>
+                        <span className="font-semibold text-tof-indigo">{tier.label}</span>
                         {wantsButtons === true && (
                           <span className="mt-1 block text-sm text-gray-600">
                             + {formatEuro(tier.buttonAddon)} {t('configure.buttonsAddonSuffix')}
@@ -238,7 +238,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {((type === 'poster-wizard' && step >= 3) ||
                 (type === 'poster-buttons-optional' && step >= 2)) && (
                 <div>
-                  <p className="mb-3 font-semibold text-gray-900">{t('configure.buttonsQuestion')}</p>
+                  <p className="mb-3 font-semibold text-tof-indigo">{t('configure.buttonsQuestion')}</p>
                   <p className="mb-4 text-sm text-gray-600">
                     {pricing.buttonsHelpText || t('configure.buttonsHelpDefault')}
                   </p>
@@ -252,7 +252,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                           : 'border-gray-200 hover:border-orange-300'
                       }`}
                     >
-                      <span className="font-semibold text-gray-900">{t('configure.alreadyHaveButtons')}</span>
+                      <span className="font-semibold text-tof-indigo">{t('configure.alreadyHaveButtons')}</span>
                     </button>
                     <button
                       type="button"
@@ -263,7 +263,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                           : 'border-gray-200 hover:border-orange-300'
                       }`}
                     >
-                      <span className="font-semibold text-gray-900">{t('configure.yesPlease')}</span>
+                      <span className="font-semibold text-tof-indigo">{t('configure.yesPlease')}</span>
                       <span className="mt-1 block text-sm text-gray-600">
                         +
                         {formatEuro(
@@ -281,7 +281,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-700">{t('configure.total')}</span>
-                    <span className="text-2xl font-black text-gray-900">{formatEuro(totalPrice)}</span>
+                    <span className="text-2xl font-black text-tof-indigo">{formatEuro(totalPrice)}</span>
                   </div>
                 </div>
               )}

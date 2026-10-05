@@ -11,7 +11,7 @@ const Footer = () => {
   const { t } = useLocale();
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-tof-indigo text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           <div className="space-y-4">
@@ -30,7 +30,7 @@ const Footer = () => {
                 href="https://www.instagram.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-orange-500"
+                className="text-gray-400 transition-colors hover:text-tof-orange"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -39,7 +39,7 @@ const Footer = () => {
                 href="https://www.facebook.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-orange-500"
+                className="text-gray-400 transition-colors hover:text-tof-orange"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
@@ -51,14 +51,14 @@ const Footer = () => {
             <h3 className="mb-4 text-lg font-bold">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-sm text-gray-400 transition-colors hover:text-orange-500">
+                <Link href="/" className="text-sm text-gray-400 transition-colors hover:text-tof-orange">
                   {t('nav.home')}
                 </Link>
               </li>
               <li>
                 <Link
                   href="/over-tof"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('nav.about')}
                 </Link>
@@ -66,7 +66,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/producten"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('nav.products')}
                 </Link>
@@ -74,7 +74,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/kennisbank"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('nav.knowledge')}
                 </Link>
@@ -82,7 +82,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/media"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('nav.media')}
                 </Link>
@@ -96,7 +96,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/tof-methode"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('footer.aboutMethod')}
                 </Link>
@@ -104,7 +104,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/spelen"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('footer.play')}
                 </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/leren"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('footer.learn')}
                 </Link>
@@ -120,7 +120,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/sparen"
-                  className="text-sm text-gray-400 transition-colors hover:text-orange-500"
+                  className="text-sm text-gray-400 transition-colors hover:text-tof-orange"
                 >
                   {t('footer.save')}
                 </Link>
@@ -141,13 +141,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Phone className="h-4 w-4 shrink-0 text-orange-500" />
-                <a href="tel:0613252559" className="transition-colors hover:text-orange-500">
+                <a href="tel:0613252559" className="transition-colors hover:text-tof-orange">
                   06 13 25 25 59
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Mail className="h-4 w-4 shrink-0 text-orange-500" />
-                <a href="mailto:info@tofsports.nl" className="transition-colors hover:text-orange-500">
+                <a href="mailto:info@tofsports.nl" className="transition-colors hover:text-tof-orange">
                   info@tofsports.nl
                 </a>
               </li>
@@ -189,7 +189,7 @@ const Footer = () => {
             <div className="flex items-center gap-6">
               <Link
                 href="/privacy"
-                className="text-sm text-gray-500 transition-colors hover:text-orange-500"
+                className="text-sm text-gray-500 transition-colors hover:text-tof-orange"
               >
                 {t('footer.privacyPolicy')}
               </Link>
@@ -200,7 +200,7 @@ const Footer = () => {
                     window.openCookieSettings();
                   }
                 }}
-                className="text-sm text-gray-500 transition-colors hover:text-orange-500"
+                className="text-sm text-gray-500 transition-colors hover:text-tof-orange"
               >
                 {t('footer.cookieSettings')}
               </button>

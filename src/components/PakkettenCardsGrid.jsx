@@ -31,8 +31,8 @@ const PakkettenCardsGrid = ({
   return (
     <section className={className}>
       <div className="mb-8 text-center md:mb-10">
-        <h2 className="font-poppins text-2xl font-black text-gray-900 md:text-3xl">{resolvedTitle}</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-gray-600">{resolvedDescription}</p>
+        <h2 className="font-heading text-2xl font-black text-tof-indigo md:text-3xl">{resolvedTitle}</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-tof-indigo/70">{resolvedDescription}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
@@ -62,23 +62,23 @@ const PakkettenCardsGrid = ({
                       quality={75}
                     />
                     <div
-                      className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
+                      className="absolute inset-0 bg-black/40"
                       aria-hidden
                     />
                   </div>
                   {pkg.badge && (
-                    <span className="absolute right-3 top-3 z-10 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold text-white shadow-md">
+                    <span className="absolute right-3 top-3 z-10 rounded-full bg-tof-green px-3 py-1 text-xs font-bold text-white shadow-md">
                       {pkg.badge}
                     </span>
                   )}
                 </div>
-                <div className={`flex flex-1 flex-col bg-gradient-to-r ${pkg.color} p-5 text-white`}>
+                <div className={`flex flex-1 flex-col ${pkg.color} p-5 text-white`}>
                   {showSubtitle && pkg.subtitle && (
                     <p className="text-xs font-semibold uppercase tracking-wide text-white/90">
                       {pkg.subtitle}
                     </p>
                   )}
-                  <h3 className={`text-xl font-black ${showSubtitle && pkg.subtitle ? 'mt-1' : ''}`}>
+                  <h3 className={`text-xl font-black text-white ${showSubtitle && pkg.subtitle ? 'mt-1' : ''}`}>
                     {pkg.title}
                   </h3>
                   {showPackageDetails && (
@@ -87,7 +87,7 @@ const PakkettenCardsGrid = ({
                         {pkg.description}
                       </p>
                       <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                        <span className="text-2xl font-black">
+                        <span className="text-2xl font-black text-white">
                           {t('packages.from')} {formatEuro(pkg.vanafPrice)}
                         </span>
                         <span className="text-sm font-medium text-white/85">

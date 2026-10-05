@@ -14,8 +14,8 @@ import { useLocale } from '@/i18n/LocaleProvider';
 const topNavLinkClass = (path, href, isActive) =>
   `text-sm font-medium transition-colors ${
     isActive ?? (path === href || path.startsWith(`${href}/`))
-      ? 'text-orange-600'
-      : 'text-gray-700 hover:text-orange-600'
+      ? 'text-tof-orange'
+      : 'text-tof-indigo/80 hover:text-tof-orange'
   }`;
 
 const Navbar = () => {
@@ -66,7 +66,7 @@ const Navbar = () => {
               <Link
                 href="/"
                 className={`text-sm font-medium transition-colors ${
-                  path === '/' ? 'text-orange-600' : 'text-gray-700 hover:text-orange-600'
+                  path === '/' ? 'text-tof-orange' : 'text-tof-indigo/80 hover:text-tof-orange'
                 }`}
               >
                 {t('nav.home')}
@@ -101,7 +101,7 @@ const Navbar = () => {
 
             <Link
               href="/pakketten"
-              className="hidden rounded-lg bg-orange-500 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-orange-600 md:block"
+              className="hidden rounded-lg bg-tof-orange px-4 py-2 text-sm font-bold text-white transition-all hover:bg-tof-orange/90 md:block"
             >
               {t('nav.packages')}
             </Link>
@@ -110,14 +110,14 @@ const Navbar = () => {
               href="/winkelmand"
               className={`relative rounded-lg p-2 transition-all ${
                 path === '/winkelmand'
-                  ? 'bg-orange-100 text-orange-600'
-                  : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  ? 'bg-tof-orange/15 text-tof-orange'
+                  : 'text-tof-indigo/80 hover:bg-tof-indigo/5 hover:text-tof-orange'
               }`}
               aria-label={t('nav.cart')}
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-orange-500 px-1 text-xs font-bold text-white">
+                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tof-orange px-1 text-xs font-bold text-white">
                   {cartCount > 99 ? '99+' : cartCount}
                 </span>
               )}
@@ -128,7 +128,7 @@ const Navbar = () => {
                 href="https://www.instagram.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 transition-colors hover:text-orange-600"
+                className="text-tof-indigo/80 transition-colors hover:text-tof-orange"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -137,7 +137,7 @@ const Navbar = () => {
                 href="https://www.facebook.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 transition-colors hover:text-orange-600"
+                className="text-tof-indigo/80 transition-colors hover:text-tof-orange"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
@@ -147,7 +147,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 transition-colors hover:text-orange-600 md:hidden"
+              className="text-tof-indigo/80 transition-colors hover:text-tof-orange md:hidden"
               aria-label={isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
               aria-expanded={isMenuOpen}
             >
@@ -167,7 +167,7 @@ const Navbar = () => {
                 href="/"
                 onClick={closeMobile}
                 className={`mb-2 block border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/' ? 'text-orange-600' : 'text-gray-800'
+                  path === '/' ? 'text-tof-orange' : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.home')}
@@ -177,7 +177,7 @@ const Navbar = () => {
                 href="/over-tof"
                 onClick={closeMobile}
                 className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  isOverTofPath(pathname) ? 'text-orange-600' : 'text-gray-800'
+                  isOverTofPath(pathname) ? 'text-tof-orange' : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.about')}
@@ -187,7 +187,7 @@ const Navbar = () => {
                 href="/producten"
                 onClick={closeMobile}
                 className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  isProductenPath(pathname) ? 'text-orange-600' : 'text-gray-800'
+                  isProductenPath(pathname) ? 'text-tof-orange' : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.products')}
@@ -198,8 +198,8 @@ const Navbar = () => {
                 onClick={closeMobile}
                 className={`block border-b border-gray-100 py-3 text-base font-medium ${
                   path === '/kennisbank' || path.startsWith('/kennisbank/')
-                    ? 'text-orange-600'
-                    : 'text-gray-800'
+                    ? 'text-tof-orange'
+                    : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.knowledge')}
@@ -209,7 +209,7 @@ const Navbar = () => {
                 href="/media"
                 onClick={closeMobile}
                 className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/media' ? 'text-orange-600' : 'text-gray-800'
+                  path === '/media' ? 'text-tof-orange' : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.media')}
@@ -219,12 +219,12 @@ const Navbar = () => {
                 href="/winkelmand"
                 onClick={closeMobile}
                 className={`flex items-center gap-2 border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/winkelmand' ? 'text-orange-600' : 'text-gray-800'
+                  path === '/winkelmand' ? 'text-tof-orange' : 'text-tof-indigo'
                 }`}
               >
                 {t('nav.cart')}
                 {cartCount > 0 && (
-                  <span className="rounded-full bg-orange-500 px-2 py-0.5 text-xs font-bold text-white">
+                  <span className="rounded-full bg-tof-orange px-2 py-0.5 text-xs font-bold text-white">
                     {cartCount}
                   </span>
                 )}
@@ -233,7 +233,7 @@ const Navbar = () => {
               <Link
                 href="/pakketten"
                 onClick={closeMobile}
-                className="mt-4 block rounded-xl bg-orange-500 py-3.5 text-center text-base font-bold text-white hover:bg-orange-600"
+                className="mt-4 block rounded-xl bg-tof-orange py-3.5 text-center text-base font-bold text-white hover:bg-orange-600"
               >
                 {t('nav.packages')}
               </Link>
@@ -243,7 +243,7 @@ const Navbar = () => {
                   href="https://www.instagram.com/toftennis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-orange-600"
+                  className="text-gray-700 hover:text-tof-orange"
                   aria-label="Instagram"
                 >
                   <Instagram className="h-5 w-5" />
@@ -252,7 +252,7 @@ const Navbar = () => {
                   href="https://www.facebook.com/toftennis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-orange-600"
+                  className="text-gray-700 hover:text-tof-orange"
                   aria-label="Facebook"
                 >
                   <Facebook className="h-5 w-5" />

@@ -65,7 +65,7 @@ const ProductenPage = () => {
           className="mb-12 md:mb-14"
         >
           <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg">
-            <div className="border-b border-orange-100 bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-5 md:px-8">
+            <div className="border-b border-tof-orange/20 bg-tof-orange/10 px-6 py-5 md:px-8">
               <p className="max-w-3xl text-base leading-relaxed text-gray-700 md:text-lg">
                 {t('producten.intro')}
               </p>

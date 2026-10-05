@@ -13,7 +13,7 @@ const OverTofSection = ({ id, title, subtitle, children, isFirst = false }) => (
     className={`scroll-mt-40 ${isFirst ? '' : 'border-t border-gray-200 pt-16 md:pt-20'}`}
   >
     <div className="mb-8 md:mb-10">
-      <h2 className="font-poppins text-2xl font-black text-gray-900 md:text-3xl">{title}</h2>
+      <h2 className="font-heading text-2xl font-black text-tof-indigo md:text-3xl">{title}</h2>
       {subtitle && <p className="mt-2 max-w-4xl text-lg text-gray-600">{subtitle}</p>}
     </div>
     <div className="w-full text-left">{children}</div>

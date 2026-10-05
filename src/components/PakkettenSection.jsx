@@ -23,7 +23,7 @@ const PakkettenSection = () => {
         className="container relative z-10 mx-auto max-w-6xl px-4"
       >
         <div className="mb-10 text-center md:mb-12">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#1B144C]/70">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-tof-indigo/70">
             {t('home.packagesEyebrow')}
           </p>
         </div>

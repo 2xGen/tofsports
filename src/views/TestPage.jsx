@@ -73,18 +73,18 @@ const Header = () => {
           {/* Menu Container - 70% width */}
           <div className="flex items-center justify-center" style={{ width: '70%' }}>
             <nav className="hidden md:flex items-end gap-4">
-              <a href="#part2" className="text-[#1B144C] font-poppins text-[0.7em] hover:text-[#1B144C] px-[10px] border-b border-dashed border-[#1B144C]">
+              <a href="#part2" className="text-tof-indigo font-heading text-[0.7em] hover:text-tof-indigo px-[10px] border-b border-dashed border-tof-indigo">
                 Menu Item 1
               </a>
-              <a href="#part3" className="text-[#1B144C] font-poppins text-[0.7em] hover:text-[#1B144C] px-[10px] border-b border-dashed border-[#1B144C]">
+              <a href="#part3" className="text-tof-indigo font-heading text-[0.7em] hover:text-tof-indigo px-[10px] border-b border-dashed border-tof-indigo">
                 Menu Item 2
               </a>
-              <a href="#part4" className="text-[#1B144C] font-poppins text-[0.7em] hover:text-[#1B144C] px-[10px] border-b border-dashed border-[#1B144C]">
+              <a href="#part4" className="text-tof-indigo font-heading text-[0.7em] hover:text-tof-indigo px-[10px] border-b border-dashed border-tof-indigo">
                 Menu Item 3
               </a>
             </nav>
             {/* Mobile Menu Toggle */}
-            <button className="md:hidden text-[#1B144C] text-xl">
+            <button className="md:hidden text-tof-indigo text-xl">
               ☰
             </button>
           </div>
@@ -92,12 +92,12 @@ const Header = () => {
           {/* Social Icons Container - 15% width */}
           <div className="flex items-start justify-end" style={{ width: '15%' }}>
             <div className="hidden md:flex items-center gap-[15px]">
-              <a href="https://www.instagram.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-[#1B144C] hover:text-[#F2A41E] transition-colors">
+              <a href="https://www.instagram.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-orange transition-colors">
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Instagram className="w-[30px] h-[30px]" />
                 </motion.div>
               </a>
-              <a href="https://www.facebook.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-[#1B144C] hover:text-[#F2A41E] transition-colors">
+              <a href="https://www.facebook.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-orange transition-colors">
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Facebook className="w-[30px] h-[30px]" />
                 </motion.div>
@@ -129,7 +129,7 @@ const HeroSection = React.forwardRef((props, ref) => {
       id="part1"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #B4FFC8 0%, #B4FFC8 57%, transparent 0%)',
+        background: '#B4FFC8',
         backgroundSize: '93vw 100%',
         backgroundPosition: 'top center',
         backgroundRepeat: 'no-repeat'
@@ -139,7 +139,7 @@ const HeroSection = React.forwardRef((props, ref) => {
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(180deg, #C5DFDF 0%, #C5DFDF 24%, #EEEEEE 13%, transparent 100%)',
+          background: '#C5DFDF',
           y: 251,
           opacity: 1,
           scale: bgScale,
@@ -183,7 +183,7 @@ const HeroSection = React.forwardRef((props, ref) => {
             initial={{ opacity: 0, x: 100, scale: 0.5 }}
             animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
             transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
-            className="text-right font-poppins font-bold text-[8em] md:text-[8em] text-[#1B144C]"
+            className="text-right font-heading font-bold text-[8em] md:text-[8em] text-tof-indigo"
             style={{ marginTop: '-13px', alignSelf: 'flex-end' }}
           >
             Tennis
@@ -194,7 +194,7 @@ const HeroSection = React.forwardRef((props, ref) => {
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-right font-poppins font-medium text-[1.6em] text-[#1B144C]"
+            className="text-right font-heading font-medium text-[1.6em] text-tof-indigo"
             style={{ marginTop: '-16px', alignSelf: 'flex-end' }}
           >
             Powered by KNLTB
@@ -228,7 +228,7 @@ const HeroSection = React.forwardRef((props, ref) => {
       {/* Down Arrow */}
       <motion.a
         href="#part2"
-        className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 z-20 text-[#1B144C]"
+        className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 z-20 text-tof-indigo"
         style={{ fontSize: '35px' }}
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
@@ -287,7 +287,7 @@ const InfoSection = React.forwardRef((props, ref) => {
       id="part2"
       className="relative min-h-screen flex flex-col items-center justify-center"
       style={{
-        background: '#1B144C',
+        background: '#1C154E',
         backgroundImage: 'url(https://toftennis.nl/wp-content/uploads/2024/04/Blauwe-bal-150x150.png)',
         backgroundRepeat: 'repeat',
         backgroundSize: '80px 80px',
@@ -299,7 +299,7 @@ const InfoSection = React.forwardRef((props, ref) => {
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(62, 200, 188, 0.93) 0%, rgba(62, 200, 188, 0.93) 64%, rgba(180, 255, 200, 1) 100%)',
+          background: 'rgba(35, 116, 217, 0.93)',
           opacity: 0.93
         }}
       />
@@ -323,13 +323,13 @@ const InfoSection = React.forwardRef((props, ref) => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="text-center mb-8">
-              <p className="font-poppins text-[#1B144C] text-[1.5em] leading-relaxed">
+              <p className="font-heading text-tof-indigo text-[1.5em] leading-relaxed">
                 Jeugdprogramma direct op scherp met de kant-en-klare oefenformats en spelvormen voor padel en tennis.
               </p>
             </div>
             <motion.a
               href="#part3"
-              className="bg-[#1B144C] text-white font-poppins font-bold px-[50px] py-[20px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors text-[1.2em]"
+              className="bg-tof-indigo text-white font-heading font-bold px-[50px] py-[20px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors text-[1.2em]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -381,10 +381,10 @@ const CardsSection1 = React.forwardRef((props, ref) => {
           {/* Text Container - 50% */}
           <div className="w-1/2 p-[35px]">
             <div className="sticky top-[150px]">
-              <h1 className="font-poppins font-bold text-[2.5em] text-[#1B144C] mb-6">
+              <h1 className="font-heading font-bold text-[2.5em] text-tof-indigo mb-6">
                 Drie producten die een belangrijk onderdeel vormen van het programma:
               </h1>
-              <div className="font-poppins text-[#1B144C]">
+              <div className="font-heading text-tof-indigo">
                 <p>
                   De spelerskaarten met keycords en handboeken zijn gratis te bestellen op de website van de KNLTB. Voor bestellen en meer informatie over{' '}
                   <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer" className="underline">
@@ -409,7 +409,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
                 width: '470px',
                 maxWidth: '90%',
                 minHeight: '300px',
-                background: 'linear-gradient(135deg, #8B5CF6, #A78BFA)',
+                background: '#E34F55',
                 zIndex: 1,
                 marginBottom: '20px',
                 transform: 'rotate(-5deg)',
@@ -421,16 +421,16 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               whileHover={{ scale: 1.05, rotate: '-3deg' }}
             >
               <div>
-                <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
+                <h2 className="font-heading font-bold text-[3em] text-white mb-4">
                   Spelen
                 </h2>
-                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                <div className="font-heading text-white text-[1.2em] mb-4 leading-relaxed">
                   <div>• Magneetposters met spelvormen in bewaarkoker</div>
                   <div>• Magneetbuttons</div>
                   <div>• Whiteboard stiften en markers</div>
                 </div>
               </div>
-              <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
+              <button className="bg-tof-indigo text-white font-heading px-[35px] py-[15px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors">
                 Meer info
               </button>
             </motion.div>
@@ -442,7 +442,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
                 width: '450px',
                 maxWidth: '85%',
                 minHeight: '300px',
-                background: 'linear-gradient(135deg, #10B981, #34D399)',
+                background: '#43A66C',
                 zIndex: 2,
                 marginBottom: '20px',
                 marginLeft: '-50px',
@@ -454,17 +454,17 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               whileHover={{ scale: 1.05 }}
             >
               <div>
-                <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
+                <h2 className="font-heading font-bold text-[3em] text-white mb-4">
                   Leren
                 </h2>
-                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                <div className="font-heading text-white text-[1.2em] mb-4 leading-relaxed">
                   <div>• Kennis producten</div>
                   <div>• Ja-Nee kaarten</div>
                   <div>• Zoek de schat</div>
                 </div>
               </div>
               <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
+                <button className="bg-tof-indigo text-white font-heading px-[35px] py-[15px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors">
                   Meer info
                 </button>
               </a>
@@ -477,7 +477,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
                 width: '430px',
                 maxWidth: '80%',
                 minHeight: '300px',
-                background: 'linear-gradient(135deg, #3B82F6, #60A5FA)',
+                background: '#2374D9',
                 zIndex: 2,
                 marginLeft: '-50px',
                 transform: 'rotate(5deg)',
@@ -489,16 +489,16 @@ const CardsSection1 = React.forwardRef((props, ref) => {
               whileHover={{ scale: 1.05, rotate: '3deg' }}
             >
               <div>
-                <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
+                <h2 className="font-heading font-bold text-[3em] text-white mb-4">
                   Sparen
                 </h2>
-                <div className="font-poppins text-white text-[1.2em] mb-4 leading-relaxed">
+                <div className="font-heading text-white text-[1.2em] mb-4 leading-relaxed">
                   <div>• TOF score in de KNLTB leraren app</div>
                   <div>• Buttons en bandjes</div>
                 </div>
               </div>
               <a href="https://www.centrecourt.nl/alles-voor-verenigingen/jeugd/tenniskids/tenniskids-tof/" target="_blank" rel="noopener noreferrer">
-                <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
+                <button className="bg-tof-indigo text-white font-heading px-[35px] py-[15px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors">
                   Meer info
                 </button>
               </a>
@@ -510,7 +510,7 @@ const CardsSection1 = React.forwardRef((props, ref) => {
       {/* Down Arrow */}
       <motion.a
         href="#part4"
-        className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 z-20 text-[#1B144C]"
+        className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 z-20 text-tof-indigo"
         style={{ fontSize: '35px' }}
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
@@ -552,8 +552,8 @@ const CardsSection2 = React.forwardRef((props, ref) => {
               buttonText="Meer info"
               buttonLink="https://toftennis.nl/bestellen/"
               imageUrl="https://toftennis.nl/wp-content/uploads/2024/05/Pasted-Graphic-184x300.png"
-              gradientFrom="#FFAA00"
-              gradientTo="#FFFF00"
+              gradientFrom="#F28C28"
+              gradientTo="#F28C28"
               width="470px"
               zIndex={1}
               transform="rotate(-5deg)"
@@ -568,8 +568,8 @@ const CardsSection2 = React.forwardRef((props, ref) => {
               buttonText="Meer info"
               buttonLink="https://toftennis.nl/bestellen/"
               imageUrl="https://toftennis.nl/wp-content/uploads/2024/05/RESPECT-300x270.png"
-              gradientFrom="#FFAAD2"
-              gradientTo="#F05A00"
+              gradientFrom="#E34F55"
+              gradientTo="#E34F55"
               width="450px"
               zIndex={2}
               transform=""
@@ -585,8 +585,8 @@ const CardsSection2 = React.forwardRef((props, ref) => {
               buttonText="Meer info"
               buttonLink="https://toftennis.nl/bestellen/"
               imageUrl="https://toftennis.nl/wp-content/uploads/2024/05/Kopie-van-Kopie-van-Standaard-bord-2023_1.png"
-              gradientFrom="#00C8FF"
-              gradientTo="#A0FAFA"
+              gradientFrom="#2374D9"
+              gradientTo="#2374D9"
               width="430px"
               zIndex={2}
               transform="rotate(5deg)"
@@ -599,10 +599,10 @@ const CardsSection2 = React.forwardRef((props, ref) => {
           {/* Text Container - 50% */}
           <div className="w-1/2 p-[35px]">
             <div className="sticky top-[150px]">
-              <h1 className="font-poppins font-bold text-[2.5em] text-[#1B144C] mb-6">
+              <h1 className="font-heading font-bold text-[2.5em] text-tof-indigo mb-6">
                 TOF Tennis next level
               </h1>
-              <div className="font-poppins text-[#1B144C]">
+              <div className="font-heading text-tof-indigo">
                 <p>
                   Staat jouw basis en wil je met jouw tennisorganisatie of vereniging naar een next level? Kijk dan verder met welke producten we jou kunnen ondersteunen en onderscheid je hiermee ten opzichte van andere verenigingen. Maak jouw jeugdprogramma nog leuker, leerzamer en zichtbaarder voor iedereen.
                 </p>
@@ -663,16 +663,16 @@ const FlipCard = ({
         <div
           className="absolute inset-0 rounded-[50px] p-[35px] flex flex-col justify-between"
           style={{
-            background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+            background: gradientFrom,
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden'
           }}
         >
-          <h2 className="font-poppins font-bold text-[3em] text-white mb-4">
+          <h2 className="font-heading font-bold text-[3em] text-white mb-4">
             {title}
           </h2>
           <a href={buttonLink} target="_blank" rel="noopener noreferrer">
-            <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
+            <button className="bg-tof-indigo text-white font-heading px-[35px] py-[15px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors">
               {buttonText}
             </button>
           </a>
@@ -682,7 +682,7 @@ const FlipCard = ({
         <div
           className="absolute inset-0 rounded-[50px] p-[35px] flex flex-col justify-between"
           style={{
-            background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+            background: gradientFrom,
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)'
@@ -695,9 +695,9 @@ const FlipCard = ({
               className="w-full h-auto object-contain"
             />
           </div>
-          <p className="font-poppins text-white text-sm mb-4">{description}</p>
+          <p className="font-heading text-white text-sm mb-4">{description}</p>
           <a href={buttonLink} target="_blank" rel="noopener noreferrer">
-            <button className="bg-[#1B144C] text-white font-poppins px-[35px] py-[15px] rounded-[50px] hover:bg-[#1B144C]/90 transition-colors">
+            <button className="bg-tof-indigo text-white font-heading px-[35px] py-[15px] rounded-[50px] hover:bg-tof-indigo/90 transition-colors">
               {buttonText}
             </button>
           </a>
@@ -714,7 +714,7 @@ const ButtonsSection = React.forwardRef((props, ref) => {
   return (
     <section
       ref={ref}
-      className="relative flex flex-col items-center justify-center bg-[#1B144C]"
+      className="relative flex flex-col items-center justify-center bg-tof-indigo"
       style={{
         minHeight: '410px',
         paddingTop: '100px',
@@ -727,8 +727,8 @@ const ButtonsSection = React.forwardRef((props, ref) => {
           <AnimatedButton
             title="Ik ben een speler"
             link="/URLlkjhsdf"
-            gradientFrom="#FFAA00"
-            gradientTo="#FFFF00"
+            gradientFrom="#F28C28"
+            gradientTo="#F28C28"
             hoverColors={['#FFAA00', '#FFFF00', '#6FC6C5']}
             delay={0}
             inView={sectionInView}
@@ -738,8 +738,8 @@ const ButtonsSection = React.forwardRef((props, ref) => {
           <AnimatedButton
             title="Ik ben een COach"
             link="/URLlkjhsdf"
-            gradientFrom="#F05A00"
-            gradientTo="#FFAAD2"
+            gradientFrom="#F28C28"
+            gradientTo="#F28C28"
             hoverColors={['#FFAAD2', '#F05A00', '#FFFF00']}
             delay={0.2}
             inView={sectionInView}
@@ -749,8 +749,8 @@ const ButtonsSection = React.forwardRef((props, ref) => {
           <AnimatedButton
             title="Ik ben een Leraar"
             link="/URLlkjhsdf"
-            gradientFrom="#00C8FF"
-            gradientTo="#A0FAFA"
+            gradientFrom="#2374D9"
+            gradientTo="#2374D9"
             hoverColors={['#A0FAFA', '#FFAAD2', '#F05A00']}
             delay={0.4}
             inView={sectionInView}
@@ -782,7 +782,7 @@ const AnimatedButton = ({ title, link, gradientFrom, gradientTo, hoverColors, de
       style={{
         width: '32%',
         minWidth: '200px',
-        background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+        background: gradientFrom,
         padding: '15px',
         '--first-color': hoverColors[0],
         '--second-color': hoverColors[1],
@@ -797,7 +797,7 @@ const AnimatedButton = ({ title, link, gradientFrom, gradientTo, hoverColors, de
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative z-10">
-        <h2 className="font-poppins font-bold text-[2.3em] text-[#1B144C] text-center uppercase hover-translate">
+        <h2 className="font-heading font-bold text-[2.3em] text-tof-indigo text-center uppercase hover-translate">
           {title}
         </h2>
       </div>

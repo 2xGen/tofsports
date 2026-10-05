@@ -20,7 +20,7 @@ const TennisSection = () => {
 
       {/* Background with scale and blur effects - scale out-in speed 4px, range 20-80% */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-orange-50 to-blue-50"
+        className="absolute inset-0 bg-tof-orange/10"
         style={{
           scale: useTransform(scrollYProgress, [0.3, 0.6], [1, 1.04]),
           filter: useTransform(scrollYProgress, [0.3, 0.6], ['blur(0px)', 'blur(7px)']),

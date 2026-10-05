@@ -46,7 +46,7 @@ const PageHero = ({
         />
       </div>
       <div
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/45 to-black/65"
+        className="absolute inset-0 z-[1] bg-black/50"
         aria-hidden
       />
       <div className="container relative z-10 mx-auto px-4 py-16 pb-20 text-center md:pb-24">
@@ -71,7 +71,7 @@ export const PageHeroTitle = ({ heroInView, children, className = '' }) => (
     initial={{ opacity: 0, x: 100, scale: 0.5 }}
     animate={heroInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.5 }}
     transition={{ duration: 0.8, delay: 0.2, type: 'spring' }}
-    className={`font-poppins text-4xl font-bold text-white drop-shadow-md md:text-6xl lg:text-7xl ${className}`}
+    className={`font-heading text-4xl font-bold text-white drop-shadow-md md:text-6xl lg:text-7xl ${className}`}
   >
     {children}
   </motion.h1>

@@ -101,7 +101,7 @@ const TofScoreContent = ({ useAnchors = false }) => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-6 md:p-8"
+        className="rounded-2xl border border-tof-orange/30 bg-tof-orange/10 p-6 md:p-8"
       >
         <h4 className="mb-2 text-xl font-bold text-gray-900">{ot(locale, c.ctaTitle)}</h4>
         <p className="mb-6 text-sm text-gray-600">{ot(locale, c.ctaBody)}</p>

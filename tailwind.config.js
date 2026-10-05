@@ -15,9 +15,34 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				poppins: ['Poppins', 'sans-serif'],
+				sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				heading: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
+				/** @deprecated use font-heading — kept so existing classes keep working */
+				poppins: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
 			},
 			colors: {
+				tof: {
+					indigo: '#1C154E',
+					blue: '#2374D9',
+					red: '#E34F55',
+					orange: '#F28C28',
+					green: '#43A66C',
+					yellow: '#F4C542',
+				},
+				/** Brand orange scale — remaps existing orange-* utilities */
+				orange: {
+					50: '#FFF6ED',
+					100: '#FFEAD5',
+					200: '#FED7AA',
+					300: '#FDBA74',
+					400: '#F5A04A',
+					500: '#F28C28',
+					600: '#D97706',
+					700: '#B45309',
+					800: '#92400E',
+					900: '#78350F',
+					950: '#431407',
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

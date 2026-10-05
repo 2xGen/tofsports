@@ -36,7 +36,7 @@ const SparenPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
         >
           <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.intro.heading)}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo mb-6">{t(C.intro.heading)}</h2>
 
             <p className="text-lg leading-relaxed">{t(C.intro.body)}</p>
 
@@ -48,7 +48,7 @@ const SparenPage = () => {
                     <div className="w-12 h-12 bg-lime-500 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t(card.title)}</h3>
+                    <h3 className="text-xl font-bold text-tof-indigo mb-2">{t(card.title)}</h3>
                     <p className="text-gray-600">{t(card.desc)}</p>
                   </div>
                 );
@@ -66,7 +66,7 @@ const SparenPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
         >
           <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.how.heading)}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo mb-6">{t(C.how.heading)}</h2>
 
             <div className="space-y-6">
               {C.how.steps.map((step, i) => (
@@ -75,15 +75,15 @@ const SparenPage = () => {
                     {i + 1}
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 text-lg">{t(step.title)}</h4>
+                    <h4 className="font-bold text-tof-indigo text-lg">{t(step.title)}</h4>
                     <p className="text-gray-600">{t(step.desc)}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="bg-gradient-to-r from-lime-100 to-green-100 rounded-xl p-6 mt-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <div className="bg-tof-green/10 rounded-xl p-6 mt-8">
+              <h3 className="text-xl font-bold text-tof-indigo mb-3 flex items-center gap-2">
                 <Target className="w-5 h-5 text-lime-600" />
                 {t(C.how.goalTitle)}
               </h3>
@@ -101,7 +101,7 @@ const SparenPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
         >
           <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.why.heading)}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo mb-6">{t(C.why.heading)}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[Flame, Eye, House].map((Icon, i) => {
@@ -112,7 +112,7 @@ const SparenPage = () => {
                       <Icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-900">{t(item.title)}</h4>
+                      <h4 className="font-bold text-tof-indigo">{t(item.title)}</h4>
                       <p className="text-gray-600">{t(item.desc)}</p>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ const SparenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-r from-orange-400 to-orange-500 rounded-2xl shadow-lg p-8 text-center"
+          className="bg-tof-orange rounded-2xl shadow-lg p-8 text-center"
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t(C.cta.title)}</h3>
           <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">{t(C.cta.body)}</p>
@@ -143,7 +143,7 @@ const SparenPage = () => {
             <Button
               asChild
               size="lg"
-              className="bg-sky-500 text-white hover:bg-sky-600 font-bold text-lg"
+              className="bg-tof-blue text-white hover:bg-tof-blue/90 font-bold text-lg"
             >
               <Link href="/spelen">{t(C.cta.ctaBack)}</Link>
             </Button>

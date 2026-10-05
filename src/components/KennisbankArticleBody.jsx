@@ -41,12 +41,12 @@ const KennisbankArticleBody = ({ sections }) => {
           return (
             <div
               key={index}
-              className="mt-6 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-sky-50 p-6 md:p-8"
+              className="mt-6 rounded-2xl border border-tof-indigo/10 bg-tof-blue/5 p-6 md:p-8"
             >
               <p className="text-lg font-semibold text-gray-500 line-through decoration-gray-400">
                 {fromLabel} {section.from}
               </p>
-              <p className="mt-3 text-xl font-bold text-[#1B144C] md:text-2xl">
+              <p className="mt-3 text-xl font-bold text-tof-indigo md:text-2xl">
                 {toLabel} {section.to}
               </p>
             </div>

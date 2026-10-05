@@ -118,8 +118,8 @@ export const MAIN_PACKAGES = [
     description:
       'Kies Basis, Plus of Compleet. Inclusief TOF Score, formats op maat, 4 kennissessies en 1 jaar app-toegang. Verzending inbegrepen.',
     vanafPrice: LEVEL_PRICES.basis,
-    color: 'from-sky-500 to-blue-600',
-    borderColor: 'border-sky-500',
+    color: 'bg-tof-blue',
+    borderColor: 'border-tof-blue',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tennis%20pakket.jpg',
     sport: 'tennis',
@@ -131,8 +131,8 @@ export const MAIN_PACKAGES = [
     description:
       'Kies Basis, Plus of Compleet. Inclusief TOF Score, formats op maat, 4 kennissessies en 1 jaar app-toegang. Verzending inbegrepen.',
     vanafPrice: LEVEL_PRICES.basis,
-    color: 'from-orange-500 to-amber-600',
-    borderColor: 'border-orange-500',
+    color: 'bg-tof-orange',
+    borderColor: 'border-tof-orange',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Padel%20pakket.jpg',
     sport: 'padel',
@@ -145,8 +145,8 @@ export const MAIN_PACKAGES = [
       'Kies per sport Basis, Plus of Compleet. 10% voordeel op het gecombineerde totaal. Inclusief kennissessies, app en verzending.',
     vanafPrice: Math.round((LEVEL_PRICES.basis * 2) * (1 - COMBI_DISCOUNT)),
     badge: 'Meest compleet',
-    color: 'from-emerald-500 to-teal-600',
-    borderColor: 'border-emerald-600',
+    color: 'bg-tof-green',
+    borderColor: 'border-tof-green',
     image:
       'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/TOF%20Combi%20pakket.jpg',
     sport: 'combi',

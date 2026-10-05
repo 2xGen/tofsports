@@ -61,7 +61,7 @@ const KennisbankPage = () => {
             <div className="flex items-start gap-4">
               <BookOpen className="mt-0.5 h-8 w-8 shrink-0 text-orange-500" aria-hidden />
               <div>
-                <h2 className="text-xl font-bold text-gray-900 md:text-2xl">
+                <h2 className="text-xl font-bold text-tof-indigo md:text-2xl">
                   {t('knowledge.introTitle')}
                 </h2>
                 <p className="mt-3 leading-relaxed text-gray-600">
@@ -132,13 +132,13 @@ const KennisbankPage = () => {
                         {formatDate(article.date, locale)}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#1B144C]">
+                    <h3 className="text-lg font-bold text-tof-indigo group-hover:text-tof-indigo">
                       {article.title}
                     </h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
                       {article.excerpt}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#1B144C]">
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-indigo">
                       {locale === 'en' ? 'Read the guide' : 'Lees de gids'}{' '}
                       <ArrowRight className="h-4 w-4" />
                     </span>

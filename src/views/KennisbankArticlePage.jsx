@@ -55,7 +55,7 @@ const KennisbankArticlePage = ({ guide: rawGuide }) => {
             <Calendar className="h-3.5 w-3.5" aria-hidden />
             {formatDate(guide.date, locale)}
           </span>
-          <Link href="/kennisbank" className="font-medium text-[#1B144C] hover:underline">
+          <Link href="/kennisbank" className="font-medium text-tof-indigo hover:underline">
             {t('knowledge.back')}
           </Link>
         </motion.div>

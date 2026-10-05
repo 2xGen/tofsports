@@ -36,17 +36,17 @@ const SpelenPage = () => {
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
         >
           <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.intro.heading)}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo mb-6">{t(C.intro.heading)}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[Pencil, Target, Circle, Lightbulb].map((Icon, i) => {
                 const card = C.intro.cards[i];
                 return (
-                  <div key={i} className="bg-sky-50 rounded-xl p-6 border border-sky-100">
-                    <div className="w-12 h-12 bg-sky-500 rounded-lg flex items-center justify-center mb-4">
+                  <div key={i} className="bg-tof-blue/5 rounded-xl p-6 border border-tof-blue/15">
+                    <div className="w-12 h-12 bg-tof-blue/50 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t(card.title)}</h3>
+                    <h3 className="text-xl font-bold text-tof-indigo mb-2">{t(card.title)}</h3>
                     <p className="text-gray-600">{t(card.desc)}</p>
                   </div>
                 );
@@ -65,22 +65,22 @@ const SpelenPage = () => {
         >
           <div className="space-y-6 text-gray-700">
             <div className="flex items-center gap-4 mb-6">
-              <div className="bg-gradient-to-r from-sky-400 to-blue-500 text-white p-3 rounded-xl">
+              <div className="bg-tof-blue text-white p-3 rounded-xl">
                 <RotateCcw className="w-8 h-8" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{t(C.swirl.heading)}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo">{t(C.swirl.heading)}</h2>
             </div>
 
             <p className="text-lg leading-relaxed">{t(C.swirl.intro1)}</p>
 
-            <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-xl p-6 border border-sky-100 my-6">
+            <div className="bg-tof-blue/5 rounded-xl p-6 border border-tof-blue/15 my-6">
               <p className="text-lg font-medium text-gray-800">{t(C.swirl.callout)}</p>
             </div>
 
             {/* Zelfsturend Leren */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">1</span>
+              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+                <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">1</span>
                 {t(C.swirl.section1.title)}
               </h3>
               <p className="text-gray-600">{t(C.swirl.section1.intro)}</p>
@@ -90,7 +90,7 @@ const SpelenPage = () => {
                   const card = C.swirl.section1.cards[i];
                   return (
                     <div key={i} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                      <h4 className="font-bold text-sky-600 mb-2 flex items-center gap-2">
+                      <h4 className="font-bold text-tof-blue mb-2 flex items-center gap-2">
                         <Icon className="w-4 h-4" /> {t(card.title)}
                       </h4>
                       <p className="text-sm text-gray-600">{t(card.desc)}</p>
@@ -102,15 +102,15 @@ const SpelenPage = () => {
 
             {/* Spelenderwijs Groeien */}
             <div className="space-y-4 mt-8">
-              <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">2</span>
+              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+                <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">2</span>
                 {t(C.swirl.section2.title)}
               </h3>
               <p className="text-gray-600">{t(C.swirl.section2.intro)}</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-200">
-                  <h4 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                <div className="bg-tof-yellow/15 rounded-xl p-6 border border-tof-yellow/40">
+                  <h4 className="font-bold text-lg text-tof-indigo mb-3 flex items-center gap-2">
                     <User className="w-5 h-5 text-yellow-600" /> {t(C.swirl.section2.individual.title)}
                   </h4>
                   <ul className="space-y-2 text-gray-600">
@@ -133,8 +133,8 @@ const SpelenPage = () => {
                   </ul>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
-                  <h4 className="font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                <div className="bg-tof-blue/5 rounded-xl p-6 border border-tof-blue/25">
+                  <h4 className="font-bold text-lg text-tof-indigo mb-3 flex items-center gap-2">
                     <Users className="w-5 h-5 text-blue-600" /> {t(C.swirl.section2.team.title)}
                   </h4>
                   <ul className="space-y-2 text-gray-600">
@@ -168,23 +168,23 @@ const SpelenPage = () => {
 
             {/* Thema-Bingo */}
             <div className="space-y-4 mt-8">
-              <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                <span className="bg-sky-100 text-sky-600 px-3 py-1 rounded-full text-sm">3</span>
+              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+                <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">3</span>
                 {t(C.swirl.section3.title)}
               </h3>
               <p className="text-gray-600">{t(C.swirl.section3.intro)}</p>
 
-              <div className="bg-purple-50 rounded-xl p-6 border border-purple-200 mt-4">
-                <h4 className="font-bold text-purple-700 mb-2">{t(C.swirl.section3.howHeading)}</h4>
+              <div className="bg-tof-red/5 rounded-xl p-6 border border-tof-red/20 mt-4">
+                <h4 className="font-bold text-tof-red mb-2">{t(C.swirl.section3.howHeading)}</h4>
                 <p className="text-gray-600 mb-3">{t(C.swirl.section3.how1)}</p>
                 <p className="text-gray-700 font-medium">{t(C.swirl.section3.how2)}</p>
               </div>
             </div>
 
             {/* Waarom dit werkt */}
-            <div className="bg-gradient-to-r from-sky-100 to-blue-100 rounded-xl p-6 mt-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-sky-600" /> {t(C.swirl.why.title)}
+            <div className="bg-tof-blue/10 rounded-xl p-6 mt-8">
+              <h3 className="text-xl font-bold text-tof-indigo mb-3 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-tof-blue" /> {t(C.swirl.why.title)}
               </h3>
               <p className="text-gray-700 leading-relaxed">{t(C.swirl.why.body)}</p>
             </div>
@@ -197,7 +197,7 @@ const SpelenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-r from-rose-400 to-pink-500 rounded-2xl shadow-lg p-8 text-center"
+          className="bg-tof-red rounded-2xl shadow-lg p-8 text-center"
         >
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{t(C.cta.title)}</h3>
           <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">{t(C.cta.body)}</p>

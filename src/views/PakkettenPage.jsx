@@ -161,14 +161,14 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               onClick={() => onSelect(level.id)}
               className={`relative flex h-full flex-col rounded-2xl border-2 p-5 text-left transition-all ${
                 selected
-                  ? 'border-[#1B144C] bg-[#1B144C] text-white shadow-lg ring-4 ring-[#1B144C]/15'
-                  : 'border-gray-200 bg-white text-gray-900 hover:border-indigo-300 hover:shadow-md'
+                  ? 'border-tof-indigo bg-tof-indigo text-white shadow-lg ring-4 ring-tof-indigo/15'
+                  : 'border-gray-200 bg-white text-tof-indigo hover:border-tof-indigo/40 hover:shadow-md'
               }`}
             >
               {level.id === 'compleet' && (
                 <span
                   className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold ${
-                    selected ? 'bg-white text-[#1B144C]' : 'bg-orange-500 text-white'
+                    selected ? 'bg-white text-tof-indigo' : 'bg-orange-500 text-white'
                   }`}
                 >
                   {t('packages.popular')}
@@ -178,13 +178,13 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <div className="flex items-start justify-between gap-2">
                 <p className="text-xl font-black">{level.label}</p>
                 {selected && (
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1B144C]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-tof-indigo">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
                 )}
               </div>
 
-              <p className={`mt-3 text-2xl font-black ${selected ? 'text-white' : 'text-[#1B144C]'}`}>
+              <p className={`mt-3 text-2xl font-black ${selected ? 'text-white' : 'text-tof-indigo'}`}>
                 {formatEuro(LEVEL_PRICES[level.id])}
               </p>
               <p className={`text-sm ${selected ? 'text-white/80' : 'text-gray-500'}`}>
@@ -215,8 +215,8 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <span
                 className={`mt-5 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold ${
                   selected
-                    ? 'bg-white text-[#1B144C]'
-                    : 'bg-[#1B144C]/10 text-[#1B144C]'
+                    ? 'bg-white text-tof-indigo'
+                    : 'bg-tof-indigo/10 text-tof-indigo'
                 }`}
               >
                 {selected
@@ -234,7 +234,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto mt-8 max-w-2xl rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8"
         >
-          <h3 className="text-lg font-black text-gray-900">
+          <h3 className="text-lg font-black text-tof-indigo">
             {t('packages.includedIn', { label: selectedLevelLocalized.label })}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
@@ -255,18 +255,18 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                       alt={format.name}
                     />
                   ) : (
-                    <Check className="h-4 w-4 text-emerald-500" />
+                    <Check className="h-4 w-4 text-tof-green" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-900">{format.name}</p>
+                  <p className="text-sm font-medium text-tof-indigo">{format.name}</p>
                   {format.videoUrl && (
                     <button
                       type="button"
                       onClick={() =>
                         setVideoModal({ name: format.name, videoUrl: format.videoUrl })
                       }
-                      className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1B144C] hover:underline"
+                      className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-tof-indigo hover:underline"
                     >
                       <Play className="h-3 w-3 fill-current" />
                       {t('packages.viewVideo')}
@@ -291,11 +291,11 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                       sizes="48px"
                     />
                   ) : (
-                    <Check className="h-4 w-4 text-emerald-500" />
+                    <Check className="h-4 w-4 text-tof-green" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-tof-indigo">
                     {item.name}
                     {item.footnote && '**'}
                   </p>
@@ -333,8 +333,8 @@ function WhiteboardOption({
       onClick={onSelect}
       className={`flex w-full gap-4 rounded-2xl border-2 p-4 text-left transition-all ${
         selected
-          ? 'border-[#1B144C] bg-[#1B144C]/5 shadow-md'
-          : 'border-gray-200 bg-white hover:border-indigo-200 hover:shadow-sm'
+          ? 'border-tof-indigo bg-tof-indigo/5 shadow-md'
+          : 'border-gray-200 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
       }`}
     >
       <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
@@ -342,20 +342,20 @@ function WhiteboardOption({
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-start justify-between gap-2">
-          <p className="font-bold text-gray-900">{title}</p>
+          <p className="font-bold text-tof-indigo">{title}</p>
           {priceLabel && (
-            <span className="shrink-0 text-sm font-bold text-[#1B144C]">{priceLabel}</span>
+            <span className="shrink-0 text-sm font-bold text-tof-indigo">{priceLabel}</span>
           )}
         </div>
         {badge && (
-          <span className="mt-1 inline-flex rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
+          <span className="mt-1 inline-flex rounded-full bg-tof-green/15 px-2.5 py-0.5 text-xs font-bold text-tof-green">
             {badge}
           </span>
         )}
         <p className="mt-2 text-sm text-gray-600">{description}</p>
       </div>
       {selected && (
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B144C] text-white">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-tof-indigo text-white">
           <Check className="h-4 w-4" strokeWidth={3} />
         </span>
       )}
@@ -367,7 +367,7 @@ function WhiteboardPicker({ hasFreeWhiteboard, value, onChange }) {
   const { t } = useLocale();
   return (
     <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-      <h3 className="font-bold text-gray-900">{t('packages.whiteboardHeading')}</h3>
+      <h3 className="font-bold text-tof-indigo">{t('packages.whiteboardHeading')}</h3>
       {hasFreeWhiteboard ? (
         <p className="mt-2 text-sm text-gray-600">{t('packages.whiteboardFreeInfo')}</p>
       ) : (
@@ -618,9 +618,9 @@ const PakkettenPage = () => {
                 key={id}
                 className={`flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-colors md:px-5 ${
                   active
-                    ? 'border-[#1B144C] bg-[#1B144C] text-white shadow-lg'
+                    ? 'border-tof-indigo bg-tof-indigo text-white shadow-lg'
                     : done
-                      ? 'border-emerald-200 bg-emerald-50 text-emerald-900 shadow-sm'
+                      ? 'border-tof-green/30 bg-tof-green/10 text-tof-indigo shadow-sm'
                       : 'border-gray-200 bg-white text-gray-800 shadow-md'
                 }`}
               >
@@ -650,7 +650,7 @@ const PakkettenPage = () => {
                 type="button"
                 onClick={goNext}
                 disabled={!canGoNext()}
-                className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+                className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
               >
                 {t('packages.next')}
                 <ArrowRight className="h-4 w-4" />
@@ -660,7 +660,7 @@ const PakkettenPage = () => {
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!quote}
-                className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+                className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
               >
                 <ShoppingCart className="h-5 w-5" />
                 {t('packages.addToCart')}
@@ -677,7 +677,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {t('packages.step1Title')}
               </h2>
               <p className="mb-10 text-center text-gray-600">
@@ -699,7 +699,7 @@ const PakkettenPage = () => {
                       }}
                       className={`group flex h-full flex-col overflow-hidden rounded-3xl border-4 bg-white text-left shadow-lg transition-shadow ${
                         selected
-                          ? `${pkg.borderColor} ring-4 ring-offset-2 ring-[#1B144C]/20`
+                          ? `${pkg.borderColor} ring-4 ring-offset-2 ring-tof-indigo/20`
                           : 'border-gray-100 hover:shadow-xl'
                       }`}
                     >
@@ -713,20 +713,20 @@ const PakkettenPage = () => {
                           quality={65}
                         />
                         {pkg.badge && (
-                          <span className="absolute right-3 top-3 z-10 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold text-white shadow-md">
+                          <span className="absolute right-3 top-3 z-10 rounded-full bg-tof-green px-3 py-1 text-xs font-bold text-white shadow-md">
                             {pkg.badge}
                           </span>
                         )}
                         {selected && (
-                          <span className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#1B144C] shadow-md">
+                          <span className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-tof-indigo shadow-md">
                             <Check className="h-5 w-5" strokeWidth={3} />
                           </span>
                         )}
                       </div>
-                      <div className={`flex flex-1 flex-col bg-gradient-to-r ${pkg.color} p-5 text-white`}>
-                        <h3 className="text-xl font-black">{pkg.title}</h3>
+                      <div className={`flex flex-1 flex-col ${pkg.color} p-5 text-white`}>
+                        <h3 className="text-xl font-black text-white">{pkg.title}</h3>
                         <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                          <span className="text-2xl font-black">
+                          <span className="text-2xl font-black text-white">
                             {t('packages.from')} {formatEuro(pkg.vanafPrice)}
                           </span>
                           <span className="text-sm font-medium text-white/85">{t('packages.shippingIncl')}</span>
@@ -753,7 +753,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {packageId === 'combi'
                   ? t('packages.step2TitleCombi')
                   : t('packages.step2Title')}
@@ -766,8 +766,8 @@ const PakkettenPage = () => {
 
               {packageId === 'combi' ? (
                 <div className="space-y-12">
-                  <div className="mx-auto max-w-2xl rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center">
-                    <p className="text-sm font-bold uppercase tracking-wide text-emerald-800">
+                  <div className="mx-auto max-w-2xl rounded-2xl border border-tof-green/30 bg-tof-green/10 px-5 py-4 text-center">
+                    <p className="text-sm font-bold uppercase tracking-wide text-tof-green">
                       {t('packages.combiDiscountBadge')}
                     </p>
                     {tennisLevelId && padelLevelId ? (
@@ -775,11 +775,11 @@ const PakkettenPage = () => {
                         <p className="mt-2 text-sm text-gray-500 line-through">
                           {formatEuro(LEVEL_PRICES[tennisLevelId] + LEVEL_PRICES[padelLevelId])} {t('packages.exVat')}
                         </p>
-                        <p className="mt-1 text-2xl font-black text-[#1B144C]">
+                        <p className="mt-1 text-2xl font-black text-tof-indigo">
                           {formatEuro(getCombiLevelPrice(tennisLevelId, padelLevelId))}{' '}
                           <span className="text-sm font-medium text-gray-600">{t('packages.exVat')}</span>
                         </p>
-                        <p className="mt-1 text-sm font-semibold text-emerald-700">
+                        <p className="mt-1 text-sm font-semibold text-tof-green">
                           {t('packages.combiSavings', {
                             amount: formatEuro(
                               LEVEL_PRICES[tennisLevelId] +
@@ -790,11 +790,11 @@ const PakkettenPage = () => {
                         </p>
                       </>
                     ) : (
-                      <p className="mt-2 text-sm text-emerald-900">{t('packages.combiHint')}</p>
+                      <p className="mt-2 text-sm text-tof-indigo">{t('packages.combiHint')}</p>
                     )}
                   </div>
                   <div>
-                    <h3 className="mb-6 text-center text-lg font-bold text-sky-700">{t('packages.tennis')}</h3>
+                    <h3 className="mb-6 text-center text-lg font-bold text-tof-blue">{t('packages.tennis')}</h3>
                     <LevelPicker
                       sport="tennis"
                       selectedLevelId={tennisLevelId}
@@ -831,7 +831,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {t('packages.step3Title')}
               </h2>
               <p className="mb-10 text-center text-gray-600">
@@ -852,16 +852,16 @@ const PakkettenPage = () => {
                       }}
                       className={`rounded-2xl border-2 p-6 text-left transition-all ${
                         selected
-                          ? 'border-[#1B144C] bg-[#1B144C]/5 shadow-md'
-                          : 'border-gray-200 bg-white hover:border-indigo-200 hover:shadow-sm'
+                          ? 'border-tof-indigo bg-tof-indigo/5 shadow-md'
+                          : 'border-gray-200 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
                       }`}
                     >
-                      <p className="text-lg font-black text-gray-900">{tier.label}</p>
+                      <p className="text-lg font-black text-tof-indigo">{tier.label}</p>
                       <p className="mt-2 text-sm text-gray-600">
                         {t('packages.buttonsAdvice', { count: suggested })}
                       </p>
                       {selected && (
-                        <span className="mt-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#1B144C] text-white">
+                        <span className="mt-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-tof-indigo text-white">
                           <Check className="h-4 w-4" strokeWidth={3} />
                         </span>
                       )}
@@ -879,7 +879,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {t('packages.step4Title')}
               </h2>
               <p className="mb-6 text-center text-gray-600">
@@ -892,8 +892,8 @@ const PakkettenPage = () => {
                   onClick={() => setHasOwnButtons(true)}
                   className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold transition-all ${
                     hasOwnButtons === true
-                      ? 'border-[#1B144C] bg-[#1B144C]/5'
-                      : 'border-gray-200 bg-white hover:border-indigo-200'
+                      ? 'border-tof-indigo bg-tof-indigo/5'
+                      : 'border-gray-200 bg-white hover:border-tof-indigo/30'
                   }`}
                 >
                   {t('packages.haveButtons')}
@@ -903,8 +903,8 @@ const PakkettenPage = () => {
                   onClick={() => setHasOwnButtons(false)}
                   className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold transition-all ${
                     hasOwnButtons === false
-                      ? 'border-[#1B144C] bg-[#1B144C]/5'
-                      : 'border-gray-200 bg-white hover:border-indigo-200'
+                      ? 'border-tof-indigo bg-tof-indigo/5'
+                      : 'border-gray-200 bg-white hover:border-tof-indigo/30'
                   }`}
                 >
                   {t('packages.orderButtons')}
@@ -930,7 +930,7 @@ const PakkettenPage = () => {
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="min-w-[4rem] text-center text-2xl font-black text-gray-900">
+                    <span className="min-w-[4rem] text-center text-2xl font-black text-tof-indigo">
                       {buttonCount}
                     </span>
                     <Button
@@ -943,7 +943,7 @@ const PakkettenPage = () => {
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
-                  <p className="mt-3 text-center text-sm font-semibold text-[#1B144C]">
+                  <p className="mt-3 text-center text-sm font-semibold text-tof-indigo">
                     {formatEuro((buttonCount / BUTTON_PACK_SIZE) * BUTTON_PRICE_PER_PACK)} {t('packages.exVat')}
                   </p>
                 </div>
@@ -958,7 +958,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {t('packages.step5Title')}
               </h2>
               <p className="mb-10 text-center text-gray-600">
@@ -973,7 +973,7 @@ const PakkettenPage = () => {
                       key={productId}
                       className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm md:p-6"
                     >
-                      <p className="font-bold text-gray-900">{product?.name}</p>
+                      <p className="font-bold text-tof-indigo">{product?.name}</p>
                       <p className="mt-1 text-sm text-gray-600">
                         {t('packages.playersQuestion')}
                       </p>
@@ -989,8 +989,8 @@ const PakkettenPage = () => {
                               }
                               className={`overflow-hidden rounded-xl border-2 text-left transition-all ${
                                 selected
-                                  ? 'border-[#1B144C] ring-2 ring-[#1B144C]/20'
-                                  : 'border-gray-200 hover:border-indigo-200'
+                                  ? 'border-tof-indigo ring-2 ring-tof-indigo/20'
+                                  : 'border-gray-200 hover:border-tof-indigo/30'
                               }`}
                             >
                               <div className="relative aspect-[3/4] w-full bg-gray-50">
@@ -1002,7 +1002,7 @@ const PakkettenPage = () => {
                                   sizes="(max-width: 640px) 50vw, 220px"
                                 />
                                 {selected && (
-                                  <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#1B144C] text-white shadow-md">
+                                  <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-tof-indigo text-white shadow-md">
                                     <Check className="h-4 w-4" strokeWidth={3} />
                                   </span>
                                 )}
@@ -1010,7 +1010,7 @@ const PakkettenPage = () => {
                               <div
                                 className={`px-3 py-2.5 text-xs font-semibold leading-snug sm:text-sm ${
                                   selected
-                                    ? 'bg-[#1B144C]/5 text-[#1B144C]'
+                                    ? 'bg-tof-indigo/5 text-tof-indigo'
                                     : 'text-gray-700'
                                 }`}
                               >
@@ -1034,7 +1034,7 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-poppins text-2xl font-black text-gray-900 md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
                 {t('packages.step6Title', { title: quote.package.title, level: quote.levelLabel })}
               </h2>
               <p className="mb-10 text-center text-gray-600">
@@ -1050,7 +1050,7 @@ const PakkettenPage = () => {
                   />
 
                   <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-                    <h3 className="mb-4 font-bold text-gray-900">{t('packages.formatsInPackage')}</h3>
+                    <h3 className="mb-4 font-bold text-tof-indigo">{t('packages.formatsInPackage')}</h3>
                     <ul className="space-y-4">
                       {quote.formatLines.map((line) => (
                         <li
@@ -1065,7 +1065,7 @@ const PakkettenPage = () => {
                             />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="font-bold text-gray-900">{line.name}</p>
+                            <p className="font-bold text-tof-indigo">{line.name}</p>
                             {line.players && (
                               <p className="text-sm text-gray-500">{line.players}</p>
                             )}
@@ -1074,7 +1074,7 @@ const PakkettenPage = () => {
                       ))}
                     </ul>
 
-                    <h3 className="mb-3 mt-8 font-bold text-gray-900">{t('packages.alsoIncluded')}</h3>
+                    <h3 className="mb-3 mt-8 font-bold text-tof-indigo">{t('packages.alsoIncluded')}</h3>
                     <ul className="space-y-3">
                       {quote.bundleLines.map((item) => (
                         <li
@@ -1092,15 +1092,15 @@ const PakkettenPage = () => {
                                 sizes="48px"
                               />
                             ) : (
-                              <Check className="h-4 w-4 text-emerald-500" />
+                              <Check className="h-4 w-4 text-tof-green" />
                             )}
                           </div>
                           <div className="min-w-0 flex-1 text-sm text-gray-700">
-                            <p className="font-bold text-gray-900">
+                            <p className="font-bold text-tof-indigo">
                               {item.name}
                               {item.footnote && '**'}
                               {item.price > 0 && (
-                                <span className="ml-2 font-bold text-[#1B144C]">
+                                <span className="ml-2 font-bold text-tof-indigo">
                                   {formatEuro(item.price)}
                                 </span>
                               )}
@@ -1130,7 +1130,7 @@ const PakkettenPage = () => {
                 </div>
 
                 <div className="lg:col-span-2">
-                  <div className="sticky top-28 rounded-3xl border border-indigo-100 bg-white p-6 shadow-lg md:p-8">
+                  <div className="sticky top-28 rounded-3xl border border-tof-indigo/10 bg-white p-6 shadow-lg md:p-8">
                     <div className="relative mb-4 aspect-video overflow-hidden rounded-2xl">
                       <Image
                         src={quote.package.image}
@@ -1143,7 +1143,7 @@ const PakkettenPage = () => {
                     <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
                       {quote.package.subtitle}
                     </p>
-                    <h3 className="text-2xl font-black text-gray-900">
+                    <h3 className="text-2xl font-black text-tof-indigo">
                       {quote.package.title} · {quote.levelLabel}
                     </h3>
 
@@ -1164,7 +1164,7 @@ const PakkettenPage = () => {
                           <dd>{formatEuro(quote.whiteboardExBtw)}</dd>
                         </div>
                       )}
-                      <div className="flex justify-between border-t border-gray-100 pt-2 font-bold text-gray-900">
+                      <div className="flex justify-between border-t border-gray-100 pt-2 font-bold text-tof-indigo">
                         <dt>{t('packages.totalEx')}</dt>
                         <dd>{formatEuro(quote.totalExBtw)}</dd>
                       </div>
@@ -1172,7 +1172,7 @@ const PakkettenPage = () => {
                         <dt>{t('packages.vat')}</dt>
                         <dd>{formatEuro(quote.btw)}</dd>
                       </div>
-                      <div className="flex justify-between text-lg font-black text-[#1B144C]">
+                      <div className="flex justify-between text-lg font-black text-tof-indigo">
                         <dt>{t('packages.totalInc')}</dt>
                         <dd>{formatEuro(quote.totalIncBtw)}</dd>
                       </div>
@@ -1180,7 +1180,7 @@ const PakkettenPage = () => {
 
                     <Button
                       onClick={handleAddToCart}
-                      className="mt-6 w-full gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] py-6 font-bold"
+                      className="mt-6 w-full gap-2 rounded-2xl bg-tof-indigo py-6 font-bold"
                     >
                       <ShoppingCart className="h-5 w-5" />
                       {t('packages.addToCart')}
@@ -1208,7 +1208,7 @@ const PakkettenPage = () => {
               type="button"
               onClick={goNext}
               disabled={!canGoNext()}
-              className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+              className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
             >
               {t('packages.next')}
               <ArrowRight className="h-4 w-4" />
@@ -1218,7 +1218,7 @@ const PakkettenPage = () => {
               type="button"
               onClick={handleAddToCart}
               disabled={!quote}
-              className="gap-2 rounded-2xl bg-gradient-to-r from-[#1B144C] to-[#3B2F7A] px-8 font-bold"
+              className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
             >
               <ShoppingCart className="h-5 w-5" />
               {t('packages.addToCart')}

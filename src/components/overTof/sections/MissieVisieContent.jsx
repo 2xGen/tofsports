@@ -43,7 +43,7 @@ const MissieVisieContent = ({ useAnchors = false }) => {
           <p className="mb-8 text-xl font-bold text-orange-500">{ot(locale, c.pillars)}</p>
           <p className="mb-6 text-xl font-semibold text-gray-900">{ot(locale, c.missionLead)}</p>
           <p className="mb-8 text-lg leading-relaxed text-gray-600">{ot(locale, c.missionBody)}</p>
-          <div className="rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-6 md:p-8">
+          <div className="rounded-2xl border border-tof-orange/30 bg-tof-orange/10 p-6 md:p-8">
             <h4 className="mb-2 text-xl font-bold text-gray-900">{ot(locale, c.ctaTitle)}</h4>
             <p className="mb-6 text-gray-600">{ot(locale, c.ctaBody)}</p>
             <div className="flex flex-col gap-3 sm:flex-row">
