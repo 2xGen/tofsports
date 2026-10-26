@@ -49,7 +49,7 @@ const HeroSection = () => {
       className="relative min-h-svh overflow-hidden bg-white pb-16 pt-20 md:pb-20"
     >
       {/* Phone / iPad: pie in normal flow so copy sits cleanly below */}
-      <div className="relative z-10 w-[min(92vw,440px)] -translate-x-[14%] -translate-y-[26%] sm:w-[min(85vw,520px)] sm:-translate-x-[12%] sm:-translate-y-[22%] md:w-[min(72vw,580px)] lg:hidden">
+      <div className="relative z-10 w-[min(108vw,520px)] -translate-x-[14%] -translate-y-[26%] sm:w-[min(95vw,560px)] sm:-translate-x-[12%] sm:-translate-y-[22%] md:w-[min(80vw,620px)] lg:hidden">
         <Image
           src={HERO_PIE_SRC}
           alt="Jeugd bij het Padel Club Clash TOF scoresysteem"
