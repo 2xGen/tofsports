@@ -3,13 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from '@/i18n/Link';
 import { useLocale } from '@/i18n/LocaleProvider';
-
-const BACKGROUND_IMAGE =
-  'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/herkenbaar.jpg';
 
 const outcomesNl = [
   'Spelen kinderen vaker',
@@ -32,86 +27,82 @@ const RecognitionPunchSection = () => {
   const outcomes = locale === 'en' ? outcomesEn : outcomesNl;
 
   return (
-    <section id="part-herkenbaar" className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={BACKGROUND_IMAGE}
-          alt={
-            locale === 'en'
-              ? 'Juniors at the tennis and padel club'
-              : 'Jeugd op de tennis- en padelclub'
-          }
-          fill
-          sizes="100vw"
-          className="object-cover"
-          quality={85}
-        />
-        <div
-          className="absolute inset-0 bg-tof-indigo/85"
-          aria-hidden
-        />
+    <section id="part-herkenbaar" className="relative overflow-hidden">
+      <div className="bg-tof-indigo py-16 md:py-24 lg:py-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: '-8%' }}
+            >
+              <h2 className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-[2.75rem]">
+                {locale === 'en' ? 'Does this sound familiar?' : 'Herken je dit?'}
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-white/90 md:mt-8 md:text-lg md:leading-8">
+                {locale === 'en'
+                  ? 'Juniors come for their lesson, but rarely play outside training. Coaches constantly look for new activities and the sense of belonging among juniors stays behind.'
+                  : 'Jeugdleden komen voor hun les, maar spelen weinig buiten de training om. Trainers zoeken continu naar nieuwe activiteiten en het clubgevoel onder jeugdspelers blijft achter.'}
+              </p>
+              <p className="mt-5 text-base leading-relaxed text-white/90 md:text-lg md:leading-8">
+                {locale === 'en'
+                  ? 'With TOF Sports you create an environment where juniors play more often, take on challenges together and stay actively involved.'
+                  : 'Met TOF Sports creëer je een omgeving waarin jeugdspelers vaker spelen, samen uitdagingen aangaan en actief betrokken blijven.'}
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              viewport={{ once: true, margin: '-8%' }}
+            >
+              <h3 className="font-heading text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-[2.75rem]">
+                {locale === 'en' ? 'As a result' : 'Daardoor'}
+              </h3>
+              <ul className="mt-8 flex flex-col gap-5 md:mt-10 md:gap-6">
+                {outcomes.map((item, index) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: -8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: 0.1 + index * 0.05 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-4"
+                  >
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tof-yellow sm:h-11 sm:w-11"
+                      aria-hidden
+                    >
+                      <Image
+                        src="/icon-check.png"
+                        alt=""
+                        width={28}
+                        height={28}
+                        className="h-5 w-5 object-contain sm:h-6 sm:w-6"
+                      />
+                    </span>
+                    <span className="font-heading text-base font-medium leading-snug text-white md:text-lg">
+                      {item}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      <div className="container relative z-10 mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          viewport={{ once: true, margin: '-8%' }}
-          className="mx-auto w-full max-w-3xl rounded-[2rem] border border-white/20 bg-white/95 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-md md:rounded-[2.5rem] md:p-11 lg:p-12"
-        >
-          <h2 className="text-center font-heading text-2xl font-black leading-tight tracking-tight text-tof-indigo md:text-3xl lg:text-4xl">
-            {t('home.recognitionTitle')}
-          </h2>
-
-          <p className="mt-6 text-center font-heading text-base font-medium leading-relaxed text-gray-600 md:text-lg">
-            {locale === 'en'
-              ? 'Juniors come for their lesson, but rarely play outside training. Coaches constantly look for new activities and the sense of belonging among juniors stays behind.'
-              : 'Jeugdleden komen voor hun les, maar spelen weinig buiten de training om. Trainers zoeken continu naar nieuwe activiteiten en het clubgevoel onder jeugdspelers blijft achter.'}
-          </p>
-
-          <p className="mt-5 text-center font-heading text-base font-medium leading-relaxed text-gray-800 md:text-lg">
-            {locale === 'en'
-              ? 'With TOF Sports you create an environment where juniors play more often, take on challenges together and stay actively involved.'
-              : 'Met TOF Sports creëer je een omgeving waarin jeugdspelers vaker spelen, samen uitdagingen aangaan en actief betrokken blijven.'}
-          </p>
-
-          <p className="mt-8 text-center font-heading text-lg font-bold text-tof-indigo md:text-xl">
-            {locale === 'en' ? 'As a result:' : 'Daardoor:'}
-          </p>
-
-          <ul className="mx-auto mt-5 flex max-w-md flex-col gap-3.5 md:mt-6 md:gap-4">
-            {outcomes.map((item, index) => (
-              <motion.li
-                key={item}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.35, delay: index * 0.06 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-3 text-left"
-              >
-                <span
-                  className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-tof-green"
-                  aria-hidden
-                >
-                  <Check className="h-4 w-4 text-white" strokeWidth={3} />
-                </span>
-                <span className="font-heading text-base font-medium leading-snug text-gray-700">
-                  {item}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
-
-          <div className="mt-9 flex justify-center md:mt-10">
-            <Button
-              asChild
-              className="rounded-2xl bg-tof-indigo px-8 py-6 text-base font-bold text-white shadow-lg hover:bg-tof-indigo/90 md:text-lg"
-            >
-              <Link href="/pakketten">{t('nav.packages')}</Link>
-            </Button>
-          </div>
-        </motion.div>
+      <div className="bg-tof-yellow py-10 md:py-12">
+        <div className="flex justify-center px-4">
+          <Link
+            href="/pakketten"
+            className="inline-flex items-center rounded-full bg-tof-indigo px-10 py-3.5 text-base font-semibold text-tof-yellow transition hover:bg-tof-indigo/90 md:px-12 md:py-4 md:text-lg"
+          >
+            {t('nav.packages')}
+          </Link>
+        </div>
       </div>
     </section>
   );

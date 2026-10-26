@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
     <Button
       asChild
       variant="secondary"
-      className="shrink-0 rounded-2xl border-none bg-white px-6 py-5 text-base font-bold text-tof-indigo shadow-lg hover:bg-white/90 md:px-8 md:py-6 md:text-lg w-full sm:w-auto"
+      className="shrink-0 rounded-2xl border-none bg-tof-yellow px-6 py-5 text-base font-semibold text-tof-indigo shadow-lg hover:bg-tof-yellow/90 md:px-8 md:py-6 md:text-lg w-full sm:w-auto"
     >
       <Link href={linkUrl}>{ctaText}</Link>
     </Button>

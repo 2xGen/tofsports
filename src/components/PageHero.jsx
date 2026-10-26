@@ -12,26 +12,40 @@ import { HERO_WAVE_PATH } from '@/data/heroSlides';
 const PageHero = ({
   image,
   waveFill = '#F9FAFB',
+  showWave = true,
+  /** Photo only — no dim overlay, no title stack */
+  imageOnly = false,
+  /** Tailwind object-position class, e.g. object-top */
+  objectPosition = 'object-center',
+  /** cover | contain — contain zooms out to show more of the photo */
+  objectFit = 'cover',
   minHeight = '60vh',
   className = '',
   children,
 }) => {
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef, { once: false, amount: 0.3 });
+  const hasCopy = !imageOnly && children != null;
 
   const minHeightClass =
-    minHeight === '45vh'
-      ? 'min-h-[45vh]'
-      : minHeight === '50vh'
-        ? 'min-h-[50vh]'
+    minHeight === '32vh'
+      ? 'min-h-[32vh] max-h-[280px] md:max-h-[320px]'
+      : minHeight === '36vh'
+        ? 'min-h-[36vh] max-h-[300px] md:max-h-[360px]'
         : minHeight === '40vh'
-          ? 'min-h-[40vh]'
-          : 'min-h-[60vh]';
+          ? 'min-h-[40vh] max-h-[340px] md:max-h-[400px]'
+          : minHeight === '45vh'
+            ? 'min-h-[45vh]'
+            : minHeight === '50vh'
+              ? 'min-h-[50vh]'
+              : 'min-h-[60vh]';
 
   return (
     <section
       ref={heroRef}
-      className={`relative isolate flex items-center justify-center overflow-hidden ${minHeightClass} ${className}`}
+      className={`relative isolate overflow-hidden ${minHeightClass} ${
+        objectFit === 'contain' ? 'bg-white' : ''
+      } ${hasCopy ? 'flex items-center justify-center' : ''} ${className}`}
     >
       <div className="absolute inset-0 z-0">
         <Image
@@ -40,28 +54,35 @@ const PageHero = ({
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className={`${objectFit === 'contain' ? 'object-contain' : 'object-cover'} ${objectPosition}`}
           quality={90}
           aria-hidden
         />
       </div>
-      <div
-        className="absolute inset-0 z-[1] bg-black/50"
-        aria-hidden
-      />
-      <div className="container relative z-10 mx-auto px-4 py-16 pb-20 text-center md:pb-24">
-        {typeof children === 'function' ? children(heroInView) : children}
-      </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1000 100"
-          preserveAspectRatio="none"
-          className="h-14 w-full md:h-12"
+      {!imageOnly && (
+        <div className="absolute inset-0 z-[1] bg-black/50" aria-hidden />
+      )}
+      {hasCopy && (
+        <div
+          className={`container relative z-10 mx-auto px-4 py-16 text-center ${
+            showWave ? 'pb-20 md:pb-24' : 'pb-16 md:pb-20'
+          }`}
         >
-          <path d={HERO_WAVE_PATH} fill={waveFill} />
-        </svg>
-      </div>
+          {typeof children === 'function' ? children(heroInView) : children}
+        </div>
+      )}
+      {showWave && (
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1000 100"
+            preserveAspectRatio="none"
+            className="h-14 w-full md:h-12"
+          >
+            <path d={HERO_WAVE_PATH} fill={waveFill} />
+          </svg>
+        </div>
+      )}
     </section>
   );
 };

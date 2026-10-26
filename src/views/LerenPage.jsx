@@ -15,7 +15,7 @@ const LerenPage = () => {
   const t = (node) => ot(locale, node);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-tof-indigo pt-20">
       <PageHero image={getPageHeroImage('/leren')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
@@ -33,10 +33,10 @@ const LerenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
+          className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 md:p-8 mb-8"
         >
-          <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.intro.heading)}</h2>
+          <div className="space-y-6 text-white/80">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t(C.intro.heading)}</h2>
 
             <p className="text-lg leading-relaxed">{t(C.intro.body)}</p>
 
@@ -48,8 +48,8 @@ const LerenPage = () => {
                     <div className="w-12 h-12 bg-rose-500 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t(card.title)}</h3>
-                    <p className="text-gray-600">{t(card.desc)}</p>
+                    <h3 className="text-xl font-bold text-white mb-2">{t(card.title)}</h3>
+                    <p className="text-white/70">{t(card.desc)}</p>
                   </div>
                 );
               })}
@@ -63,10 +63,10 @@ const LerenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
+          className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 md:p-8 mb-8"
         >
-          <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(C.why.heading)}</h2>
+          <div className="space-y-6 text-white/80">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t(C.why.heading)}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
@@ -78,8 +78,8 @@ const LerenPage = () => {
                         <Icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900">{t(item.title)}</h4>
-                        <p className="text-gray-600">{t(item.desc)}</p>
+                        <h4 className="font-bold text-white">{t(item.title)}</h4>
+                        <p className="text-white/70">{t(item.desc)}</p>
                       </div>
                     </div>
                   );
@@ -95,8 +95,8 @@ const LerenPage = () => {
                         <Icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-gray-900">{t(item.title)}</h4>
-                        <p className="text-gray-600">{t(item.desc)}</p>
+                        <h4 className="font-bold text-white">{t(item.title)}</h4>
+                        <p className="text-white/70">{t(item.desc)}</p>
                       </div>
                     </div>
                   );
@@ -120,14 +120,14 @@ const LerenPage = () => {
             <Button
               asChild
               size="lg"
-              className="bg-white text-lime-600 hover:bg-gray-100 font-bold text-lg"
+              className="bg-tof-surface text-lime-600 hover:bg-white/10 font-bold text-lg"
             >
               <Link href="/sparen">{t(C.cta.ctaSparen)}</Link>
             </Button>
             <Button
               asChild
               size="lg"
-              className="bg-orange-500 text-white hover:bg-orange-600 font-bold text-lg"
+              className="bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90 font-bold text-lg"
             >
               <Link href="/webshop">{t(C.cta.ctaWebshop)}</Link>
             </Button>

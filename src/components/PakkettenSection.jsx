@@ -14,7 +14,7 @@ const PakkettenSection = () => {
     <section
       ref={sectionRef}
       id="part2"
-      className="relative overflow-hidden bg-gray-50 py-20 md:py-28"
+      className="relative overflow-hidden bg-white py-20 md:py-28"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -22,14 +22,16 @@ const PakkettenSection = () => {
         transition={{ duration: 0.6 }}
         className="container relative z-10 mx-auto max-w-6xl px-4"
       >
-        <div className="mb-10 text-center md:mb-12">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-tof-indigo/70">
+        <div className="mb-6 text-center md:mb-8">
+          <p className="text-base font-semibold text-tof-indigo md:text-lg">
             {t('home.packagesEyebrow')}
           </p>
         </div>
         <PakkettenCardsGrid
           showPackageDetails={false}
           showSubtitle={false}
+          light
+          overlayStyle
           title={t('home.packagesTitle')}
           ctaLabel={t('home.packagesCta')}
           description={

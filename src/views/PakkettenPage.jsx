@@ -21,7 +21,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useCart } from '@/context/CartContext';
-import PageHero, { PageHeroEyebrow, PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
+import PageHero from '@/components/PageHero';
 import { getPageHeroImage } from '@/data/heroSlides';
 import FormatThumbnail from '@/components/FormatThumbnail';
 import { getYouTubeId } from '@/components/ProductVideo';
@@ -143,7 +143,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
 
   return (
     <>
-      <p className="mb-4 text-center text-sm text-gray-500">
+      <p className="mb-4 text-center text-sm text-tof-indigo/70">
         {t('packages.step2Hint')}
       </p>
 
@@ -161,14 +161,14 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               onClick={() => onSelect(level.id)}
               className={`relative flex h-full flex-col rounded-2xl border-2 p-5 text-left transition-all ${
                 selected
-                  ? 'border-tof-indigo bg-tof-indigo text-white shadow-lg ring-4 ring-tof-indigo/15'
-                  : 'border-gray-200 bg-white text-tof-indigo hover:border-tof-indigo/40 hover:shadow-md'
+                  ? 'border-tof-yellow bg-tof-yellow text-tof-indigo shadow-lg ring-4 ring-tof-yellow/30'
+                  : 'border-tof-indigo/15 bg-white text-tof-indigo hover:border-tof-indigo/40 hover:shadow-md'
               }`}
             >
               {level.id === 'compleet' && (
                 <span
                   className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-bold ${
-                    selected ? 'bg-white text-tof-indigo' : 'bg-orange-500 text-white'
+                    selected ? 'bg-tof-indigo text-tof-yellow' : 'bg-tof-yellow text-tof-indigo'
                   }`}
                 >
                   {t('packages.popular')}
@@ -178,24 +178,24 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <div className="flex items-start justify-between gap-2">
                 <p className="text-xl font-black">{level.label}</p>
                 {selected && (
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-tof-indigo">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-tof-indigo text-tof-yellow">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
                 )}
               </div>
 
-              <p className={`mt-3 text-2xl font-black ${selected ? 'text-white' : 'text-tof-indigo'}`}>
+              <p className="mt-3 text-2xl font-black text-tof-indigo">
                 {formatEuro(LEVEL_PRICES[level.id])}
               </p>
-              <p className={`text-sm ${selected ? 'text-white/80' : 'text-gray-500'}`}>
+              <p className={`text-sm ${selected ? 'text-tof-indigo/80' : 'text-tof-indigo/60'}`}>
                 {t('packages.exVat')}
               </p>
 
-              <p className={`mt-4 text-sm leading-relaxed ${selected ? 'text-white/90' : 'text-gray-600'}`}>
+              <p className={`mt-4 text-sm leading-relaxed ${selected ? 'text-tof-indigo/90' : 'text-tof-indigo/70'}`}>
                 {level.description}
               </p>
 
-              <ul className={`mt-4 space-y-1.5 text-xs ${selected ? 'text-white/85' : 'text-gray-500'}`}>
+              <ul className={`mt-4 space-y-1.5 text-xs ${selected ? 'text-tof-indigo/85' : 'text-tof-indigo/60'}`}>
                 <li className="flex items-center gap-2">
                   <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
                   {t('packages.formatsCount', { count: formatCount })}
@@ -215,8 +215,8 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
               <span
                 className={`mt-5 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold ${
                   selected
-                    ? 'bg-white text-tof-indigo'
-                    : 'bg-tof-indigo/10 text-tof-indigo'
+                    ? 'bg-tof-indigo text-tof-yellow'
+                    : 'bg-[#F3F3F5] text-tof-indigo'
                 }`}
               >
                 {selected
@@ -232,12 +232,12 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mx-auto mt-8 max-w-2xl rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8"
+          className="mx-auto mt-8 max-w-2xl rounded-3xl border border-tof-indigo/15 bg-[#F3F3F5] p-6 shadow-sm md:p-8"
         >
-          <h3 className="text-lg font-black text-tof-indigo">
+          <h3 className="text-lg font-semibold text-tof-indigo">
             {t('packages.includedIn', { label: selectedLevelLocalized.label })}
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-tof-indigo/60">
             {t('packages.includedHint')}
           </p>
 
@@ -245,9 +245,9 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
             {selectedFormats.map((format) => (
               <li
                 key={format.id}
-                className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+                className="flex gap-3 rounded-xl border border-tof-indigo/15 bg-white p-2.5"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-tof-indigo/15 bg-[#F3F3F5]">
                   {format.image ? (
                     <FormatThumbnail
                       thumbnail={format.thumbnail}
@@ -255,7 +255,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                       alt={format.name}
                     />
                   ) : (
-                    <Check className="h-4 w-4 text-tof-green" />
+                    <Check className="h-4 w-4 text-tof-indigo" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -278,9 +278,9 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
             {selectedBundles.map((item) => (
               <li
                 key={item.id}
-                className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+                className="flex gap-3 rounded-xl border border-tof-indigo/15 bg-white p-2.5"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-tof-indigo/15 bg-[#F3F3F5]">
                   {item.image ? (
                     <Image
                       src={item.image}
@@ -291,7 +291,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                       sizes="48px"
                     />
                   ) : (
-                    <Check className="h-4 w-4 text-tof-green" />
+                    <Check className="h-4 w-4 text-tof-indigo" />
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -300,7 +300,7 @@ function LevelPicker({ sport, selectedLevelId, onSelect }) {
                     {item.footnote && '**'}
                   </p>
                   {item.description && (
-                    <p className="text-xs text-gray-500">{item.description}</p>
+                    <p className="text-xs text-tof-indigo/60">{item.description}</p>
                   )}
                 </div>
               </li>
@@ -333,29 +333,29 @@ function WhiteboardOption({
       onClick={onSelect}
       className={`flex w-full gap-4 rounded-2xl border-2 p-4 text-left transition-all ${
         selected
-          ? 'border-tof-indigo bg-tof-indigo/5 shadow-md'
-          : 'border-gray-200 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
+          ? 'border-tof-indigo bg-white shadow-md ring-2 ring-tof-indigo/20'
+          : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
       }`}
     >
-      <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+      <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-tof-indigo/15 bg-[#F3F3F5]">
         <Image src={image} alt="" fill className="object-contain p-1" sizes="96px" />
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-start justify-between gap-2">
-          <p className="font-bold text-tof-indigo">{title}</p>
+          <p className="font-semibold text-tof-indigo">{title}</p>
           {priceLabel && (
-            <span className="shrink-0 text-sm font-bold text-tof-indigo">{priceLabel}</span>
+            <span className="shrink-0 text-sm font-semibold text-tof-indigo">{priceLabel}</span>
           )}
         </div>
         {badge && (
-          <span className="mt-1 inline-flex rounded-full bg-tof-green/15 px-2.5 py-0.5 text-xs font-bold text-tof-green">
+          <span className="mt-1 inline-flex rounded-full bg-tof-yellow px-2.5 py-0.5 text-xs font-bold text-tof-indigo">
             {badge}
           </span>
         )}
-        <p className="mt-2 text-sm text-gray-600">{description}</p>
+        <p className="mt-2 text-sm text-tof-indigo/70">{description}</p>
       </div>
       {selected && (
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-tof-indigo text-white">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-tof-yellow text-tof-indigo">
           <Check className="h-4 w-4" strokeWidth={3} />
         </span>
       )}
@@ -366,12 +366,12 @@ function WhiteboardOption({
 function WhiteboardPicker({ hasFreeWhiteboard, value, onChange }) {
   const { t } = useLocale();
   return (
-    <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-      <h3 className="font-bold text-tof-indigo">{t('packages.whiteboardHeading')}</h3>
+    <div className="rounded-3xl border border-tof-indigo/15 bg-[#F3F3F5] p-6 shadow-sm md:p-8">
+      <h3 className="font-semibold text-tof-indigo">{t('packages.whiteboardHeading')}</h3>
       {hasFreeWhiteboard ? (
-        <p className="mt-2 text-sm text-gray-600">{t('packages.whiteboardFreeInfo')}</p>
+        <p className="mt-2 text-sm text-tof-indigo/70">{t('packages.whiteboardFreeInfo')}</p>
       ) : (
-        <p className="mt-2 text-sm text-gray-600">{t('packages.whiteboardNoFreeInfo')}</p>
+        <p className="mt-2 text-sm text-tof-indigo/70">{t('packages.whiteboardNoFreeInfo')}</p>
       )}
 
       <div className="mt-5 space-y-3">
@@ -588,23 +588,31 @@ const PakkettenPage = () => {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <PageHero image={getPageHeroImage('/pakketten')} minHeight="45vh">
-        {(heroInView) => (
-          <div className="flex flex-col items-center">
-            <PageHeroEyebrow heroInView={heroInView}>{t('packages.heroEyebrow')}</PageHeroEyebrow>
-            <PageHeroTitle heroInView={heroInView} className="font-black">
-              {t('packages.heroTitle')}
-            </PageHeroTitle>
-            <PageHeroSubtitle heroInView={heroInView}>
-              {t('packages.heroSubtitle')}
-            </PageHeroSubtitle>
-          </div>
-        )}
-      </PageHero>
+  const primaryBtnClass =
+    'gap-2 rounded-full bg-tof-indigo px-8 font-bold text-tof-yellow hover:bg-tof-indigo/90';
+  const outlineBtnClass =
+    'gap-2 rounded-full border border-tof-indigo bg-white text-tof-indigo hover:bg-[#F3F3F5]';
 
-      <div className="container relative z-10 mx-auto max-w-6xl px-4 pb-24">
+  return (
+    <div className="min-h-screen bg-white pt-20">
+      <PageHero
+        image={getPageHeroImage('/pakketten')}
+        minHeight="40vh"
+        showWave={false}
+        imageOnly
+        objectPosition="object-[center_28%]"
+      />
+
+      <div className="container relative z-10 mx-auto max-w-6xl px-4 pb-24 pt-10 md:pt-14">
+        <div className="mb-10 text-center md:mb-12">
+          <h1 className="font-heading text-3xl font-bold tracking-tight text-tof-indigo md:text-4xl">
+            {t('packages.heroTitle')}
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-tof-indigo md:text-lg">
+            {t('packages.heroSubtitle')}
+          </p>
+        </div>
+
         <nav
           className="mb-10 flex flex-wrap justify-center gap-2 md:mb-12 md:gap-3"
           aria-label={t('packages.stepsAria')}
@@ -616,12 +624,12 @@ const PakkettenPage = () => {
             return (
               <div
                 key={id}
-                className={`flex items-center gap-2 rounded-full border-2 px-4 py-2.5 text-sm font-bold transition-colors md:px-5 ${
+                className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold transition-colors md:px-5 ${
                   active
-                    ? 'border-tof-indigo bg-tof-indigo text-white shadow-lg'
+                    ? 'border-tof-indigo bg-tof-indigo text-tof-yellow shadow-lg'
                     : done
-                      ? 'border-tof-green/30 bg-tof-green/10 text-tof-indigo shadow-sm'
-                      : 'border-gray-200 bg-white text-gray-800 shadow-md'
+                      ? 'border-tof-indigo/20 bg-[#F3F3F5] text-tof-indigo'
+                      : 'border-tof-indigo/30 bg-white text-tof-indigo'
                 }`}
               >
                 {done ? <Check className="h-4 w-4 shrink-0" /> : <Icon className="h-4 w-4 shrink-0" />}
@@ -638,9 +646,9 @@ const PakkettenPage = () => {
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
             <Button
               type="button"
-              variant="ghost"
+              variant="outline"
               onClick={goBack}
-              className="gap-2"
+              className={outlineBtnClass}
             >
               <ArrowLeft className="h-4 w-4" />
               {t('packages.prev')}
@@ -650,7 +658,7 @@ const PakkettenPage = () => {
                 type="button"
                 onClick={goNext}
                 disabled={!canGoNext()}
-                className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
+                className={primaryBtnClass}
               >
                 {t('packages.next')}
                 <ArrowRight className="h-4 w-4" />
@@ -660,7 +668,7 @@ const PakkettenPage = () => {
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!quote}
-                className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
+                className={primaryBtnClass}
               >
                 <ShoppingCart className="h-5 w-5" />
                 {t('packages.addToCart')}
@@ -677,10 +685,10 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {t('packages.step1Title')}
               </h2>
-              <p className="mb-10 text-center text-gray-600">
+              <p className="mb-10 text-center text-tof-indigo/70">
                 {t('packages.step1Subtitle')}
               </p>
               <div className="grid gap-6 md:grid-cols-3">
@@ -697,10 +705,8 @@ const PakkettenPage = () => {
                         setPadelLevelId(null);
                         setStep(2);
                       }}
-                      className={`group flex h-full flex-col overflow-hidden rounded-3xl border-4 bg-white text-left shadow-lg transition-shadow ${
-                        selected
-                          ? `${pkg.borderColor} ring-4 ring-offset-2 ring-tof-indigo/20`
-                          : 'border-gray-100 hover:shadow-xl'
+                      className={`group flex h-full flex-col overflow-hidden bg-white text-left ${
+                        selected ? 'ring-4 ring-tof-indigo' : ''
                       }`}
                     >
                       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -713,27 +719,27 @@ const PakkettenPage = () => {
                           quality={65}
                         />
                         {pkg.badge && (
-                          <span className="absolute right-3 top-3 z-10 rounded-full bg-tof-green px-3 py-1 text-xs font-bold text-white shadow-md">
+                          <span className="absolute right-3 top-3 z-10 rounded-full bg-tof-yellow px-3 py-1 text-xs font-bold text-tof-indigo shadow-md">
                             {pkg.badge}
                           </span>
                         )}
                         {selected && (
-                          <span className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-tof-indigo shadow-md">
+                          <span className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-tof-yellow text-tof-indigo shadow-md">
                             <Check className="h-5 w-5" strokeWidth={3} />
                           </span>
                         )}
                       </div>
-                      <div className={`flex flex-1 flex-col ${pkg.color} p-5 text-white`}>
-                        <h3 className="text-xl font-black text-white">{pkg.title}</h3>
+                      <div className="flex flex-1 flex-col bg-tof-yellow p-5 text-tof-indigo">
+                        <h3 className="text-xl font-black text-tof-indigo">{pkg.title}</h3>
                         <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                          <span className="text-2xl font-black text-white">
+                          <span className="text-2xl font-black text-tof-indigo">
                             {t('packages.from')} {formatEuro(pkg.vanafPrice)}
                           </span>
-                          <span className="text-sm font-medium text-white/85">{t('packages.shippingIncl')}</span>
+                          <span className="text-sm font-medium text-tof-indigo/85">{t('packages.shippingIncl')}</span>
                         </p>
                         <div className="mt-2 min-h-7">
                           {pkg.id === 'combi' && (
-                            <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white">
+                            <span className="inline-flex rounded-full bg-tof-indigo/10 px-3 py-1 text-xs font-bold text-tof-indigo">
                               {t('packages.combiDiscountBadge')}
                             </span>
                           )}
@@ -753,12 +759,12 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {packageId === 'combi'
                   ? t('packages.step2TitleCombi')
                   : t('packages.step2Title')}
               </h2>
-              <p className="mb-10 text-center text-gray-600">
+              <p className="mb-10 text-center text-tof-indigo/70">
                 {packageId === 'combi'
                   ? t('packages.step2SubtitleCombi')
                   : t('packages.step2Subtitle')}
@@ -766,20 +772,20 @@ const PakkettenPage = () => {
 
               {packageId === 'combi' ? (
                 <div className="space-y-12">
-                  <div className="mx-auto max-w-2xl rounded-2xl border border-tof-green/30 bg-tof-green/10 px-5 py-4 text-center">
-                    <p className="text-sm font-bold uppercase tracking-wide text-tof-green">
+                  <div className="mx-auto max-w-2xl rounded-2xl border border-tof-indigo/15 bg-[#F3F3F5] px-5 py-4 text-center">
+                    <p className="text-sm font-bold uppercase tracking-wide text-tof-indigo">
                       {t('packages.combiDiscountBadge')}
                     </p>
                     {tennisLevelId && padelLevelId ? (
                       <>
-                        <p className="mt-2 text-sm text-gray-500 line-through">
+                        <p className="mt-2 text-sm text-tof-indigo/50 line-through">
                           {formatEuro(LEVEL_PRICES[tennisLevelId] + LEVEL_PRICES[padelLevelId])} {t('packages.exVat')}
                         </p>
-                        <p className="mt-1 text-2xl font-black text-tof-indigo">
+                        <p className="mt-1 text-2xl font-semibold text-tof-indigo">
                           {formatEuro(getCombiLevelPrice(tennisLevelId, padelLevelId))}{' '}
-                          <span className="text-sm font-medium text-gray-600">{t('packages.exVat')}</span>
+                          <span className="text-sm font-medium text-tof-indigo/70">{t('packages.exVat')}</span>
                         </p>
-                        <p className="mt-1 text-sm font-semibold text-tof-green">
+                        <p className="mt-1 text-sm font-semibold text-tof-indigo">
                           {t('packages.combiSavings', {
                             amount: formatEuro(
                               LEVEL_PRICES[tennisLevelId] +
@@ -794,7 +800,7 @@ const PakkettenPage = () => {
                     )}
                   </div>
                   <div>
-                    <h3 className="mb-6 text-center text-lg font-bold text-tof-blue">{t('packages.tennis')}</h3>
+                    <h3 className="mb-6 text-center text-lg font-bold text-tof-indigo">{t('packages.tennis')}</h3>
                     <LevelPicker
                       sport="tennis"
                       selectedLevelId={tennisLevelId}
@@ -802,7 +808,7 @@ const PakkettenPage = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="mb-6 text-center text-lg font-bold text-orange-600">{t('packages.padel')}</h3>
+                    <h3 className="mb-6 text-center text-lg font-semibold text-tof-indigo">{t('packages.padel')}</h3>
                     <LevelPicker
                       sport="padel"
                       selectedLevelId={padelLevelId}
@@ -818,8 +824,8 @@ const PakkettenPage = () => {
                 />
               )}
 
-              <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-gray-500">
-                <span className="font-semibold text-gray-600">**</span> {ot(locale, TOF_SCORE_APP_FOOTNOTE)}
+              <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-tof-indigo/60">
+                <span className="font-semibold text-tof-indigo/70">**</span> {ot(locale, TOF_SCORE_APP_FOOTNOTE)}
               </p>
             </motion.div>
           )}
@@ -831,10 +837,10 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {t('packages.step3Title')}
               </h2>
-              <p className="mb-10 text-center text-gray-600">
+              <p className="mb-10 text-center text-tof-indigo/70">
                 {t('packages.step3Subtitle')}
               </p>
               <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-3">
@@ -852,16 +858,16 @@ const PakkettenPage = () => {
                       }}
                       className={`rounded-2xl border-2 p-6 text-left transition-all ${
                         selected
-                          ? 'border-tof-indigo bg-tof-indigo/5 shadow-md'
-                          : 'border-gray-200 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
+                          ? 'border-tof-indigo bg-[#F3F3F5] shadow-md ring-2 ring-tof-indigo/20'
+                          : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/30 hover:shadow-sm'
                       }`}
                     >
-                      <p className="text-lg font-black text-tof-indigo">{tier.label}</p>
-                      <p className="mt-2 text-sm text-gray-600">
+                      <p className="text-lg font-semibold text-tof-indigo">{tier.label}</p>
+                      <p className="mt-2 text-sm text-tof-indigo/70">
                         {t('packages.buttonsAdvice', { count: suggested })}
                       </p>
                       {selected && (
-                        <span className="mt-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-tof-indigo text-white">
+                        <span className="mt-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-tof-yellow text-tof-indigo">
                           <Check className="h-4 w-4" strokeWidth={3} />
                         </span>
                       )}
@@ -879,10 +885,10 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {t('packages.step4Title')}
               </h2>
-              <p className="mb-6 text-center text-gray-600">
+              <p className="mb-6 text-center text-tof-indigo/70">
                 {t('packages.step4Subtitle', { price: formatEuro(BUTTON_PRICE_PER_PACK) })}
               </p>
 
@@ -890,10 +896,10 @@ const PakkettenPage = () => {
                 <button
                   type="button"
                   onClick={() => setHasOwnButtons(true)}
-                  className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold transition-all ${
+                  className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold text-tof-indigo transition-all ${
                     hasOwnButtons === true
-                      ? 'border-tof-indigo bg-tof-indigo/5'
-                      : 'border-gray-200 bg-white hover:border-tof-indigo/30'
+                      ? 'border-tof-indigo bg-[#F3F3F5]'
+                      : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/30'
                   }`}
                 >
                   {t('packages.haveButtons')}
@@ -901,10 +907,10 @@ const PakkettenPage = () => {
                 <button
                   type="button"
                   onClick={() => setHasOwnButtons(false)}
-                  className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold transition-all ${
+                  className={`rounded-2xl border-2 px-6 py-4 text-left font-semibold text-tof-indigo transition-all ${
                     hasOwnButtons === false
-                      ? 'border-tof-indigo bg-tof-indigo/5'
-                      : 'border-gray-200 bg-white hover:border-tof-indigo/30'
+                      ? 'border-tof-indigo bg-[#F3F3F5]'
+                      : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/30'
                   }`}
                 >
                   {t('packages.orderButtons')}
@@ -912,8 +918,8 @@ const PakkettenPage = () => {
               </div>
 
               {hasOwnButtons === false && (
-                <div className="mx-auto max-w-md rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
-                  <p className="text-center text-sm text-gray-600">
+                <div className="mx-auto max-w-md rounded-3xl border border-tof-indigo/15 bg-[#F3F3F5] p-6 shadow-sm">
+                  <p className="text-center text-sm text-tof-indigo/70">
                     {t('packages.suggestedFor', {
                       tier: youthTier.label.toLowerCase(),
                       count: calculateSuggestedButtons(youthTier.playerCount),
@@ -927,10 +933,11 @@ const PakkettenPage = () => {
                       onClick={() => adjustButtons(-BUTTON_PACK_SIZE)}
                       disabled={buttonCount <= BUTTON_PACK_SIZE}
                       aria-label={t('packages.fewerButtons')}
+                      className="border-tof-indigo/30 text-tof-indigo"
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="min-w-[4rem] text-center text-2xl font-black text-tof-indigo">
+                    <span className="min-w-[4rem] text-center text-2xl font-semibold text-tof-indigo">
                       {buttonCount}
                     </span>
                     <Button
@@ -939,6 +946,7 @@ const PakkettenPage = () => {
                       size="icon"
                       onClick={() => adjustButtons(BUTTON_PACK_SIZE)}
                       aria-label={t('packages.moreButtons')}
+                      className="border-tof-indigo/30 text-tof-indigo"
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
@@ -958,10 +966,10 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {t('packages.step5Title')}
               </h2>
-              <p className="mb-10 text-center text-gray-600">
+              <p className="mb-10 text-center text-tof-indigo/70">
                 {t('packages.step5Subtitle')}
               </p>
               <div className="mx-auto max-w-4xl space-y-8">
@@ -971,10 +979,10 @@ const PakkettenPage = () => {
                   return (
                     <div
                       key={productId}
-                      className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm md:p-6"
+                      className="rounded-2xl border border-tof-indigo/15 bg-[#F3F3F5] p-5 shadow-sm md:p-6"
                     >
-                      <p className="font-bold text-tof-indigo">{product?.name}</p>
-                      <p className="mt-1 text-sm text-gray-600">
+                      <p className="font-semibold text-tof-indigo">{product?.name}</p>
+                      <p className="mt-1 text-sm text-tof-indigo/70">
                         {t('packages.playersQuestion')}
                       </p>
                       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -987,13 +995,13 @@ const PakkettenPage = () => {
                               onClick={() =>
                                 setPosterSizes((prev) => ({ ...prev, [productId]: option.id }))
                               }
-                              className={`overflow-hidden rounded-xl border-2 text-left transition-all ${
+                              className={`overflow-hidden rounded-xl border-2 bg-white text-left transition-all ${
                                 selected
                                   ? 'border-tof-indigo ring-2 ring-tof-indigo/20'
-                                  : 'border-gray-200 hover:border-tof-indigo/30'
+                                  : 'border-tof-indigo/15 hover:border-tof-indigo/30'
                               }`}
                             >
-                              <div className="relative aspect-[3/4] w-full bg-gray-50">
+                              <div className="relative aspect-[3/4] w-full bg-[#F3F3F5]">
                                 <Image
                                   src={option.image}
                                   alt={option.label}
@@ -1002,16 +1010,14 @@ const PakkettenPage = () => {
                                   sizes="(max-width: 640px) 50vw, 220px"
                                 />
                                 {selected && (
-                                  <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-tof-indigo text-white shadow-md">
+                                  <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-tof-yellow text-tof-indigo shadow-md">
                                     <Check className="h-4 w-4" strokeWidth={3} />
                                   </span>
                                 )}
                               </div>
                               <div
-                                className={`px-3 py-2.5 text-xs font-semibold leading-snug sm:text-sm ${
-                                  selected
-                                    ? 'bg-tof-indigo/5 text-tof-indigo'
-                                    : 'text-gray-700'
+                                className={`px-3 py-2.5 text-xs font-semibold leading-snug text-tof-indigo sm:text-sm ${
+                                  selected ? 'bg-tof-yellow' : 'bg-white'
                                 }`}
                               >
                                 {option.label}
@@ -1034,10 +1040,10 @@ const PakkettenPage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
             >
-              <h2 className="mb-2 text-center font-heading text-2xl font-black text-tof-indigo md:text-3xl">
+              <h2 className="mb-2 text-center font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
                 {t('packages.step6Title', { title: quote.package.title, level: quote.levelLabel })}
               </h2>
-              <p className="mb-10 text-center text-gray-600">
+              <p className="mb-10 text-center text-tof-indigo/70">
                 {t('packages.summaryFor', { youth: quote.youth.label })}
               </p>
 
@@ -1049,15 +1055,15 @@ const PakkettenPage = () => {
                     onChange={setWhiteboardChoice}
                   />
 
-                  <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-                    <h3 className="mb-4 font-bold text-tof-indigo">{t('packages.formatsInPackage')}</h3>
+                  <div className="rounded-3xl border border-tof-indigo/15 bg-[#F3F3F5] p-6 shadow-sm md:p-8">
+                    <h3 className="mb-4 font-semibold text-tof-indigo">{t('packages.formatsInPackage')}</h3>
                     <ul className="space-y-4">
                       {quote.formatLines.map((line) => (
                         <li
                           key={line.productId}
-                          className="flex gap-3 rounded-2xl border border-gray-100 bg-gray-50/80 p-3"
+                          className="flex gap-3 rounded-2xl border border-tof-indigo/15 bg-white p-3"
                         >
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-tof-indigo/15 bg-[#F3F3F5]">
                             <FormatThumbnail
                               thumbnail={line.thumbnail}
                               fallbackSrc={line.image}
@@ -1065,23 +1071,23 @@ const PakkettenPage = () => {
                             />
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="font-bold text-tof-indigo">{line.name}</p>
+                            <p className="font-semibold text-tof-indigo">{line.name}</p>
                             {line.players && (
-                              <p className="text-sm text-gray-500">{line.players}</p>
+                              <p className="text-sm text-tof-indigo/60">{line.players}</p>
                             )}
                           </div>
                         </li>
                       ))}
                     </ul>
 
-                    <h3 className="mb-3 mt-8 font-bold text-tof-indigo">{t('packages.alsoIncluded')}</h3>
+                    <h3 className="mb-3 mt-8 font-semibold text-tof-indigo">{t('packages.alsoIncluded')}</h3>
                     <ul className="space-y-3">
                       {quote.bundleLines.map((item) => (
                         <li
                           key={item.id ?? item.name}
-                          className="flex gap-3 rounded-xl border border-gray-100 bg-gray-50/80 p-2.5"
+                          className="flex gap-3 rounded-xl border border-tof-indigo/15 bg-white p-2.5"
                         >
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-white">
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-tof-indigo/15 bg-[#F3F3F5]">
                             {item.image ? (
                               <Image
                                 src={item.image}
@@ -1092,34 +1098,34 @@ const PakkettenPage = () => {
                                 sizes="48px"
                               />
                             ) : (
-                              <Check className="h-4 w-4 text-tof-green" />
+                              <Check className="h-4 w-4 text-tof-indigo" />
                             )}
                           </div>
-                          <div className="min-w-0 flex-1 text-sm text-gray-700">
-                            <p className="font-bold text-tof-indigo">
+                          <div className="min-w-0 flex-1 text-sm text-tof-indigo/80">
+                            <p className="font-semibold text-tof-indigo">
                               {item.name}
                               {item.footnote && '**'}
                               {item.price > 0 && (
-                                <span className="ml-2 font-bold text-tof-indigo">
+                                <span className="ml-2 font-semibold text-tof-indigo">
                                   {formatEuro(item.price)}
                                 </span>
                               )}
                             </p>
                             {item.description && (
-                              <p className="text-gray-600">{item.description}</p>
+                              <p className="text-tof-indigo/70">{item.description}</p>
                             )}
                           </div>
                         </li>
                       ))}
                     </ul>
                     {quote.bundleLines.some((item) => item.footnote) && (
-                      <p className="mt-3 text-xs leading-relaxed text-gray-500">
-                        <span className="font-semibold text-gray-600">**</span> {ot(locale, TOF_SCORE_APP_FOOTNOTE)}
+                      <p className="mt-3 text-xs leading-relaxed text-tof-indigo/60">
+                        <span className="font-semibold text-tof-indigo/70">**</span> {ot(locale, TOF_SCORE_APP_FOOTNOTE)}
                       </p>
                     )}
 
                     {quote.buttonCount > 0 && (
-                      <p className="mt-6 rounded-xl bg-orange-50 px-4 py-3 text-sm text-orange-900">
+                      <p className="mt-6 rounded-xl bg-tof-yellow/40 px-4 py-3 text-sm text-tof-indigo">
                         {t('packages.magnetButtonsLine', {
                           count: quote.buttonCount,
                           packs: quote.buttonCount / BUTTON_PACK_SIZE,
@@ -1130,7 +1136,7 @@ const PakkettenPage = () => {
                 </div>
 
                 <div className="lg:col-span-2">
-                  <div className="sticky top-28 rounded-3xl border border-tof-indigo/10 bg-white p-6 shadow-lg md:p-8">
+                  <div className="sticky top-28 rounded-3xl border border-tof-indigo/15 bg-white p-6 shadow-lg md:p-8">
                     <div className="relative mb-4 aspect-video overflow-hidden rounded-2xl">
                       <Image
                         src={quote.package.image}
@@ -1140,39 +1146,39 @@ const PakkettenPage = () => {
                         sizes="400px"
                       />
                     </div>
-                    <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-tof-indigo/60">
                       {quote.package.subtitle}
                     </p>
-                    <h3 className="text-2xl font-black text-tof-indigo">
+                    <h3 className="text-2xl font-semibold text-tof-indigo">
                       {quote.package.title} · {quote.levelLabel}
                     </h3>
 
-                    <dl className="mt-6 space-y-2 border-t border-gray-100 pt-4 text-sm">
-                      <div className="flex justify-between text-gray-600">
+                    <dl className="mt-6 space-y-2 border-t border-tof-indigo/15 pt-4 text-sm">
+                      <div className="flex justify-between text-tof-indigo/70">
                         <dt>{t('packages.pakketLine')}</dt>
                         <dd>{formatEuro(quote.packageExBtw)}</dd>
                       </div>
                       {quote.buttonsExBtw > 0 && (
-                        <div className="flex justify-between text-gray-600">
+                        <div className="flex justify-between text-tof-indigo/70">
                           <dt>{t('packages.magneetbuttonsLine')}</dt>
                           <dd>{formatEuro(quote.buttonsExBtw)}</dd>
                         </div>
                       )}
                       {quote.whiteboardExBtw > 0 && quote.whiteboardLine && (
-                        <div className="flex justify-between text-gray-600">
+                        <div className="flex justify-between text-tof-indigo/70">
                           <dt>{quote.whiteboardLine.name}</dt>
                           <dd>{formatEuro(quote.whiteboardExBtw)}</dd>
                         </div>
                       )}
-                      <div className="flex justify-between border-t border-gray-100 pt-2 font-bold text-tof-indigo">
+                      <div className="flex justify-between border-t border-tof-indigo/15 pt-2 font-semibold text-tof-indigo">
                         <dt>{t('packages.totalEx')}</dt>
                         <dd>{formatEuro(quote.totalExBtw)}</dd>
                       </div>
-                      <div className="flex justify-between text-gray-500">
+                      <div className="flex justify-between text-tof-indigo/60">
                         <dt>{t('packages.vat')}</dt>
                         <dd>{formatEuro(quote.btw)}</dd>
                       </div>
-                      <div className="flex justify-between text-lg font-black text-tof-indigo">
+                      <div className="flex justify-between text-lg font-semibold text-tof-indigo">
                         <dt>{t('packages.totalInc')}</dt>
                         <dd>{formatEuro(quote.totalIncBtw)}</dd>
                       </div>
@@ -1180,7 +1186,7 @@ const PakkettenPage = () => {
 
                     <Button
                       onClick={handleAddToCart}
-                      className="mt-6 w-full gap-2 rounded-2xl bg-tof-indigo py-6 font-bold"
+                      className={`mt-6 w-full py-6 ${primaryBtnClass}`}
                     >
                       <ShoppingCart className="h-5 w-5" />
                       {t('packages.addToCart')}
@@ -1195,10 +1201,10 @@ const PakkettenPage = () => {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4">
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             onClick={goBack}
             disabled={step === 1}
-            className="gap-2"
+            className={outlineBtnClass}
           >
             <ArrowLeft className="h-4 w-4" />
             {t('packages.prev')}
@@ -1208,7 +1214,7 @@ const PakkettenPage = () => {
               type="button"
               onClick={goNext}
               disabled={!canGoNext()}
-              className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
+              className={primaryBtnClass}
             >
               {t('packages.next')}
               <ArrowRight className="h-4 w-4" />
@@ -1218,7 +1224,7 @@ const PakkettenPage = () => {
               type="button"
               onClick={handleAddToCart}
               disabled={!quote}
-              className="gap-2 rounded-2xl bg-tof-indigo px-8 font-bold"
+              className={primaryBtnClass}
             >
               <ShoppingCart className="h-5 w-5" />
               {t('packages.addToCart')}

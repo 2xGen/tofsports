@@ -28,7 +28,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-tof-surface rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
             >
               {/* Header - Matching Hero Section Style */}
               <div className="relative bg-tof-blue/10 p-6 text-tof-indigo md:p-8 flex items-center justify-between overflow-hidden">
@@ -37,7 +37,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
                   onClick={onClose}
                   variant="ghost"
                   size="icon"
-                  className="text-gray-800 hover:bg-white/30 relative z-10"
+                  className="text-white/90 hover:bg-white/20 relative z-10"
                 >
                   <X className="h-6 w-6" />
                 </Button>
@@ -58,7 +58,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 
                     if (isHeading) {
                       return (
-                        <h3 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">
+                        <h3 key={index} className="text-2xl font-bold text-white mt-8 mb-4 first:mt-0">
                           {line.trim()}
                         </h3>
                       );
@@ -66,7 +66,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 
                     if (isSubHeading) {
                       return (
-                        <p key={index} className="text-gray-700 mb-2 ml-4">
+                        <p key={index} className="text-white/80 mb-2 ml-4">
                           {line.trim()}
                         </p>
                       );
@@ -75,7 +75,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
                     // Check for numbered lists
                     if (/^\d+\./.test(line.trim())) {
                       return (
-                        <p key={index} className="text-gray-700 mb-2 ml-4">
+                        <p key={index} className="text-white/80 mb-2 ml-4">
                           {line.trim()}
                         </p>
                       );
@@ -83,7 +83,7 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 
                     // Regular paragraph
                     return (
-                      <p key={index} className="text-gray-700 mb-4 leading-relaxed">
+                      <p key={index} className="text-white/80 mb-4 leading-relaxed">
                         {line.trim()}
                       </p>
                     );
@@ -92,10 +92,10 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-gray-200 p-6 bg-gray-50">
+              <div className="border-t border-white/15 p-6 bg-tof-indigo">
                 <Button
                   onClick={onClose}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                  className="w-full bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold"
                   size="lg"
                 >
                   {t('common.close')}

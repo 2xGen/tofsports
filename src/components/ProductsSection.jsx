@@ -56,7 +56,7 @@ const ProductsSection = () => {
   return (
     <section id="part3" className="relative overflow-visible pb-20 md:pb-32">
       {/* Vibrant Friendly Background */}
-      <div className="absolute inset-0 z-0 bg-tof-orange/5" />
+      <div className="absolute inset-0 z-0 bg-tof-indigo" />
       
       <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
          <div className="relative flex flex-col gap-12 md:flex-row">
@@ -68,26 +68,26 @@ const ProductsSection = () => {
                    initial={{ opacity: 0, y: 20 }}
                    whileInView={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.5 }}
-                   className="text-left bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-tof-orange/20"
+                   className="rounded-[2.5rem] border border-tof-indigo/10 bg-white p-10 text-left shadow-lg"
                  >
-                   <h2 className="text-3xl md:text-4xl font-black text-tof-indigo mb-5 leading-tight tracking-tight">
+                   <h2 className="mb-5 text-3xl font-semibold leading-tight tracking-tight text-tof-indigo md:text-4xl">
                       {t('home.productsSection.titlePrefix')}{' '}
-                      <span className="text-tof-orange">
+                      <span className="text-tof-indigo">
                         {t('home.productsSection.titleHighlight')}
                       </span>
                    </h2>
-                   <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium mb-4">
+                   <p className="mb-4 text-lg font-medium leading-relaxed text-tof-indigo/70 md:text-xl">
                       {t('home.productsSection.body1')}
                    </p>
-                   <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
+                   <p className="mb-6 text-base leading-relaxed text-tof-indigo/70 md:text-lg">
                       {t('home.productsSection.body2')}
                    </p>
-                   <p className="text-lg md:text-xl font-bold text-tof-indigo mb-6">
+                   <p className="mb-6 text-lg font-semibold text-tof-indigo md:text-xl">
                       {t('home.productsSection.question')}
                    </p>
                    <Button
                      asChild
-                     className="bg-tof-indigo text-white font-bold text-base md:text-lg py-6 px-8 rounded-2xl shadow-lg hover:bg-tof-indigo/90 w-full md:w-auto"
+                     className="w-full rounded-2xl bg-tof-yellow px-8 py-6 text-base font-semibold text-tof-indigo shadow-lg hover:bg-tof-yellow/90 md:w-auto md:text-lg"
                    >
                      <Link href="/pakketten">{t('home.productsSection.viewPackages')}</Link>
                    </Button>

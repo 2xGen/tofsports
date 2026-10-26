@@ -72,14 +72,6 @@ export const OVER_TOF = {
       },
     },
     {
-      id: 'magneetposters',
-      title: { nl: 'Magneetposters', en: 'Magnetic posters' },
-      subtitle: {
-        nl: 'Format-posters op magneet voor whiteboard — professioneel op de baan.',
-        en: 'Magnetic format posters for whiteboard — professional on court.',
-      },
-    },
-    {
       id: 'leraren-app',
       title: { nl: 'Leraren-app', en: 'Coach app' },
       subtitle: {
@@ -100,10 +92,6 @@ export const OVER_TOF = {
     {
       nl: 'Kinderen spelen een TOF format op de vereniging',
       en: 'Children playing a TOF format at the club',
-    },
-    {
-      nl: 'Jeugd bij het TOF scorebord op de baan',
-      en: 'Juniors at the TOF scoreboard on court',
     },
     {
       nl: 'Trainer en jeugd met het TOF padelbord op de baan',

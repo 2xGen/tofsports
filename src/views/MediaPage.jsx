@@ -3,8 +3,8 @@
 import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Images, PlayCircle, X } from 'lucide-react';
-import PageHero, { PageHeroSubtitle, PageHeroTitle } from '@/components/PageHero';
+import { X } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 import MediaGalleryItem, { MediaSpinner } from '@/components/MediaGalleryItem';
 import ProductVideo from '@/components/ProductVideo';
 import WarmupLiedCard from '@/components/WarmupLiedCard';
@@ -42,30 +42,28 @@ const MediaPage = () => {
   const allLoaded = activeLoadIndex >= mediaItems.length;
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <PageHero image={getPageHeroImage('/media')} minHeight="50vh">
-        {(heroInView) => (
-          <div className="flex flex-col items-center space-y-4 md:space-y-6">
-            <PageHeroTitle heroInView={heroInView}>{t('media.title')}</PageHeroTitle>
-            <PageHeroSubtitle heroInView={heroInView}>
-              {t('media.subtitle')}
-            </PageHeroSubtitle>
-          </div>
-        )}
-      </PageHero>
+    <div className="min-h-screen bg-white pt-20">
+      <PageHero
+        image={getPageHeroImage('/media')}
+        minHeight="40vh"
+        showWave={false}
+        imageOnly
+        objectPosition="object-[center_28%]"
+      />
 
-      <div className="container mx-auto max-w-6xl px-4 py-12">
+      <div className="container mx-auto max-w-6xl px-4 py-14 md:py-20">
         <motion.section
           id="tof-warmup-lied"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-10"
+          className="mb-14 md:mb-16"
         >
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-lg md:p-8">
-            <WarmupLiedCard />
-          </div>
+          <WarmupLiedCard
+            titleClassName="font-heading text-3xl font-bold tracking-tight text-tof-indigo md:text-4xl"
+            subtitleClassName="mt-4 max-w-2xl text-base leading-relaxed text-tof-indigo md:text-lg"
+          />
         </motion.section>
 
         {productVideos.length > 0 && (
@@ -74,25 +72,23 @@ const MediaPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-12"
+            className="mb-14 border-t border-tof-indigo/50 pt-14 md:mb-16 md:pt-16"
           >
-            <div className="mb-6 flex items-center gap-3">
-              <PlayCircle className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
-              <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{t('media.videosTitle')}</h2>
+            <div className="mb-8 text-center md:mb-10">
+              <h2 className="font-heading text-3xl font-bold tracking-tight text-tof-indigo md:text-4xl">
+                {t('media.videosTitle')}
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-tof-indigo md:text-lg">
+                {t('media.videosSubtitle')}
+              </p>
             </div>
-            <p className="mb-6 max-w-2xl text-sm text-gray-600 md:text-base">
-              {t('media.videosSubtitle')}
-            </p>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {productVideos.map((product) => (
-                <li
-                  key={`${product.category}-${product.id}`}
-                  className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
-                >
-                  <ProductVideo videoUrl={product.videoUrl} title={product.name} />
+                <li key={`${product.category}-${product.id}`} className="overflow-hidden bg-[#F3F3F5]">
+                  <ProductVideo videoUrl={product.videoUrl} title={product.name} light />
                   <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
-                    <p className="mt-0.5 text-sm font-medium text-orange-600">
+                    <h3 className="text-lg font-bold text-tof-indigo">{product.name}</h3>
+                    <p className="mt-0.5 text-sm font-medium text-tof-indigo/70">
                       {product.category === 'padel' ? t('packages.padel') : t('packages.tennis')}
                     </p>
                   </div>
@@ -107,17 +103,16 @@ const MediaPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6"
+          className="mb-8 border-t border-tof-indigo/50 pt-14 md:mb-10 md:pt-16"
         >
-          <div className="flex items-center gap-3">
-            <Images className="h-7 w-7 shrink-0 text-orange-500" aria-hidden />
-            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{t('media.photosTitle')}</h2>
-          </div>
+          <h2 className="text-center font-heading text-3xl font-bold tracking-tight text-tof-indigo md:text-4xl">
+            {t('media.photosTitle')}
+          </h2>
         </motion.section>
 
         {!allLoaded && (
-          <p className="mb-4 flex items-center gap-2 text-sm text-gray-500">
-            <MediaSpinner size="md" />
+          <p className="mb-4 flex items-center gap-2 text-sm text-tof-indigo/60">
+            <MediaSpinner size="md" light />
             <span>
               {t('media.loadingImages', {
                 current: Math.min(activeLoadIndex + 1, mediaItems.length),
@@ -143,6 +138,7 @@ const MediaPage = () => {
                 activeLoadIndex={activeLoadIndex}
                 onLoadComplete={handleLoadComplete}
                 onOpen={openLightbox}
+                light
               />
             </motion.li>
           ))}
@@ -176,7 +172,7 @@ const MediaPage = () => {
               className="relative max-h-[85vh] w-full max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-black/40">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/40">
                 {!lightboxReady && (
                   <div className="absolute inset-0 z-10 flex items-center justify-center">
                     <MediaSpinner size="lg" />

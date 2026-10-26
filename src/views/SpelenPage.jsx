@@ -15,7 +15,7 @@ const SpelenPage = () => {
   const t = (node) => ot(locale, node);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-tof-indigo pt-20">
       <PageHero image={getPageHeroImage('/spelen')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
@@ -33,10 +33,10 @@ const SpelenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
+          className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 md:p-8 mb-8"
         >
-          <div className="space-y-6 text-gray-700">
-            <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo mb-6">{t(C.intro.heading)}</h2>
+          <div className="space-y-6 text-white/80">
+            <h2 className="text-3xl md:text-4xl font-semibold text-white mb-6">{t(C.intro.heading)}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[Pencil, Target, Circle, Lightbulb].map((Icon, i) => {
@@ -46,8 +46,8 @@ const SpelenPage = () => {
                     <div className="w-12 h-12 bg-tof-blue/50 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-tof-indigo mb-2">{t(card.title)}</h3>
-                    <p className="text-gray-600">{t(card.desc)}</p>
+                    <h3 className="text-xl font-semibold text-white mb-2">{t(card.title)}</h3>
+                    <p className="text-white/70">{t(card.desc)}</p>
                   </div>
                 );
               })}
@@ -61,39 +61,39 @@ const SpelenPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 mb-8"
+          className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 md:p-8 mb-8"
         >
-          <div className="space-y-6 text-gray-700">
+          <div className="space-y-6 text-white/80">
             <div className="flex items-center gap-4 mb-6">
               <div className="bg-tof-blue text-white p-3 rounded-xl">
                 <RotateCcw className="w-8 h-8" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-tof-indigo">{t(C.swirl.heading)}</h2>
+              <h2 className="text-3xl md:text-4xl font-semibold text-white">{t(C.swirl.heading)}</h2>
             </div>
 
             <p className="text-lg leading-relaxed">{t(C.swirl.intro1)}</p>
 
             <div className="bg-tof-blue/5 rounded-xl p-6 border border-tof-blue/15 my-6">
-              <p className="text-lg font-medium text-gray-800">{t(C.swirl.callout)}</p>
+              <p className="text-lg font-medium text-white/90">{t(C.swirl.callout)}</p>
             </div>
 
             {/* Zelfsturend Leren */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+              <h3 className="text-2xl font-semibold text-white flex items-center gap-2">
                 <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">1</span>
                 {t(C.swirl.section1.title)}
               </h3>
-              <p className="text-gray-600">{t(C.swirl.section1.intro)}</p>
+              <p className="text-white/70">{t(C.swirl.section1.intro)}</p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[Target, Calendar, Search].map((Icon, i) => {
                   const card = C.swirl.section1.cards[i];
                   return (
-                    <div key={i} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                    <div key={i} className="bg-tof-surface border border-white/15 rounded-lg p-4 shadow-sm">
                       <h4 className="font-bold text-tof-blue mb-2 flex items-center gap-2">
                         <Icon className="w-4 h-4" /> {t(card.title)}
                       </h4>
-                      <p className="text-sm text-gray-600">{t(card.desc)}</p>
+                      <p className="text-sm text-white/70">{t(card.desc)}</p>
                     </div>
                   );
                 })}
@@ -102,18 +102,18 @@ const SpelenPage = () => {
 
             {/* Spelenderwijs Groeien */}
             <div className="space-y-4 mt-8">
-              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+              <h3 className="text-2xl font-semibold text-white flex items-center gap-2">
                 <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">2</span>
                 {t(C.swirl.section2.title)}
               </h3>
-              <p className="text-gray-600">{t(C.swirl.section2.intro)}</p>
+              <p className="text-white/70">{t(C.swirl.section2.intro)}</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                 <div className="bg-tof-yellow/15 rounded-xl p-6 border border-tof-yellow/40">
-                  <h4 className="font-bold text-lg text-tof-indigo mb-3 flex items-center gap-2">
+                  <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
                     <User className="w-5 h-5 text-yellow-600" /> {t(C.swirl.section2.individual.title)}
                   </h4>
-                  <ul className="space-y-2 text-gray-600">
+                  <ul className="space-y-2 text-white/70">
                     <li className="flex items-start gap-2">
                       <span className="text-yellow-500">•</span>
                       <span>{t(C.swirl.section2.individual.items[0])}</span>
@@ -123,7 +123,7 @@ const SpelenPage = () => {
                       <span>{t(C.swirl.section2.individual.items[1])}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-orange-500">→</span>
+                      <span className="text-tof-yellow">→</span>
                       <span>{t(C.swirl.section2.individual.items[2])}</span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -134,10 +134,10 @@ const SpelenPage = () => {
                 </div>
 
                 <div className="bg-tof-blue/5 rounded-xl p-6 border border-tof-blue/25">
-                  <h4 className="font-bold text-lg text-tof-indigo mb-3 flex items-center gap-2">
+                  <h4 className="font-bold text-lg text-white mb-3 flex items-center gap-2">
                     <Users className="w-5 h-5 text-blue-600" /> {t(C.swirl.section2.team.title)}
                   </h4>
-                  <ul className="space-y-2 text-gray-600">
+                  <ul className="space-y-2 text-white/70">
                     <li className="flex items-start gap-2">
                       <span className="text-blue-500">•</span>
                       <span>{t(C.swirl.section2.team.items[0])}</span>
@@ -159,7 +159,7 @@ const SpelenPage = () => {
               </div>
 
               <div className="bg-green-50 border-l-4 border-green-500 p-4 mt-4">
-                <p className="text-gray-700 flex items-start gap-2">
+                <p className="text-white/80 flex items-start gap-2">
                   <Lightbulb className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
                   <span>{t(C.swirl.section2.tip)}</span>
                 </p>
@@ -168,25 +168,25 @@ const SpelenPage = () => {
 
             {/* Thema-Bingo */}
             <div className="space-y-4 mt-8">
-              <h3 className="text-2xl font-bold text-tof-indigo flex items-center gap-2">
+              <h3 className="text-2xl font-semibold text-white flex items-center gap-2">
                 <span className="bg-tof-blue/10 text-tof-blue px-3 py-1 rounded-full text-sm">3</span>
                 {t(C.swirl.section3.title)}
               </h3>
-              <p className="text-gray-600">{t(C.swirl.section3.intro)}</p>
+              <p className="text-white/70">{t(C.swirl.section3.intro)}</p>
 
               <div className="bg-tof-red/5 rounded-xl p-6 border border-tof-red/20 mt-4">
                 <h4 className="font-bold text-tof-red mb-2">{t(C.swirl.section3.howHeading)}</h4>
-                <p className="text-gray-600 mb-3">{t(C.swirl.section3.how1)}</p>
-                <p className="text-gray-700 font-medium">{t(C.swirl.section3.how2)}</p>
+                <p className="text-white/70 mb-3">{t(C.swirl.section3.how1)}</p>
+                <p className="text-white/80 font-medium">{t(C.swirl.section3.how2)}</p>
               </div>
             </div>
 
             {/* Waarom dit werkt */}
             <div className="bg-tof-blue/10 rounded-xl p-6 mt-8">
-              <h3 className="text-xl font-bold text-tof-indigo mb-3 flex items-center gap-2">
+              <h3 className="text-xl font-semibold text-white mb-3 flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-tof-blue" /> {t(C.swirl.why.title)}
               </h3>
-              <p className="text-gray-700 leading-relaxed">{t(C.swirl.why.body)}</p>
+              <p className="text-white/80 leading-relaxed">{t(C.swirl.why.body)}</p>
             </div>
           </div>
         </motion.section>
@@ -205,14 +205,14 @@ const SpelenPage = () => {
             <Button
               asChild
               size="lg"
-              className="bg-white text-rose-500 hover:bg-gray-100 font-bold text-lg"
+              className="bg-tof-surface text-rose-500 hover:bg-white/10 font-bold text-lg"
             >
               <Link href="/leren">{t(C.cta.ctaLeren)}</Link>
             </Button>
             <Button
               asChild
               size="lg"
-              className="bg-orange-500 text-white hover:bg-orange-600 font-bold text-lg"
+              className="bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90 font-bold text-lg"
             >
               <Link href="/webshop">{t(C.cta.ctaWebshop)}</Link>
             </Button>

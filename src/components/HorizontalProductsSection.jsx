@@ -1,72 +1,150 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import ProductCard from '@/components/ProductCard';
-import { getKennisbankPillarCards } from '@/data/kennisbankGuides';
+import React, { useRef } from 'react';
+import Image from 'next/image';
+import { motion, useInView } from 'framer-motion';
+import Link from '@/i18n/Link';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { getKennisbankPillarCards } from '@/data/kennisbankGuides';
 
-const MOBILE_STICKY_TOPS = ['top-28', 'top-36', 'top-44'];
+const BENEFITS = [
+  {
+    id: 'play',
+    labelNl: 'Meer\nspeelmomenten',
+    labelEn: 'More\nplay moments',
+  },
+  {
+    id: 'engage',
+    labelNl: 'Meer\nbetrokkenheid',
+    labelEn: 'More\nengagement',
+  },
+  {
+    id: 'prep',
+    labelNl: 'Minder\nvoorbereiding',
+    labelEn: 'Less\npreparation',
+  },
+];
+
+const FeatureRow = ({ card, imageOnLeft, index }) => (
+  <motion.article
+    initial={{ opacity: 0, y: 28 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.25 }}
+    transition={{ duration: 0.5, delay: index * 0.05 }}
+    className="grid overflow-hidden md:grid-cols-2"
+  >
+    <div
+      className={`relative aspect-[16/10] w-full md:aspect-auto md:min-h-[320px] lg:min-h-[380px] ${
+        imageOnLeft ? 'md:order-1' : 'md:order-2'
+      }`}
+    >
+      <Image
+        src={card.image}
+        alt={card.imageAlt ?? card.title}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        quality={85}
+      />
+    </div>
+
+    <div
+      className={`flex flex-col justify-center bg-[#F3F3F5] px-8 py-10 sm:px-12 sm:py-12 md:px-14 lg:px-16 lg:py-16 ${
+        imageOnLeft ? 'md:order-2' : 'md:order-1'
+      }`}
+    >
+      <Image
+        src="/icon-check.png"
+        alt=""
+        width={56}
+        height={56}
+        className="mb-5 h-10 w-10 object-contain md:mb-6 md:h-12 md:w-12"
+      />
+      <h3 className="font-heading text-2xl font-semibold tracking-tight text-tof-indigo md:text-3xl">
+        {card.title}
+      </h3>
+      <p className="mt-4 max-w-md text-base leading-relaxed text-tof-indigo/75 md:mt-5 md:text-lg md:leading-8">
+        {card.description}
+      </p>
+      <Link
+        href={card.linkUrl}
+        className="mt-8 inline-flex w-fit items-center rounded-full bg-tof-yellow px-6 py-3 text-sm font-semibold text-tof-indigo transition hover:bg-tof-yellow/90 md:mt-10 md:px-7 md:py-3.5 md:text-base"
+      >
+        {card.ctaText}
+      </Link>
+    </div>
+  </motion.article>
+);
 
 const HorizontalProductsSection = () => {
-  const { locale } = useLocale();
+  const { locale, t } = useLocale();
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.2 });
   const pillarCards = getKennisbankPillarCards(locale);
 
   return (
-    <section id="part-waarom" className="relative overflow-visible pb-20 md:pb-32">
-      <div className="absolute inset-0 z-0 bg-tof-indigo/5" />
+    <section
+      ref={sectionRef}
+      id="part-waarom"
+      className="relative overflow-hidden bg-white py-16 md:py-24"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.6 }}
+          className="bg-tof-yellow px-6 py-14 sm:px-10 sm:py-16 md:px-16 md:py-20"
+        >
+          <h2 className="mb-12 text-center font-heading text-3xl font-semibold tracking-tight text-tof-indigo sm:mb-14 md:mb-16 md:text-4xl lg:text-[2.75rem]">
+            {t('home.howTitle')}
+          </h2>
 
-      <div className="container relative z-10 mx-auto px-4 pt-12 md:pt-14">
-        <div className="relative flex flex-col gap-12 md:flex-row">
-          <div className="md:w-1/2">
-            <div className="sticky top-28 pb-20 md:top-32">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="rounded-[2.5rem] border border-tof-indigo/10 bg-white/80 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] backdrop-blur-xl md:p-10"
-              >
-                <h2 className="mb-5 font-heading text-3xl font-black leading-tight tracking-tight text-tof-indigo md:text-4xl">
-                  {locale === 'en' ? (
-                    <>
-                      How{' '}
-                      <span className="text-tof-blue">
-                        TOF Sports
-                      </span>{' '}
-                      helps
-                    </>
-                  ) : (
-                    <>
-                      Hoe{' '}
-                      <span className="text-tof-blue">
-                        TOF Sports
-                      </span>{' '}
-                      helpt
-                    </>
-                  )}
-                </h2>
-                <p className="text-lg font-medium leading-relaxed text-gray-600 md:text-xl">
-                  {locale === 'en'
-                    ? 'We sharpen your youth programme and create joy in developing — with more play moments, more engagement and less prep for coaches.'
-                    : 'Wij zetten je jeugdprogramma op scherp en zorgen voor plezier in ontwikkelen. Dat doen we met meer speelmomenten, meer betrokkenheid en minder voorbereiding voor trainers.'}
-                </p>
-              </motion.div>
-            </div>
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-8 md:gap-12">
+            {BENEFITS.map((item, index) => {
+              const label = (locale === 'en' ? item.labelEn : item.labelNl).split(
+                '\n',
+              );
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                  transition={{ duration: 0.45, delay: 0.1 + index * 0.08 }}
+                  className="flex flex-col items-center text-center"
+                >
+                  <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-sm sm:h-28 sm:w-28 md:mb-6 md:h-32 md:w-32">
+                    <Image
+                      src="/icon-check.png"
+                      alt=""
+                      width={72}
+                      height={72}
+                      className="h-12 w-12 object-contain sm:h-14 sm:w-14 md:h-16 md:w-16"
+                    />
+                  </div>
+                  <p className="font-heading text-xl font-semibold leading-snug text-tof-indigo md:text-2xl">
+                    {label.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
+        </motion.div>
+      </div>
 
-          <div className="flex flex-col gap-16 pb-32 md:w-1/2 md:gap-0 md:pb-0">
-            {pillarCards.map((product, index) => (
-              <div
-                key={product.id}
-                className={`sticky ${MOBILE_STICKY_TOPS[index]} md:static ${index < pillarCards.length - 1 ? 'pb-8 md:pb-0' : ''} md:min-h-[calc(100dvh-3rem)]`}
-                style={{ zIndex: index + 1 }}
-              >
-                <div className="md:sticky md:top-32 md:h-[calc(100dvh-9rem)]">
-                  <ProductCard product={{ ...product, fullHeight: true }} />
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="container mx-auto mt-16 px-4 sm:px-6 md:mt-20 lg:mt-24 lg:px-8">
+        <div className="flex flex-col gap-10 md:gap-12 lg:gap-14">
+          {pillarCards.map((card, index) => (
+            <FeatureRow
+              key={card.id}
+              card={card}
+              index={index}
+              imageOnLeft={index % 2 === 1}
+            />
+          ))}
         </div>
       </div>
     </section>

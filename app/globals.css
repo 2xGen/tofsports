@@ -4,34 +4,37 @@
 
 @layer base {
   :root {
-    /* TOF brand */
-    --tof-indigo: #1c154e;
-    --tof-blue: #2374d9;
+    /* TOF brand — hoofdkleur + accent */
+    --tof-indigo: #1e1446;
+    --tof-surface: #261b5a;
+    --tof-yellow: #f0fa32;
+    /* Tenniskids primaire kleuren */
     --tof-red: #e34f55;
     --tof-orange: #f28c28;
     --tof-green: #43a66c;
-    --tof-yellow: #f4c542;
+    --tof-blue: #2374d9;
 
-    --background: 0 0% 100%;
-    --foreground: 248 57% 19%; /* indigo */
-    --card: 0 0% 100%;
-    --card-foreground: 248 57% 19%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 248 57% 19%;
-    /* Primary CTA = brand orange */
-    --primary: 28 88% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 248 40% 96%;
-    --secondary-foreground: 248 57% 19%;
-    --muted: 248 20% 96%;
-    --muted-foreground: 248 25% 40%;
-    --accent: 213 74% 49%; /* brand blue tint for soft accents */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 357 73% 60%; /* brand red */
+    /* Dark theme */
+    --background: 250 56% 18%; /* #1E1446 */
+    --foreground: 0 0% 100%;
+    --card: 249 54% 23%; /* #261B5A */
+    --card-foreground: 0 0% 100%;
+    --popover: 249 54% 23%;
+    --popover-foreground: 0 0% 100%;
+    /* Primary CTA = accent geel */
+    --primary: 64 95% 59%;
+    --primary-foreground: 250 56% 18%;
+    --secondary: 249 40% 28%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 249 35% 26%;
+    --muted-foreground: 0 0% 85%;
+    --accent: 64 95% 59%;
+    --accent-foreground: 250 56% 18%;
+    --destructive: 357 73% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 248 20% 90%;
-    --input: 248 20% 90%;
-    --ring: 28 88% 55%;
+    --border: 0 0% 100% / 0.12;
+    --input: 0 0% 100% / 0.12;
+    --ring: 64 95% 59%;
     --radius: 0.75rem;
   }
 }
@@ -46,7 +49,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-tof-indigo antialiased;
+    @apply bg-tof-indigo font-sans font-normal text-white antialiased;
   }
 
   h1,
@@ -55,17 +58,21 @@
   h4,
   h5,
   h6 {
-    @apply font-heading font-bold text-tof-indigo;
+    @apply font-heading font-semibold text-white;
   }
 }
 
 @layer utilities {
   .text-brand {
-    color: var(--tof-indigo);
+    color: var(--tof-yellow);
   }
 
   .bg-brand-solid {
     background-color: var(--tof-indigo);
+  }
+
+  .bg-tof-surface {
+    background-color: var(--tof-surface);
   }
 
   /* Animated Button Gradient Effect */
@@ -87,7 +94,7 @@
   .animated-button:hover::before,
   .animated-button:hover::after {
     opacity: 1;
-    background-color: var(--first-color, var(--tof-orange));
+    background-color: var(--first-color, var(--tof-yellow));
   }
 
   .animated-button:hover::before {

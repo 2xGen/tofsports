@@ -177,57 +177,57 @@ const WinkelmandPage = () => {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+      <div className="min-h-screen bg-tof-indigo pt-20 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-tof-yellow"></div>
       </div>
     );
   }
 
   if (isSubmitted && orderData) {
     return (
-      <div className="min-h-screen bg-gray-50 pt-20">
+      <div className="min-h-screen bg-tof-indigo pt-20">
         <div className="container mx-auto px-4 py-12 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl shadow-lg p-6 md:p-8"
+            className="bg-tof-surface rounded-2xl shadow-lg p-6 md:p-8"
           >
             {/* Success Header */}
             <div className="text-center mb-8">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-10 h-10 text-green-600" />
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('cart.thankYou')}</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl font-bold text-white mb-2">{t('cart.thankYou')}</h1>
+              <p className="text-white/70">
                 {t('cart.invoiceNumber')}: <span className="font-semibold">{orderData.orderNumber}</span>
               </p>
             </div>
 
             {/* Order Summary */}
-            <div className="bg-gray-50 rounded-xl p-6 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">{t('cart.orderSummary')}</h2>
+            <div className="bg-tof-indigo rounded-xl p-6 mb-6">
+              <h2 className="text-lg font-bold text-white mb-4">{t('cart.orderSummary')}</h2>
               <div className="space-y-2 mb-4">
                 {orderData.items.map((item, index) => (
                   <div key={index} className="flex justify-between text-sm">
-                    <span className="text-gray-600">
+                    <span className="text-white/70">
                       {item.quantity}x {item.productName} - {item.formatName}
                     </span>
                     <span className="font-medium">€{(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
-              <div className="border-t border-gray-200 pt-3 space-y-1">
+              <div className="border-t border-white/15 pt-3 space-y-1">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">{t('cart.subtotal')}</span>
+                  <span className="text-white/70">{t('cart.subtotal')}</span>
                   <span>€{orderData.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">{t('cart.vat')}</span>
+                  <span className="text-white/70">{t('cart.vat')}</span>
                   <span>€{orderData.btw.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2">
                   <span>{t('cart.total')}</span>
-                  <span className="text-orange-500">€{orderData.total.toFixed(2)}</span>
+                  <span className="text-tof-yellow">€{orderData.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -236,67 +236,67 @@ const WinkelmandPage = () => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <CreditCard className="w-5 h-5 text-yellow-600" />
-                <h2 className="text-lg font-bold text-gray-900">{t('cart.payDirect')}</h2>
+                <h2 className="text-lg font-bold text-white">{t('cart.payDirect')}</h2>
               </div>
-              <p className="text-gray-600 text-sm mb-4">{t('cart.payInstructions')}</p>
+              <p className="text-white/70 text-sm mb-4">{t('cart.payInstructions')}</p>
               
               <div className="space-y-3">
-                <div className="flex items-center justify-between bg-white rounded-lg p-3">
+                <div className="flex items-center justify-between bg-tof-surface rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">IBAN</p>
+                    <p className="text-xs text-white/60">IBAN</p>
                     <p className="font-mono font-medium">{BUSINESS_INFO.iban}</p>
                   </div>
                   <button 
                     onClick={() => copyToClipboard(BUSINESS_INFO.iban, 'iban')}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                   >
-                    {copiedField === 'iban' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                    {copiedField === 'iban' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white/50" />}
                   </button>
                 </div>
                 
-                <div className="flex items-center justify-between bg-white rounded-lg p-3">
+                <div className="flex items-center justify-between bg-tof-surface rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">BIC</p>
+                    <p className="text-xs text-white/60">BIC</p>
                     <p className="font-mono font-medium">{BUSINESS_INFO.bic}</p>
                   </div>
                   <button 
                     onClick={() => copyToClipboard(BUSINESS_INFO.bic, 'bic')}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                   >
-                    {copiedField === 'bic' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                    {copiedField === 'bic' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white/50" />}
                   </button>
                 </div>
                 
-                <div className="flex items-center justify-between bg-white rounded-lg p-3">
+                <div className="flex items-center justify-between bg-tof-surface rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">{t('cart.accountName')}</p>
+                    <p className="text-xs text-white/60">{t('cart.accountName')}</p>
                     <p className="font-medium">{BUSINESS_INFO.name}</p>
                   </div>
                   <button 
                     onClick={() => copyToClipboard(BUSINESS_INFO.name, 'name')}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                   >
-                    {copiedField === 'name' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                    {copiedField === 'name' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white/50" />}
                   </button>
                 </div>
                 
-                <div className="flex items-center justify-between bg-white rounded-lg p-3">
+                <div className="flex items-center justify-between bg-tof-surface rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-gray-500">{t('cart.description')}</p>
+                    <p className="text-xs text-white/60">{t('cart.description')}</p>
                     <p className="font-medium">{t('cart.invoiceRef')} {orderData.orderNumber}</p>
                   </div>
                   <button 
                     onClick={() => copyToClipboard(`${t('cart.invoiceRef')} ${orderData.orderNumber}`, 'ref')}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                   >
-                    {copiedField === 'ref' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                    {copiedField === 'ref' ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4 text-white/50" />}
                   </button>
                 </div>
                 
-                <div className="flex items-center justify-between bg-orange-100 rounded-lg p-3">
+                <div className="flex items-center justify-between bg-tof-yellow/30 rounded-lg p-3">
                   <div>
-                    <p className="text-xs text-orange-600">{t('cart.amountToPay')}</p>
-                    <p className="font-bold text-lg text-orange-600">€{orderData.total.toFixed(2)}</p>
+                    <p className="text-xs text-tof-indigo">{t('cart.amountToPay')}</p>
+                    <p className="font-bold text-lg text-tof-indigo">€{orderData.total.toFixed(2)}</p>
                   </div>
                   <button 
                     onClick={() => copyToClipboard(orderData.total.toFixed(2), 'amount')}
@@ -312,7 +312,7 @@ const WinkelmandPage = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <Button 
                 onClick={handleDownloadInvoice}
-                className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-6"
+                className="flex-1 bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold py-6"
                 size="lg"
               >
                 <Download className="w-5 h-5 mr-2" />
@@ -326,10 +326,10 @@ const WinkelmandPage = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="mt-6 text-center text-sm text-gray-500">
+            <div className="mt-6 text-center text-sm text-white/60">
               <p>{t('cart.questionsContact')}</p>
-              <p className="font-medium text-gray-700">Tel: {BUSINESS_INFO.phone}</p>
-              <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
+              <p className="font-medium text-white/80">Tel: {BUSINESS_INFO.phone}</p>
+              <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-tof-yellow hover:underline font-medium">info@tofsports.nl</a></p>
             </div>
           </motion.div>
         </div>
@@ -340,7 +340,7 @@ const WinkelmandPage = () => {
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-tof-indigo pt-20">
       <PageHero image={getPageHeroImage('/winkelmand')} minHeight="40vh">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4">
@@ -348,9 +348,9 @@ const WinkelmandPage = () => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={heroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
               transition={{ duration: 0.5 }}
-              className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-lg"
+              className="flex h-16 w-16 items-center justify-center rounded-full bg-tof-surface/95 shadow-lg"
             >
-              <ShoppingCart className="h-8 w-8 text-orange-500" />
+              <ShoppingCart className="h-8 w-8 text-tof-yellow" />
             </motion.div>
             <PageHeroTitle heroInView={heroInView} className="text-4xl md:text-6xl">
               {t('cart.title')}
@@ -371,12 +371,12 @@ const WinkelmandPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-12"
           >
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <ShoppingCart className="w-12 h-12 text-gray-400" />
+            <div className="w-24 h-24 bg-tof-surface rounded-full flex items-center justify-center mx-auto mb-6">
+              <ShoppingCart className="w-12 h-12 text-white/50" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('cart.empty')}</h2>
-            <p className="text-gray-600 mb-6">{t('cart.emptyBody')}</p>
-            <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600">
+            <h2 className="text-2xl font-bold text-white mb-4">{t('cart.empty')}</h2>
+            <p className="text-white/70 mb-6">{t('cart.emptyBody')}</p>
+            <Button asChild size="lg" className="bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90">
               <Link href="/webshop" className="flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" />
                 {t('cart.goToShop')}
@@ -388,7 +388,7 @@ const WinkelmandPage = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">{t('cart.yourProducts')}</h2>
+                <h2 className="text-2xl font-bold text-white">{t('cart.yourProducts')}</h2>
                 <Button 
                   variant="ghost" 
                   size="sm"
@@ -406,18 +406,18 @@ const WinkelmandPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white rounded-xl shadow-md border border-gray-100 p-4 md:p-6"
+                  className="bg-tof-surface rounded-xl shadow-md border border-white/10 p-4 md:p-6"
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg text-gray-900">{item.productName}</h3>
-                      <p className="text-gray-600 text-sm">{item.formatName}</p>
-                      <p className="text-gray-500 text-sm">{item.packageLabel}</p>
+                      <h3 className="font-bold text-lg text-white">{item.productName}</h3>
+                      <p className="text-white/70 text-sm">{item.formatName}</p>
+                      <p className="text-white/60 text-sm">{item.packageLabel}</p>
                       {item.extraName && (item.extraQuantity ?? 0) > 0 && (
-                        <p className="text-orange-600 text-sm">
+                        <p className="text-tof-indigo text-sm">
                           + {item.extraName} x {item.extraQuantity}
                           {item.extraPrice != null && (
-                            <span className="text-gray-500"> (€{(item.extraPrice * item.extraQuantity).toFixed(2)})</span>
+                            <span className="text-white/60"> (€{(item.extraPrice * item.extraQuantity).toFixed(2)})</span>
                           )}
                         </p>
                       )}
@@ -425,17 +425,17 @@ const WinkelmandPage = () => {
                     
                     <div className="flex items-center gap-4">
                       {/* Quantity controls */}
-                      <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                      <div className="flex items-center gap-2 bg-tof-surface rounded-lg p-1">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition-colors"
+                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-white/15 transition-colors"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-8 text-center font-medium">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-200 transition-colors"
+                          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-white/15 transition-colors"
                         >
                           <Plus className="w-4 h-4" />
                         </button>
@@ -443,11 +443,11 @@ const WinkelmandPage = () => {
 
                       {/* Price */}
                       <div className="text-right min-w-[80px]">
-                        <p className="font-bold text-lg text-gray-900">
+                        <p className="font-bold text-lg text-white">
                           €{(item.price * item.quantity).toFixed(2)}
                         </p>
                         {item.quantity > 1 && (
-                          <p className="text-gray-500 text-xs">€{item.price.toFixed(2)} {t('cart.perItem')}</p>
+                          <p className="text-white/60 text-xs">€{item.price.toFixed(2)} {t('cart.perItem')}</p>
                         )}
                       </div>
 
@@ -473,7 +473,7 @@ const WinkelmandPage = () => {
               >
                 <div className="flex flex-col md:flex-row gap-4">
                   {/* Whiteboard Image */}
-                  <div className="w-full md:w-48 h-36 bg-white rounded-lg overflow-hidden flex-shrink-0 border border-gray-200">
+                  <div className="w-full md:w-48 h-36 bg-tof-surface rounded-lg overflow-hidden flex-shrink-0 border border-white/15">
                     <img 
                       src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/whiteboard%20tof.png"
                       alt="Magnetisch Whiteboard"
@@ -484,30 +484,30 @@ const WinkelmandPage = () => {
                   {/* Content */}
                   <div className="flex-1">
                     <div className="flex items-start gap-2 mb-2">
-                      <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded">{t('cart.whiteboardBadge')}</span>
+                      <span className="bg-tof-yellow text-tof-indigo text-xs font-bold px-2 py-1 rounded">{t('cart.whiteboardBadge')}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg font-bold text-white mb-2">
                       {t('cart.whiteboardTitle')}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <p className="text-sm text-white/70 mb-3">
                       {t('cart.whiteboardBody')}
                     </p>
-                    <p className="text-xs text-gray-500 italic mb-3">
+                    <p className="text-xs text-white/60 italic mb-3">
                       {t('cart.whiteboardNote')}
                     </p>
                     
                     {/* Checkbox */}
-                    <label className="flex items-center gap-3 cursor-pointer bg-white p-3 rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                    <label className="flex items-center gap-3 cursor-pointer bg-tof-surface p-3 rounded-lg border border-white/15 hover:border-blue-300 transition-colors">
                       <input
                         type="checkbox"
                         checked={includeWhiteboard}
                         onChange={(e) => setIncludeWhiteboard(e.target.checked)}
-                        className="w-5 h-5 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+                        className="w-5 h-5 rounded border-white/20 text-tof-yellow focus:ring-orange-500"
                       />
                       <div className="flex-1">
-                        <span className="font-medium text-gray-900">{t('cart.whiteboardCheckbox')}</span>
+                        <span className="font-medium text-white">{t('cart.whiteboardCheckbox')}</span>
                       </div>
-                      <span className="font-bold text-orange-500 text-lg">€{WHITEBOARD_PRICE.toFixed(2)}</span>
+                      <span className="font-bold text-tof-yellow text-lg">€{WHITEBOARD_PRICE.toFixed(2)}</span>
                     </label>
                   </div>
                 </div>
@@ -532,22 +532,22 @@ const WinkelmandPage = () => {
 
             {/* Order Summary & Form */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24">
+              <div className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 sticky top-24">
                 {/* Price Summary */}
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('cart.summary')}</h3>
+                <h3 className="text-xl font-bold text-white mb-4">{t('cart.summary')}</h3>
                 
                 <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-white/70">
                     <span>{t('cart.subtotalProducts')}</span>
                     <span>€{getSubtotal().toFixed(2)}</span>
                   </div>
                   {includeWhiteboard && !hasClubPackage && (
-                    <div className="flex justify-between text-gray-600">
+                    <div className="flex justify-between text-white/70">
                       <span>{t('cart.whiteboardLine')}</span>
                       <span>€{WHITEBOARD_PRICE.toFixed(2)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between text-gray-600">
+                  <div className="flex justify-between text-white/70">
                     <span>{t('cart.vat')}</span>
                     <span>
                       €
@@ -558,8 +558,8 @@ const WinkelmandPage = () => {
                       ).toFixed(2)}
                     </span>
                   </div>
-                  <div className="border-t border-gray-200 pt-3">
-                    <div className="flex justify-between text-xl font-bold text-gray-900">
+                  <div className="border-t border-white/15 pt-3">
+                    <div className="flex justify-between text-xl font-bold text-white">
                       <span>{t('cart.total')}</span>
                       <span>
                         €
@@ -570,16 +570,16 @@ const WinkelmandPage = () => {
                         ).toFixed(2)}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">{t('cart.inclVat')}</p>
+                    <p className="text-xs text-white/60 mt-1">{t('cart.inclVat')}</p>
                   </div>
                 </div>
 
                 {/* Contact Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <h3 className="text-lg font-bold text-gray-900 pt-4 border-t border-gray-200">{t('cart.yourDetails')}</h3>
+                  <h3 className="text-lg font-bold text-white pt-4 border-t border-white/15">{t('cart.yourDetails')}</h3>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-white/80 mb-1">
                       {t('cart.name')} <span className="text-red-500">*</span>
                     </label>
                     <Input
@@ -594,7 +594,7 @@ const WinkelmandPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-white/80 mb-1">
                       {t('cart.emailAddress')} <span className="text-red-500">*</span>
                     </label>
                     <Input
@@ -609,7 +609,7 @@ const WinkelmandPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-white/80 mb-1">
                       {t('cart.phone')} <span className="text-red-500">*</span>
                     </label>
                     <Input
@@ -625,7 +625,7 @@ const WinkelmandPage = () => {
 
                   <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-white/80 mb-1">
                         {t('cart.street')} <span className="text-red-500">*</span>
                       </label>
                       <Input
@@ -639,7 +639,7 @@ const WinkelmandPage = () => {
                       {formErrors.straat && <p className="text-red-500 text-xs mt-1">{formErrors.straat}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-white/80 mb-1">
                         {t('cart.number')} <span className="text-red-500">*</span>
                       </label>
                       <Input
@@ -656,7 +656,7 @@ const WinkelmandPage = () => {
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-white/80 mb-1">
                         {t('cart.postalCode')} <span className="text-red-500">*</span>
                       </label>
                       <Input
@@ -670,7 +670,7 @@ const WinkelmandPage = () => {
                       {formErrors.postcode && <p className="text-red-500 text-xs mt-1">{formErrors.postcode}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-white/80 mb-1">
                         {t('cart.city')} <span className="text-red-500">*</span>
                       </label>
                       <Input
@@ -686,7 +686,7 @@ const WinkelmandPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-white/80 mb-1">
                       {t('cart.club')}
                     </label>
                     <Input
@@ -701,7 +701,7 @@ const WinkelmandPage = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting || cartItems.length === 0}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 text-lg mt-4"
+                    className="w-full bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold py-6 text-lg mt-4"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">
@@ -716,17 +716,17 @@ const WinkelmandPage = () => {
                     )}
                   </Button>
 
-                  <p className="text-xs text-gray-500 text-center mt-2">
+                  <p className="text-xs text-white/60 text-center mt-2">
                     {t('cart.afterOrderNote')}
                   </p>
                   {submitError && (
                     <p className="text-sm text-red-600 text-center">{submitError}</p>
                   )}
 
-                  <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-600">
-                    <p className="font-medium text-gray-700">{t('cart.questionsContact')}</p>
+                  <div className="mt-4 pt-4 border-t border-white/15 text-center text-sm text-white/70">
+                    <p className="font-medium text-white/80">{t('cart.questionsContact')}</p>
                     <p>Tel: 06 13 25 25 59</p>
-                    <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-orange-500 hover:underline font-medium">info@tofsports.nl</a></p>
+                    <p>{t('cart.orEmail')} <a href="mailto:info@tofsports.nl" className="text-tof-yellow hover:underline font-medium">info@tofsports.nl</a></p>
                   </div>
                 </form>
               </div>

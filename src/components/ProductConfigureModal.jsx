@@ -136,47 +136,47 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl"
+            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-tof-surface shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-full p-2 text-gray-500 hover:bg-gray-100"
+              className="absolute right-4 top-4 rounded-full p-2 text-white/60 hover:bg-white/10"
               aria-label={t('configure.close')}
             >
               <X className="h-5 w-5" />
             </button>
 
-            <div className="border-b border-gray-100 px-6 pb-4 pt-6">
-              <p className="text-xs font-semibold uppercase tracking-wide text-orange-500">
+            <div className="border-b border-white/10 px-6 pb-4 pt-6">
+              <p className="text-xs font-semibold uppercase tracking-wide text-tof-yellow">
                 {t('configure.configure')}
               </p>
-              <h2 className="pr-8 font-heading text-xl font-black text-tof-indigo">{product.name}</h2>
+              <h2 className="pr-8 font-heading text-xl font-semibold text-white">{product.name}</h2>
             </div>
 
             <div className="space-y-6 px-6 py-6">
               {type === 'fixed-bundle' && (
                 <>
-                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-                    <p className="text-sm text-gray-600">{pricing.label}</p>
-                    <p className="mt-2 text-3xl font-black text-tof-indigo">{formatEuro(pricing.price)}</p>
+                  <div className="rounded-xl border border-white/15 bg-tof-indigo p-5">
+                    <p className="text-sm text-white/70">{pricing.label}</p>
+                    <p className="mt-2 text-3xl font-semibold text-white">{formatEuro(pricing.price)}</p>
                   </div>
 
                   {bundleExtra && (
-                    <div className="rounded-xl border border-gray-200 bg-white p-5">
+                    <div className="rounded-xl border border-white/15 bg-tof-surface p-5">
                       <p className="mb-3 text-sm font-semibold text-tof-indigo">{t('configure.extraOptions')}</p>
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1">
-                          <p className="text-sm text-gray-700">{bundleExtra.name}</p>
-                          <p className="text-sm font-bold text-tof-indigo">{formatEuro(bundleExtra.price)}</p>
+                          <p className="text-sm text-white/80">{bundleExtra.name}</p>
+                          <p className="text-sm font-semibold text-white">{formatEuro(bundleExtra.price)}</p>
                         </div>
-                        <div className="flex items-center gap-1 rounded-lg bg-gray-100 p-1">
+                        <div className="flex items-center gap-1 rounded-lg bg-tof-surface p-1">
                           <button
                             type="button"
                             onClick={() => setExtraQuantity((q) => Math.max(0, q - 1))}
                             disabled={extraQuantity <= 0}
-                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
                             aria-label={t('configure.less')}
                           >
                             <Minus className="h-4 w-4" />
@@ -185,7 +185,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                           <button
                             type="button"
                             onClick={() => setExtraQuantity((q) => q + 1)}
-                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-200"
+                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-white/15"
                             aria-label={t('configure.more')}
                           >
                             <Plus className="h-4 w-4" />
@@ -198,9 +198,9 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               )}
 
               {type !== 'fixed-bundle' && step >= 1 && (
-                <div className="rounded-xl border border-orange-200 bg-orange-50 p-5">
-                  <p className="text-sm font-medium text-gray-700">{t('configure.magneticPoster')}</p>
-                  <p className="mt-1 text-2xl font-black text-tof-indigo">
+                <div className="rounded-xl border border-orange-200 bg-tof-yellow/15 p-5">
+                  <p className="text-sm font-medium text-white/80">{t('configure.magneticPoster')}</p>
+                  <p className="mt-1 text-2xl font-semibold text-white">
                     {formatEuro(pricing.posterPrice)}
                   </p>
                 </div>
@@ -219,13 +219,13 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                         onClick={() => setTierId(tier.id)}
                         className={`w-full rounded-xl border-2 px-4 py-3 text-left transition-colors ${
                           tierId === tier.id
-                            ? 'border-orange-500 bg-orange-50'
-                            : 'border-gray-200 hover:border-orange-300'
+                            ? 'border-tof-yellow bg-tof-yellow/15'
+                            : 'border-white/15 hover:border-orange-300'
                         }`}
                       >
                         <span className="font-semibold text-tof-indigo">{tier.label}</span>
                         {wantsButtons === true && (
-                          <span className="mt-1 block text-sm text-gray-600">
+                          <span className="mt-1 block text-sm text-white/70">
                             + {formatEuro(tier.buttonAddon)} {t('configure.buttonsAddonSuffix')}
                           </span>
                         )}
@@ -239,7 +239,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                 (type === 'poster-buttons-optional' && step >= 2)) && (
                 <div>
                   <p className="mb-3 font-semibold text-tof-indigo">{t('configure.buttonsQuestion')}</p>
-                  <p className="mb-4 text-sm text-gray-600">
+                  <p className="mb-4 text-sm text-white/70">
                     {pricing.buttonsHelpText || t('configure.buttonsHelpDefault')}
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -248,8 +248,8 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                       onClick={() => setWantsButtons(false)}
                       className={`rounded-xl border-2 px-4 py-4 text-left transition-colors ${
                         wantsButtons === false
-                          ? 'border-orange-500 bg-orange-50'
-                          : 'border-gray-200 hover:border-orange-300'
+                          ? 'border-tof-yellow bg-tof-yellow/15'
+                          : 'border-white/15 hover:border-orange-300'
                       }`}
                     >
                       <span className="font-semibold text-tof-indigo">{t('configure.alreadyHaveButtons')}</span>
@@ -259,12 +259,12 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                       onClick={() => setWantsButtons(true)}
                       className={`rounded-xl border-2 px-4 py-4 text-left transition-colors ${
                         wantsButtons === true
-                          ? 'border-orange-500 bg-orange-50'
-                          : 'border-gray-200 hover:border-orange-300'
+                          ? 'border-tof-yellow bg-tof-yellow/15'
+                          : 'border-white/15 hover:border-orange-300'
                       }`}
                     >
                       <span className="font-semibold text-tof-indigo">{t('configure.yesPlease')}</span>
-                      <span className="mt-1 block text-sm text-gray-600">
+                      <span className="mt-1 block text-sm text-white/70">
                         +
                         {formatEuro(
                           type === 'poster-buttons-optional'
@@ -278,16 +278,16 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               )}
 
               {canAdd && (
-                <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+                <div className="rounded-xl border border-white/15 bg-tof-indigo p-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">{t('configure.total')}</span>
-                    <span className="text-2xl font-black text-tof-indigo">{formatEuro(totalPrice)}</span>
+                    <span className="font-medium text-white/80">{t('configure.total')}</span>
+                    <span className="text-2xl font-semibold text-white">{formatEuro(totalPrice)}</span>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-3 border-t border-gray-100 px-6 py-4">
+            <div className="flex gap-3 border-t border-white/10 px-6 py-4">
               {step > 1 && type !== 'fixed-bundle' ? (
                 <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)}>
                   <ChevronLeft className="mr-1 h-4 w-4" />
@@ -302,7 +302,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {type === 'fixed-bundle' ? (
                 <Button
                   type="button"
-                  className="flex-1 bg-orange-500 hover:bg-orange-600"
+                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
                   onClick={handleAdd}
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
@@ -311,7 +311,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               ) : canAdd ? (
                 <Button
                   type="button"
-                  className="flex-1 bg-orange-500 hover:bg-orange-600"
+                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
                   onClick={handleAdd}
                 >
                   <ShoppingCart className="mr-2 h-4 w-4" />
@@ -320,7 +320,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               ) : step < maxStep ? (
                 <Button
                   type="button"
-                  className="flex-1 bg-orange-500 hover:bg-orange-600"
+                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
                   onClick={() => setStep((s) => s + 1)}
                   disabled={!canProceed}
                 >

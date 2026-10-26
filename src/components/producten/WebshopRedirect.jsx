@@ -8,7 +8,7 @@ const WebshopRedirect = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 pt-20 text-gray-600">
+    <div className="flex min-h-screen items-center justify-center bg-tof-indigo pt-20 text-white/70">
       Doorverwijzen…
     </div>
   );

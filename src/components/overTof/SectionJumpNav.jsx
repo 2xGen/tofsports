@@ -27,7 +27,7 @@ const SectionJumpNav = () => {
         ([entry]) => {
           if (entry.isIntersecting) setActiveId(id);
         },
-        { rootMargin: '-30% 0px -55% 0px', threshold: 0 }
+        { rootMargin: '-30% 0px -55% 0px', threshold: 0 },
       );
 
       observer.observe(el);
@@ -47,23 +47,21 @@ const SectionJumpNav = () => {
 
   return (
     <nav
-      className="sticky top-20 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm"
+      className="bg-white"
       aria-label={ot(locale, OVER_TOF.page.sectionsAria)}
     >
-      <div className="container mx-auto max-w-7xl px-4">
-        <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
-          {ot(locale, OVER_TOF.page.jumpTo)}
-        </p>
-        <div className="flex gap-2 overflow-x-auto pb-3 pt-2 scrollbar-hide">
+      <div className="container mx-auto max-w-5xl px-4 pb-3 pt-6 md:pb-4 md:pt-8">
+        <p className="text-sm text-tof-indigo">{ot(locale, OVER_TOF.page.jumpTo)}:</p>
+        <div className="mt-3 flex flex-wrap gap-2.5 md:flex-nowrap md:gap-3">
           {sections.map(({ id, label }) => (
             <button
               key={id}
               type="button"
               onClick={() => handleClick(id)}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-5 py-3 text-sm font-semibold transition-colors md:flex-1 md:px-4 md:py-3.5 md:text-base ${
                 activeId === id
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-orange-600'
+                  ? 'bg-tof-indigo text-tof-yellow'
+                  : 'bg-tof-indigo text-tof-yellow hover:bg-tof-indigo/90'
               }`}
             >
               {label}

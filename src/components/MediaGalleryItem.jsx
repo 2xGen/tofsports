@@ -3,11 +3,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export const MediaSpinner = ({ size = 'md', label = 'Loading…' }) => {
+export const MediaSpinner = ({ size = 'md', label = 'Loading…', light = false }) => {
   const sizeClass = size === 'lg' ? 'h-12 w-12 border-[3px]' : 'h-10 w-10 border-2';
   return (
     <div
-      className={`${sizeClass} animate-spin rounded-full border-gray-300 border-t-orange-500`}
+      className={`${sizeClass} animate-spin rounded-full ${
+        light
+          ? 'border-tof-indigo/15 border-t-tof-indigo'
+          : 'border-white/20 border-t-orange-500'
+      }`}
       role="status"
       aria-label={label}
     />
@@ -22,6 +26,7 @@ const MediaGalleryItem = ({
   onOpen,
   alt,
   spinnerLabel,
+  light = false,
 }) => {
   const [imageReady, setImageReady] = useState(false);
   const isQueued = index > activeLoadIndex;
@@ -43,13 +48,19 @@ const MediaGalleryItem = ({
       type="button"
       onClick={() => isDone && onOpen(item)}
       disabled={!isDone}
-      className={`group relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-100 bg-gray-200 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 ${
-        isDone ? 'cursor-pointer' : 'cursor-wait'
-      }`}
+      className={`group relative aspect-[4/3] w-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-tof-indigo ${
+        light
+          ? 'border border-tof-indigo/10 bg-[#F3F3F5]'
+          : 'rounded-2xl border border-white/10 bg-tof-surface shadow-md focus-visible:ring-tof-yellow'
+      } ${isDone ? 'cursor-pointer' : 'cursor-wait'}`}
     >
       {showSpinner && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-200">
-          <MediaSpinner label={spinnerLabel} />
+        <div
+          className={`absolute inset-0 z-10 flex items-center justify-center ${
+            light ? 'bg-[#F3F3F5]' : 'bg-tof-surface'
+          }`}
+        >
+          <MediaSpinner label={spinnerLabel} light={light} />
         </div>
       )}
 

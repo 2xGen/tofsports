@@ -4,11 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import { HERO_SLIDES } from '@/data/heroSlides';
 
-const TOF_SCORE_DIVIDER_IMAGE = {
-  src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/Davis%20clup%20500.jpeg',
-  alt: 'Jeugd bij het TOF scorebord op de baan',
-};
-
 export const OVER_TOF_DIVIDER_IMAGES = [
   {
     src: HERO_SLIDES[0].src,
@@ -22,7 +17,6 @@ export const OVER_TOF_DIVIDER_IMAGES = [
     src: HERO_SLIDES[2].src,
     alt: 'Kinderen spelen een TOF format op de vereniging',
   },
-  TOF_SCORE_DIVIDER_IMAGE,
   {
     src: HERO_SLIDES[1].src,
     alt: 'Trainer en jeugd met het TOF padelbord op de baan',
@@ -30,13 +24,10 @@ export const OVER_TOF_DIVIDER_IMAGES = [
 ];
 
 const OverTofDividerImage = ({ src, alt, contain = false }) => (
-  <div
-    className="my-10 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md md:my-14"
-    aria-hidden={!alt}
-  >
+  <div className="my-10 overflow-hidden md:my-14" aria-hidden={!alt}>
     <div
       className={`relative w-full ${
-        contain ? 'aspect-[4/3] bg-gray-50' : 'aspect-[16/7] md:aspect-[21/8]'
+        contain ? 'aspect-[4/3] bg-[#F3F3F5]' : 'aspect-[16/7] md:aspect-[21/8]'
       }`}
     >
       <Image
@@ -48,12 +39,6 @@ const OverTofDividerImage = ({ src, alt, contain = false }) => (
         quality={75}
         unoptimized
       />
-      {!contain && (
-        <div
-          className="absolute inset-0 bg-black/25"
-          aria-hidden
-        />
-      )}
     </div>
   </div>
 );

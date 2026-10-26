@@ -9,7 +9,7 @@ const KennisbankArticleBody = ({ sections }) => {
   const toLabel = locale === 'en' ? 'To:' : 'Naar:';
 
   return (
-    <div className="prose prose-lg max-w-none prose-headings:font-poppins prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-li:text-gray-600">
+    <div className="prose prose-lg max-w-none prose-headings:font-poppins prose-headings:font-bold prose-headings:text-white prose-p:text-white/70 prose-p:leading-relaxed prose-li:text-white/70">
       {sections.map((section, index) => {
         if (section.type === 'heading') {
           return (
@@ -21,7 +21,7 @@ const KennisbankArticleBody = ({ sections }) => {
 
         if (section.type === 'paragraph') {
           return (
-            <p key={index} className="mt-4 text-lg leading-relaxed text-gray-600">
+            <p key={index} className="mt-4 text-lg leading-relaxed text-white/70">
               {section.text}
             </p>
           );
@@ -29,7 +29,7 @@ const KennisbankArticleBody = ({ sections }) => {
 
         if (section.type === 'list') {
           return (
-            <ul key={index} className="mt-4 list-disc space-y-2 pl-6 text-lg text-gray-600">
+            <ul key={index} className="mt-4 list-disc space-y-2 pl-6 text-lg text-white/70">
               {section.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -43,10 +43,10 @@ const KennisbankArticleBody = ({ sections }) => {
               key={index}
               className="mt-6 rounded-2xl border border-tof-indigo/10 bg-tof-blue/5 p-6 md:p-8"
             >
-              <p className="text-lg font-semibold text-gray-500 line-through decoration-gray-400">
+              <p className="text-lg font-semibold text-white/60 line-through decoration-gray-400">
                 {fromLabel} {section.from}
               </p>
-              <p className="mt-3 text-xl font-bold text-tof-indigo md:text-2xl">
+              <p className="mt-3 text-xl font-semibold text-white md:text-2xl">
                 {toLabel} {section.to}
               </p>
             </div>

@@ -92,12 +92,12 @@ const Header = () => {
           {/* Social Icons Container - 15% width */}
           <div className="flex items-start justify-end" style={{ width: '15%' }}>
             <div className="hidden md:flex items-center gap-[15px]">
-              <a href="https://www.instagram.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-orange transition-colors">
+              <a href="https://www.instagram.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-yellow transition-colors">
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Instagram className="w-[30px] h-[30px]" />
                 </motion.div>
               </a>
-              <a href="https://www.facebook.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-orange transition-colors">
+              <a href="https://www.facebook.com/toftennis/" target="_blank" rel="noopener noreferrer" className="text-tof-indigo hover:text-tof-yellow transition-colors">
                 <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Facebook className="w-[30px] h-[30px]" />
                 </motion.div>
@@ -287,7 +287,7 @@ const InfoSection = React.forwardRef((props, ref) => {
       id="part2"
       className="relative min-h-screen flex flex-col items-center justify-center"
       style={{
-        background: '#1C154E',
+        background: '#1E1446',
         backgroundImage: 'url(https://toftennis.nl/wp-content/uploads/2024/04/Blauwe-bal-150x150.png)',
         backgroundRepeat: 'repeat',
         backgroundSize: '80px 80px',

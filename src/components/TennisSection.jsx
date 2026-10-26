@@ -10,7 +10,7 @@ const TennisSection = () => {
   const section2InView = useInView(sectionRef, { once: false, amount: 0.3 });
 
   return (
-    <section ref={sectionRef} id="part2" className="relative pt-20 pb-20 md:py-32 bg-white overflow-hidden">
+    <section ref={sectionRef} id="part2" className="relative pt-20 pb-20 md:py-32 bg-tof-surface overflow-hidden">
       {/* Curved Shape Divider - top (curves upward, mirroring hero section bottom) */}
       <div className="absolute top-0 left-0 right-0 z-10">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-12 md:h-20">
@@ -36,16 +36,16 @@ const TennisSection = () => {
             animate={section2InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800">TOF Tennis</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white/90">TOF Tennis</h1>
             <motion.h3
               initial={{ opacity: 0 }}
               animate={section2InView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-2xl md:text-3xl text-gray-600"
+              className="text-2xl md:text-3xl text-white/70"
             >
               Powered by KNLTB
             </motion.h3>
-            <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-lg text-white/80 leading-relaxed">
               <p>Wat tof dat je een kijkje neemt op onze website!</p>
               <p>Wij zijn drie verenigingsleraren die vanaf <strong>2016</strong> hebben gewerkt aan een vernieuwde versie van het Tenniskids programma wat past bij de huidige generatie kinderen. Met als doel om meer kinderen meer te laten tennissen en langer te behouden voor de sport.</p>
             </div>
@@ -100,7 +100,7 @@ const TennisSection = () => {
       {/* Down Arrow */}
       <motion.a
         href="#part3"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 hover:text-orange-500 transition-colors"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-tof-yellow transition-colors"
         whileHover={{ scale: 1.2 }}
         whileTap={{ scale: 0.9 }}
       >

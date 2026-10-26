@@ -68,7 +68,10 @@ export const PAGE_HERO_BY_ROUTE = {
   '/handboek': EXTRA_HERO_IMAGES.combiPakket,
   '/webshop': { tennis: EXTRA_HERO_IMAGES.herkenbaar, padel: HERO_SLIDES[1] },
   '/pakketten': HERO_SLIDES[1],
-  '/over-tof': HERO_SLIDES[0],
+  '/over-tof': {
+    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/waarom%20tof%20500.jpg',
+    alt: 'Waarom TOF — jeugd op de club',
+  },
   '/producten': EXTRA_HERO_IMAGES.combiPakket,
   '/contact': HERO_SLIDES[2],
   '/winkelmand': HERO_SLIDES[3],

@@ -16,7 +16,7 @@ const SpelersKaartenPage = () => {
   const t = (node) => ot(locale, node);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-tof-indigo pt-20">
       <PageHero image={getPageHeroImage('/spelers-kaarten')}>
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
@@ -38,12 +38,12 @@ const SpelersKaartenPage = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 overflow-hidden">
             <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(SPELERS_KAARTEN.tennis.title)}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t(SPELERS_KAARTEN.tennis.title)}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-4 text-gray-700">
+                <div className="space-y-4 text-white/80">
                   <p>{t(SPELERS_KAARTEN.tennis.intro)}</p>
                   
                   <div>
@@ -57,7 +57,7 @@ const SpelersKaartenPage = () => {
                     <Button
                       asChild
                       size="lg"
-                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                      className="bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold"
                     >
                       <Link href={SPELERS_KAARTEN.tennis.ctaHref}>
                         {t(SPELERS_KAARTEN.tennis.cta)}
@@ -66,7 +66,7 @@ const SpelersKaartenPage = () => {
                   </div>
                 </div>
 
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-tof-surface">
                   <Image
                     src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tenniskids-tof-spelerskaarten.png"
                     alt="Tenniskids TOF Spelerskaarten"
@@ -90,12 +90,12 @@ const SpelersKaartenPage = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 overflow-hidden">
             <div className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 {/* Text content - first on mobile, second on desktop (alternate) */}
-                <div className="space-y-4 text-gray-700 order-1 md:order-2">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t(SPELERS_KAARTEN.padel.title)}</h2>
+                <div className="space-y-4 text-white/80 order-1 md:order-2">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t(SPELERS_KAARTEN.padel.title)}</h2>
                   <p>{t(SPELERS_KAARTEN.padel.intro)}</p>
 
                   <div>
@@ -109,7 +109,7 @@ const SpelersKaartenPage = () => {
                     <Button
                       asChild
                       size="lg"
-                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                      className="bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold"
                     >
                       <Link href={SPELERS_KAARTEN.padel.ctaHref}>
                         {t(SPELERS_KAARTEN.padel.cta)}
@@ -119,7 +119,7 @@ const SpelersKaartenPage = () => {
                 </div>
 
                 {/* Image - second on mobile, first on desktop (alternate) */}
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 order-2 md:order-1">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-tof-surface order-2 md:order-1">
                   <Image
                     src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof-padel-materialen.jpg"
                     alt="TOF Padel Materialen"
@@ -143,12 +143,12 @@ const SpelersKaartenPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-16"
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 overflow-hidden">
             <div className="p-6 md:p-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t(SPELERS_KAARTEN.rolstoel.title)}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{t(SPELERS_KAARTEN.rolstoel.title)}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-4 text-gray-700">
+                <div className="space-y-4 text-white/80">
                   <p>{t(SPELERS_KAARTEN.rolstoel.intro)}</p>
 
                   <div>
@@ -163,7 +163,7 @@ const SpelersKaartenPage = () => {
                     <Button
                       asChild
                       size="lg"
-                      className="bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                      className="bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold"
                     >
                       <Link href={SPELERS_KAARTEN.rolstoel.ctaHref}>
                         {t(SPELERS_KAARTEN.rolstoel.cta)}
@@ -172,7 +172,7 @@ const SpelersKaartenPage = () => {
                   </div>
                 </div>
 
-                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-100">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-tof-surface">
                   <Image
                     src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/materialen-tof-rolstoeltennis.png"
                     alt="TOF Rolstoeltennis Materialen"

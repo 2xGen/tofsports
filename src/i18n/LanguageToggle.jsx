@@ -26,13 +26,13 @@ const LanguageToggle = ({ className = '' }) => {
         value={locale}
         onChange={(e) => setLocale(e.target.value)}
         aria-label={t('lang.switchTo')}
-        className="appearance-none rounded-lg border border-tof-indigo/15 bg-white py-1.5 pl-2.5 pr-7 text-xs font-bold text-tof-indigo transition-colors hover:border-tof-indigo/30 focus:border-tof-orange focus:outline-none focus:ring-2 focus:ring-tof-orange/30"
+        className="appearance-none rounded-lg border border-white/20 bg-tof-surface py-1.5 pl-2.5 pr-7 text-xs font-semibold text-white transition-colors hover:border-white/40 focus:border-tof-yellow focus:outline-none focus:ring-2 focus:ring-tof-yellow/40"
       >
         <option value="nl">{t('lang.nl')}</option>
         <option value="en">{t('lang.en')}</option>
       </select>
       <ChevronDown
-        className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-500"
+        className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/60"
         aria-hidden
       />
     </div>

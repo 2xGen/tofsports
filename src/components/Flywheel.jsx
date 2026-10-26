@@ -45,17 +45,17 @@ const Flywheel = () => {
             size="icon" 
             variant="outline" 
             onClick={handlePrev} 
-            className="rounded-full h-14 w-14 border-2 border-slate-300 bg-white hover:bg-slate-50 shadow-xl hover:scale-125 transition-transform duration-300"
+            className="rounded-full h-14 w-14 border-2 border-white/20 bg-tof-surface hover:bg-slate-50 shadow-xl hover:scale-125 transition-transform duration-300"
          >
-            <ArrowLeft className="h-6 w-6 text-slate-700" />
+            <ArrowLeft className="h-6 w-6 text-white/80" />
          </Button>
          <Button 
             size="icon" 
             variant="outline" 
             onClick={handleNext} 
-            className="rounded-full h-14 w-14 border-2 border-slate-300 bg-white hover:bg-slate-50 shadow-xl hover:scale-125 transition-transform duration-300"
+            className="rounded-full h-14 w-14 border-2 border-white/20 bg-tof-surface hover:bg-slate-50 shadow-xl hover:scale-125 transition-transform duration-300"
          >
-            <ArrowRight className="h-6 w-6 text-slate-700" />
+            <ArrowRight className="h-6 w-6 text-white/80" />
          </Button>
       </div>
 

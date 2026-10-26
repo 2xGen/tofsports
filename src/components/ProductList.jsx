@@ -52,7 +52,7 @@ const getPricingSubtitle = (pricing, locale) => {
   return '';
 };
 
-const ProductList = ({ products, onAddConfiguredItem }) => {
+const ProductList = ({ products, onAddConfiguredItem, light = false }) => {
   const { locale, t } = useLocale();
   const [openModal, setOpenModal] = useState(null);
   const [configureProduct, setConfigureProduct] = useState(null);
@@ -113,8 +113,10 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">{t('webshop.noProducts')}</p>
+      <div className="py-12 text-center">
+        <p className={`text-lg ${light ? 'text-tof-indigo/60' : 'text-white/60'}`}>
+          {t('webshop.noProducts')}
+        </p>
       </div>
     );
   }
@@ -138,83 +140,74 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: productIndex * 0.1 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
+          className={`overflow-hidden ${
+            light
+              ? 'bg-[#F3F3F5]'
+              : 'rounded-2xl border border-white/10 bg-tof-surface shadow-lg'
+          }`}
         >
           <div className="flex flex-col p-6 md:p-8">
             <div className="order-1 mb-4 flex flex-col gap-4 md:mb-6 md:flex-row md:items-start md:justify-between">
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">{product.name}</h2>
-                <p className="mt-1 text-base font-medium text-gray-600 md:text-lg">{product.ageGroup}</p>
-              </div>
-              {product.detailedRules && (
-                <Button
-                  onClick={() => setOpenModal(product.id)}
-                  variant="outline"
-                  className="flex w-full items-center justify-center gap-2 text-sm md:w-auto md:whitespace-nowrap md:text-base md:px-6 md:py-3"
+                <h2
+                  className={`text-2xl font-bold md:text-3xl ${
+                    light ? 'text-tof-indigo' : 'text-white'
+                  }`}
                 >
-                  <BookOpen className="h-4 w-4 flex-shrink-0" />
-                  <span className="text-center">{t('webshop.officialRules')}</span>
-                </Button>
-              )}
-            </div>
-
-            <div className="order-2 mb-6 md:order-4">
-              <p className="text-base leading-relaxed text-gray-700 whitespace-pre-line md:text-lg">
-                {product.description}
-              </p>
-
-              {product.highlights?.length > 0 && (
-                <ul className="mt-4 space-y-2">
-                  {product.highlights.map((highlight, i) => (
-                    <li key={i} className="flex items-start gap-2 text-base text-gray-700 md:text-lg">
-                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-500" />
-                      <span className="leading-relaxed">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {product.descriptionLong && (
-                <>
-                  <AnimatePresence initial={false}>
-                    {expandedDescriptions[product.id] && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <p className="mt-4 text-base leading-relaxed text-gray-700 whitespace-pre-line md:text-lg">
-                          {product.descriptionLong}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  <button
-                    type="button"
-                    onClick={() => toggleDescription(product.id)}
-                    className="mt-3 inline-flex items-center gap-1 text-base font-semibold text-orange-600 hover:text-orange-700"
+                  {product.name}
+                </h2>
+                <p
+                  className={`mt-1 text-base font-medium md:text-lg ${
+                    light ? 'text-tof-indigo' : 'text-white/70'
+                  }`}
+                >
+                  {product.ageGroup}
+                </p>
+              </div>
+              <div
+                className={`flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap ${
+                  light ? 'md:w-auto md:justify-end' : ''
+                }`}
+              >
+                {product.detailedRules && (
+                  <Button
+                    onClick={() => setOpenModal(product.id)}
+                    variant={light ? 'default' : 'outline'}
+                    className={`flex items-center justify-center gap-2 text-sm md:whitespace-nowrap md:px-6 md:py-3 md:text-base ${
+                      light
+                        ? 'rounded-full bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90'
+                        : 'rounded-md'
+                    }`}
                   >
-                    {expandedDescriptions[product.id] ? t('webshop.readLess') : t('webshop.readMore')}
-                    {expandedDescriptions[product.id] ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
-                  </button>
-                </>
-              )}
+                    {!light && <BookOpen className="h-4 w-4 flex-shrink-0" />}
+                    <span className="text-center">{t('webshop.officialRules')}</span>
+                  </Button>
+                )}
+                {light && product.pricing && (
+                  <Button
+                    onClick={() => setConfigureProduct(product)}
+                    className="rounded-full bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90 md:px-6 md:py-3 md:text-base"
+                  >
+                    {t('webshop.configureAndOrder')}
+                  </Button>
+                )}
+              </div>
             </div>
 
             {(productImage || product.videoUrl) && (
               <div
-                className={`order-3 mb-6 grid items-stretch gap-4 md:order-2 md:gap-6 ${
+                className={`order-2 mb-6 grid items-stretch gap-4 md:gap-6 ${
                   productImage && product.videoUrl ? 'md:grid-cols-2' : ''
                 }`}
               >
                 {productImage && (
-                  <div className="group relative w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-100">
+                  <div
+                    className={`group relative w-full overflow-hidden ${
+                      light
+                        ? 'rounded-lg bg-white'
+                        : 'rounded-xl border border-white/15 bg-tof-surface'
+                    }`}
+                  >
                     <button
                       type="button"
                       className="relative block w-full cursor-pointer"
@@ -283,34 +276,128 @@ const ProductList = ({ products, onAddConfiguredItem }) => {
                 )}
 
                 {product.videoUrl && (
-                  <ProductVideo videoUrl={product.videoUrl} title={product.name} />
+                  <ProductVideo videoUrl={product.videoUrl} title={product.name} light={light} />
                 )}
               </div>
             )}
 
             {product.pricing && (
-              <div className="order-4 flex flex-col gap-4 rounded-xl border border-gray-200 bg-tof-orange/10 p-5 md:order-3 md:flex-row md:items-center md:justify-between md:p-6">
+              <div
+                className={`order-3 mb-6 ${
+                  light
+                    ? ''
+                    : 'flex flex-col gap-4 rounded-xl border border-white/15 bg-tof-orange/10 p-5 md:flex-row md:items-center md:justify-between md:p-6'
+                }`}
+              >
                 <div className="text-left">
                   {displayPrice && (
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-black text-gray-900 md:text-4xl">{displayPrice}</span>
-                      <span className="text-sm font-medium text-gray-500">{t('webshop.inclVat')}</span>
+                      <span
+                        className={`font-black ${
+                          light
+                            ? 'text-2xl text-tof-indigo md:text-3xl'
+                            : 'text-3xl text-white md:text-4xl'
+                        }`}
+                      >
+                        {displayPrice}
+                      </span>
+                      <span
+                        className={`text-sm font-medium ${
+                          light ? 'text-tof-indigo/70' : 'text-white/60'
+                        }`}
+                      >
+                        {t('webshop.inclVat')}
+                      </span>
                     </div>
                   )}
                   {pricingSubtitle && (
-                    <p className="mt-1 max-w-md text-sm text-gray-600 md:text-base">{pricingSubtitle}</p>
+                    <p
+                      className={`mt-1 max-w-md text-sm md:text-base ${
+                        light ? 'text-tof-indigo' : 'text-white/70'
+                      }`}
+                    >
+                      {pricingSubtitle}
+                    </p>
                   )}
                 </div>
-                <Button
-                  onClick={() => setConfigureProduct(product)}
-                  className="w-full shrink-0 bg-orange-500 font-bold text-white shadow-sm hover:bg-orange-600 md:w-auto md:px-8"
-                  size="lg"
-                >
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  {t('webshop.configureAndOrder')}
-                </Button>
+                {!light && (
+                  <Button
+                    onClick={() => setConfigureProduct(product)}
+                    className="w-full shrink-0 rounded-md bg-tof-yellow font-semibold text-tof-indigo shadow-sm hover:bg-tof-yellow/90 md:w-auto md:px-8"
+                    size="lg"
+                  >
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    {t('webshop.configureAndOrder')}
+                  </Button>
+                )}
               </div>
             )}
+
+            <div className="order-4">
+              <p
+                className={`whitespace-pre-line text-base leading-relaxed md:text-lg ${
+                  light ? 'text-tof-indigo' : 'text-white/80'
+                }`}
+              >
+                {product.description}
+              </p>
+
+              {product.highlights?.length > 0 && (
+                <ul className="mt-4 space-y-2">
+                  {product.highlights.map((highlight, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-start gap-2 text-base md:text-lg ${
+                        light ? 'text-tof-indigo' : 'text-white/80'
+                      }`}
+                    >
+                      <span
+                        className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full ${
+                          light ? 'bg-tof-indigo' : 'bg-tof-yellow'
+                        }`}
+                      />
+                      <span className="leading-relaxed">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {product.descriptionLong && (
+                <>
+                  <AnimatePresence initial={false}>
+                    {expandedDescriptions[product.id] && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <p
+                          className={`mt-4 whitespace-pre-line text-base leading-relaxed md:text-lg ${
+                            light ? 'text-tof-indigo' : 'text-white/80'
+                          }`}
+                        >
+                          {product.descriptionLong}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <button
+                    type="button"
+                    onClick={() => toggleDescription(product.id)}
+                    className="mt-3 inline-flex items-center gap-1 text-base font-semibold text-tof-indigo hover:text-tof-indigo/80"
+                  >
+                    {expandedDescriptions[product.id] ? t('webshop.readLess') : t('webshop.readMore')}
+                    {expandedDescriptions[product.id] ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </motion.div>
         );

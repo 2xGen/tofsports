@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/next';
-import { Inter, Manrope } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import ConditionalNavbar from '@/components/ConditionalNavbar';
 import Footer from '@/components/Footer';
 import CookieConsent from '@/components/CookieConsent';
@@ -9,15 +9,10 @@ import { Toaster } from '@/components/ui/toaster';
 import { MAINTENANCE_MODE } from '@/config/site';
 import './globals.css';
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  variable: '--font-manrope',
+  weight: ['400', '600'],
+  variable: '--font-poppins',
   display: 'swap',
 });
 
@@ -59,8 +54,8 @@ export const metadata = MAINTENANCE_MODE
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="nl-NL" className={`${inter.variable} ${manrope.variable}`}>
-      <body className="flex min-h-screen flex-col bg-white font-sans text-tof-indigo">
+    <html lang="nl-NL" className={poppins.variable}>
+      <body className="flex min-h-screen flex-col bg-tof-indigo font-sans font-normal text-white">
         <Providers>
           <HtmlLang />
           {!MAINTENANCE_MODE && <ConditionalNavbar />}

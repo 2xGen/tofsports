@@ -44,6 +44,7 @@ const en = {
   },
   home: {
     heroCta: 'Build your package',
+    heroTitle: 'Sharpen your\nyouth programme',
     watchVideo: 'Watch video',
     packagesEyebrow: 'Plug & Play',
     packagesTitle: 'Choose the solution that fits you',
@@ -301,13 +302,13 @@ const en = {
     title: 'Products',
     subtitle: 'Choose what fits your club: a complete package, handbook or individual formats.',
     intro:
-      'Whether you want to start straight away with a club package, try formats via the handbook, or order individual products — you will find all options here.',
+      'The 365 mindset: why we want to keep youth involved at the club all year round.',
     pathPackage: 'Club package',
     pathPackageDesc: 'Start right away with a complete youth programme',
     pathHandbook: 'Handbook',
     pathHandbookDesc: 'Try formats via the game guides',
     pathShop: 'Individual formats',
-    pathShopDesc: 'Order individual products',
+    pathShopDesc: 'Order individual\nproducts',
     packagesDesc:
       'Tennis package, padel package or tennis and padel package — each includes formats, matrix, TOF Score poster, whiteboard and 1 year of coach app.',
     looseTitle: 'Prefer individual formats?',

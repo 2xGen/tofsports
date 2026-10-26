@@ -1,10 +1,15 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from '@/i18n/Link';
-import { motion } from 'framer-motion';
 import { OVER_TOF, ot } from '@/i18n/content/overTof';
 import { useLocale } from '@/i18n/LocaleProvider';
+
+const AFTER_CTA_IMAGE = {
+  src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/tof%20sports%20500%20kb.jpg',
+  alt: 'Jeugd en trainer met TOF materialen op de baan',
+};
 
 const MissieVisieContent = ({ useAnchors = false }) => {
   const { locale } = useLocale();
@@ -13,62 +18,75 @@ const MissieVisieContent = ({ useAnchors = false }) => {
   const scoreHref = useAnchors ? '#tof-score' : '/tof-score';
 
   return (
-    <div className="space-y-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg"
-      >
-        <div className="p-6 md:p-10">
-          <h3 className="mb-4 text-xl font-bold text-gray-900 md:text-2xl">
+    <div>
+      <div className="max-w-5xl space-y-10 md:space-y-12">
+        <div>
+          <h3 className="mb-3 text-xl font-bold text-tof-indigo md:text-2xl">
             {ot(locale, c.visionTitle)}
           </h3>
-          <p className="text-lg leading-relaxed text-gray-600">{ot(locale, c.visionBody)}</p>
+          <p className="text-base leading-relaxed text-tof-indigo md:text-lg">
+            {ot(locale, c.visionBody)}
+          </p>
         </div>
-      </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.05 }}
-        className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg"
-      >
-        <div className="p-6 md:p-10">
-          <h3 className="mb-1 text-xl font-bold text-gray-900 md:text-2xl">
+        <div>
+          <h3 className="mb-1 text-xl font-bold text-tof-indigo md:text-2xl">
             {ot(locale, c.missionTitle)}
           </h3>
-          <p className="mb-8 text-xl font-bold text-orange-500">{ot(locale, c.pillars)}</p>
-          <p className="mb-6 text-xl font-semibold text-gray-900">{ot(locale, c.missionLead)}</p>
-          <p className="mb-8 text-lg leading-relaxed text-gray-600">{ot(locale, c.missionBody)}</p>
-          <div className="rounded-2xl border border-tof-orange/30 bg-tof-orange/10 p-6 md:p-8">
-            <h4 className="mb-2 text-xl font-bold text-gray-900">{ot(locale, c.ctaTitle)}</h4>
-            <p className="mb-6 text-gray-600">{ot(locale, c.ctaBody)}</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href={methodeHref}
-                className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
-              >
-                {ot(locale, c.ctaMethod)}
-              </Link>
-              <Link
-                href={scoreHref}
-                className="inline-flex items-center justify-center rounded-xl border-2 border-orange-500 bg-white px-5 py-3 font-semibold text-orange-600 transition-colors hover:bg-orange-50"
-              >
-                {ot(locale, c.ctaScore)}
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold text-orange-600 transition-colors hover:bg-orange-50"
-              >
-                {ot(locale, c.ctaContact)}
-              </Link>
-            </div>
-          </div>
+          <p className="mb-6 text-lg font-bold text-tof-indigo md:text-xl">
+            {ot(locale, c.pillars)}
+          </p>
+          <p className="mb-4 text-lg font-semibold text-tof-indigo md:text-xl">
+            {ot(locale, c.missionLead)}
+          </p>
+          <p className="text-base leading-relaxed text-tof-indigo md:text-lg">
+            {ot(locale, c.missionBody)}
+          </p>
         </div>
-      </motion.div>
+      </div>
+
+      <div className="mt-14 border-y border-tof-indigo/50 py-10 text-center md:mt-16 md:py-12">
+        <h4 className="text-xl font-bold text-tof-indigo md:text-2xl">
+          {ot(locale, c.ctaTitle)}
+        </h4>
+        <p className="mx-auto mt-2 max-w-2xl text-base text-tof-indigo md:text-lg">
+          {ot(locale, c.ctaBody)}
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link
+            href={methodeHref}
+            className="inline-flex items-center justify-center rounded-full bg-tof-indigo px-6 py-2.5 text-sm font-semibold text-tof-yellow transition-colors hover:bg-tof-indigo/90"
+          >
+            {ot(locale, c.ctaMethod)}
+          </Link>
+          <Link
+            href={scoreHref}
+            className="inline-flex items-center justify-center rounded-full bg-tof-indigo px-6 py-2.5 text-sm font-semibold text-tof-yellow transition-colors hover:bg-tof-indigo/90"
+          >
+            {ot(locale, c.ctaScore)}
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-tof-yellow px-6 py-2.5 text-sm font-semibold text-tof-indigo transition-colors hover:bg-tof-yellow/90"
+          >
+            {ot(locale, c.ctaContact)}
+          </Link>
+        </div>
+      </div>
+
+      <div className="mt-10 overflow-hidden md:mt-14 md:mb-2">
+        <div className="relative aspect-[16/7] w-full md:aspect-[21/8]">
+          <Image
+            src={AFTER_CTA_IMAGE.src}
+            alt={AFTER_CTA_IMAGE.alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            quality={80}
+            unoptimized
+          />
+        </div>
+      </div>
     </div>
   );
 };

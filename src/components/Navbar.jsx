@@ -14,8 +14,8 @@ import { useLocale } from '@/i18n/LocaleProvider';
 const topNavLinkClass = (path, href, isActive) =>
   `text-sm font-medium transition-colors ${
     isActive ?? (path === href || path.startsWith(`${href}/`))
-      ? 'text-tof-orange'
-      : 'text-tof-indigo/80 hover:text-tof-orange'
+      ? 'text-tof-yellow font-semibold'
+      : 'text-white/80 hover:text-white'
   }`;
 
 const Navbar = () => {
@@ -44,7 +44,7 @@ const Navbar = () => {
   const closeMobile = () => setIsMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-tof-indigo">
       <div className="container mx-auto px-4" ref={menuRef}>
         <div className="flex h-20 items-center justify-between">
           <div className="flex items-center">
@@ -54,7 +54,7 @@ const Navbar = () => {
                 alt="TOF Sports"
                 width={200}
                 height={60}
-                className="h-10 w-auto object-contain md:h-12"
+                className="h-10 w-auto object-contain brightness-0 invert md:h-12"
                 priority
                 quality={90}
               />
@@ -66,7 +66,7 @@ const Navbar = () => {
               <Link
                 href="/"
                 className={`text-sm font-medium transition-colors ${
-                  path === '/' ? 'text-tof-orange' : 'text-tof-indigo/80 hover:text-tof-orange'
+                  path === '/' ? 'text-tof-yellow font-semibold' : 'text-white/80 hover:text-white'
                 }`}
               >
                 {t('nav.home')}
@@ -101,7 +101,7 @@ const Navbar = () => {
 
             <Link
               href="/pakketten"
-              className="hidden rounded-lg bg-tof-orange px-4 py-2 text-sm font-bold text-white transition-all hover:bg-tof-orange/90 md:block"
+              className="hidden rounded-full bg-tof-yellow px-5 py-2.5 text-sm font-semibold text-tof-indigo transition-all hover:bg-tof-yellow/90 md:block"
             >
               {t('nav.packages')}
             </Link>
@@ -110,14 +110,14 @@ const Navbar = () => {
               href="/winkelmand"
               className={`relative rounded-lg p-2 transition-all ${
                 path === '/winkelmand'
-                  ? 'bg-tof-orange/15 text-tof-orange'
-                  : 'text-tof-indigo/80 hover:bg-tof-indigo/5 hover:text-tof-orange'
+                  ? 'bg-tof-yellow/20 text-tof-yellow'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
               aria-label={t('nav.cart')}
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tof-orange px-1 text-xs font-bold text-white">
+                <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-tof-yellow px-1 text-xs font-semibold text-tof-indigo">
                   {cartCount > 99 ? '99+' : cartCount}
                 </span>
               )}
@@ -128,7 +128,7 @@ const Navbar = () => {
                 href="https://www.instagram.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-tof-indigo/80 transition-colors hover:text-tof-orange"
+                className="text-white/80 transition-colors hover:text-tof-yellow"
                 aria-label="Instagram"
               >
                 <Instagram className="h-5 w-5" />
@@ -137,7 +137,7 @@ const Navbar = () => {
                 href="https://www.facebook.com/toftennis/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-tof-indigo/80 transition-colors hover:text-tof-orange"
+                className="text-white/80 transition-colors hover:text-tof-yellow"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
@@ -147,7 +147,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-tof-indigo/80 transition-colors hover:text-tof-orange md:hidden"
+              className="text-white/80 transition-colors hover:text-white md:hidden"
               aria-label={isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
               aria-expanded={isMenuOpen}
             >
@@ -157,7 +157,7 @@ const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="border-t border-gray-200 bg-white md:hidden">
+          <div className="border-t border-white/10 bg-tof-indigo md:hidden">
             <div className="px-4 py-4">
               <div className="mb-3 flex justify-end sm:hidden">
                 <LanguageToggle />
@@ -166,8 +166,8 @@ const Navbar = () => {
               <Link
                 href="/"
                 onClick={closeMobile}
-                className={`mb-2 block border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/' ? 'text-tof-orange' : 'text-tof-indigo'
+                className={`mb-2 block border-b border-white/10 py-3 text-base font-medium ${
+                  path === '/' ? 'text-tof-yellow font-semibold' : 'text-white'
                 }`}
               >
                 {t('nav.home')}
@@ -176,8 +176,8 @@ const Navbar = () => {
               <Link
                 href="/over-tof"
                 onClick={closeMobile}
-                className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  isOverTofPath(pathname) ? 'text-tof-orange' : 'text-tof-indigo'
+                className={`block border-b border-white/10 py-3 text-base font-medium ${
+                  isOverTofPath(pathname) ? 'text-tof-yellow font-semibold' : 'text-white'
                 }`}
               >
                 {t('nav.about')}
@@ -186,8 +186,8 @@ const Navbar = () => {
               <Link
                 href="/producten"
                 onClick={closeMobile}
-                className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  isProductenPath(pathname) ? 'text-tof-orange' : 'text-tof-indigo'
+                className={`block border-b border-white/10 py-3 text-base font-medium ${
+                  isProductenPath(pathname) ? 'text-tof-yellow font-semibold' : 'text-white'
                 }`}
               >
                 {t('nav.products')}
@@ -196,10 +196,10 @@ const Navbar = () => {
               <Link
                 href="/kennisbank"
                 onClick={closeMobile}
-                className={`block border-b border-gray-100 py-3 text-base font-medium ${
+                className={`block border-b border-white/10 py-3 text-base font-medium ${
                   path === '/kennisbank' || path.startsWith('/kennisbank/')
-                    ? 'text-tof-orange'
-                    : 'text-tof-indigo'
+                    ? 'text-tof-yellow font-semibold'
+                    : 'text-white'
                 }`}
               >
                 {t('nav.knowledge')}
@@ -208,8 +208,8 @@ const Navbar = () => {
               <Link
                 href="/media"
                 onClick={closeMobile}
-                className={`block border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/media' ? 'text-tof-orange' : 'text-tof-indigo'
+                className={`block border-b border-white/10 py-3 text-base font-medium ${
+                  path === '/media' ? 'text-tof-yellow font-semibold' : 'text-white'
                 }`}
               >
                 {t('nav.media')}
@@ -218,13 +218,13 @@ const Navbar = () => {
               <Link
                 href="/winkelmand"
                 onClick={closeMobile}
-                className={`flex items-center gap-2 border-b border-gray-100 py-3 text-base font-medium ${
-                  path === '/winkelmand' ? 'text-tof-orange' : 'text-tof-indigo'
+                className={`flex items-center gap-2 border-b border-white/10 py-3 text-base font-medium ${
+                  path === '/winkelmand' ? 'text-tof-yellow font-semibold' : 'text-white'
                 }`}
               >
                 {t('nav.cart')}
                 {cartCount > 0 && (
-                  <span className="rounded-full bg-tof-orange px-2 py-0.5 text-xs font-bold text-white">
+                  <span className="rounded-full bg-tof-yellow px-2 py-0.5 text-xs font-semibold text-tof-indigo">
                     {cartCount}
                   </span>
                 )}
@@ -233,17 +233,17 @@ const Navbar = () => {
               <Link
                 href="/pakketten"
                 onClick={closeMobile}
-                className="mt-4 block rounded-xl bg-tof-orange py-3.5 text-center text-base font-bold text-white hover:bg-orange-600"
+                className="mt-4 block rounded-full bg-tof-yellow py-3.5 text-center text-base font-semibold text-tof-indigo hover:bg-tof-yellow/90"
               >
                 {t('nav.packages')}
               </Link>
 
-              <div className="mt-4 flex items-center gap-4 border-t border-gray-100 pt-4">
+              <div className="mt-4 flex items-center gap-4 border-t border-white/10 pt-4">
                 <a
                   href="https://www.instagram.com/toftennis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-tof-orange"
+                  className="text-white/80 hover:text-tof-yellow"
                   aria-label="Instagram"
                 >
                   <Instagram className="h-5 w-5" />
@@ -252,7 +252,7 @@ const Navbar = () => {
                   href="https://www.facebook.com/toftennis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-tof-orange"
+                  className="text-white/80 hover:text-tof-yellow"
                   aria-label="Facebook"
                 >
                   <Facebook className="h-5 w-5" />

@@ -44,7 +44,7 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
           >
             <Link
               href={item.href}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-shadow hover:shadow-xl"
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-tof-surface shadow-lg transition-shadow hover:shadow-xl"
             >
               <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
@@ -61,11 +61,11 @@ const HubCardsGrid = ({ items, columns = 3 }) => {
                 />
               </div>
               <div className="flex flex-1 flex-col p-5 md:p-6">
-                <h3 className="text-lg font-black text-gray-900 md:text-xl">{label}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
+                <h3 className="text-lg font-black text-white md:text-xl">{label}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-white/70">
                   {ot(locale, item.description)}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange-600 group-hover:gap-2 transition-all">
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-indigo group-hover:gap-2 transition-all">
                   {t('common.learnMore')} <ArrowRight className="h-4 w-4" aria-hidden />
                 </span>
               </div>

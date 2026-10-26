@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -18,8 +18,8 @@ const KnltbPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <PageHero image={heroImage}>
+    <div className="min-h-screen bg-white pt-20">
+      <PageHero image={heroImage} waveFill="#ffffff">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
             <PageHeroTitle heroInView={heroInView}>

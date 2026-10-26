@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useCart } from '@/context/CartContext';
 import { useLocale } from '@/i18n/LocaleProvider';
 
-const WebshopContent = () => {
+const WebshopContent = ({ light = false }) => {
   const { locale, t } = useLocale();
   const { toast } = useToast();
   const { addToCart, getCartCount, getSubtotal, getTotal, isLoaded } = useCart();
@@ -38,19 +38,28 @@ const WebshopContent = () => {
     });
   };
 
+  const inactiveBtn = light
+    ? 'bg-tof-indigo text-tof-yellow hover:bg-tof-indigo/90'
+    : 'border-2 border-white/20 bg-tof-surface text-white/80 hover:bg-tof-indigo';
+
+  const categoryBtn = (active) =>
+    light
+      ? 'min-w-[140px] rounded-full bg-tof-indigo px-10 py-6 text-base font-bold text-tof-yellow hover:bg-tof-indigo/90'
+      : `min-w-[120px] flex-1 rounded-md font-bold md:flex-none ${
+          active
+            ? 'bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90'
+            : inactiveBtn
+        }`;
+
   return (
     <>
-      <div className="flex flex-wrap gap-3">
+      <div className={`flex flex-wrap gap-3 ${light ? 'justify-center gap-4' : ''}`}>
         <Button
           type="button"
           onClick={() => setSelectedCategory('tennis')}
           variant={selectedCategory === 'tennis' ? 'default' : 'outline'}
           size="lg"
-          className={`min-w-[120px] flex-1 font-bold md:flex-none ${
-            selectedCategory === 'tennis'
-              ? 'bg-orange-500 text-white hover:bg-orange-600'
-              : 'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-          }`}
+          className={categoryBtn(selectedCategory === 'tennis')}
         >
           {t('webshop.tennis')}
         </Button>
@@ -59,20 +68,17 @@ const WebshopContent = () => {
           onClick={() => setSelectedCategory('padel')}
           variant={selectedCategory === 'padel' ? 'default' : 'outline'}
           size="lg"
-          className={`min-w-[120px] flex-1 font-bold md:flex-none ${
-            selectedCategory === 'padel'
-              ? 'bg-orange-500 text-white hover:bg-orange-600'
-              : 'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-          }`}
+          className={categoryBtn(selectedCategory === 'padel')}
         >
           {t('webshop.padel')}
         </Button>
       </div>
 
-      <div className="mt-8">
+      <div className={light ? 'mt-14 md:mt-16' : 'mt-8'}>
         <ProductList
           products={filteredProducts}
           onAddConfiguredItem={handleAddConfiguredItem}
+          light={light}
         />
       </div>
 
@@ -83,35 +89,55 @@ const WebshopContent = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed bottom-0 left-0 right-0 z-50 border-t-2 border-orange-200 bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.1)]"
+            className={`fixed bottom-0 left-0 right-0 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] ${
+              light
+                ? 'border-t border-tof-indigo/10 bg-white'
+                : 'border-t-2 border-orange-200 bg-tof-surface'
+            }`}
           >
             <div className="container mx-auto px-4 py-3 md:py-4">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <ShoppingCart className="h-6 w-6 text-orange-500" />
-                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
+                    <ShoppingCart
+                      className={`h-6 w-6 ${light ? 'text-tof-indigo' : 'text-tof-yellow'}`}
+                    />
+                    <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-tof-yellow text-xs font-bold text-tof-indigo">
                       {cartCount}
                     </span>
                   </div>
                   <div className="hidden sm:block">
-                    <p className="text-sm text-gray-600">
-                      {t(cartCount === 1 ? 'webshop.itemsInCartOne' : 'webshop.itemsInCartOther', { count: cartCount })}
+                    <p className={`text-sm ${light ? 'text-tof-indigo/70' : 'text-white/70'}`}>
+                      {t(cartCount === 1 ? 'webshop.itemsInCartOne' : 'webshop.itemsInCartOther', {
+                        count: cartCount,
+                      })}
                     </p>
-                    <p className="text-xs text-gray-500">{t('webshop.subtotal')}: €{getSubtotal().toFixed(2)}</p>
+                    <p className={`text-xs ${light ? 'text-tof-indigo/60' : 'text-white/60'}`}>
+                      {t('webshop.subtotal')}: €{getSubtotal().toFixed(2)}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="hidden text-xs text-gray-500 sm:block">{t('webshop.totalInclVat')}</p>
-                    <p className="text-xl font-bold text-gray-900 md:text-2xl">
+                    <p
+                      className={`hidden text-xs sm:block ${
+                        light ? 'text-tof-indigo/60' : 'text-white/60'
+                      }`}
+                    >
+                      {t('webshop.totalInclVat')}
+                    </p>
+                    <p
+                      className={`text-xl font-bold md:text-2xl ${
+                        light ? 'text-tof-indigo' : 'text-white'
+                      }`}
+                    >
                       €{getTotal().toFixed(2)}
                     </p>
                   </div>
                   <Button
                     asChild
                     size="lg"
-                    className="bg-orange-500 px-6 font-bold text-white shadow-lg hover:bg-orange-600 md:px-8"
+                    className="rounded-md bg-tof-yellow px-6 font-semibold text-tof-indigo shadow-lg hover:bg-tof-yellow/90 md:px-8"
                   >
                     <Link href="/winkelmand" className="flex items-center gap-2">
                       <span>{t('webshop.checkout')}</span>

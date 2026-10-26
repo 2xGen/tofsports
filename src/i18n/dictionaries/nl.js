@@ -44,6 +44,7 @@ const nl = {
   },
   home: {
     heroCta: 'Stel jouw pakket samen',
+    heroTitle: 'Zet jouw jeugd-\nprogramma op\nscherp',
     watchVideo: 'Bekijk video',
     packagesEyebrow: 'Plug & Play',
     packagesTitle: 'Kies de oplossing die bij jou past',
@@ -301,13 +302,13 @@ const nl = {
     title: 'Producten',
     subtitle: 'Kies wat past bij jouw vereniging: compleet pakket, handboek of losse formats.',
     intro:
-      'Of je nu direct wilt starten met een clubpakket, formats wilt uitproberen via het handboek of losse producten wilt bestellen — hier vind je alle opties op een rij.',
+      'De 365-mentaliteit: waarom we jeugd het hele jaar betrokken willen houden op de club.',
     pathPackage: 'Clubpakket',
     pathPackageDesc: 'Direct starten met een compleet jeugdprogramma',
     pathHandbook: 'Handboek',
     pathHandbookDesc: 'Formats uitproberen via speluitleg',
     pathShop: 'Losse formats',
-    pathShopDesc: 'Individuele producten bestellen',
+    pathShopDesc: 'Individuele producten\nbestellen',
     packagesDesc:
       'Tennispakket, padelpakket of tennis- en padelpakket — elk pakket bevat formats, matrix, TOF Score poster, whiteboard en 1 jaar leraren-app.',
     looseTitle: 'Liever losse formats?',

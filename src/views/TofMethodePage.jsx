@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import PageHero, { PageHeroTitle, PageHeroSubtitle } from '@/components/PageHero';
@@ -13,8 +13,8 @@ const TofMethodePage = () => {
   const { locale } = useLocale();
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <PageHero image={getPageHeroImage('/tof-methode')} minHeight="50vh">
+    <div className="min-h-screen bg-white pt-20">
+      <PageHero image={getPageHeroImage('/tof-methode')} minHeight="50vh" waveFill="#ffffff">
         {(heroInView) => (
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
             <PageHeroTitle heroInView={heroInView}>{ot(locale, SECTION.title)}</PageHeroTitle>
