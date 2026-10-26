@@ -29,7 +29,7 @@ const ProductVideo = ({ videoUrl, title, posterImage, light = false }) => {
   return (
     <div
       className={`relative aspect-video w-full overflow-hidden bg-tof-indigo shadow-sm ${
-        light ? 'rounded-lg' : 'rounded-xl'
+        light ? '' : 'rounded-xl'
       }`}
     >
       {isPlaying ? (

@@ -175,7 +175,7 @@ const ProductList = ({ products, onAddConfiguredItem, light = false }) => {
                     variant={light ? 'default' : 'outline'}
                     className={`flex items-center justify-center gap-2 text-sm md:whitespace-nowrap md:px-6 md:py-3 md:text-base ${
                       light
-                        ? 'rounded-full bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90'
+                        ? '!rounded-none bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90'
                         : 'rounded-md'
                     }`}
                   >
@@ -186,7 +186,7 @@ const ProductList = ({ products, onAddConfiguredItem, light = false }) => {
                 {light && product.pricing && (
                   <Button
                     onClick={() => setConfigureProduct(product)}
-                    className="rounded-full bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90 md:px-6 md:py-3 md:text-base"
+                    className="!rounded-none bg-tof-indigo font-semibold text-tof-yellow hover:bg-tof-indigo/90 md:px-6 md:py-3 md:text-base"
                   >
                     {t('webshop.configureAndOrder')}
                   </Button>
@@ -204,7 +204,7 @@ const ProductList = ({ products, onAddConfiguredItem, light = false }) => {
                   <div
                     className={`group relative w-full overflow-hidden ${
                       light
-                        ? 'rounded-lg bg-white'
+                        ? 'bg-white'
                         : 'rounded-xl border border-white/15 bg-tof-surface'
                     }`}
                   >

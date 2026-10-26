@@ -190,7 +190,7 @@ const WinkelmandPage = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-tof-surface rounded-2xl shadow-lg p-6 md:p-8"
+            className="bg-tof-surface shadow-lg p-6 md:p-8"
           >
             {/* Success Header */}
             <div className="text-center mb-8">
@@ -204,7 +204,7 @@ const WinkelmandPage = () => {
             </div>
 
             {/* Order Summary */}
-            <div className="bg-tof-indigo rounded-xl p-6 mb-6">
+            <div className="bg-tof-indigo p-6 mb-6">
               <h2 className="text-lg font-bold text-white mb-4">{t('cart.orderSummary')}</h2>
               <div className="space-y-2 mb-4">
                 {orderData.items.map((item, index) => (
@@ -233,7 +233,7 @@ const WinkelmandPage = () => {
             </div>
 
             {/* Payment Details */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
+            <div className="bg-yellow-50 border border-yellow-200 p-6 mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <CreditCard className="w-5 h-5 text-yellow-600" />
                 <h2 className="text-lg font-bold text-white">{t('cart.payDirect')}</h2>
@@ -406,7 +406,7 @@ const WinkelmandPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-tof-surface rounded-xl shadow-md border border-white/10 p-4 md:p-6"
+                  className="bg-tof-surface border border-white/10 p-4 md:p-6"
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex-1">
@@ -469,11 +469,11 @@ const WinkelmandPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-tof-blue/5 rounded-xl border-2 border-tof-blue/25 p-4 md:p-6 mt-6"
+                className="bg-tof-blue/5 border-2 border-tof-blue/25 p-4 md:p-6 mt-6"
               >
                 <div className="flex flex-col md:flex-row gap-4">
                   {/* Whiteboard Image */}
-                  <div className="w-full md:w-48 h-36 bg-tof-surface rounded-lg overflow-hidden flex-shrink-0 border border-white/15">
+                  <div className="w-full md:w-48 h-36 bg-tof-surface overflow-hidden flex-shrink-0 border border-white/15">
                     <img 
                       src="https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/whiteboard%20tof.png"
                       alt="Magnetisch Whiteboard"
@@ -532,7 +532,7 @@ const WinkelmandPage = () => {
 
             {/* Order Summary & Form */}
             <div className="lg:col-span-1">
-              <div className="bg-tof-surface rounded-2xl shadow-lg border border-white/10 p-6 sticky top-24">
+              <div className="bg-tof-surface border border-white/10 p-6 sticky top-24">
                 {/* Price Summary */}
                 <h3 className="text-xl font-bold text-white mb-4">{t('cart.summary')}</h3>
                 
