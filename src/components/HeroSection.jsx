@@ -49,7 +49,7 @@ const HeroSection = () => {
       className="relative min-h-svh overflow-hidden bg-white pb-16 pt-20 md:pb-20"
     >
       {/* Phone / iPad: pie in normal flow so copy sits cleanly below */}
-      <div className="relative z-10 w-[min(92vw,440px)] -translate-x-[8%] -translate-y-[18%] sm:w-[min(85vw,520px)] md:w-[min(72vw,580px)] lg:hidden">
+      <div className="relative z-10 w-[min(92vw,440px)] -translate-x-[14%] -translate-y-[26%] sm:w-[min(85vw,520px)] sm:-translate-x-[12%] sm:-translate-y-[22%] md:w-[min(72vw,580px)] lg:hidden">
         <Image
           src={HERO_PIE_SRC}
           alt="Jeugd bij het Padel Club Clash TOF scoresysteem"
@@ -83,7 +83,7 @@ const HeroSection = () => {
       <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:min-h-[calc(100svh-5rem)] lg:flex-row lg:items-center lg:px-8 xl:max-w-[90rem] 2xl:max-w-[100rem]">
         <motion.div
           style={{ y: copyY }}
-          className="w-full max-w-xl pt-2 sm:pt-4 md:max-w-lg md:pt-6 lg:ml-auto lg:max-w-lg lg:pt-0 lg:pr-4 xl:max-w-xl 2xl:max-w-2xl"
+          className="w-full max-w-xl -mt-10 pt-0 sm:-mt-8 sm:pt-0 md:-mt-4 md:max-w-lg md:pt-2 lg:ml-auto lg:mt-0 lg:max-w-lg lg:pt-0 lg:pr-4 xl:max-w-xl 2xl:max-w-2xl"
         >
           <motion.h1
             initial={{ opacity: 0, y: 28 }}

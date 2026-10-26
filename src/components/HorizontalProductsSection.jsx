@@ -79,7 +79,7 @@ const FeatureRow = ({ card, imageOnLeft, index }) => (
 const HorizontalProductsSection = () => {
   const { locale, t } = useLocale();
   const sectionRef = useRef(null);
-  const inView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const inView = useInView(sectionRef, { once: true, amount: 0.08, margin: '0px 0px -40px 0px' });
   const pillarCards = getKennisbankPillarCards(locale);
 
   return (
@@ -90,9 +90,9 @@ const HorizontalProductsSection = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="bg-tof-yellow px-6 py-14 sm:px-10 sm:py-16 md:px-16 md:py-20"
         >
           <h2 className="mb-12 text-center font-heading text-3xl font-semibold tracking-tight text-tof-indigo sm:mb-14 md:mb-16 md:text-4xl lg:text-[2.75rem]">
@@ -107,9 +107,9 @@ const HorizontalProductsSection = () => {
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                  transition={{ duration: 0.45, delay: 0.1 + index * 0.08 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                  transition={{ duration: 0.22, delay: 0.04 + index * 0.04, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col items-center text-center"
                 >
                   <div className="mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-sm sm:h-28 sm:w-28 md:mb-6 md:h-32 md:w-32">

@@ -168,7 +168,7 @@ const CookieConsent = () => {
                   </Button>
                   <Button
                     onClick={handleAcceptAll}
-                    className="flex-1 bg-tof-yellow/150 text-sm text-white hover:bg-orange-600 md:flex-none"
+                    className="flex-1 bg-tof-yellow text-sm text-tof-indigo hover:bg-tof-yellow/90 md:flex-none"
                   >
                     <Check className="mr-1 h-4 w-4" />
                     {t(COOKIE_UI.acceptAll)}
@@ -220,10 +220,10 @@ const CookieConsent = () => {
 
               <div className="flex-1 space-y-4 overflow-y-auto p-6">
                 {Object.values(COOKIE_CATEGORIES).map((category) => (
-                  <div key={category.id} className="overflow-hidden rounded-xl border border-white/15">
+                  <div key={category.id} className="overflow-hidden rounded-xl border border-tof-indigo/20 bg-white">
                     <div
                       className={`flex cursor-pointer items-center justify-between p-4 ${
-                        consent[category.id] ? 'bg-green-50' : 'bg-tof-indigo'
+                        consent[category.id] ? 'bg-[#F3F3F5]' : 'bg-white'
                       }`}
                       onClick={() => toggleExpanded(category.id)}
                       onKeyDown={(e) => {
@@ -243,26 +243,26 @@ const CookieConsent = () => {
                             onClick={(e) => e.stopPropagation()}
                           />
                           <div
-                            className={`h-6 w-11 rounded-full peer after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-tof-surface after:transition-all after:content-[''] peer-checked:after:translate-x-full ${
+                            className={`h-6 w-11 rounded-full peer after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full ${
                               category.required
-                                ? 'cursor-not-allowed bg-green-500'
-                                : 'bg-white/20'
-                            } peer-checked:bg-green-500`}
+                                ? 'cursor-not-allowed bg-tof-yellow'
+                                : 'bg-tof-indigo/25'
+                            } peer-checked:bg-tof-yellow`}
                           />
                         </label>
                         <div>
-                          <h3 className="font-bold text-white">{t(category.name)}</h3>
+                          <h3 className="font-bold text-tof-indigo">{t(category.name)}</h3>
                           {category.required && (
-                            <span className="text-xs text-white/60">
+                            <span className="text-xs text-tof-indigo/60">
                               {t(COOKIE_UI.alwaysActive)}
                             </span>
                           )}
                         </div>
                       </div>
                       {expandedCategories[category.id] ? (
-                        <ChevronUp className="h-5 w-5 text-white/60" />
+                        <ChevronUp className="h-5 w-5 text-tof-indigo/60" />
                       ) : (
-                        <ChevronDown className="h-5 w-5 text-white/60" />
+                        <ChevronDown className="h-5 w-5 text-tof-indigo/60" />
                       )}
                     </div>
 
@@ -275,19 +275,19 @@ const CookieConsent = () => {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="border-t border-white/15 bg-tof-surface p-4">
-                            <p className="mb-4 text-sm text-white/70">
+                          <div className="border-t border-tof-indigo/15 bg-white p-4">
+                            <p className="mb-4 text-sm text-tof-indigo/75">
                               {t(category.description)}
                             </p>
-                            <div className="rounded-lg bg-tof-indigo p-3">
-                              <p className="mb-2 text-xs font-medium text-white/60">
+                            <div className="rounded-lg bg-[#F3F3F5] p-3">
+                              <p className="mb-2 text-xs font-medium text-tof-indigo/60">
                                 {t(COOKIE_UI.usedCookies)}
                               </p>
                               <div className="space-y-2">
                                 {category.cookies.map((cookie) => (
                                   <div key={cookie.name} className="flex justify-between text-xs">
-                                    <span className="font-medium text-white/80">{cookie.name}</span>
-                                    <span className="text-white/60">{t(cookie.duration)}</span>
+                                    <span className="font-medium text-tof-indigo">{cookie.name}</span>
+                                    <span className="text-tof-indigo/60">{t(cookie.duration)}</span>
                                   </div>
                                 ))}
                               </div>
