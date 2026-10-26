@@ -2,12 +2,17 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { X, ChevronLeft, ShoppingCart, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/i18n/LocaleProvider';
 
 const formatEuro = (amount) =>
   new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(amount);
+
+const outlineBtn =
+  '!rounded-none border border-tof-indigo/25 bg-white text-tof-indigo hover:bg-[#F3F3F5]';
+const primaryBtn =
+  '!rounded-none flex-1 bg-tof-yellow font-semibold text-tof-indigo hover:bg-tof-yellow/90';
 
 const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
   const { t } = useLocale();
@@ -136,56 +141,66 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-tof-surface shadow-2xl"
+            className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto bg-white shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-full p-2 text-white/60 hover:bg-white/10"
+              className="absolute right-4 top-4 p-2 text-tof-indigo/60 hover:bg-[#F3F3F5]"
               aria-label={t('configure.close')}
             >
               <X className="h-5 w-5" />
             </button>
 
-            <div className="border-b border-white/10 px-6 pb-4 pt-6">
-              <p className="text-xs font-semibold uppercase tracking-wide text-tof-yellow">
+            <div className="border-b border-tof-indigo/15 px-6 pb-4 pt-6">
+              <p className="text-xs font-semibold uppercase tracking-wide text-tof-indigo/70">
                 {t('configure.configure')}
               </p>
-              <h2 className="pr-8 font-heading text-xl font-semibold text-white">{product.name}</h2>
+              <h2 className="pr-8 font-heading text-xl font-semibold !text-tof-indigo">
+                {product.name}
+              </h2>
             </div>
 
             <div className="space-y-6 px-6 py-6">
               {type === 'fixed-bundle' && (
                 <>
-                  <div className="rounded-xl border border-white/15 bg-tof-indigo p-5">
-                    <p className="text-sm text-white/70">{pricing.label}</p>
-                    <p className="mt-2 text-3xl font-semibold text-white">{formatEuro(pricing.price)}</p>
+                  <div className="border border-tof-indigo/15 bg-[#F3F3F5] p-5">
+                    <p className="text-sm text-tof-indigo/70">{pricing.label}</p>
+                    <p className="mt-2 text-3xl font-semibold !text-tof-indigo">
+                      {formatEuro(pricing.price)}
+                    </p>
                   </div>
 
                   {bundleExtra && (
-                    <div className="rounded-xl border border-white/15 bg-tof-surface p-5">
-                      <p className="mb-3 text-sm font-semibold text-tof-indigo">{t('configure.extraOptions')}</p>
+                    <div className="border border-tof-indigo/15 bg-[#F3F3F5] p-5">
+                      <p className="mb-3 text-sm font-semibold !text-tof-indigo">
+                        {t('configure.extraOptions')}
+                      </p>
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1">
-                          <p className="text-sm text-white/80">{bundleExtra.name}</p>
-                          <p className="text-sm font-semibold text-white">{formatEuro(bundleExtra.price)}</p>
+                          <p className="text-sm text-tof-indigo/80">{bundleExtra.name}</p>
+                          <p className="text-sm font-semibold text-tof-indigo">
+                            {formatEuro(bundleExtra.price)}
+                          </p>
                         </div>
-                        <div className="flex items-center gap-1 rounded-lg bg-tof-surface p-1">
+                        <div className="flex items-center gap-1 bg-white p-1">
                           <button
                             type="button"
                             onClick={() => setExtraQuantity((q) => Math.max(0, q - 1))}
                             disabled={extraQuantity <= 0}
-                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
+                            className="flex h-8 w-8 items-center justify-center text-tof-indigo hover:bg-[#F3F3F5] disabled:cursor-not-allowed disabled:opacity-40"
                             aria-label={t('configure.less')}
                           >
                             <Minus className="h-4 w-4" />
                           </button>
-                          <span className="w-8 text-center text-sm font-medium">{extraQuantity}</span>
+                          <span className="w-8 text-center text-sm font-medium text-tof-indigo">
+                            {extraQuantity}
+                          </span>
                           <button
                             type="button"
                             onClick={() => setExtraQuantity((q) => q + 1)}
-                            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-white/15"
+                            className="flex h-8 w-8 items-center justify-center text-tof-indigo hover:bg-[#F3F3F5]"
                             aria-label={t('configure.more')}
                           >
                             <Plus className="h-4 w-4" />
@@ -198,9 +213,11 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               )}
 
               {type !== 'fixed-bundle' && step >= 1 && (
-                <div className="rounded-xl border border-orange-200 bg-tof-yellow/15 p-5">
-                  <p className="text-sm font-medium text-white/80">{t('configure.magneticPoster')}</p>
-                  <p className="mt-1 text-2xl font-semibold text-white">
+                <div className="border border-tof-indigo/15 bg-tof-yellow/20 p-5">
+                  <p className="text-sm font-medium text-tof-indigo/80">
+                    {t('configure.magneticPoster')}
+                  </p>
+                  <p className="mt-1 text-2xl font-semibold !text-tof-indigo">
                     {formatEuro(pricing.posterPrice)}
                   </p>
                 </div>
@@ -208,7 +225,7 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
 
               {type === 'poster-wizard' && step >= 2 && (
                 <div>
-                  <p className="mb-3 font-semibold text-tof-indigo">
+                  <p className="mb-3 font-semibold !text-tof-indigo">
                     {t('configure.playersQuestion')}
                   </p>
                   <div className="space-y-2">
@@ -217,15 +234,15 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
                         key={tier.id}
                         type="button"
                         onClick={() => setTierId(tier.id)}
-                        className={`w-full rounded-xl border-2 px-4 py-3 text-left transition-colors ${
+                        className={`w-full border-2 px-4 py-3 text-left transition-colors ${
                           tierId === tier.id
-                            ? 'border-tof-yellow bg-tof-yellow/15'
-                            : 'border-white/15 hover:border-orange-300'
+                            ? 'border-tof-yellow bg-tof-yellow/20'
+                            : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/40'
                         }`}
                       >
                         <span className="font-semibold text-tof-indigo">{tier.label}</span>
                         {wantsButtons === true && (
-                          <span className="mt-1 block text-sm text-white/70">
+                          <span className="mt-1 block text-sm text-tof-indigo/70">
                             + {formatEuro(tier.buttonAddon)} {t('configure.buttonsAddonSuffix')}
                           </span>
                         )}
@@ -238,33 +255,37 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               {((type === 'poster-wizard' && step >= 3) ||
                 (type === 'poster-buttons-optional' && step >= 2)) && (
                 <div>
-                  <p className="mb-3 font-semibold text-tof-indigo">{t('configure.buttonsQuestion')}</p>
-                  <p className="mb-4 text-sm text-white/70">
+                  <p className="mb-3 font-semibold !text-tof-indigo">
+                    {t('configure.buttonsQuestion')}
+                  </p>
+                  <p className="mb-4 text-sm text-tof-indigo/70">
                     {pricing.buttonsHelpText || t('configure.buttonsHelpDefault')}
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <button
                       type="button"
                       onClick={() => setWantsButtons(false)}
-                      className={`rounded-xl border-2 px-4 py-4 text-left transition-colors ${
+                      className={`border-2 px-4 py-4 text-left transition-colors ${
                         wantsButtons === false
-                          ? 'border-tof-yellow bg-tof-yellow/15'
-                          : 'border-white/15 hover:border-orange-300'
+                          ? 'border-tof-yellow bg-tof-yellow/20'
+                          : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/40'
                       }`}
                     >
-                      <span className="font-semibold text-tof-indigo">{t('configure.alreadyHaveButtons')}</span>
+                      <span className="font-semibold text-tof-indigo">
+                        {t('configure.alreadyHaveButtons')}
+                      </span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setWantsButtons(true)}
-                      className={`rounded-xl border-2 px-4 py-4 text-left transition-colors ${
+                      className={`border-2 px-4 py-4 text-left transition-colors ${
                         wantsButtons === true
-                          ? 'border-tof-yellow bg-tof-yellow/15'
-                          : 'border-white/15 hover:border-orange-300'
+                          ? 'border-tof-yellow bg-tof-yellow/20'
+                          : 'border-tof-indigo/15 bg-white hover:border-tof-indigo/40'
                       }`}
                     >
                       <span className="font-semibold text-tof-indigo">{t('configure.yesPlease')}</span>
-                      <span className="mt-1 block text-sm text-white/70">
+                      <span className="mt-1 block text-sm text-tof-indigo/70">
                         +
                         {formatEuro(
                           type === 'poster-buttons-optional'
@@ -278,56 +299,50 @@ const ProductConfigureModal = ({ product, isOpen, onClose, onAddToCart }) => {
               )}
 
               {canAdd && (
-                <div className="rounded-xl border border-white/15 bg-tof-indigo p-4">
+                <div className="border border-tof-indigo/15 bg-[#F3F3F5] p-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-white/80">{t('configure.total')}</span>
-                    <span className="text-2xl font-semibold text-white">{formatEuro(totalPrice)}</span>
+                    <span className="font-medium text-tof-indigo/80">{t('configure.total')}</span>
+                    <span className="text-2xl font-semibold !text-tof-indigo">
+                      {formatEuro(totalPrice)}
+                    </span>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-3 border-t border-white/10 px-6 py-4">
+            <div className="flex gap-3 border-t border-tof-indigo/15 px-6 py-4">
               {step > 1 && type !== 'fixed-bundle' ? (
-                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)}>
+                <Button type="button" variant="outline" onClick={() => setStep((s) => s - 1)} className={outlineBtn}>
                   <ChevronLeft className="mr-1 h-4 w-4" />
                   {t('configure.back')}
                 </Button>
               ) : (
-                <Button type="button" variant="outline" onClick={onClose}>
+                <Button type="button" variant="outline" onClick={onClose} className={outlineBtn}>
                   {t('configure.cancel')}
                 </Button>
               )}
 
               {type === 'fixed-bundle' ? (
-                <Button
-                  type="button"
-                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
-                  onClick={handleAdd}
-                >
+                <Button type="button" className={primaryBtn} onClick={handleAdd}>
                   <ShoppingCart className="mr-2 h-4 w-4" />
                   {t('configure.addToCart')} — {formatEuro(totalPrice)}
                 </Button>
               ) : canAdd ? (
-                <Button
-                  type="button"
-                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
-                  onClick={handleAdd}
-                >
+                <Button type="button" className={primaryBtn} onClick={handleAdd}>
                   <ShoppingCart className="mr-2 h-4 w-4" />
                   {t('configure.addToCart')} — {formatEuro(totalPrice)}
                 </Button>
               ) : step < maxStep ? (
                 <Button
                   type="button"
-                  className="flex-1 bg-tof-yellow text-tof-indigo hover:bg-tof-yellow/90"
+                  className={primaryBtn}
                   onClick={() => setStep((s) => s + 1)}
                   disabled={!canProceed}
                 >
                   {t('configure.next')}
                 </Button>
               ) : (
-                <Button type="button" className="flex-1" disabled>
+                <Button type="button" className={`${primaryBtn} opacity-60`} disabled>
                   {t('configure.makeYourChoice')}
                 </Button>
               )}

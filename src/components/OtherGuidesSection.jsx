@@ -17,8 +17,8 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
   if (otherGuides.length === 0) return null;
 
   return (
-    <section className="mt-16 border-t border-white/15 pt-12">
-      <h2 className="mb-6 font-heading text-2xl font-semibold text-white md:text-3xl">
+    <section className="mt-16 border-t border-tof-indigo/50 pt-12">
+      <h2 className="mb-6 font-heading text-2xl font-semibold text-tof-indigo md:text-3xl">
         {t('knowledge.otherGuides')}
       </h2>
       <div className="grid gap-6 sm:grid-cols-2">
@@ -32,9 +32,9 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
           >
             <Link
               href={`/kennisbank/${getGuideSlug(guide, locale)}`}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-tof-surface shadow-md transition-shadow hover:shadow-lg"
+              className="group flex h-full flex-col overflow-hidden border border-tof-indigo/10 bg-white transition-shadow hover:shadow-md"
             >
-              <div className="relative aspect-[16/10] w-full bg-tof-surface">
+              <div className="relative aspect-[16/10] w-full bg-[#F3F3F5]">
                 <Image
                   src={guide.image}
                   alt={guide.imageAlt}
@@ -45,16 +45,16 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
                 />
               </div>
               <div className="flex flex-1 flex-col p-5">
-                <p className="text-xs font-semibold uppercase tracking-wide text-tof-yellow">
+                <p className="text-xs font-semibold uppercase tracking-wide text-tof-indigo/70">
                   {guide.category}
                 </p>
-                <h3 className="mt-1 text-lg font-semibold text-white group-hover:text-tof-yellow">
+                <h3 className="mt-1 text-lg font-semibold text-tof-indigo group-hover:text-tof-indigo/80">
                   {guide.title}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-white/70">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-tof-indigo/75">
                   {guide.excerpt}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-yellow">
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-indigo">
                   {guide.ctaText} <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
@@ -65,7 +65,7 @@ const OtherGuidesSection = ({ guides, currentSlug }) => {
       <div className="mt-8">
         <Link
           href="/kennisbank"
-          className="inline-flex items-center gap-2 font-semibold text-tof-yellow hover:underline"
+          className="inline-flex items-center gap-2 font-semibold text-tof-indigo hover:underline"
         >
           {t('knowledge.allGuides')} <ArrowRight className="h-4 w-4" />
         </Link>

@@ -9,11 +9,14 @@ const KennisbankArticleBody = ({ sections }) => {
   const toLabel = locale === 'en' ? 'To:' : 'Naar:';
 
   return (
-    <div className="prose prose-lg max-w-none prose-headings:font-poppins prose-headings:font-bold prose-headings:text-white prose-p:text-white/70 prose-p:leading-relaxed prose-li:text-white/70">
+    <div className="max-w-none text-tof-indigo [&_h1]:!text-tof-indigo [&_h2]:!text-tof-indigo [&_h3]:!text-tof-indigo [&_h4]:!text-tof-indigo">
       {sections.map((section, index) => {
         if (section.type === 'heading') {
           return (
-            <h2 key={index} className="mt-10 text-2xl first:mt-0 md:text-3xl">
+            <h2
+              key={index}
+              className="mt-10 font-heading text-2xl font-bold text-tof-indigo first:mt-0 md:text-3xl"
+            >
               {section.text}
             </h2>
           );
@@ -21,7 +24,7 @@ const KennisbankArticleBody = ({ sections }) => {
 
         if (section.type === 'paragraph') {
           return (
-            <p key={index} className="mt-4 text-lg leading-relaxed text-white/70">
+            <p key={index} className="mt-4 text-lg leading-relaxed text-tof-indigo/80">
               {section.text}
             </p>
           );
@@ -29,9 +32,11 @@ const KennisbankArticleBody = ({ sections }) => {
 
         if (section.type === 'list') {
           return (
-            <ul key={index} className="mt-4 list-disc space-y-2 pl-6 text-lg text-white/70">
+            <ul key={index} className="mt-4 list-disc space-y-2 pl-6 text-lg text-tof-indigo/80 marker:text-tof-indigo">
               {section.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item} className="text-tof-indigo/80">
+                  {item}
+                </li>
               ))}
             </ul>
           );
@@ -41,12 +46,12 @@ const KennisbankArticleBody = ({ sections }) => {
           return (
             <div
               key={index}
-              className="mt-6 rounded-2xl border border-tof-indigo/10 bg-tof-blue/5 p-6 md:p-8"
+              className="mt-6 border border-tof-indigo/15 bg-white p-6 md:p-8"
             >
-              <p className="text-lg font-semibold text-white/60 line-through decoration-gray-400">
+              <p className="text-lg font-semibold text-tof-indigo/50 line-through decoration-tof-indigo/40">
                 {fromLabel} {section.from}
               </p>
-              <p className="mt-3 text-xl font-semibold text-white md:text-2xl">
+              <p className="mt-3 text-xl font-semibold !text-tof-indigo md:text-2xl">
                 {toLabel} {section.to}
               </p>
             </div>

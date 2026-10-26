@@ -14,42 +14,48 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           >
-            {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-tof-surface rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+              className="flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden bg-white shadow-2xl"
             >
-              {/* Header - Matching Hero Section Style */}
-              <div className="relative bg-tof-blue/10 p-6 text-tof-indigo md:p-8 flex items-center justify-between overflow-hidden">
-                <h2 className="text-2xl md:text-4xl font-bold relative z-10">{productName}</h2>
+              <div className="relative flex items-center justify-between border-b border-tof-indigo/15 bg-[#F3F3F5] p-6 md:p-8">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-tof-indigo/70">
+                    {t('webshop.officialRules')}
+                  </p>
+                  <h2 className="mt-1 font-heading text-2xl font-bold !text-tof-indigo md:text-3xl">
+                    {productName}
+                  </h2>
+                </div>
                 <Button
                   onClick={onClose}
                   variant="ghost"
                   size="icon"
-                  className="text-white/90 hover:bg-white/20 relative z-10"
+                  className="shrink-0 text-tof-indigo hover:bg-white"
                 >
                   <X className="h-6 w-6" />
                 </Button>
               </div>
 
-              {/* Content */}
-              <div className="overflow-y-auto flex-1 p-6 md:p-8">
-                <div className="prose prose-lg max-w-none">
+              <div className="flex-1 overflow-y-auto p-6 md:p-8">
+                <div className="max-w-none">
                   {rules.split('\n').map((line, index) => {
-                    // Check if line is a heading (all caps or starts with specific patterns)
-                    const isHeading = /^[A-Z][A-Z\s&]+$/.test(line.trim()) && line.trim().length > 3 && line.trim().length < 50;
-                    const isSubHeading = line.trim().startsWith('•') || line.trim().startsWith('-');
+                    const isHeading =
+                      /^[A-Z][A-Z\s&]+$/.test(line.trim()) &&
+                      line.trim().length > 3 &&
+                      line.trim().length < 50;
+                    const isSubHeading =
+                      line.trim().startsWith('•') || line.trim().startsWith('-');
                     const isEmpty = line.trim() === '';
 
                     if (isEmpty) {
@@ -58,7 +64,10 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 
                     if (isHeading) {
                       return (
-                        <h3 key={index} className="text-2xl font-bold text-white mt-8 mb-4 first:mt-0">
+                        <h3
+                          key={index}
+                          className="mb-4 mt-8 font-heading text-2xl font-bold !text-tof-indigo first:mt-0"
+                        >
                           {line.trim()}
                         </h3>
                       );
@@ -66,24 +75,22 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 
                     if (isSubHeading) {
                       return (
-                        <p key={index} className="text-white/80 mb-2 ml-4">
+                        <p key={index} className="mb-2 ml-4 text-tof-indigo/80">
                           {line.trim()}
                         </p>
                       );
                     }
 
-                    // Check for numbered lists
                     if (/^\d+\./.test(line.trim())) {
                       return (
-                        <p key={index} className="text-white/80 mb-2 ml-4">
+                        <p key={index} className="mb-2 ml-4 text-tof-indigo/80">
                           {line.trim()}
                         </p>
                       );
                     }
 
-                    // Regular paragraph
                     return (
-                      <p key={index} className="text-white/80 mb-4 leading-relaxed">
+                      <p key={index} className="mb-4 leading-relaxed text-tof-indigo/80">
                         {line.trim()}
                       </p>
                     );
@@ -91,11 +98,10 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
                 </div>
               </div>
 
-              {/* Footer */}
-              <div className="border-t border-white/15 p-6 bg-tof-indigo">
+              <div className="border-t border-tof-indigo/15 bg-[#F3F3F5] p-6">
                 <Button
                   onClick={onClose}
-                  className="w-full bg-tof-yellow hover:bg-tof-yellow/90 text-tof-indigo font-bold"
+                  className="w-full !rounded-none bg-tof-yellow font-bold text-tof-indigo hover:bg-tof-yellow/90"
                   size="lg"
                 >
                   {t('common.close')}
@@ -110,4 +116,3 @@ const ProductRulesModal = ({ isOpen, onClose, productName, rules }) => {
 };
 
 export default ProductRulesModal;
-
