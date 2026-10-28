@@ -16,12 +16,41 @@ import { useLocale } from '@/i18n/LocaleProvider';
 
 const HERO_VIDEO_ID = 'i0TLJmyMUeM';
 
-/** Pre-masked pie piece with yellow border (public/hero-pie.png) */
-const HERO_PIE_SRC = '/hero-pie.png';
+/** Pre-masked pie frames with yellow border — rotate every 4s */
+const HERO_PIE_IMAGES = [
+  '/hero-pie.png',
+  '/hero-pie-02.png',
+  '/hero-pie-03.png',
+  '/hero-pie-04.png',
+];
+
+const PIE_INTERVAL_MS = 4000;
+/** One “click” of the wheel — feels like a roulette segment settling */
+const PIE_SPIN_DEG = 90;
+
+const HeroPieFrame = ({ src, alt, sizes, priority = false }) => (
+  <motion.div
+    initial={{ rotate: -PIE_SPIN_DEG, opacity: 0 }}
+    animate={{ rotate: 0, opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 1.55, ease: [0.22, 0.8, 0.2, 1] }}
+    className="absolute inset-0 origin-[18%_22%]"
+  >
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      priority={priority}
+      className="select-none object-contain object-left-top"
+      sizes={sizes}
+    />
+  </motion.div>
+);
 
 const HeroSection = () => {
   const { locale, t } = useLocale();
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [pieIndex, setPieIndex] = useState(0);
   const sectionRef = useRef(null);
   const heroInView = useInView(sectionRef, { once: false, amount: 0.25 });
 
@@ -33,6 +62,21 @@ const HeroSection = () => {
   const pieY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   const titleLines = t('home.heroTitle').split('\n');
+  const pieSrc = HERO_PIE_IMAGES[pieIndex];
+
+  useEffect(() => {
+    HERO_PIE_IMAGES.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+  }, []);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setPieIndex((i) => (i + 1) % HERO_PIE_IMAGES.length);
+    }, PIE_INTERVAL_MS);
+    return () => window.clearInterval(id);
+  }, []);
 
   useEffect(() => {
     if (!isVideoOpen) return undefined;
@@ -49,16 +93,16 @@ const HeroSection = () => {
       className="relative min-h-svh overflow-hidden bg-white pb-16 pt-20 md:pb-20"
     >
       {/* Phone / iPad: pie in normal flow so copy sits cleanly below */}
-      <div className="relative z-10 w-[min(128vw,620px)] -translate-x-[18%] -translate-y-[28%] sm:w-[min(112vw,640px)] sm:-translate-x-[14%] sm:-translate-y-[24%] md:w-[min(92vw,700px)] lg:hidden">
-        <Image
-          src={HERO_PIE_SRC}
-          alt="Jeugd bij het Padel Club Clash TOF scoresysteem"
-          width={1024}
-          height={1024}
-          priority
-          className="h-auto w-full select-none"
-          sizes="(max-width: 1023px) 90vw, 1px"
-        />
+      <div className="relative z-10 aspect-square w-[min(128vw,620px)] -translate-x-[18%] -translate-y-[28%] sm:w-[min(112vw,640px)] sm:-translate-x-[14%] sm:-translate-y-[24%] md:w-[min(92vw,700px)] lg:hidden">
+        <AnimatePresence mode="sync" initial={false}>
+          <HeroPieFrame
+            key={pieIndex}
+            src={pieSrc}
+            alt="Jeugd bij het TOF scoresysteem op de club"
+            sizes="(max-width: 1023px) 90vw, 1px"
+            priority={pieIndex === 0}
+          />
+        </AnimatePresence>
       </div>
 
       {/* Laptop / desktop: absolute pie in the top-left corner */}
@@ -66,17 +110,16 @@ const HeroSection = () => {
         style={{ y: pieY }}
         className="pointer-events-none absolute left-0 top-20 z-10 hidden w-[min(54vw,840px)] lg:block xl:w-[min(52vw,960px)] 2xl:w-[min(48vw,1080px)]"
       >
-        <div className="-translate-x-[9%] -translate-y-[26%]">
-          <Image
-            src={HERO_PIE_SRC}
-            alt=""
-            width={1024}
-            height={1024}
-            priority
-            className="h-auto w-full select-none"
-            sizes="(min-width: 1024px) 50vw, 1px"
-            aria-hidden
-          />
+        <div className="relative aspect-square -translate-x-[9%] -translate-y-[26%]">
+          <AnimatePresence mode="sync" initial={false}>
+            <HeroPieFrame
+              key={pieIndex}
+              src={pieSrc}
+              alt=""
+              sizes="(min-width: 1024px) 50vw, 1px"
+              priority={pieIndex === 0}
+            />
+          </AnimatePresence>
         </div>
       </motion.div>
 
